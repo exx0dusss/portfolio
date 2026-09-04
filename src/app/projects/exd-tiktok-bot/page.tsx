@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { NavDots } from "@/components/layout/nav-dots";
@@ -11,7 +12,10 @@ import {
   SectionLabel,
 } from "../_components";
 
-const ACCENT = { color: "var(--accent)" } as const;
+export const metadata: Metadata = {
+  title: "exd-tiktok-bot",
+  description: "An open-source Telegram bot for downloading TikTok videos.",
+};
 
 export default function ExdTiktokBotPage() {
   return (
@@ -44,7 +48,7 @@ export default function ExdTiktokBotPage() {
               It looks simple — send a link, get a video. Under the hood it&#8217;s where I figured out
               how to structure a bot that could actually grow.
             </p>
-            <p style={{ marginTop: 18 }}>
+            <p>
               exd-tiktok-bot does one job well: you send it a TikTok link and it returns the video.
               But it was written before the agentic-engineering era, by hand, and it became my testing
               ground for <strong>system design</strong> — the menu system, the per-user state, the way
@@ -53,7 +57,7 @@ export default function ExdTiktokBotPage() {
             <p>
               Those patterns worked well enough that I pulled them out into reusable libraries. The
               SDK idea and the internal packages that now power{" "}
-              <Link href="/projects/exdbots" style={ACCENT}>
+              <Link className="accent-link" href="/projects/exdbots">
                 ExdBots
               </Link>{" "}
               all started here. It&#8217;s the template the platform grew from.
@@ -95,7 +99,7 @@ export default function ExdTiktokBotPage() {
 
         <section className="card" id="architecture">
           <SectionLabel num="03">Architecture</SectionLabel>
-          <div style={{ marginBottom: 22 }}>
+          <div className="section-intro">
             <Reveal className="prose">
               <p>
                 A small, deliberate pipeline: the menu/state core is the part that later generalized

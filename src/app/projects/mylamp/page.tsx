@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { NavDots } from "@/components/layout/nav-dots";
 import { Reveal } from "@/components/motion/reveal";
 import { ImageSlot } from "@/components/ui/image-slot";
@@ -10,6 +12,11 @@ import {
   ProjectHero,
   SectionLabel,
 } from "../_components";
+
+export const metadata: Metadata = {
+  title: "MyLamp",
+  description: "A full-stack e-commerce product for a lighting business.",
+};
 
 export default function MylampPage() {
   return (
@@ -53,7 +60,7 @@ export default function MylampPage() {
               the whole stack that brought the business online — and gave the team the tools to run
               it.
             </p>
-            <p style={{ marginTop: 18 }}>
+            <p>
               MyLamp is more than a store. The customer side is a modern storefront and landing built
               on current UX practices; the business side is a <strong>CRM</strong> that handles
               orders, customer chat, and day-to-day operations — plus an AI assistant that can act on
@@ -100,7 +107,7 @@ export default function MylampPage() {
 
         <section className="card" id="architecture">
           <SectionLabel num="03">Architecture</SectionLabel>
-          <div style={{ marginBottom: 22 }}>
+          <div className="section-intro">
             <Reveal className="prose">
               <p>
                 Storefront, Telegram bot, and the AI assistant all read and write through one core —

@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
+
 import { NavDots } from "@/components/layout/nav-dots";
 import { Reveal } from "@/components/motion/reveal";
 
 import { BookCard } from "./_components/book-card";
 import { BOOKS } from "./_components/books";
+
+export const metadata: Metadata = {
+  title: "Reading",
+  description: "Books about engineering, design, systems, and better work.",
+};
 
 export default function ReadingPage() {
   return (

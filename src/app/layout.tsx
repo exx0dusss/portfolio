@@ -23,9 +23,13 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "Tymur Mustafaiev — Full-Stack Developer & Designer",
+  title: {
+    default: "Tymur Mustafaiev — Developer & Designer",
+    template: "%s · Tymur Mustafaiev",
+  },
   description:
     "Tymur Mustafaiev — a Warsaw-based front-end developer and UX/UI designer working across the stack in TypeScript.",
+  keywords: ["Tymur Mustafaiev", "frontend developer", "design engineer", "TypeScript", "Warsaw"],
 };
 
 export default function RootLayout({

@@ -22,13 +22,13 @@ export function CertificateCard({ certificate }: { certificate: Certificate }) {
               alt=""
               width={13}
               height={13}
-              style={{ verticalAlign: "-2px", marginRight: 6 }}
+              className="issuer-icon"
             />
           ) : null}
           {issuer}
         </div>
         {href ? (
-          <a className="cl" href={href} target="_blank" rel="noopener">
+          <a className="cl" href={href} target="_blank" rel="noopener noreferrer">
             Verify <span className="a">↗</span>
           </a>
         ) : null}

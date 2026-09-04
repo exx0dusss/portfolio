@@ -9,7 +9,7 @@ import type { Book } from "./books";
 export function BookCard({ book }: { book: Book }) {
   return (
     <Reveal>
-      <a className="book" href={book.href} target="_blank" rel="noopener">
+      <a className="book" href={book.href} target="_blank" rel="noopener noreferrer">
         <ImageSlot
           className="cover"
           shape="rounded"

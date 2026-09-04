@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { NavDots } from "@/components/layout/nav-dots";
 import { Reveal } from "@/components/motion/reveal";
 
@@ -8,6 +10,11 @@ import {
   ProjectHero,
   SectionLabel,
 } from "../_components";
+
+export const metadata: Metadata = {
+  title: "Giga Psych",
+  description: "A research data exploration platform built with PJATK XR Lab.",
+};
 
 export default function GigaPsychPage() {
   return (
@@ -33,7 +40,7 @@ export default function GigaPsychPage() {
               This platform turned a pile of experimental data into something a research team could
               query.
             </p>
-            <p style={{ marginTop: 18 }}>
+            <p>
               Giga Psych was a collaboration between the <strong>PJATK XR Lab</strong> and researchers
               at the <strong>University of Amsterdam</strong>. I built the web interface that lets the
               team browse, filter, and query datasets from their experiments without writing SQL by

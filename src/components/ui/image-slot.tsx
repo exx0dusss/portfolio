@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ImageIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils/cn";
@@ -52,8 +53,14 @@ export function ImageSlot({
       style={{ borderRadius, ...style }}
     >
       {src ? (
-        // eslint-disable-next-line @next/next/no-img-element -- arbitrary aspect ratios; sized by the slot box, not next/image
-        <img src={src} alt={alt} style={{ objectFit: fit }} className="img-slot-img" />
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes="(max-width: 760px) 100vw, 50vw"
+          style={{ objectFit: fit }}
+          className="img-slot-img"
+        />
       ) : (
         <div className="img-slot-ph" style={{ borderRadius }}>
           <ImageIcon size={26} strokeWidth={1.6} aria-hidden />

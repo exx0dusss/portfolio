@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { NavDots } from "@/components/layout/nav-dots";
@@ -13,7 +14,10 @@ import {
   SectionLabel,
 } from "../_components";
 
-const ACCENT = { color: "var(--accent)" } as const;
+export const metadata: Metadata = {
+  title: "ExdBots",
+  description: "A platform for building and running Telegram applications.",
+};
 
 export default function ExdbotsPage() {
   return (
@@ -52,7 +56,7 @@ export default function ExdbotsPage() {
               Most bot frameworks make you choose between a quick script and a real product. ExdBots
               is the second thing — the tooling I wished existed when I was hand-rolling bots.
             </p>
-            <p style={{ marginTop: 18 }}>
+            <p>
               ExdBots is a platform for people who build on Telegram. It bundles the parts that every
               serious bot ends up needing — a typed UI layer, reusable mini-app blocks, an SDK, and a
               management console — so a bot can grow from a weekend project into something with real
@@ -62,7 +66,7 @@ export default function ExdbotsPage() {
               The web console acts as the control center: you assemble bot flows, connect bots you
               already run, and watch analytics, ad performance, and health in one place. It grew
               directly out of{" "}
-              <Link href="/projects/exd-tiktok-bot" style={ACCENT}>
+              <Link className="accent-link" href="/projects/exd-tiktok-bot">
                 exd-tiktok-bot
               </Link>{" "}
               — the patterns that worked there became the foundation here.
@@ -104,7 +108,7 @@ export default function ExdbotsPage() {
 
         <section className="card" id="architecture">
           <SectionLabel num="03">Architecture</SectionLabel>
-          <div style={{ marginBottom: 22 }}>
+          <div className="section-intro">
             <Reveal className="prose">
               <p>
                 A bot definition is authored once and runs two ways — as a chat interface and as a
@@ -165,7 +169,7 @@ export default function ExdbotsPage() {
             <p>
               It&#8217;s built in TypeScript end to end — Next.js for the console, the SDK and UI
               packages published under the{" "}
-              <a href="https://github.com/ExdBots" target="_blank" rel="noopener" style={ACCENT}>
+              <a className="accent-link" href="https://github.com/ExdBots" target="_blank" rel="noopener noreferrer">
                 @exdbots
               </a>{" "}
               org, Postgres for storage. Parts are being opened up as they stabilize.

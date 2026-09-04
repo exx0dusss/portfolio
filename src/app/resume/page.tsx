@@ -7,7 +7,7 @@ import { PrintButton } from "./_components/print-button";
 import "./resume.css";
 
 export const metadata: Metadata = {
-  title: "Résumé — Tymur Mustafaiev",
+  title: "Résumé",
   description:
     "Résumé of Tymur Mustafaiev — Middle Front-End Developer & UX/UI Designer based in Warsaw.",
 };

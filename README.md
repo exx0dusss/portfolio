@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tymur Mustafaiev — portfolio
 
-## Getting Started
+Personal portfolio for a Warsaw-based full-stack developer and UX/UI designer.
 
-First, run the development server:
+Built with Next.js 16 App Router, React 19, TypeScript, Tailwind CSS v4, CVA, Lucide, and Motion.
+The site is content-first: route pages are server-rendered by default, with small client islands for copy, print, navigation state, scroll-spy, and motion.
+
+## Commands
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
+pnpm lint
+pnpm typecheck
+pnpm check:architecture
+pnpm build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+src/
+├── app/                       # routes + route-private _components/
+├── components/
+│   ├── layout/               # site chrome
+│   ├── motion/               # progressive-enhancement motion
+│   ├── backgrounds/          # decorative surfaces
+│   └── ui/                   # CVA atoms and image primitives
+├── lib/utils/                # shared utilities
+└── styles/globals.css        # semantic design tokens + global styles
+docs/
+├── conventions/              # always-loaded project conventions
+└── patterns/                 # load-before-work implementation specs
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Content stays typed and close to its owning route. Shared rendering is promoted only when the same behavior is needed by multiple routes. See `AGENTS.md` for the context index.

@@ -81,7 +81,7 @@ export function NavDots() {
   if (dots.length < 2) return null;
 
   return (
-    <div className="navdots">
+    <nav className="navdots" data-slot="section-navigation" aria-label="On this page">
       {dots.map((dot, i) => (
         <button
           key={dot.id}
@@ -92,6 +92,6 @@ export function NavDots() {
           onClick={() => scrollTo(dot.id)}
         />
       ))}
-    </div>
+    </nav>
   );
 }
