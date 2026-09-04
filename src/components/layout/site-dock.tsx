@@ -1,6 +1,8 @@
 import { FileTextIcon, MailIcon } from "lucide-react";
 import Link from "next/link";
 
+import { GitHubIcon, LinkedInIcon } from "@/components/icons/brand-icons";
+
 const EMAIL = "tymurmustafaiev029@gmail.com";
 const GITHUB = "https://github.com/exx0dusss";
 const LINKEDIN = "https://linkedin.com/in/tymur-mustafaiev-968b3724b";
@@ -26,7 +28,7 @@ export function SiteDock({ name = "Tymur Mustafaiev", email = EMAIL, socials }: 
         rel="noopener noreferrer"
         aria-label="GitHub (opens in a new tab)"
       >
-        <span aria-hidden="true">GH</span>
+        <GitHubIcon />
       </a>
       <a
         className="dock-app"
@@ -36,7 +38,7 @@ export function SiteDock({ name = "Tymur Mustafaiev", email = EMAIL, socials }: 
         rel="noopener noreferrer"
         aria-label="LinkedIn (opens in a new tab)"
       >
-        <span aria-hidden="true">in</span>
+        <LinkedInIcon />
       </a>
       <span className="dock-sep" aria-hidden="true" />
       <a className="dock-app primary" data-label="Email" href={`mailto:${email}`}>
