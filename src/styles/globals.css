@@ -51,7 +51,7 @@
   --grid: rgba(20, 18, 10, 0.05);
   --grid-node: rgba(34, 86, 214, 0.4);
   --nav-hover: rgba(0, 0, 0, 0.05);
-  --w: 1060px;
+  --w: 1240px;
 }
 
 * {
@@ -274,6 +274,7 @@ a {
 /* hero */
 .hero {
   position: relative;
+  min-height: clamp(520px, 72vh, 680px);
   overflow: hidden;
 }
 .hero::before {
@@ -293,11 +294,31 @@ a {
   position: relative;
   z-index: 1;
 }
+.hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+  align-items: center;
+  gap: clamp(40px, 5vw, 72px);
+  min-height: inherit;
+}
+.hero-copy {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+}
+.hero-portrait {
+  grid-column: 2;
+  grid-row: 1;
+  width: 100%;
+  max-width: 410px;
+  justify-self: end;
+}
 .hero .avatar {
   display: block;
-  width: 136px;
-  height: 154px;
-  margin-bottom: 24px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  box-shadow: 0 24px 60px -34px var(--color-shadow);
 }
 .hero .eye {
   font-size: 12.5px;
@@ -307,12 +328,12 @@ a {
   color: var(--accent);
 }
 .hero h1 {
-  font-size: clamp(29px, 3.8vw, 40px);
+  font-size: clamp(32px, 4.2vw, 52px);
   font-weight: 500;
   letter-spacing: -0.02em;
   line-height: 1.16;
   margin: 16px 0 0;
-  max-width: 19ch;
+  max-width: 18ch;
 }
 .hero h1 .q {
   color: var(--fg-faint);
@@ -601,6 +622,27 @@ a {
   .card {
     padding: 30px 24px;
     border-radius: 20px;
+  }
+  .hero {
+    min-height: auto;
+  }
+  .hero-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    min-height: 0;
+  }
+  .hero-copy {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .hero-portrait {
+    grid-column: 1;
+    grid-row: 1;
+    width: min(62vw, 240px);
+    justify-self: start;
+  }
+  .hero h1 {
+    font-size: clamp(31px, 10vw, 43px);
   }
   .proj {
     grid-template-columns: 1fr;
