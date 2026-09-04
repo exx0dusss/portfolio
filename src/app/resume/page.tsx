@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { getCmsSiteSettings } from "@/lib/cms/repository";
 import { Button } from "@/components/ui/button";
 
 import { PrintButton } from "./_components/print-button";
@@ -15,7 +16,11 @@ export const metadata: Metadata = {
 const EMAIL = "tymurmustafaiev029@gmail.com";
 const LINKEDIN = "https://linkedin.com/in/tymur-mustafaiev-968b3724b";
 
-export default function ResumePage() {
+export default async function ResumePage() {
+  const settings = await getCmsSiteSettings();
+  const resumeUrl = settings?.resume?.asset?.url ?? "/resume.pdf";
+  const resumeIsRemote = resumeUrl.startsWith("http");
+
   return (
     <main className="shell">
       <article className="card resume">
@@ -23,7 +28,12 @@ export default function ResumePage() {
           <span className="lbl">Résumé</span>
           <div className="acts">
             <Button variant="ghost" asChild>
-              <a href="/resume.pdf" download>
+              <a
+                href={resumeUrl}
+                download={!resumeIsRemote}
+                target={resumeIsRemote ? "_blank" : undefined}
+                rel={resumeIsRemote ? "noopener noreferrer" : undefined}
+              >
                 Download PDF
               </a>
             </Button>

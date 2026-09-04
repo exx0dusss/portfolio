@@ -27,6 +27,7 @@
       "Bash(pnpm lint*)",
       "Bash(pnpm typecheck*)",
       "Bash(pnpm check:architecture*)",
+      "Bash(pnpm studio:*)",
       "Bash(pnpm build*)",
       "Bash(pnpm test*)",
       "Bash(pnpm dev*)",

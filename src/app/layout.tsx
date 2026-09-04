@@ -4,6 +4,7 @@ import { Caveat, Geist, Geist_Mono } from "next/font/google";
 import { SiteDock } from "@/components/layout/site-dock";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteNav } from "@/components/layout/site-nav";
+import { getCmsSiteSettings } from "@/lib/cms/repository";
 import "@/styles/globals.css";
 
 const geist = Geist({
@@ -22,28 +23,37 @@ const caveat = Caveat({
   variable: "--font-caveat-handwriting",
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "Tymur Mustafaiev — Developer & Designer",
-    template: "%s · Tymur Mustafaiev",
-  },
-  description:
-    "Tymur Mustafaiev — a Warsaw-based front-end developer and UX/UI designer working across the stack in TypeScript.",
-  keywords: ["Tymur Mustafaiev", "frontend developer", "design engineer", "TypeScript", "Warsaw"],
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getCmsSiteSettings();
+  const name = settings?.name ?? "Tymur Mustafaiev";
 
-export default function RootLayout({
+  return {
+    title: {
+      default: settings?.seoTitle ?? `${name} — Developer & Designer`,
+      template: `%s · ${name}`,
+    },
+    description:
+      settings?.seoDescription ??
+      "Tymur Mustafaiev — a Warsaw-based front-end developer and UX/UI designer working across the stack in TypeScript.",
+    keywords: [name, "frontend developer", "design engineer", "TypeScript", "Warsaw"],
+  };
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const settings = await getCmsSiteSettings();
+  const name = settings?.name;
+
   return (
     <html lang="en">
       <body
         className={`${geist.variable} ${geistMono.variable} ${caveat.variable}`}
       >
-        <SiteNav />
+        <SiteNav name={name} />
         {children}
-        <SiteFooter />
-        <SiteDock />
+        <SiteFooter name={name} />
+        <SiteDock name={name} email={settings?.email} socials={settings?.socials} />
       </body>
     </html>
   );

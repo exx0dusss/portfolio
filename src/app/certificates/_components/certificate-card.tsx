@@ -11,7 +11,14 @@ export function CertificateCard({ certificate }: { certificate: Certificate }) {
 
   return (
     <article className="cert">
-      <ImageSlot shape="rect" className="cap" style={{ aspectRatio: "16 / 10" }} placeholder="Certificate" />
+      <ImageSlot
+        src={certificate.imageUrl}
+        alt={certificate.imageUrl ? `${title} certificate` : ""}
+        shape="rect"
+        className="cap"
+        style={{ aspectRatio: "16 / 10" }}
+        placeholder="Certificate"
+      />
       <div className="meta">
         <div className="ct">{title}</div>
         <div className="ci">

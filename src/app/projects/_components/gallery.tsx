@@ -10,6 +10,8 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
       {items.map((item) => (
         <div className={`g${item.wide ? " wide" : ""}`} key={item.placeholder}>
           <ImageSlot
+            src={item.src}
+            alt={item.alt ?? ""}
             shape="rect"
             placeholder={item.placeholder}
             style={{

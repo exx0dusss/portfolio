@@ -14,28 +14,36 @@ const SOCIALS = [
   { label: "LinkedIn", href: "https://linkedin.com/in/tymur-mustafaiev-968b3724b" },
 ] as const;
 
+interface ContactContent {
+  email?: string;
+  heading?: string;
+  intro?: string;
+  socials?: Array<{ label: string; href: string }>;
+}
+
 /** Contact section: heading, copy-email CTA, résumé link, and social links. */
-export function ContactSection() {
+export function ContactSection({ content }: { content?: ContactContent }) {
+  const email = content?.email ?? EMAIL;
+  const socials = content?.socials ?? SOCIALS;
   return (
     <section className="card contact" id="contact" data-navlabel="Contact">
       <Reveal as="div" className="clabel">
         <span className="num">04</span> Contact
       </Reveal>
       <Reveal as="h2" delay={1}>
-        Get in touch.
+        {content?.heading ?? "Get in touch."}
       </Reveal>
       <Reveal as="p" delay={2}>
-        I&#8217;m looking for a Design Engineer role and open to freelance work.
-        Email is the best way to reach me.
+        {content?.intro ?? "I’m looking for a Design Engineer role and open to freelance work. Email is the best way to reach me."}
       </Reveal>
       <Reveal as="div" className="cta" delay={2}>
-        <CopyEmailButton email={EMAIL} />
+        <CopyEmailButton email={email} />
         <Button asChild variant="ghost">
           <Link href="/resume">Résumé</Link>
         </Button>
       </Reveal>
       <Reveal as="div" className="socials" delay={3}>
-        {SOCIALS.map((social) => (
+        {socials.map((social) => (
           <a key={social.href} href={social.href}>
             {social.label} ↗
           </a>

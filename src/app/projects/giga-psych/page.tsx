@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 
 import { NavDots } from "@/components/layout/nav-dots";
+import { getCmsProject } from "@/lib/cms/repository";
 import { Reveal } from "@/components/motion/reveal";
 
 import {
+  CmsProjectPage,
   FeatureGrid,
   LockedNote,
   NextProjectLink,
@@ -11,12 +13,21 @@ import {
   SectionLabel,
 } from "../_components";
 
-export const metadata: Metadata = {
-  title: "Giga Psych",
-  description: "A research data exploration platform built with PJATK XR Lab.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const project = await getCmsProject("giga-psych");
+  return {
+    title: project?.title ?? "Giga Psych",
+    description:
+      project?.tagline ??
+      project?.description ??
+      "A research data exploration platform built with PJATK XR Lab.",
+  };
+}
 
-export default function GigaPsychPage() {
+export default async function GigaPsychPage() {
+  const project = await getCmsProject("giga-psych");
+  if (project) return <CmsProjectPage project={project} />;
+
   return (
     <>
       <main className="shell">

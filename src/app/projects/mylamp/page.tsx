@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 
 import { NavDots } from "@/components/layout/nav-dots";
+import { getCmsProject } from "@/lib/cms/repository";
 import { Reveal } from "@/components/motion/reveal";
 import { ImageSlot } from "@/components/ui/image-slot";
 
 import {
   ArchDiagram,
+  CmsProjectPage,
   FeatureGrid,
   Gallery,
   NextProjectLink,
@@ -13,12 +15,21 @@ import {
   SectionLabel,
 } from "../_components";
 
-export const metadata: Metadata = {
-  title: "MyLamp",
-  description: "A full-stack e-commerce product for a lighting business.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const project = await getCmsProject("mylamp");
+  return {
+    title: project?.title ?? "MyLamp",
+    description:
+      project?.tagline ??
+      project?.description ??
+      "A full-stack e-commerce product for a lighting business.",
+  };
+}
 
-export default function MylampPage() {
+export default async function MylampPage() {
+  const project = await getCmsProject("mylamp");
+  if (project) return <CmsProjectPage project={project} />;
+
   return (
     <>
       <main className="shell">

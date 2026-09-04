@@ -8,18 +8,26 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "check:architecture": "node scripts/check-architecture.mjs"
+    "check:architecture": "node scripts/check-architecture.mjs",
+    "studio:dev": "pnpm --dir studio-portfolio dev",
+    "studio:typecheck": "pnpm --dir studio-portfolio exec tsc --noEmit",
+    "studio:build": "pnpm --dir studio-portfolio build",
+    "studio:deploy": "pnpm --dir studio-portfolio deploy"
   },
   "dependencies": {
+    "@portabletext/react": "^8.0.1",
+    "@portabletext/types": "^4.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.18.0",
     "motion": "^12.40.0",
     "next": "16.2.9",
+    "next-sanity": "^13.3.4",
     "radix-ui": "^1.5.0",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "tailwind-merge": "^3.6.0"
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "tailwind-merge": "^3.6.0",
+    "zod": "^4.5.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

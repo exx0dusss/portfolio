@@ -9,14 +9,18 @@ const STACK = [
 ] as const;
 
 /** Stack section: a labelled list of tools by category. */
-export function StackSection() {
+export function StackSection({
+  stack = STACK,
+}: {
+  stack?: ReadonlyArray<{ label: string; value: string }>;
+}) {
   return (
     <section className="card" id="stack">
       <Reveal as="div" className="clabel">
         <span className="num">02</span> Stack
       </Reveal>
       <Reveal>
-        {STACK.map((row) => (
+        {stack.map((row) => (
           <div className="srow" key={row.label}>
             <div className="sk">{row.label}</div>
             <div className="sv">{row.value}</div>

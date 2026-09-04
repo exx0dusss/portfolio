@@ -11,6 +11,8 @@ export function BookCard({ book }: { book: Book }) {
     <Reveal>
       <a className="book" href={book.href} target="_blank" rel="noopener noreferrer">
         <ImageSlot
+          src={book.coverUrl}
+          alt={`${book.title} book cover`}
           className="cover"
           shape="rounded"
           radius={9}

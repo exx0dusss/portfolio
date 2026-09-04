@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { NavDots } from "@/components/layout/nav-dots";
+import { getCmsProject } from "@/lib/cms/repository";
 import { Reveal } from "@/components/motion/reveal";
 import { ImageSlot } from "@/components/ui/image-slot";
 
 import {
   ArchDiagram,
+  CmsProjectPage,
   FeatureGrid,
   Gallery,
   NextProjectLink,
@@ -14,12 +16,21 @@ import {
   SectionLabel,
 } from "../_components";
 
-export const metadata: Metadata = {
-  title: "ExdBots",
-  description: "A platform for building and running Telegram applications.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const project = await getCmsProject("exdbots");
+  return {
+    title: project?.title ?? "ExdBots",
+    description:
+      project?.tagline ??
+      project?.description ??
+      "A platform for building and running Telegram applications.",
+  };
+}
 
-export default function ExdbotsPage() {
+export default async function ExdbotsPage() {
+  const project = await getCmsProject("exdbots");
+  if (project) return <CmsProjectPage project={project} />;
+
   return (
     <>
       <main className="shell">

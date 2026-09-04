@@ -1,5 +1,6 @@
 export { ArchDiagram } from "./arch-diagram";
 export { Backlink } from "./backlink";
+export { CmsProjectPage } from "./cms-project-page";
 export { FeatureGrid } from "./feature-grid";
 export { Gallery } from "./gallery";
 export { LockedNote } from "./locked-note";
