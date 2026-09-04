@@ -1,0 +1,7 @@
+{
+  "enabledPlugins": {
+    "arch-core@architectures": true,
+    "arch-nextjs@architectures": true,
+    "product-design@architectures": true
+  }
+}
