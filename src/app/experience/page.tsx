@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
+
 import { NavDots } from "@/components/layout/nav-dots";
 import { Reveal } from "@/components/motion/reveal";
 
 import { TimelineRow } from "./_components/timeline-row";
 import { EDUCATION, ROLES } from "./_components/timeline";
+
+export const metadata: Metadata = {
+  title: "Experience",
+  description: "The teams, products, and roles Tymur Mustafaiev has worked with.",
+};
 
 export default function ExperiencePage() {
   return (

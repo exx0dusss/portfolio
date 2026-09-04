@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
+
 import { NavDots } from "@/components/layout/nav-dots";
 import { Reveal } from "@/components/motion/reveal";
 
 import { CertificateCard } from "./_components/certificate-card";
 import { CERTIFICATES } from "./_components/certificates";
+
+export const metadata: Metadata = {
+  title: "Certificates",
+  description: "Courses and certifications completed by Tymur Mustafaiev.",
+};
 
 export default function CertificatesPage() {
   return (

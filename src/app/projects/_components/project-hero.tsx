@@ -52,7 +52,7 @@ export function ProjectHero({ icon, name, tagline, meta, openness, actions }: Pr
               </Button>
             ) : (
               <Button key={action.label} variant={action.variant} asChild>
-                <a href={action.href} target="_blank" rel="noopener">
+                <a href={action.href} target="_blank" rel="noopener noreferrer">
                   {action.label} {action.external && <span className="arrow">↗</span>}
                 </a>
               </Button>
