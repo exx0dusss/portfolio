@@ -1,5 +1,7 @@
 # Portfolio
 
+Next.js 16 App Router portfolio for Tymur Mustafaiev. Content-first static pages. Keep client boundaries narrow and preserve the existing shell, tokens, and typed content modules.
+
 `skills:`
 - UI, component, or accessibility work → read `docs/conventions/ui.md`
 - route, metadata, or Next.js work → read `docs/conventions/nextjs.md`
@@ -10,7 +12,18 @@
 @docs/conventions/ui.md
 @docs/conventions/content.md
 
+## Read before work
+
+| Work | Load first |
+|------|------------|
+| Page composition or responsive changes | `docs/patterns/page-layout.md` |
+| Major component or visual-system changes | `docs/conventions/ui.md` |
+
+## Checks
+
+Run `pnpm lint`, `pnpm typecheck`, `pnpm check:architecture`, and `pnpm build` after route or component changes.
+
 ## Related docs
 
-- Load `docs/patterns/page-layout.md` before changing page composition or responsive layout.
-- Run `pnpm lint` and `pnpm build` after route or component changes.
+- `docs/conventions/` — always-loaded project rules.
+- `docs/patterns/` — load-before-work page and layout specs.

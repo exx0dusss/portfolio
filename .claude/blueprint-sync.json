@@ -1,0 +1,11 @@
+{
+  "marketplace": "exx0dusss/architectures",
+  "scope": "project",
+  "plugins": {
+    "arch-core": { "installed": "1.9.0", "advertised": "1.9.0", "state": "CURRENT" },
+    "arch-nextjs": { "installed": "1.0.0", "advertised": "1.0.0", "state": "CURRENT" },
+    "product-design": { "installed": "1.1.0", "advertised": "1.1.0", "state": "CURRENT" }
+  },
+  "shadowedAgents": [
+  ]
+}
