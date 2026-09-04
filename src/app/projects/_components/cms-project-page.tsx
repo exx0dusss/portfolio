@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { ArchDiagram } from "./arch-diagram";
 import { FeatureGrid } from "./feature-grid";
 import { Gallery } from "./gallery";
+import { LockedNote } from "./locked-note";
+import { NextProjectLink } from "./next-project-link";
 import { ProjectHero } from "./project-hero";
 import { SectionLabel } from "./section-label";
 
@@ -64,7 +66,7 @@ export function CmsProjectPage({ project }: { project: CmsProject }) {
               ? [
                   {
                     variant: "primary",
-                    label: "View on GitHub",
+                    label: project.githubLabel ?? "View project",
                     href: project.githubUrl,
                     external: true,
                   },
@@ -109,7 +111,17 @@ export function CmsProjectPage({ project }: { project: CmsProject }) {
         {architecture?.length ? (
           <section className="card" id="architecture">
             <SectionLabel num="03">Architecture</SectionLabel>
-            <ArchDiagram columns={architecture} note="// authored in Sanity Studio" />
+            {project.architectureIntro ? (
+              <div className="section-intro">
+                <div className="prose">
+                  <p>{project.architectureIntro}</p>
+                </div>
+              </div>
+            ) : null}
+            <ArchDiagram
+              columns={architecture}
+              note={project.architectureNote ?? "// authored in Sanity Studio"}
+            />
           </section>
         ) : null}
 
@@ -129,6 +141,12 @@ export function CmsProjectPage({ project }: { project: CmsProject }) {
           </section>
         ) : null}
 
+        {project.noticeTitle && project.noticeBody ? (
+          <section className="card">
+            <LockedNote title={project.noticeTitle}>{project.noticeBody}</LockedNote>
+          </section>
+        ) : null}
+
         {downloads?.length ? (
           <section className="card">
             <SectionLabel num="06">Files</SectionLabel>
@@ -142,6 +160,13 @@ export function CmsProjectPage({ project }: { project: CmsProject }) {
               ))}
             </div>
           </section>
+        ) : null}
+
+        {project.nextProjectName && project.nextProjectSlug ? (
+          <NextProjectLink
+            name={project.nextProjectName}
+            href={`/projects/${project.nextProjectSlug}`}
+          />
         ) : null}
       </main>
       <NavDots />

@@ -39,6 +39,13 @@ const cmsProjectSchema = z.object({
   opennessLabel: z.string().optional(),
   tags: z.array(z.string()).optional(),
   githubUrl: z.string().optional(),
+  githubLabel: z.string().optional(),
+  architectureIntro: z.string().optional(),
+  architectureNote: z.string().optional(),
+  noticeTitle: z.string().optional(),
+  noticeBody: z.string().optional(),
+  nextProjectName: z.string().optional(),
+  nextProjectSlug: z.string().optional(),
   downloads: z.array(z.object({
     label: z.string(),
     file: z.object({ asset: z.object({ _id: z.string(), url: z.url(), originalFilename: z.string().optional() }).optional() }).optional(),
@@ -110,8 +117,19 @@ const cmsBookSchema = z.object({
   cover: z.object({ asset: z.object({ _id: z.string(), url: z.url() }).optional() }).optional(),
 });
 
+function omitNullFields(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(omitNullFields);
+  if (!value || typeof value !== "object") return value;
+
+  return Object.fromEntries(
+    Object.entries(value)
+      .filter(([, child]) => child !== null)
+      .map(([key, child]) => [key, omitNullFields(child)]),
+  );
+}
+
 function parseCmsData<Result>(schema: z.ZodType<Result>, value: unknown): Result | null {
-  const parsed = schema.safeParse(value);
+  const parsed = schema.safeParse(omitNullFields(value));
   if (parsed.success) return parsed.data;
 
   console.error("Sanity content failed validation", parsed.error);

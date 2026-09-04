@@ -60,6 +60,13 @@ export interface CmsProject {
   opennessLabel?: string;
   tags?: string[];
   githubUrl?: string;
+  githubLabel?: string;
+  architectureIntro?: string;
+  architectureNote?: string;
+  noticeTitle?: string;
+  noticeBody?: string;
+  nextProjectName?: string;
+  nextProjectSlug?: string;
   downloads?: Array<{ label: string; file?: SanityFile }>;
   cover?: SanityImage;
   features?: Array<{ label?: string; title: string; description?: string }>;

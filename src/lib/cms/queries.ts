@@ -12,7 +12,8 @@ export const pageBySlugQuery = `*[_type == "page" && slug.current == $slug][0]{
 
 export const projectsQuery = `*[_type == "project"] | order(order asc){
   _id, title, "slug": slug.current, order, icon, year, kind, tagline, description,
-  role, type, opennessTone, opennessLabel, tags, githubUrl,
+  role, type, opennessTone, opennessLabel, tags, githubUrl, githubLabel,
+  architectureIntro, architectureNote, noticeTitle, noticeBody, nextProjectName, nextProjectSlug,
   downloads[]{label, file{asset->{_id, url, originalFilename}}},
   cover{asset->{_id, url, metadata{dimensions}}},
   features[]{label, title, description},
@@ -42,7 +43,8 @@ export const booksQuery = `*[_type == "book"] | order(order asc, title asc){
 
 export const projectBySlugQuery = `*[_type == "project" && slug.current == $slug][0]{
   _id, title, "slug": slug.current, order, icon, year, kind, tagline, description,
-  role, type, opennessTone, opennessLabel, tags, githubUrl,
+  role, type, opennessTone, opennessLabel, tags, githubUrl, githubLabel,
+  architectureIntro, architectureNote, noticeTitle, noticeBody, nextProjectName, nextProjectSlug,
   downloads[]{label, file{asset->{_id, url, originalFilename}}},
   cover{asset->{_id, url, metadata{dimensions}}},
   features[]{label, title, description},
