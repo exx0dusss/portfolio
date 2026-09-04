@@ -7,10 +7,22 @@ export interface Book {
   sourceLabel: string;
   /** Real external source URL. */
   href: string;
+  coverUrl?: string;
 }
 
 /** Reading shelf content. Mirrors the approved design's eight books —
  *  titles, authors, source-domain hints, and real external source URLs. */
+export function bookFromCms(book: import("@/lib/cms/types").CmsBook): Book {
+  return {
+    slotId: book._id,
+    title: book.title,
+    author: book.author,
+    sourceLabel: book.sourceLabel ?? new URL(book.href).hostname,
+    href: book.href,
+    coverUrl: book.cover?.asset?.url,
+  };
+}
+
 export const BOOKS: Book[] = [
   {
     slotId: "book_1",

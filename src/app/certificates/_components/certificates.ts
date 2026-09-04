@@ -7,10 +7,21 @@ export interface Certificate {
   badgeIcon?: string;
   /** External course / verification URL. Plain-text entries omit this. */
   href?: string;
+  imageUrl?: string;
 }
 
 /** Credentials list, mirroring the prototype's `.creds` order exactly.
  *  The first four link out (with issuer badges); the last three are plain. */
+export function certificateFromCms(certificate: import("@/lib/cms/types").CmsCertificate): Certificate {
+  return {
+    title: certificate.title,
+    issuer: certificate.issuer,
+    badgeIcon: certificate.badgeIcon,
+    href: certificate.href ?? certificate.file?.asset?.url,
+    imageUrl: certificate.image?.asset?.url,
+  };
+}
+
 export const CERTIFICATES: Certificate[] = [
   {
     title: "Next.js App Router Fundamentals",

@@ -14,6 +14,7 @@ pnpm lint
 pnpm typecheck
 pnpm check:architecture
 pnpm build
+pnpm studio:dev
 ```
 
 ## Structure
@@ -26,11 +27,24 @@ src/
 │   ├── motion/               # progressive-enhancement motion
 │   ├── backgrounds/          # decorative surfaces
 │   └── ui/                   # CVA atoms and image primitives
-├── lib/utils/                # shared utilities
+├── lib/
+│   ├── cms/                  # validated Sanity query boundary
+│   └── utils/                # shared utilities
 └── styles/globals.css        # semantic design tokens + global styles
+studio-portfolio/             # Sanity Studio and content schemas
 docs/
 ├── conventions/              # always-loaded project conventions
 └── patterns/                 # load-before-work implementation specs
 ```
 
-Content stays typed and close to its owning route. Shared rendering is promoted only when the same behavior is needed by multiple routes. See `AGENTS.md` for the context index.
+## Content editing
+
+Content and media are managed in Sanity Studio using project `pg0p8z5s` and dataset `production`. Defaults are committed; `.env.example` and `studio-portfolio/.env.example` document optional overrides.
+
+```bash
+pnpm studio:dev
+```
+
+Open the local Studio URL, sign in, and publish changes. Run `pnpm studio:deploy` once to host Studio on Sanity (project authentication required). The website reads published documents through `src/lib/cms/` and revalidates them every 60 seconds. Repository content remains fallback; project records override matching slugs, while each non-empty CMS collection becomes authoritative for its list. See `docs/patterns/cms.md`.
+
+Sanity setup is intentionally separate from code changes: content and assets can be edited without Git or a site rebuild; components, layout, and styling still use pull requests. See `AGENTS.md` for the context index.

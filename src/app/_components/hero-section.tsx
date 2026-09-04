@@ -5,8 +5,17 @@ import { Button } from "@/components/ui/button";
 import { ImageSlot } from "@/components/ui/image-slot";
 import { Reveal } from "@/components/motion/reveal";
 
+interface HeroContent {
+  eyebrow?: string;
+  headline?: string;
+  intro?: string;
+  availability?: string;
+  location?: string;
+  portraitUrl?: string;
+}
+
 /** Hero: avatar, headline, intro, availability, and the two primary CTAs. */
-export function HeroSection() {
+export function HeroSection({ content }: { content?: HeroContent }) {
   return (
     <header className="card hero" id="top" data-navlabel="Intro">
       <AnimatedGrid />
@@ -15,26 +24,33 @@ export function HeroSection() {
           className="avatar"
           shape="rounded"
           radius={12}
+          src={content?.portraitUrl}
+          alt={content?.portraitUrl ? "Portrait of Tymur Mustafaiev" : ""}
           fit="contain"
           placeholder="Photo"
         />
       </Reveal>
       <Reveal as="div" className="eye">
-        Middle Front-End Developer &amp; UX/UI Designer
+        {content?.eyebrow ?? "Middle Front-End Developer & UX/UI Designer"}
       </Reveal>
       <Reveal as="h1" delay={1}>
-        I build full-stack web apps — <span className="q">and design the interfaces.</span>
+        {content?.headline ?? (
+          <>I build full-stack web apps — <span className="q">and design the interfaces.</span></>
+        )}
       </Reveal>
       <Reveal as="p" className="intro" delay={2}>
-        I&#8217;m Tymur, a developer based in Warsaw. I work across the stack in
-        TypeScript — frontend, backend, and the data model — and design as I go.
-        My work ranges from web apps and internal tools to developer tooling.
-        Recent projects include <Link href="/#work">ExdBots</Link>, a research
-        data platform, and an e-commerce store.
+        {content?.intro ?? (
+          <>
+            I&#8217;m Tymur, a developer based in Warsaw. I work across the stack in TypeScript —
+            frontend, backend, and the data model — and design as I go. My work ranges from web apps
+            and internal tools to developer tooling. Recent projects include <Link href="/#work">ExdBots</Link>,
+            a research data platform, and an e-commerce store.
+          </>
+        )}
       </Reveal>
       <Reveal as="div" className="now" delay={3}>
         <span className="dot" />
-        Looking for a Design Engineer role · Warsaw, PL
+        {content?.availability ?? "Looking for a Design Engineer role"} · {content?.location ?? "Warsaw, PL"}
       </Reveal>
       <Reveal as="div" className="cta" delay={3}>
         <Button asChild variant="primary">

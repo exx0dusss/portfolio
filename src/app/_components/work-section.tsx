@@ -1,16 +1,16 @@
 import { Reveal } from "@/components/motion/reveal";
 
 import { ProjectCard } from "./project-card";
-import { PROJECTS } from "./projects";
+import type { Project } from "./projects";
 
-/** Work section: the four project cards. */
-export function WorkSection() {
+/** Work section: the project cards. */
+export function WorkSection({ projects }: { projects: Project[] }) {
   return (
     <section className="card" id="work">
       <Reveal as="div" className="clabel">
         <span className="num">01</span> Work
       </Reveal>
-      {PROJECTS.map((project) => (
+      {projects.map((project) => (
         <ProjectCard key={project.slotId} project={project} />
       ))}
     </section>

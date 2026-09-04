@@ -2,22 +2,33 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { NavDots } from "@/components/layout/nav-dots";
+import { getCmsProject } from "@/lib/cms/repository";
 import { Reveal } from "@/components/motion/reveal";
 
 import {
   ArchDiagram,
+  CmsProjectPage,
   FeatureGrid,
   NextProjectLink,
   ProjectHero,
   SectionLabel,
 } from "../_components";
 
-export const metadata: Metadata = {
-  title: "exd-tiktok-bot",
-  description: "An open-source Telegram bot for downloading TikTok videos.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const project = await getCmsProject("exd-tiktok-bot");
+  return {
+    title: project?.title ?? "exd-tiktok-bot",
+    description:
+      project?.tagline ??
+      project?.description ??
+      "An open-source Telegram bot for downloading TikTok videos.",
+  };
+}
 
-export default function ExdTiktokBotPage() {
+export default async function ExdTiktokBotPage() {
+  const project = await getCmsProject("exd-tiktok-bot");
+  if (project) return <CmsProjectPage project={project} />;
+
   return (
     <>
       <main className="shell">

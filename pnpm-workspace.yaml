@@ -1,3 +1,10 @@
+packages:
+  - "."
+  - "studio-portfolio"
+
+onlyBuiltDependencies:
+  - esbuild
+
 ignoredBuiltDependencies:
   - sharp
   - unrs-resolver

@@ -55,6 +55,8 @@ export interface ArchData {
 
 export interface GalleryItem {
   placeholder: string;
+  src?: string;
+  alt?: string;
   /** 16:9 wide tile spans the row; otherwise 4:3. */
   wide?: boolean;
 }

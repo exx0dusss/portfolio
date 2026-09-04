@@ -14,6 +14,8 @@ export function ProjectCard({ project }: { project: Project }) {
       <div className="thumb-wrap">
         <div className="thumb">
           <ImageSlot
+            src={project.cover}
+            alt={`${project.title} project preview`}
             shape="rect"
             className="shot"
             style={{ height: "auto", aspectRatio: "16 / 10" }}

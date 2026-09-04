@@ -1,5 +1,7 @@
 import type { CSSProperties } from "react";
 
+import type { CmsProject } from "@/lib/cms/types";
+
 export interface Sticker {
   kind: "mark" | "tag";
   text: string;
@@ -18,11 +20,49 @@ export interface Project {
   description: string;
   tags: string[];
   href: string;
+  cover?: string;
   stickers: Sticker[];
 }
 
 /** Work section content. Mirrors the approved design's four project cards,
  *  including the hand-placed doodle stickers (position + rotation). */
+export function projectFromCms(project: CmsProject): Project {
+  return {
+    num: String(project.order ?? 0).padStart(2, "0"),
+    icon: project.icon ?? project.title.slice(0, 1),
+    iconStyle: { top: -14, left: -12 },
+    slotId: project._id,
+    title: project.title,
+    year: project.year ?? "",
+    kind: project.kind ?? "Project",
+    description: project.description ?? project.tagline ?? "",
+    tags: project.tags ?? [],
+    href: `/projects/${project.slug}`,
+    cover: project.cover?.asset?.url,
+    stickers: [],
+  };
+}
+
+export function mergeProjects(cmsProjects: CmsProject[] | null): Project[] {
+  if (!cmsProjects?.length) return PROJECTS;
+
+  const cmsBySlug = new Map(cmsProjects.map((project) => [project.slug, project]));
+  const localSlugs = new Set(PROJECTS.map((project) => project.href.replace("/projects/", "")));
+  const projects = PROJECTS.map((project) => {
+    const slug = project.href.replace("/projects/", "");
+    const cmsProject = cmsBySlug.get(slug);
+    return cmsProject ? projectFromCms(cmsProject) : project;
+  });
+
+  for (const project of cmsProjects) {
+    if (!localSlugs.has(project.slug)) projects.push(projectFromCms(project));
+  }
+
+  return projects
+    .sort((left, right) => Number(left.num) - Number(right.num))
+    .map((project, index) => ({ ...project, num: String(index + 1).padStart(2, "0") }));
+}
+
 export const PROJECTS: Project[] = [
   {
     num: "01",
