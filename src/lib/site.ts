@@ -4,7 +4,7 @@ export const SITE = {
   name: "Tymur Mustafaiev",
   role: "Front-End Engineer & UX/UI Designer",
   description:
-    "Tymur Mustafaiev — a Warsaw-based front-end engineer and UX/UI designer building web apps in TypeScript across the stack, from Figma to production, with a growing focus on AI products.",
+    "Front-end engineer and designer in Warsaw. I design and build web products — websites, online stores and the systems behind them.",
   email: "tymurmustafaiev029@gmail.com",
   sameAs: [
     "https://github.com/exx0dusss",
