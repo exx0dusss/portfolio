@@ -50,6 +50,7 @@
   --figure-face: #ffffff;
   --figure-shade: #e5e5e5;
   --figure-features: #0a0a0a;
+  --figure-ink: var(--fg);
   color-scheme: light;
 
   --w: 1180px;
@@ -81,6 +82,7 @@
     --figure-face: #f2f2f2;
     --figure-shade: #c9c9c9;
     --figure-features: #0c0c0c;
+    --figure-ink: #8a8a8a;
     color-scheme: dark;
   }
 }
@@ -104,6 +106,7 @@
   --figure-face: #f2f2f2;
   --figure-shade: #c9c9c9;
   --figure-features: #0c0c0c;
+  --figure-ink: #8a8a8a;
   color-scheme: dark;
 }
 
@@ -155,14 +158,29 @@ a {
 }
 .brand {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   line-height: 1.25;
   font-size: 14px;
+}
+.brand-face {
+  flex: none;
+  color: var(--figure-ink);
+  width: 32px;
+  height: 32px;
+  transition: transform 0.35s var(--ease-out);
+}
+.brand:hover .brand-face {
+  transform: rotate(-8deg);
+}
+.brand-text {
+  display: flex;
+  flex-direction: column;
 }
 .brand b {
   font-weight: 600;
 }
-.brand span {
+.brand-text > span {
   font-size: 12.5px;
   color: var(--fg-faint);
 }
@@ -339,9 +357,10 @@ a {
 .hero-figure {
   justify-self: end;
   align-self: end;
+  /* the figure's lines and fists; gray in the dark theme */
   width: clamp(240px, 27vw, 400px);
   margin-bottom: -72px;
-  color: var(--fg);
+  color: var(--figure-ink);
 }
 /* the bubble grows out of its tail tip, just after the hero settles */
 .figure-bubble {
@@ -617,11 +636,13 @@ a {
   background: none;
   font: inherit;
   text-align: left;
+  position: relative;
   display: inline-flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 4px 18px;
-  font-size: clamp(26px, 4.6vw, 54px);
+  gap: 0.3em;
+  /* the address plus icon is ~15em wide: scale with the viewport so it
+     stays on one line down to 320px, capped at 54px on desktop */
+  font-size: clamp(16px, calc((100vw - 40px) / 16.5), 54px);
   font-weight: 600;
   letter-spacing: -0.045em;
   line-height: 1.1;
@@ -629,7 +650,7 @@ a {
   cursor: pointer;
 }
 .mail-addr {
-  overflow-wrap: anywhere;
+  white-space: nowrap;
   text-decoration: underline;
   text-decoration-thickness: 3px;
   text-underline-offset: 8px;
@@ -649,6 +670,10 @@ a {
   display: inline-flex;
 }
 .mail-hint {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 10px;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0;
@@ -874,7 +899,14 @@ a {
   grid-template-columns: repeat(auto-fill, minmax(min(150px, calc(50% - 10px)), 1fr));
   gap: 34px clamp(18px, 3vw, 26px);
 }
+/* each card stretches to its row's height (grid items stretch; the
+   Stagger wrapper passes that on), so the source link can sit at the
+   bottom and line up across the row */
+.shelf > * {
+  display: flex;
+}
 .book {
+  flex: 1;
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -931,6 +963,8 @@ a {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
+  /* two lines reserved even for one-line titles */
+  min-height: calc(2 * 1.3em);
 }
 .book .ba {
   font-size: 12.5px;
@@ -942,8 +976,9 @@ a {
   align-items: center;
   gap: 5px;
   min-width: 0;
-  margin-top: 10px;
-  font-family: var(--font-mono);
+  margin-top: auto;
+  padding-top: 10px;
+  font-family: var(--mono);
   font-size: 11px;
   color: var(--fg-dim);
   transition: color 0.2s;
@@ -1293,6 +1328,18 @@ a {
     padding: 9px;
   }
   .nav-cta-text {
+    display: none;
+  }
+  /* small phones: name only, then (below) just the face */
+  .brand-text > span {
+    display: none;
+  }
+  .brand-text b {
+    white-space: nowrap;
+  }
+}
+@media (max-width: 400px) {
+  .brand-text {
     display: none;
   }
 }

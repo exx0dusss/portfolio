@@ -79,6 +79,11 @@ export const uk: Dictionary = {
           "Проєктую та розробляю full-stack e-commerce продукт для бізнесу з освітлення з 20+ роками на ринку — магазин, лендинг, CRM і Telegram-бот із вебзастосунком.",
       },
       {
+        role: "Фриланс веброзробник",
+        where: "Віддалено",
+        description: "Спроєктував і розробив сайт для косметологічного кабінету в Німеччині (грудень 2024).",
+      },
+      {
         role: "Провідний фронтенд-розробник",
         where: "Варшава, Польща",
         description:
@@ -140,7 +145,7 @@ export const uk: Dictionary = {
     experience: {
       title: "Досвід",
       description:
-        "Досвід і освіта Тимура Мустафаєва — фронтенд, UX/UI-дизайн і full-stack у Softica Tech, SalonSvitlo та PCEXPERT; магістрант PJATK у Варшаві.",
+        "Досвід і освіта Тимура Мустафаєва — фронтенд, UX/UI-дизайн і full-stack у Softica Tech, SalonSvitlo, Kosmetik Profi та PCEXPERT; магістрант PJATK у Варшаві.",
       heading: "Де я працював.",
       lead: "Команди та продукти, з якими я працював, — фронтенд, дизайн і full-stack, здебільшого віддалено з Варшави.",
       roles: "Посади",

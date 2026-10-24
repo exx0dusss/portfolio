@@ -36,6 +36,14 @@ export const ROLES: TimelineEntry[] = [
   },
   {
     year: "2024",
+    where: "Remote",
+    role: "Freelance Web Developer",
+    company: "Kosmetik Profi",
+    description:
+      "Designed and built the website for a cosmetology practice in Germany (Dec 2024).",
+  },
+  {
+    year: "2024",
     where: "Warsaw, PL",
     role: "Lead Front-End Developer",
     company: "PCEXPERT",

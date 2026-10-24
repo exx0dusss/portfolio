@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { FaceIcon } from "@/components/ui/face-icon";
 import { EnvelopeSimpleIcon } from "@/components/ui/icons";
 import {
   LOCALE_LABEL,
@@ -41,9 +42,13 @@ export function SiteNav({ lang, dict, name }: SiteNavProps) {
   return (
     <nav className="nav">
       <div className="nav-in">
-        <Link className="brand" href={localePath(lang, "/")}>
-          <b>{name}</b>
-          <span>{dict.role}</span>
+        {/* aria-label keeps the link named when only the face shows (<400px) */}
+        <Link className="brand" href={localePath(lang, "/")} aria-label={name}>
+          <FaceIcon className="brand-face" />
+          <span className="brand-text">
+            <b>{name}</b>
+            <span>{dict.role}</span>
+          </span>
         </Link>
         <div className="nav-links">
           {links.map((link) => (

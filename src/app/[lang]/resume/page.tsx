@@ -30,7 +30,7 @@ export default async function ResumePage({
           <span className="lbl">Résumé</span>
           <div className="acts">
             <Button variant="ghost" asChild>
-              <a href="/tymur-mustafaiev.pdf" download="tymur-mustafaiev.pdf">
+              <a href="/tymur-mustafaiev-cv.pdf" download="tymur-mustafaiev-cv.pdf">
                 Download PDF
               </a>
             </Button>

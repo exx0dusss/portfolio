@@ -11,7 +11,8 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       // the CV downloads under my name
-      { source: "/resume.pdf", destination: "/tymur-mustafaiev.pdf", permanent: true },
+      { source: "/resume.pdf", destination: "/tymur-mustafaiev-cv.pdf", permanent: true },
+      { source: "/tymur-mustafaiev.pdf", destination: "/tymur-mustafaiev-cv.pdf", permanent: true },
     ];
   },
 };

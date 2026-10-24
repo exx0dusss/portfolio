@@ -155,7 +155,7 @@ export const en: Dictionary = {
     experience: {
       title: "Experience",
       description:
-        "Roles and education of Tymur Mustafaiev — front-end, UX/UI design, and full-stack work at Softica Tech, SalonSvitlo, and PCEXPERT; Master’s student at PJATK in Warsaw.",
+        "Roles and education of Tymur Mustafaiev — front-end, UX/UI design, and full-stack work at Softica Tech, SalonSvitlo, Kosmetik Profi, and PCEXPERT; Master’s student at PJATK in Warsaw.",
       heading: "Where I’ve worked.",
       lead: "A history of the teams and products I’ve built with — front-end, design, and full-stack roles, mostly remote from Warsaw.",
       roles: "Roles",

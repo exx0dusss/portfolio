@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="264 57 196 196" fill="none" stroke="#0a0a0a" stroke-linecap="round">
   <style>
-    .face { fill: #fff } .shade { fill: #e5e5e5 } .ink { fill: #0a0a0a } svg { stroke: #0a0a0a }
+    .face { fill: #fff } .shade { fill: #e5e5e5 } .ink { fill: #0a0a0a } .smile { stroke: #0a0a0a } svg { stroke: #0a0a0a }
     @media (prefers-color-scheme: dark) {
-      .face { fill: #171717 } .shade { fill: #2a2a2a } .ink { fill: #ededed } svg { stroke: #ededed }
+      .face { fill: #f2f2f2 } .shade { fill: #c9c9c9 } .ink { fill: #0c0c0c } .smile { stroke: #0c0c0c } svg { stroke: #8a8a8a }
     }
   </style>
   <circle class="shade" cx="362" cy="155" r="80" stroke="none"/>
@@ -10,5 +10,5 @@
   <circle cx="362" cy="155" r="84" stroke-width="20"/>
   <circle class="ink" cx="327" cy="143" r="13" stroke="none"/>
   <circle class="ink" cx="397" cy="143" r="13" stroke="none"/>
-  <path d="M332 178 Q362 192 392 178" stroke-width="12"/>
+  <path class="smile" d="M332 178 Q362 192 392 178" stroke-width="12"/>
 </svg>

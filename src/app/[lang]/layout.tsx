@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteNav } from "@/components/layout/site-nav";
@@ -76,10 +77,13 @@ export default async function RootLayout({
     // :root, and var() resolves where the custom property is defined
     // suppressHydrationWarning: THEME_SCRIPT may set data-theme before React hydrates
     <html lang={lang} className={`${geist.variable} ${geistMono.variable}`} suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
-      </head>
       <body>
+        {/* beforeInteractive: Next injects this into the server HTML's <head> so
+            a saved theme applies before paint (a raw <script> in a component
+            is flagged by React and never runs on client renders) */}
+        <Script id="theme-init" strategy="beforeInteractive">
+          {THEME_SCRIPT}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSON_LD) }}

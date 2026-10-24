@@ -1,7 +1,8 @@
 /** Waving stick figure beside the hero, saying "HI" in a comic speech
  *  bubble. Drawn as SVG so it is transparent, crisp at any size and inherits
- *  the ink colour. Face, bubble and features use --figure-*, so in the dark
- *  theme he keeps a light face and bubble with dark features.
+ *  --figure-ink (set on .hero-figure). Face, bubble and features use the other
+ *  --figure-* tokens: in the dark theme he keeps a white face and bubble with
+ *  dark features, and his body turns gray.
  *  The legs are short and the drawing ends at the feet, so
  *  the figure stands on the section rule below the hero. The bubble pops in
  *  on load and the raised arm waves on
