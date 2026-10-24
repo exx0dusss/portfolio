@@ -24,6 +24,8 @@ export interface Dictionary {
     contact: string;
     language: string;
     theme: { label: string; system: string; light: string; dark: string };
+    menu: { open: string; close: string };
+    certificates: string;
   };
   footer: { certificates: string };
   hero: { title: string; scope: [string, string, string, string]; seeWork: string; resume: string };
@@ -69,6 +71,8 @@ export const en: Dictionary = {
     contact: "Get in touch",
     language: "Language",
     theme: { label: "Theme", system: "System", light: "Light", dark: "Dark" },
+    menu: { open: "Open menu", close: "Close menu" },
+    certificates: "Certificates",
   },
   footer: { certificates: "Certificates" },
   hero: {

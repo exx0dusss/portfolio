@@ -18,6 +18,8 @@ export const uk: Dictionary = {
     contact: "Зв’язатися",
     language: "Мова",
     theme: { label: "Тема", system: "Системна", light: "Світла", dark: "Темна" },
+    menu: { open: "Відкрити меню", close: "Закрити меню" },
+    certificates: "Сертифікати",
   },
   footer: { certificates: "Сертифікати" },
   hero: {

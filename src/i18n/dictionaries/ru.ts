@@ -18,6 +18,8 @@ export const ru: Dictionary = {
     contact: "Связаться",
     language: "Язык",
     theme: { label: "Тема", system: "Системная", light: "Светлая", dark: "Тёмная" },
+    menu: { open: "Открыть меню", close: "Закрыть меню" },
+    certificates: "Сертификаты",
   },
   footer: { certificates: "Сертификаты" },
   hero: {

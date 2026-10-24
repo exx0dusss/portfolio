@@ -15,9 +15,11 @@ export {
   GithubLogoIcon,
   ImageIcon,
   LinkedinLogoIcon,
+  ListIcon,
   MoonIcon,
   PenNibIcon,
   PrinterIcon,
   SparkleIcon,
   SunIcon,
+  XIcon,
 } from "@phosphor-icons/react/dist/ssr";
