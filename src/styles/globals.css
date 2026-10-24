@@ -208,12 +208,6 @@ a {
   position: relative;
   z-index: 1;
 }
-.hero .avatar {
-  display: block;
-  width: 136px;
-  height: 154px;
-  margin-bottom: 24px;
-}
 .hero .eye {
   font-size: 12.5px;
   font-weight: 500;
@@ -435,18 +429,6 @@ a {
 }
 
 /* about */
-.about-grid {
-  display: grid;
-  grid-template-columns: 150px 1fr;
-  gap: 34px;
-  align-items: start;
-}
-.about-portrait {
-  border: 1px solid var(--line-strong);
-  border-radius: 14px;
-  overflow: hidden;
-  background: var(--card-2);
-}
 .about-body p {
   font-size: 16px;
   line-height: 1.72;
@@ -538,13 +520,6 @@ a {
   .srow {
     grid-template-columns: 1fr;
     gap: 3px;
-  }
-  .about-grid {
-    grid-template-columns: 1fr;
-    gap: 22px;
-  }
-  .about-portrait {
-    max-width: 190px;
   }
   .tl {
     grid-template-columns: 1fr;

@@ -2,23 +2,13 @@ import Link from "next/link";
 
 import { AnimatedGrid } from "@/components/backgrounds/animated-grid";
 import { Button } from "@/components/ui/button";
-import { ImageSlot } from "@/components/ui/image-slot";
 import { Reveal } from "@/components/motion/reveal";
 
-/** Hero: avatar, headline, intro, availability, and the two primary CTAs. */
+/** Hero: headline, intro, availability, and the two primary CTAs. */
 export function HeroSection() {
   return (
     <header className="card hero" id="top" data-navlabel="Intro">
       <AnimatedGrid />
-      <Reveal>
-        <ImageSlot
-          className="avatar"
-          shape="rounded"
-          radius={12}
-          fit="contain"
-          placeholder="Photo"
-        />
-      </Reveal>
       <Reveal as="div" className="eye">
         Front-End Engineer &amp; UX/UI Designer
       </Reveal>

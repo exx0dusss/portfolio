@@ -36,6 +36,7 @@ export const metadata: Metadata = {
     locale: "en_US",
   },
   twitter: { card: "summary_large_image" },
+  verification: { google: "uCjQlgPj32rIfxEi3FCAIj8jYjtoKdYXanH7NP6Peyk" },
 };
 
 const PERSON_JSON_LD = {
