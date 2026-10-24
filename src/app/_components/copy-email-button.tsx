@@ -10,7 +10,15 @@ const RESET_MS = 1400;
 
 /** The email address as a large button that copies itself to the clipboard;
  *  the copy icon swaps to a check to confirm. */
-export function CopyEmailButton({ email }: { email: string }) {
+export function CopyEmailButton({
+  email,
+  copyLabel,
+  copiedLabel,
+}: {
+  email: string;
+  copyLabel: string;
+  copiedLabel: string;
+}) {
   const [copied, setCopied] = useState(false);
 
   async function copy() {
@@ -23,7 +31,7 @@ export function CopyEmailButton({ email }: { email: string }) {
   }
 
   return (
-    <button type="button" className="mail" onClick={copy} aria-label={`Copy ${email}`}>
+    <button type="button" className="mail" onClick={copy} aria-label={`${copyLabel} ${email}`}>
       <span className="mail-addr">{email}</span>
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.span
@@ -38,7 +46,7 @@ export function CopyEmailButton({ email }: { email: string }) {
         </motion.span>
       </AnimatePresence>
       <span className="mail-hint" aria-live="polite">
-        {copied ? "Copied" : ""}
+        {copied ? copiedLabel : ""}
       </span>
     </button>
   );

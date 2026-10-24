@@ -37,12 +37,74 @@
   --accent: var(--color-accent);
   --accent-ink: var(--color-accent-ink);
   --accent-soft: rgba(255, 79, 0, 0.1);
-  --sans: var(--font-sans);
-  --mono: var(--font-mono);
+  /* fonts are spelled out here, not aliased to the @theme values: Tailwind v4
+     drops unused theme variables, which left var(--font-sans) undefined */
+  --sans: var(--font-geist), system-ui, sans-serif;
+  --mono: var(--font-geist-mono), ui-monospace, monospace;
+  /* light theme surfaces for the nav, inverted ink buttons, shadows and the
+     hero figure; the dark theme overrides these below */
+  --nav-bg: rgba(255, 255, 255, 0.88);
+  --ink-hover: #262626;
+  --fg-soft: #333333;
+  --shadow-rgb: 27 25 20;
+  --figure-face: #ffffff;
+  --figure-shade: #e5e5e5;
+  --figure-features: #0a0a0a;
+  color-scheme: light;
+
   --w: 1180px;
   --gutter: 48px;
   /* ease-out curve for hover/press, matching the POP entrance in motion/springs */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Dark theme: follows the OS unless the visitor picked a theme in the nav
+   (data-theme on <html>, set before paint by the script in the layout). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c0c0c;
+    --card: #0c0c0c;
+    --card-2: #171717;
+    --fg: #ededed;
+    --fg-dim: #a3a3a3;
+    --fg-faint: #8f8f8f;
+    --line: #262626;
+    --line-soft: #1c1c1c;
+    --line-strong: #3d3d3d;
+    --accent: #ff5a1f;
+    --accent-ink: #ff8a5c;
+    --accent-soft: rgba(255, 90, 31, 0.18);
+    --nav-bg: rgba(12, 12, 12, 0.85);
+    --ink-hover: #ffffff;
+    --fg-soft: #d4d4d4;
+    --shadow-rgb: 0 0 0;
+    --figure-face: #f2f2f2;
+    --figure-shade: #c9c9c9;
+    --figure-features: #0c0c0c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c0c0c;
+  --card: #0c0c0c;
+  --card-2: #171717;
+  --fg: #ededed;
+  --fg-dim: #a3a3a3;
+  --fg-faint: #8f8f8f;
+  --line: #262626;
+  --line-soft: #1c1c1c;
+  --line-strong: #3d3d3d;
+  --accent: #ff5a1f;
+  --accent-ink: #ff8a5c;
+  --accent-soft: rgba(255, 90, 31, 0.18);
+  --nav-bg: rgba(12, 12, 12, 0.85);
+  --ink-hover: #ffffff;
+  --fg-soft: #d4d4d4;
+  --shadow-rgb: 0 0 0;
+  --figure-face: #f2f2f2;
+  --figure-shade: #c9c9c9;
+  --figure-features: #0c0c0c;
+  color-scheme: dark;
 }
 
 * {
@@ -78,7 +140,7 @@ a {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.88);
+  background: var(--nav-bg);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
 }
@@ -134,21 +196,66 @@ a {
 .nav-links a.active {
   color: var(--fg);
 }
-.nav-cta {
+.nav-end {
   justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.lang-switch {
+  display: flex;
+  gap: 2px;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.lang-switch a {
+  padding: 5px 7px;
+  border-radius: 6px;
+  color: var(--fg-faint);
+  transition: color 0.15s, background 0.15s;
+}
+.lang-switch a:hover {
+  color: var(--fg);
+}
+.lang-switch a[aria-current] {
+  color: var(--fg);
+  background: var(--card-2);
+}
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: none;
+  color: var(--fg-dim);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+.theme-toggle:hover {
+  color: var(--fg);
+  background: var(--card-2);
+}
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+.nav-cta {
   display: inline-flex;
   align-items: center;
   gap: 7px;
   padding: 9px 15px;
   border-radius: 999px;
   background: var(--fg);
-  color: #fff;
+  color: var(--bg);
   font-size: 13.5px;
   font-weight: 500;
   transition: background 0.15s, transform 0.35s var(--ease-out);
 }
 .nav-cta:hover {
-  background: #262626;
+  background: var(--ink-hover);
   transform: translateY(-2px);
 }
 .nav-cta:active {
@@ -224,7 +331,7 @@ a {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 40px;
+  gap: 32px;
   padding: 88px 0 72px;
 }
 /* the drawing ends at the figure's feet; pulling it down over the hero's
@@ -232,7 +339,7 @@ a {
 .hero-figure {
   justify-self: end;
   align-self: end;
-  width: clamp(280px, 36vw, 500px);
+  width: clamp(240px, 27vw, 400px);
   margin-bottom: -72px;
   color: var(--fg);
 }
@@ -270,7 +377,7 @@ a {
   }
 }
 .hero-copy {
-  max-width: 720px;
+  max-width: 860px;
 }
 .hero h1 {
   margin: 0;
@@ -295,7 +402,7 @@ a {
   padding: 12px 0;
   font-size: 18px;
   line-height: 1.4;
-  color: #262626;
+  color: var(--fg-soft);
 }
 .scope svg {
   flex: none;
@@ -336,11 +443,11 @@ a {
 }
 .btn-p {
   background: var(--fg);
-  color: #fff;
+  color: var(--bg);
   border: none;
 }
 .btn-p:hover {
-  background: #262626;
+  background: var(--ink-hover);
 }
 .btn-g {
   background: transparent;
@@ -419,10 +526,10 @@ a {
 }
 .prow-desc {
   margin: 8px 0 0;
-  max-width: 62ch;
+  max-width: 76ch;
   font-size: 15.5px;
   line-height: 1.55;
-  color: #333;
+  color: var(--fg-soft);
 }
 .prow-meta {
   display: flex;
@@ -658,7 +765,7 @@ a {
   font-size: 16.5px;
   color: var(--fg-dim);
   line-height: 1.72;
-  max-width: 60ch;
+  max-width: 72ch;
 }
 .page-lead a {
   color: var(--accent-ink);
@@ -711,7 +818,7 @@ a {
   font-size: 14.5px;
   color: var(--fg-dim);
   line-height: 1.66;
-  max-width: 62ch;
+  max-width: 76ch;
 }
 .tl-tags {
   margin-top: 12px;
@@ -782,8 +889,8 @@ a {
   overflow: hidden;
   background: var(--card-2);
   box-shadow:
-    0 1px 2px rgba(27, 25, 20, 0.08),
-    0 8px 20px -8px rgba(27, 25, 20, 0.22);
+    0 1px 2px rgb(var(--shadow-rgb) / 0.08),
+    0 8px 20px -8px rgb(var(--shadow-rgb) / 0.22);
   transition:
     transform 0.4s var(--ease-out),
     box-shadow 0.25s ease;
@@ -801,7 +908,7 @@ a {
     rgba(0, 0, 0, 0.06) 7px,
     transparent 14px
   );
-  box-shadow: inset 0 0 0 1px rgba(27, 25, 20, 0.08);
+  box-shadow: inset 0 0 0 1px rgb(var(--shadow-rgb) / 0.08);
   border-radius: inherit;
 }
 .book .cover img {
@@ -811,8 +918,8 @@ a {
 .book:focus-visible .cover {
   transform: translateY(-8px) rotate(-1.5deg);
   box-shadow:
-    0 2px 4px rgba(27, 25, 20, 0.08),
-    0 18px 32px -12px rgba(27, 25, 20, 0.3);
+    0 2px 4px rgb(var(--shadow-rgb) / 0.08),
+    0 18px 32px -12px rgb(var(--shadow-rgb) / 0.3);
 }
 .book .bt {
   margin-top: 16px;
@@ -1031,13 +1138,13 @@ a {
 }
 .node {
   border: 1px solid var(--line-strong);
-  background: #fff;
+  background: var(--bg);
   border-radius: 10px;
   padding: 11px 13px;
   font-size: 13px;
   color: var(--fg);
   font-weight: 500;
-  box-shadow: 0 2px 6px -3px rgba(40, 32, 12, 0.2);
+  box-shadow: 0 2px 6px -3px rgb(var(--shadow-rgb) / 0.2);
 }
 .node .ns {
   display: block;
@@ -1181,10 +1288,26 @@ a {
   line-height: 1.3;
 }
 
+@media (max-width: 520px) {
+  .nav-cta {
+    padding: 9px;
+  }
+  .nav-cta-text {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
+}
+
+/* theme switch: a short crossfade of the whole page */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+  animation-timing-function: var(--ease-out);
 }
 
 @media (prefers-reduced-motion: reduce) {

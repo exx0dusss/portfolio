@@ -2,19 +2,20 @@ import Link from "next/link";
 
 import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
+import { type Dictionary, type Locale, localePath } from "@/i18n";
 
-import { EDUCATION, ROLES } from "../experience/_components/timeline";
+import { localizeTimeline, ROLES } from "../[lang]/experience/_components/timeline";
 
-/** Experience section: a compact role / company / years list. */
-export function ExperienceSection() {
-  const rows = [...ROLES, EDUCATION[0]];
+/** Experience section: work roles as a compact role / company / years list. */
+export function ExperienceSection({ lang, dict }: { lang: Locale; dict: Dictionary["experience"] }) {
+  const rows = localizeTimeline(ROLES, dict.roles, dict.now);
 
   return (
     <section className="card" id="experience">
       <Reveal as="h2" className="clabel">
-        Experience
+        {dict.label}
         <span>
-          Full history on the <Link href="/experience">Experience page</Link>
+          {dict.subBefore} <Link href={localePath(lang, "/experience")}>{dict.subLink}</Link>
         </span>
       </Reveal>
       <Stagger className="xp">

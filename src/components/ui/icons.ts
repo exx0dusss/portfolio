@@ -7,6 +7,7 @@ export {
   ArrowUpRightIcon,
   BrowserIcon,
   CheckIcon,
+  CircleHalfIcon,
   CopyIcon,
   DatabaseIcon,
   EnvelopeSimpleIcon,
@@ -14,7 +15,9 @@ export {
   GithubLogoIcon,
   ImageIcon,
   LinkedinLogoIcon,
+  MoonIcon,
   PenNibIcon,
   PrinterIcon,
   SparkleIcon,
+  SunIcon,
 } from "@phosphor-icons/react/dist/ssr";
