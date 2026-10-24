@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Caveat, Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 
-import { SiteDock } from "@/components/layout/site-dock";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteNav } from "@/components/layout/site-nav";
 import { SITE } from "@/lib/site";
@@ -9,18 +8,13 @@ import "@/styles/globals.css";
 
 const geist = Geist({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500", "600"],
   variable: "--font-geist",
 });
 const geistMono = Geist_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
   variable: "--font-geist-mono",
-});
-const caveat = Caveat({
-  subsets: ["latin"],
-  weight: ["600", "700"],
-  variable: "--font-caveat-handwriting",
 });
 
 export const metadata: Metadata = {
@@ -61,7 +55,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geist.variable} ${geistMono.variable} ${caveat.variable}`}
+        className={`${geist.variable} ${geistMono.variable}`}
       >
         <script
           type="application/ld+json"
@@ -70,7 +64,6 @@ export default function RootLayout({
         <SiteNav />
         {children}
         <SiteFooter />
-        <SiteDock />
       </body>
     </html>
   );

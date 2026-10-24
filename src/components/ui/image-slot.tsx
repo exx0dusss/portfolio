@@ -1,4 +1,4 @@
-import { ImageIcon } from "lucide-react";
+import { ImageIcon } from "@/components/ui/icons";
 
 import { cn } from "@/lib/utils/cn";
 
@@ -56,7 +56,7 @@ export function ImageSlot({
         <img src={src} alt={alt} style={{ objectFit: fit }} className="img-slot-img" />
       ) : (
         <div className="img-slot-ph" style={{ borderRadius }}>
-          <ImageIcon size={26} strokeWidth={1.6} aria-hidden />
+          <ImageIcon size={26} aria-hidden />
           <span className="img-slot-cap">{placeholder}</span>
         </div>
       )}

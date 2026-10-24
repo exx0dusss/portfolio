@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import { NavDots } from "@/components/layout/nav-dots";
 import { Reveal } from "@/components/motion/reveal";
 
 import {
@@ -23,7 +22,6 @@ export default function GigaPsychPage() {
     <>
       <main className="shell">
         <ProjectHero
-          icon="G"
           name="Giga Psych"
           tagline="A web platform for exploring psychological research datasets, built with the PJATK XR Lab and researchers at the University of Amsterdam."
           meta={[
@@ -35,7 +33,7 @@ export default function GigaPsychPage() {
         />
 
         <section className="card">
-          <SectionLabel num="01">Overview</SectionLabel>
+          <SectionLabel>Overview</SectionLabel>
           <Reveal className="prose">
             <p className="lead-q">
               Research data is only useful if the people who collected it can actually explore it.
@@ -57,7 +55,7 @@ export default function GigaPsychPage() {
         </section>
 
         <section className="card">
-          <SectionLabel num="02">What I built</SectionLabel>
+          <SectionLabel>What I built</SectionLabel>
           <FeatureGrid
             features={[
               {
@@ -89,7 +87,7 @@ export default function GigaPsychPage() {
         </section>
 
         <section className="card">
-          <SectionLabel num="03">How it was built</SectionLabel>
+          <SectionLabel>How it was built</SectionLabel>
           <Reveal className="prose">
             <p>
               The brief was unusual for me: the users were researchers, not customers, and the goal
@@ -109,9 +107,8 @@ export default function GigaPsychPage() {
           </LockedNote>
         </section>
 
-        <NextProjectLink name="MyLamp" href="/projects/mylamp" />
+        <NextProjectLink name="SalonSvitlo" href="/projects/salonsvitlo" />
       </main>
-      <NavDots />
     </>
   );
 }

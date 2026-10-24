@@ -29,7 +29,7 @@ export const ROLES: TimelineEntry[] = [
     year: "2024 — now",
     where: "Remote",
     role: "Full-Stack Developer",
-    company: "MyLamp",
+    company: "SalonSvitlo",
     description:
       "Designing and building a full-stack e-commerce product for a lighting business with 20+ years in the trade — the store, landing, CRM, and a Telegram bot with a web-app.",
     tags: ["Next.js", "Node.js", "CRM", "Telegram"],

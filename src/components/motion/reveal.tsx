@@ -2,21 +2,22 @@
 
 import { motion, useReducedMotion } from "motion/react";
 
+import { IN_VIEW, POP } from "./springs";
+
 interface RevealProps {
   children: React.ReactNode;
-  /** Stagger step — 1, 2, 3 map to the design's d1/d2/d3 delays. */
+  /** Stagger step — 1, 2, 3 delay the entrance in small increments. */
   delay?: 0 | 1 | 2 | 3;
   className?: string;
   /** Render as a different element (e.g. "section", "article", "p"). */
   as?: keyof typeof motion;
 }
 
-const DELAYS: Record<number, number> = { 0: 0, 1: 0.05, 2: 0.1, 3: 0.15 };
+const DELAYS: Record<number, number> = { 0: 0, 1: 0.08, 2: 0.16, 3: 0.24 };
 
 /**
- * Soft scroll reveal — the motion-driven replacement for the prototype's
- * `.reveal`/IntersectionObserver pair. Fades up once when scrolled into view;
- * collapses to a no-op under prefers-reduced-motion.
+ * Scroll reveal: springs up into place once when scrolled into view.
+ * Collapses to a no-op under prefers-reduced-motion.
  */
 export function Reveal({ children, delay = 0, className, as = "div" }: RevealProps) {
   const reduce = useReducedMotion();
@@ -30,10 +31,10 @@ export function Reveal({ children, delay = 0, className, as = "div" }: RevealPro
   return (
     <MotionTag
       className={className}
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -6% 0px", amount: 0.08 }}
-      transition={{ duration: 0.55, ease: [0.2, 0.7, 0.3, 1], delay: DELAYS[delay] }}
+      viewport={IN_VIEW}
+      transition={{ ...POP, delay: DELAYS[delay] }}
     >
       {children}
     </MotionTag>

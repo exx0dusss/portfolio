@@ -19,7 +19,7 @@ const LINKEDIN = "https://linkedin.com/in/tymur-mustafaiev-968b3724b";
 export default function ResumePage() {
   return (
     <main className="shell">
-      <article className="card resume">
+      <article className="resume">
         <div className="r-bar">
           <span className="lbl">Résumé</span>
           <div className="acts">
@@ -174,7 +174,7 @@ export default function ResumePage() {
               <div className="r-item">
                 <div className="r-role">Full-Stack Developer</div>
                 <div className="r-meta">
-                  <span className="r-co">MyLamp</span>
+                  <span className="r-co">SalonSvitlo</span>
                   <span className="r-when">Oct 2024 — Present · Remote</span>
                 </div>
                 <ul className="r-bullets">
@@ -202,7 +202,7 @@ export default function ResumePage() {
                 and statistics from one interface. <span className="yr">2026 — present</span>
               </div>
               <div className="r-proj">
-                <b>MyLamp</b> — full-stack e-commerce for a lighting business with 20+ years in the
+                <b>SalonSvitlo</b> — full-stack e-commerce for a lighting business with 20+ years in the
                 trade: store, landing, CRM and a Telegram web-app.{" "}
                 <span className="yr">2024 — present</span>
               </div>
@@ -212,7 +212,7 @@ export default function ResumePage() {
                 <span className="yr">2023 — present</span>
               </div>
               <div className="r-proj">
-                <b>Komsetik Profi</b> — landing page for a German cosmetology brand.{" "}
+                <b>Kosmetik Profi</b> — landing page for a German cosmetology brand.{" "}
                 <span className="yr">2024</span>
               </div>
             </div>

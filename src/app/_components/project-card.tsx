@@ -1,58 +1,35 @@
 import Link from "next/link";
 
-import { ImageSlot } from "@/components/ui/image-slot";
-import { Reveal } from "@/components/motion/reveal";
-import { cn } from "@/lib/utils/cn";
+import { StaggerItem } from "@/components/motion/stagger";
+import { ArrowUpRightIcon } from "@/components/ui/icons";
 
-import type { Project } from "./projects";
+import { STATUS_LABEL, type Project } from "./projects";
 
-/** One project row in the Work section: thumbnail + doodle stickers on the
- *  left, copy + tags + link on the right. */
+/** One project in a Stagger work list: name and status, a one-line description,
+ *  then scale and facets. The whole row links to the case study. */
 export function ProjectCard({ project }: { project: Project }) {
+  const meta = [...project.facets, project.since && `${project.since} →`].filter(Boolean);
+
   return (
-    <Reveal as="article" className="proj">
-      <div className="thumb-wrap">
-        <div className="thumb">
-          <ImageSlot
-            shape="rect"
-            className="shot"
-            style={{ height: "auto", aspectRatio: "16 / 10" }}
-            placeholder="Screenshot"
-          />
-        </div>
-        <span className="proj-ico" style={project.iconStyle}>
-          {project.icon}
-        </span>
-        {project.stickers.map((sticker, i) => (
-          <span
-            key={i}
-            className={cn("sticker", sticker.kind, sticker.tone)}
-            style={sticker.style}
-          >
-            {sticker.text}
+    <StaggerItem>
+      <Link className="prow" href={project.href}>
+        <div className="prow-head">
+          <h3>{project.title}</h3>
+          <span className="pstatus" data-status={project.status}>
+            {STATUS_LABEL[project.status]}
           </span>
-        ))}
-      </div>
-      <div className="ptext">
-        <div className="proj-num">
-          <span className="num">{project.num}</span>
+          <ArrowUpRightIcon className="prow-go" aria-hidden />
         </div>
-        <div className="proj-title">
-          {project.title} <span className="yr">{project.year}</span>
-        </div>
-        <div className="proj-kind">{project.kind}</div>
-        <p className="proj-desc">{project.description}</p>
-        <div className="proj-tags">
-          {project.tags.map((tag) => (
-            <span key={tag} className="ptag">
-              {tag}
+        <p className="prow-desc">{project.description}</p>
+        <div className="prow-meta">
+          {project.scale && (
+            <span className="prow-scale">
+              <b>{project.scale.value}</b> {project.scale.label}
             </span>
-          ))}
+          )}
+          <span className="prow-facets">{meta.join(" · ")}</span>
         </div>
-        <Link className="proj-link" href={project.href}>
-          Read more <span className="a">→</span>
-        </Link>
-      </div>
-    </Reveal>
+      </Link>
+    </StaggerItem>
   );
 }

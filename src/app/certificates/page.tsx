@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-import { NavDots } from "@/components/layout/nav-dots";
 import { Reveal } from "@/components/motion/reveal";
+import { Stagger, StaggerItem } from "@/components/motion/stagger";
 
 import { CertificateCard } from "./_components/certificate-card";
 import { CERTIFICATES } from "./_components/certificates";
@@ -32,16 +32,17 @@ export default function CertificatesPage() {
 
         <section className="card">
           <Reveal as="div" className="clabel">
-            <span className="num">01</span> Credentials
+            Credentials
           </Reveal>
-          <Reveal className="cert-grid">
+          <Stagger className="cert-list">
             {CERTIFICATES.map((certificate) => (
-              <CertificateCard key={certificate.title} certificate={certificate} />
+              <StaggerItem key={certificate.title}>
+                <CertificateCard certificate={certificate} />
+              </StaggerItem>
             ))}
-          </Reveal>
+          </Stagger>
         </section>
       </main>
-      <NavDots />
     </>
   );
 }

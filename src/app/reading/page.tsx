@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-import { NavDots } from "@/components/layout/nav-dots";
 import { Reveal } from "@/components/motion/reveal";
+import { Stagger } from "@/components/motion/stagger";
 
 import { BookCard } from "./_components/book-card";
 import { BOOKS } from "./_components/books";
@@ -31,16 +31,15 @@ export default function ReadingPage() {
 
         <section className="card">
           <Reveal className="clabel">
-            <span className="num">01</span> Books
+            Books
           </Reveal>
-          <div className="shelf">
+          <Stagger className="shelf">
             {BOOKS.map((book) => (
               <BookCard key={book.slotId} book={book} />
             ))}
-          </div>
+          </Stagger>
         </section>
       </main>
-      <NavDots />
     </>
   );
 }

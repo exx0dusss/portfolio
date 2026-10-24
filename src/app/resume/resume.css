@@ -57,7 +57,7 @@
   white-space: nowrap;
 }
 .r-contact a {
-  color: var(--accent);
+  color: var(--accent-ink);
 }
 
 .r-grid {
@@ -108,7 +108,7 @@
 }
 .r-co {
   font-size: 13px;
-  color: var(--accent);
+  color: var(--accent-ink);
   font-weight: 500;
 }
 .r-when {
@@ -169,7 +169,7 @@
   margin-bottom: 0;
 }
 .r-side .li a {
-  color: var(--accent);
+  color: var(--accent-ink);
 }
 .r-lang {
   display: flex;

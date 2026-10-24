@@ -23,7 +23,6 @@ export interface HeroAction {
 }
 
 export interface ProjectHeroData {
-  icon: string;
   name: string;
   tagline: ReactNode;
   meta: MetaItem[];

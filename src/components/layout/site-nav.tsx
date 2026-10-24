@@ -3,18 +3,18 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { EnvelopeSimpleIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/utils/cn";
 
 const LINKS = [
-  { label: "Work", href: "/#work", match: "" },
-  { label: "Experience", href: "/experience", match: "/experience" },
-  { label: "Certificates", href: "/certificates", match: "/certificates" },
-  { label: "Reading", href: "/reading", match: "/reading" },
-  { label: "About", href: "/#about", match: "" },
+  { label: "Work", href: "/projects" },
+  { label: "Experience", href: "/experience" },
+  { label: "Reading", href: "/reading" },
+  { label: "Résumé", href: "/resume" },
 ] as const;
 
-/** Sticky top navigation, shared across every page. Highlights the link that
- *  matches the current route (anchor links never highlight). */
+/** Sticky top navigation, shared across every page. Highlights the link
+ *  whose section the current route belongs to. */
 export function SiteNav() {
   const pathname = usePathname();
 
@@ -22,23 +22,23 @@ export function SiteNav() {
     <nav className="nav">
       <div className="nav-in">
         <Link className="brand" href="/">
-          <span className="mk">T</span> Tymur Mustafaiev
+          <b>Tymur Mustafaiev</b>
+          <span>Front-end engineer · Warsaw</span>
         </Link>
         <div className="nav-links">
           {LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={cn(link.match && pathname === link.match && "active")}
+              className={cn(pathname.startsWith(link.href) && "active")}
             >
               {link.label}
             </Link>
           ))}
-          <Link className="av" href="/#contact">
-            <span className="dot" />
-            Available
-          </Link>
         </div>
+        <Link className="nav-cta" href="/#contact">
+          <EnvelopeSimpleIcon aria-hidden /> Get in touch
+        </Link>
       </div>
     </nav>
   );

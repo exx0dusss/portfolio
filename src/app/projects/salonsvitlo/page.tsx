@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import { NavDots } from "@/components/layout/nav-dots";
 import { Reveal } from "@/components/motion/reveal";
 import { ImageSlot } from "@/components/ui/image-slot";
 
@@ -14,19 +13,18 @@ import {
 } from "../_components";
 
 export const metadata: Metadata = {
-  title: "MyLamp",
+  title: "SalonSvitlo",
   description:
     "A full-stack e-commerce product for a lighting business with 20+ years in the trade — storefront, landing, a CRM to run it, and a Telegram bot with a web-app.",
-  alternates: { canonical: "/projects/mylamp" },
+  alternates: { canonical: "/projects/salonsvitlo" },
 };
 
-export default function MylampPage() {
+export default function SalonSvitloPage() {
   return (
     <>
       <main className="shell">
         <ProjectHero
-          icon="M"
-          name="MyLamp"
+          name="SalonSvitlo"
           tagline="A full-stack e-commerce product for a lighting business with 20+ years in the trade — storefront, landing, a CRM to run it, and a Telegram bot with a web-app."
           meta={[
             { key: "Year", value: "2024 — present" },
@@ -55,15 +53,15 @@ export default function MylampPage() {
         </section>
 
         <section className="card">
-          <SectionLabel num="01">Overview</SectionLabel>
+          <SectionLabel>Overview</SectionLabel>
           <Reveal className="prose">
             <p className="lead-q">
-              A lighting shop with two decades of experience, but no real digital presence. MyLamp is
+              A lighting shop with two decades of experience, but no real digital presence. SalonSvitlo is
               the whole stack that brought the business online — and gave the team the tools to run
               it.
             </p>
             <p style={{ marginTop: 18 }}>
-              MyLamp is more than a store. The customer side is a modern storefront and landing built
+              SalonSvitlo is more than a store. The customer side is a modern storefront and landing built
               on current UX practices; the business side is a <strong>CRM</strong> that handles
               orders, customer chat, and day-to-day operations — plus an AI assistant that can act on
               the store, and a Telegram bot with a web-app for customers who live in chat.
@@ -76,7 +74,7 @@ export default function MylampPage() {
         </section>
 
         <section className="card">
-          <SectionLabel num="02">What&#8217;s in it</SectionLabel>
+          <SectionLabel>What&#8217;s in it</SectionLabel>
           <FeatureGrid
             features={[
               {
@@ -108,7 +106,7 @@ export default function MylampPage() {
         </section>
 
         <section className="card" id="architecture">
-          <SectionLabel num="03">Architecture</SectionLabel>
+          <SectionLabel>Architecture</SectionLabel>
           <div style={{ marginBottom: 22 }}>
             <Reveal className="prose">
               <p>
@@ -150,7 +148,7 @@ export default function MylampPage() {
         </section>
 
         <section className="card">
-          <SectionLabel num="04">How it was built</SectionLabel>
+          <SectionLabel>How it was built</SectionLabel>
           <Reveal className="prose">
             <p>
               The challenge wasn&#8217;t any single feature — it was making a traditional business
@@ -167,7 +165,7 @@ export default function MylampPage() {
         </section>
 
         <section className="card">
-          <SectionLabel num="05">Gallery</SectionLabel>
+          <SectionLabel>Gallery</SectionLabel>
           <Gallery
             items={[
               { placeholder: "Storefront", wide: true },
@@ -177,9 +175,8 @@ export default function MylampPage() {
           />
         </section>
 
-        <NextProjectLink name="exd-tiktok-bot" href="/projects/exd-tiktok-bot" />
+        <NextProjectLink name="ExdDownloaderApp" href="/projects/exd-downloader-app" />
       </main>
-      <NavDots />
     </>
   );
 }

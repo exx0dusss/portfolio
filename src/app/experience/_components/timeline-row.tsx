@@ -14,15 +14,7 @@ export function TimelineRow({ entry }: { entry: TimelineEntry }) {
         <div className="tl-role">{entry.role}</div>
         <div className="tl-co">{entry.company}</div>
         {entry.description ? <p className="tl-desc">{entry.description}</p> : null}
-        {entry.tags ? (
-          <div className="proj-tags">
-            {entry.tags.map((tag) => (
-              <span key={tag} className="ptag">
-                {tag}
-              </span>
-            ))}
-          </div>
-        ) : null}
+        {entry.tags ? <div className="tl-tags">{entry.tags.join(" · ")}</div> : null}
       </div>
     </Reveal>
   );

@@ -1,12 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 
-import { Button } from "@/components/ui/button";
+import { POP } from "@/components/motion/springs";
+import { CheckIcon, CopyIcon } from "@/components/ui/icons";
 
 const RESET_MS = 1400;
 
-/** Email CTA that copies the address to the clipboard and confirms inline. */
+/** The email address as a large button that copies itself to the clipboard;
+ *  the copy icon swaps to a check to confirm. */
 export function CopyEmailButton({ email }: { email: string }) {
   const [copied, setCopied] = useState(false);
 
@@ -20,9 +23,23 @@ export function CopyEmailButton({ email }: { email: string }) {
   }
 
   return (
-    <Button variant="primary" className="copy-btn" onClick={copy}>
-      <span className="em">{copied ? "copied" : email}</span>{" "}
-      <span className="arrow">{copied ? "✓" : "⧉"}</span>
-    </Button>
+    <button type="button" className="mail" onClick={copy} aria-label={`Copy ${email}`}>
+      <span className="mail-addr">{email}</span>
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.span
+          key={copied ? "check" : "copy"}
+          className="mail-icon"
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.5, opacity: 0 }}
+          transition={{ ...POP, duration: 0.25 }}
+        >
+          {copied ? <CheckIcon aria-hidden /> : <CopyIcon aria-hidden />}
+        </motion.span>
+      </AnimatePresence>
+      <span className="mail-hint" aria-live="polite">
+        {copied ? "Copied" : ""}
+      </span>
+    </button>
   );
 }

@@ -1,50 +1,47 @@
 import { Reveal } from "@/components/motion/reveal";
 
-/** Two tiers: what I use daily vs. what I've shipped with. The long tail
+/** Two lists: what I use daily vs. what I've shipped with. The long tail
  *  (Vue, Three.js, Python, …) lives on the résumé and in JSON-LD only. */
 const STACK = [
   {
-    tier: "Daily",
-    rows: [
-      {
-        label: "Front-end",
-        value: "TypeScript, React & Server Components, Next.js, TanStack, Tailwind + shadcn/ui",
-      },
-      { label: "Design", value: "Figma, design systems & tokens, prototyping, usability testing" },
-      { label: "Quality", value: "Accessibility (WCAG), Core Web Vitals, Playwright, Vitest" },
-      { label: "AI", value: "LLM features with the AI SDK, agentic engineering" },
+    tier: "Every day",
+    items: [
+      "TypeScript, React, Next.js, TanStack",
+      "Figma, design systems and tokens",
+      "Accessibility and Core Web Vitals",
+      "AI features and AI-assisted development",
     ],
   },
   {
-    tier: "Shipped with",
-    rows: [
-      {
-        label: "Back-end & data",
-        value: "Node.js, NestJS, PostgreSQL, auth (sessions, OAuth), queues, WebSockets",
-      },
-      { label: "Infra", value: "Docker, Coolify, GitHub Actions, Cloudflare, Vercel, Sentry" },
+    tier: "Also shipped with",
+    items: [
+      "Node.js, NestJS, PostgreSQL",
+      "Payments, delivery and messaging integrations",
+      "Docker, GitHub Actions, Cloudflare, Vercel",
+      "Playwright and Vitest",
     ],
   },
 ] as const;
 
-/** Stack section: tiered, labelled list of tools by category. */
+/** Skills section: two plain lists. */
 export function StackSection() {
   return (
-    <section className="card" id="stack">
-      <Reveal as="div" className="clabel">
-        <span className="num">02</span> Stack
+    <section className="card" id="skills">
+      <Reveal as="h2" className="clabel">
+        Skills
       </Reveal>
-      {STACK.map((group) => (
-        <Reveal key={group.tier} className="sgroup">
-          <div className="stier">{group.tier}</div>
-          {group.rows.map((row) => (
-            <div className="srow" key={row.label}>
-              <div className="sk">{row.label}</div>
-              <div className="sv">{row.value}</div>
-            </div>
-          ))}
-        </Reveal>
-      ))}
+      <Reveal className="skills">
+        {STACK.map((group) => (
+          <div key={group.tier}>
+            <h3>{group.tier}</h3>
+            <ul>
+              {group.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </Reveal>
     </section>
   );
 }

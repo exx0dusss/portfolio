@@ -1,41 +1,59 @@
 import Link from "next/link";
 
-import { AnimatedGrid } from "@/components/backgrounds/animated-grid";
-import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/motion/reveal";
+import { Stagger, StaggerItem } from "@/components/motion/stagger";
+import { Button } from "@/components/ui/button";
+import {
+  ArrowDownIcon,
+  BrowserIcon,
+  DatabaseIcon,
+  FileTextIcon,
+  PenNibIcon,
+  SparkleIcon,
+} from "@/components/ui/icons";
 
-/** Hero: headline, intro, availability, and the two primary CTAs. */
+import { StickFigure } from "./stick-figure";
+
+/** What I do, in the client's words rather than the stack's. */
+const SCOPE = [
+  { icon: PenNibIcon, text: "Design products customers enjoy using" },
+  { icon: BrowserIcon, text: "Build fast, reliable websites and online stores" },
+  { icon: DatabaseIcon, text: "Connect payments, delivery and business systems" },
+  { icon: SparkleIcon, text: "Automate routine work with AI and chatbots" },
+] as const;
+
+/** Hero: one-line title, what I do as a short list, then the two actions,
+ *  with the waving figure on the right. */
 export function HeroSection() {
   return (
-    <header className="card hero" id="top" data-navlabel="Intro">
-      <AnimatedGrid />
-      <Reveal as="div" className="eye">
-        Front-End Engineer &amp; UX/UI Designer
-      </Reveal>
-      <Reveal as="h1" delay={1}>
-        I design and build interfaces — <span className="q">in TypeScript, across the stack.</span>
-      </Reveal>
-      <Reveal as="p" className="intro" delay={2}>
-        I&#8217;m Tymur, a front-end engineer and designer based in Warsaw. I take
-        products from Figma to production — React and Next.js on the front,
-        Node.js and Postgres underneath — and I&#8217;m increasingly building AI
-        features and agentic tooling into them. Recent projects include{" "}
-        <Link href="/projects/exdbots">ExdBots</Link>, a research data platform,
-        and an e-commerce store.
-      </Reveal>
-      <Reveal as="div" className="now" delay={3}>
-        <span className="dot" />
-        Open to front-end, full-stack TypeScript &amp; AI product roles · Warsaw, PL
-      </Reveal>
-      <Reveal as="div" className="cta" delay={3}>
-        <Button asChild variant="primary">
-          <Link href="/#work">
-            See my work <span className="arrow">→</span>
-          </Link>
-        </Button>
-        <Button asChild variant="ghost">
-          <Link href="/#contact">Get in touch</Link>
-        </Button>
+    <header className="hero" id="top">
+      <div className="hero-copy">
+        <Reveal as="h1">
+          I design and build web products<em>.</em>
+        </Reveal>
+        <Stagger as="ul" className="scope">
+          {SCOPE.map(({ icon: Icon, text }) => (
+            <StaggerItem as="li" key={text}>
+              <Icon aria-hidden />
+              {text}
+            </StaggerItem>
+          ))}
+        </Stagger>
+        <Reveal className="hero-actions" delay={3}>
+          <Button asChild>
+            <Link href="/#work">
+              <ArrowDownIcon aria-hidden /> See work
+            </Link>
+          </Button>
+          <Button asChild variant="ghost">
+            <Link href="/resume">
+              <FileTextIcon aria-hidden /> Résumé
+            </Link>
+          </Button>
+        </Reveal>
+      </div>
+      <Reveal className="hero-figure" delay={2}>
+        <StickFigure />
       </Reveal>
     </header>
   );

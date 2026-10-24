@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
+import { ArrowUpRightIcon } from "@/components/ui/icons";
 
 import { Backlink } from "./backlink";
 import type { Openness, ProjectHeroData } from "./projects-detail";
 
-/** Coloured access pill — maps the openness tone onto its .openness.* class. */
+/** Access label with a tone dot — maps the openness tone onto .openness.*. */
 function OpennessBadge({ openness }: { openness: Openness }) {
   return (
     <span className={`openness ${openness.tone}`}>
@@ -14,20 +15,15 @@ function OpennessBadge({ openness }: { openness: Openness }) {
 }
 
 /**
- * Project-detail hero: backlink, icon + name, tagline, the role/dates/stack
+ * Project-detail hero: backlink, name, tagline, the role/dates/stack
  * meta grid (with an access badge), and optional action buttons. Shared by all
  * four project pages — only the data differs.
  */
-export function ProjectHero({ icon, name, tagline, meta, openness, actions }: ProjectHeroData) {
+export function ProjectHero({ name, tagline, meta, openness, actions }: ProjectHeroData) {
   return (
     <header className="card p-hero">
       <Backlink />
-      <div className="p-top">
-        <div className="p-ico">{icon}</div>
-        <div>
-          <div className="p-name">{name}</div>
-        </div>
-      </div>
+      <h1 className="p-name">{name}</h1>
       <p className="p-tag">{tagline}</p>
       <div className="p-meta">
         {meta.map((item) => (
@@ -53,7 +49,7 @@ export function ProjectHero({ icon, name, tagline, meta, openness, actions }: Pr
             ) : (
               <Button key={action.label} variant={action.variant} asChild>
                 <a href={action.href} target="_blank" rel="noopener">
-                  {action.label} {action.external && <span className="arrow">↗</span>}
+                  {action.label} {action.external && <ArrowUpRightIcon aria-hidden />}
                 </a>
               </Button>
             ),

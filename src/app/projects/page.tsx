@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-import { NavDots } from "@/components/layout/nav-dots";
 import { Reveal } from "@/components/motion/reveal";
+import { Stagger } from "@/components/motion/stagger";
 
 import { ProjectCard } from "../_components/project-card";
 import { PROJECTS } from "../_components/projects";
@@ -9,13 +9,12 @@ import { PROJECTS } from "../_components/projects";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Case studies by Tymur Mustafaiev — ExdBots, a Telegram app platform; Giga Psych, a research data platform; MyLamp, a full-stack e-commerce store; and exd-tiktok-bot.",
+    "Case studies by Tymur Mustafaiev — ExdBots, a Telegram app platform; Giga Psych, a research data platform; SalonSvitlo, a full-stack e-commerce store; and ExdDownloaderApp.",
   alternates: { canonical: "/projects" },
 };
 
 export default function ProjectsPage() {
   return (
-    <>
       <main className="shell">
         <header className="card">
           <Reveal className="clabel">Projects</Reveal>
@@ -29,15 +28,15 @@ export default function ProjectsPage() {
         </header>
 
         <section className="card">
-          <Reveal as="div" className="clabel">
-            <span className="num">01</span> Work
+          <Reveal as="h2" className="clabel">
+            Work
           </Reveal>
-          {PROJECTS.map((project) => (
-            <ProjectCard key={project.slotId} project={project} />
-          ))}
+          <Stagger className="plist">
+            {PROJECTS.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
+          </Stagger>
         </section>
       </main>
-      <NavDots />
-    </>
   );
 }

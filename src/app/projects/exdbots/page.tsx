@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { NavDots } from "@/components/layout/nav-dots";
 import { Reveal } from "@/components/motion/reveal";
 import { ImageSlot } from "@/components/ui/image-slot";
 
@@ -28,7 +27,6 @@ export default function ExdbotsPage() {
     <>
       <main className="shell">
         <ProjectHero
-          icon="E"
           name="ExdBots"
           tagline="A platform for building and running Telegram applications — design bots in a no-code web editor, connect existing ones, and manage ads, analytics, and monitoring from a single console."
           meta={[
@@ -54,7 +52,7 @@ export default function ExdbotsPage() {
         </section>
 
         <section className="card">
-          <SectionLabel num="01">Overview</SectionLabel>
+          <SectionLabel>Overview</SectionLabel>
           <Reveal className="prose">
             <p className="lead-q">
               Most bot frameworks make you choose between a quick script and a real product. ExdBots
@@ -70,8 +68,8 @@ export default function ExdbotsPage() {
               The web console acts as the control center: you assemble bot flows, connect bots you
               already run, and watch analytics, ad performance, and health in one place. It grew
               directly out of{" "}
-              <Link href="/projects/exd-tiktok-bot" style={ACCENT}>
-                exd-tiktok-bot
+              <Link href="/projects/exd-downloader-app" style={ACCENT}>
+                ExdDownloaderApp
               </Link>{" "}
               — the patterns that worked there became the foundation here.
             </p>
@@ -79,7 +77,7 @@ export default function ExdbotsPage() {
         </section>
 
         <section className="card">
-          <SectionLabel num="02">What&#8217;s inside</SectionLabel>
+          <SectionLabel>What&#8217;s inside</SectionLabel>
           <FeatureGrid
             features={[
               {
@@ -111,7 +109,7 @@ export default function ExdbotsPage() {
         </section>
 
         <section className="card" id="architecture">
-          <SectionLabel num="03">Architecture</SectionLabel>
+          <SectionLabel>Architecture</SectionLabel>
           <div style={{ marginBottom: 22 }}>
             <Reveal className="prose">
               <p>
@@ -156,7 +154,7 @@ export default function ExdbotsPage() {
         </section>
 
         <section className="card">
-          <SectionLabel num="04">How it was built</SectionLabel>
+          <SectionLabel>How it was built</SectionLabel>
           <Reveal className="prose">
             <p>
               The platform started as extraction, not invention. After shipping several bots by hand,
@@ -182,7 +180,7 @@ export default function ExdbotsPage() {
         </section>
 
         <section className="card">
-          <SectionLabel num="05">Gallery</SectionLabel>
+          <SectionLabel>Gallery</SectionLabel>
           <Gallery
             items={[
               { placeholder: "Console / dashboard", wide: true },
@@ -194,7 +192,6 @@ export default function ExdbotsPage() {
 
         <NextProjectLink name="Giga Psych" href="/projects/giga-psych" />
       </main>
-      <NavDots />
     </>
   );
 }

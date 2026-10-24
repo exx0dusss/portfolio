@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { NavDots } from "@/components/layout/nav-dots";
 import { Reveal } from "@/components/motion/reveal";
 
 import {
@@ -15,19 +14,18 @@ import {
 const ACCENT = { color: "var(--accent)" } as const;
 
 export const metadata: Metadata = {
-  title: "exd-tiktok-bot",
+  title: "ExdDownloaderApp",
   description:
     "A Telegram bot that downloads TikTok videos — and the project where the ExdBots system design was born.",
-  alternates: { canonical: "/projects/exd-tiktok-bot" },
+  alternates: { canonical: "/projects/exd-downloader-app" },
 };
 
-export default function ExdTiktokBotPage() {
+export default function ExdDownloaderAppPage() {
   return (
     <>
       <main className="shell">
         <ProjectHero
-          icon="t"
-          name="exd-tiktok-bot"
+          name="ExdDownloaderApp"
           tagline="A Telegram bot that downloads TikTok videos — and the project where the ExdBots system design was born."
           meta={[
             { key: "Year", value: "2023 — present" },
@@ -46,14 +44,14 @@ export default function ExdTiktokBotPage() {
         />
 
         <section className="card">
-          <SectionLabel num="01">Overview</SectionLabel>
+          <SectionLabel>Overview</SectionLabel>
           <Reveal className="prose">
             <p className="lead-q">
               It looks simple — send a link, get a video. Under the hood it&#8217;s where I figured out
               how to structure a bot that could actually grow.
             </p>
             <p style={{ marginTop: 18 }}>
-              exd-tiktok-bot does one job well: you send it a TikTok link and it returns the video.
+              ExdDownloaderApp does one job well: you send it a TikTok link and it returns the video.
               But it was written before the agentic-engineering era, by hand, and it became my testing
               ground for <strong>system design</strong> — the menu system, the per-user state, the way
               flows are structured.
@@ -70,7 +68,7 @@ export default function ExdTiktokBotPage() {
         </section>
 
         <section className="card">
-          <SectionLabel num="02">Highlights</SectionLabel>
+          <SectionLabel>Highlights</SectionLabel>
           <FeatureGrid
             features={[
               {
@@ -102,7 +100,7 @@ export default function ExdTiktokBotPage() {
         </section>
 
         <section className="card" id="architecture">
-          <SectionLabel num="03">Architecture</SectionLabel>
+          <SectionLabel>Architecture</SectionLabel>
           <div style={{ marginBottom: 22 }}>
             <Reveal className="prose">
               <p>
@@ -137,7 +135,7 @@ export default function ExdTiktokBotPage() {
         </section>
 
         <section className="card">
-          <SectionLabel num="04">How it was built</SectionLabel>
+          <SectionLabel>How it was built</SectionLabel>
           <Reveal className="prose">
             <p>
               This one was written the old way — no agents, no scaffolding, just figuring it out. That
@@ -154,7 +152,6 @@ export default function ExdTiktokBotPage() {
 
         <NextProjectLink name="ExdBots" href="/projects/exdbots" />
       </main>
-      <NavDots />
     </>
   );
 }

@@ -4,6 +4,7 @@ import apisStrategyGuide from "./covers/apis-strategy-guide.jpg";
 import atomicDesign from "./covers/atomic-design.jpg";
 import cssDefinitiveGuide from "./covers/css-definitive-guide.jpg";
 import ddia from "./covers/ddia.jpg";
+import designPatterns from "./covers/design-patterns.jpg";
 import fundamentalsSoftwareArchitecture from "./covers/fundamentals-software-architecture.jpg";
 import learningTypescript from "./covers/learning-typescript.jpg";
 import nodejsDesignPatterns from "./covers/nodejs-design-patterns.jpg";
@@ -14,11 +15,12 @@ export interface Book {
   slotId: string;
   title: string;
   author: string;
-  /** Source-domain hint shown on the .bn line (with the ↗ glyph appended). */
+  /** Source-domain hint shown on the .bn line. */
   sourceLabel: string;
   /** Real external source URL. */
   href: string;
-  /** Static import, so next/image knows the cover's true aspect ratio. */
+  /** Static import: next/image gets the size and a blur placeholder. Covers
+   *  are close to 3:4; any that aren't are pre-cropped to it. */
   cover: StaticImageData;
 }
 
@@ -64,6 +66,14 @@ export const BOOKS: Book[] = [
     sourceLabel: "nodejsdesignpatterns.com",
     href: "https://www.nodejsdesignpatterns.com/",
     cover: nodejsDesignPatterns,
+  },
+  {
+    slotId: "design-patterns",
+    title: "Design Patterns",
+    author: "Gamma, Helm, Johnson & Vlissides",
+    sourceLabel: "informit.com",
+    href: "https://www.informit.com/store/design-patterns-elements-of-reusable-object-oriented-9780201633610",
+    cover: designPatterns,
   },
   {
     slotId: "ddia",
