@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { NavDots } from "@/components/layout/nav-dots";
@@ -14,6 +15,13 @@ import {
 } from "../_components";
 
 const ACCENT = { color: "var(--accent)" } as const;
+
+export const metadata: Metadata = {
+  title: "ExdBots",
+  description:
+    "A platform for building and running Telegram applications — design bots in a no-code web editor, connect existing ones, and manage ads, analytics, and monitoring from a single console.",
+  alternates: { canonical: "/projects/exdbots" },
+};
 
 export default function ExdbotsPage() {
   return (

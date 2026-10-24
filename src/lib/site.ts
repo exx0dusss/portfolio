@@ -1,0 +1,40 @@
+/** Site-wide identity shared by metadata, the sitemap, the OG image, and JSON-LD. */
+export const SITE = {
+  url: "https://tymurmustafaiev.com",
+  name: "Tymur Mustafaiev",
+  role: "Front-End Engineer & UX/UI Designer",
+  description:
+    "Tymur Mustafaiev — a Warsaw-based front-end engineer and UX/UI designer building web apps in TypeScript across the stack, from Figma to production, with a growing focus on AI products.",
+  email: "tymurmustafaiev029@gmail.com",
+  sameAs: [
+    "https://github.com/exx0dusss",
+    "https://linkedin.com/in/tymur-mustafaiev-968b3724b",
+  ],
+  /** Indexed via JSON-LD, including the long tail that isn't shown in the Stack section. */
+  knowsAbout: [
+    "TypeScript",
+    "React",
+    "Next.js",
+    "TanStack",
+    "Tailwind CSS",
+    "Accessibility",
+    "Core Web Vitals",
+    "Design systems",
+    "Figma",
+    "UX design",
+    "Node.js",
+    "NestJS",
+    "PostgreSQL",
+    "WebSockets",
+    "Docker",
+    "Playwright",
+    "Vitest",
+    "Storybook",
+    "AI SDK",
+    "Agentic engineering",
+    "Vue",
+    "Svelte",
+    "Three.js",
+    "Python",
+  ],
+} as const;

@@ -1,5 +1,16 @@
+import type { StaticImageData } from "next/image";
+
+import apisStrategyGuide from "./covers/apis-strategy-guide.jpg";
+import atomicDesign from "./covers/atomic-design.jpg";
+import cssDefinitiveGuide from "./covers/css-definitive-guide.jpg";
+import ddia from "./covers/ddia.jpg";
+import fundamentalsSoftwareArchitecture from "./covers/fundamentals-software-architecture.jpg";
+import learningTypescript from "./covers/learning-typescript.jpg";
+import nodejsDesignPatterns from "./covers/nodejs-design-patterns.jpg";
+import refactoringUi from "./covers/refactoring-ui.jpg";
+
 export interface Book {
-  /** Stable key + future cover-asset slot id. */
+  /** Stable key. */
   slotId: string;
   title: string;
   author: string;
@@ -7,65 +18,75 @@ export interface Book {
   sourceLabel: string;
   /** Real external source URL. */
   href: string;
+  /** Static import, so next/image knows the cover's true aspect ratio. */
+  cover: StaticImageData;
 }
 
-/** Reading shelf content. Mirrors the approved design's eight books —
- *  titles, authors, source-domain hints, and real external source URLs. */
+/** Reading shelf content, roughly design → front-end → back-end. Covers are
+ *  the editions on my shelf. */
 export const BOOKS: Book[] = [
   {
-    slotId: "book_1",
+    slotId: "refactoring-ui",
     title: "Refactoring UI",
     author: "Wathan & Schoger",
     sourceLabel: "refactoringui.com",
     href: "https://www.refactoringui.com/",
+    cover: refactoringUi,
   },
   {
-    slotId: "book_2",
-    title: "The Pragmatic Programmer",
-    author: "Hunt & Thomas",
-    sourceLabel: "pragprog.com",
-    href: "https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/",
+    slotId: "atomic-design",
+    title: "Atomic Design",
+    author: "Brad Frost",
+    sourceLabel: "bradfrost.com",
+    href: "https://atomicdesign.bradfrost.com/",
+    cover: atomicDesign,
   },
   {
-    slotId: "book_3",
+    slotId: "css-definitive-guide",
+    title: "CSS: The Definitive Guide",
+    author: "Meyer & Weyl",
+    sourceLabel: "oreilly.com",
+    href: "https://www.oreilly.com/library/view/css-the-definitive/9781098117603/",
+    cover: cssDefinitiveGuide,
+  },
+  {
+    slotId: "learning-typescript",
+    title: "Learning TypeScript",
+    author: "Josh Goldberg",
+    sourceLabel: "learningtypescript.com",
+    href: "https://www.learningtypescript.com/",
+    cover: learningTypescript,
+  },
+  {
+    slotId: "nodejs-design-patterns",
+    title: "Node.js Design Patterns",
+    author: "Casciaro & Mammino",
+    sourceLabel: "nodejsdesignpatterns.com",
+    href: "https://www.nodejsdesignpatterns.com/",
+    cover: nodejsDesignPatterns,
+  },
+  {
+    slotId: "ddia",
     title: "Designing Data-Intensive Applications",
     author: "Martin Kleppmann",
     sourceLabel: "dataintensive.net",
     href: "https://dataintensive.net/",
+    cover: ddia,
   },
   {
-    slotId: "book_4",
-    title: "The Design of Everyday Things",
-    author: "Don Norman",
-    sourceLabel: "nngroup.com",
-    href: "https://www.nngroup.com/books/design-everyday-things-revised/",
+    slotId: "fundamentals-software-architecture",
+    title: "Fundamentals of Software Architecture",
+    author: "Richards & Ford",
+    sourceLabel: "fundamentalsofsoftwarearchitecture.com",
+    href: "https://fundamentalsofsoftwarearchitecture.com/",
+    cover: fundamentalsSoftwareArchitecture,
   },
   {
-    slotId: "book_5",
-    title: "Don’t Make Me Think",
-    author: "Steve Krug",
-    sourceLabel: "sensible.com",
-    href: "https://sensible.com/dont-make-me-think/",
-  },
-  {
-    slotId: "book_6",
-    title: "Shape Up",
-    author: "Ryan Singer",
-    sourceLabel: "basecamp.com",
-    href: "https://basecamp.com/shapeup",
-  },
-  {
-    slotId: "book_7",
-    title: "Clean Code",
-    author: "Robert C. Martin",
+    slotId: "apis-strategy-guide",
+    title: "APIs: A Strategy Guide",
+    author: "Jacobson, Brail & Woods",
     sourceLabel: "oreilly.com",
-    href: "https://www.oreilly.com/library/view/clean-code-a/9780136083238/",
-  },
-  {
-    slotId: "book_8",
-    title: "Atomic Habits",
-    author: "James Clear",
-    sourceLabel: "jamesclear.com",
-    href: "https://jamesclear.com/atomic-habits",
+    href: "https://www.oreilly.com/library/view/apis-a-strategy/9781449321628/",
+    cover: apisStrategyGuide,
   },
 ];

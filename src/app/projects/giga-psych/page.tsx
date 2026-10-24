@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { NavDots } from "@/components/layout/nav-dots";
 import { Reveal } from "@/components/motion/reveal";
 
@@ -8,6 +10,13 @@ import {
   ProjectHero,
   SectionLabel,
 } from "../_components";
+
+export const metadata: Metadata = {
+  title: "Giga Psych",
+  description:
+    "A web platform for exploring psychological research datasets, built with the PJATK XR Lab and researchers at the University of Amsterdam.",
+  alternates: { canonical: "/projects/giga-psych" },
+};
 
 export default function GigaPsychPage() {
   return (

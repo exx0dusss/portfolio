@@ -19,7 +19,7 @@ export function ContactSection() {
   return (
     <section className="card contact" id="contact" data-navlabel="Contact">
       <Reveal as="div" className="clabel">
-        <span className="num">04</span> Contact
+        <span className="num">05</span> Contact
       </Reveal>
       <Reveal as="h2" delay={1}>
         Get in touch.

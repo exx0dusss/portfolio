@@ -4,6 +4,7 @@ import { Caveat, Geist, Geist_Mono } from "next/font/google";
 import { SiteDock } from "@/components/layout/site-dock";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteNav } from "@/components/layout/site-nav";
+import { SITE } from "@/lib/site";
 import "@/styles/globals.css";
 
 const geist = Geist({
@@ -23,9 +24,34 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "Tymur Mustafaiev — Full-Stack Developer & Designer",
-  description:
-    "Tymur Mustafaiev — a Warsaw-based front-end developer and UX/UI designer working across the stack in TypeScript.",
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: `${SITE.name} — ${SITE.role}`,
+    template: `%s — ${SITE.name}`,
+  },
+  description: SITE.description,
+  openGraph: {
+    type: "website",
+    siteName: SITE.name,
+    locale: "en_US",
+  },
+  twitter: { card: "summary_large_image" },
+};
+
+const PERSON_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: SITE.name,
+  url: SITE.url,
+  jobTitle: SITE.role,
+  email: `mailto:${SITE.email}`,
+  address: { "@type": "PostalAddress", addressLocality: "Warsaw", addressCountry: "PL" },
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Polish-Japanese Academy of Information Technologies",
+  },
+  sameAs: SITE.sameAs,
+  knowsAbout: SITE.knowsAbout,
 };
 
 export default function RootLayout({
@@ -36,6 +62,10 @@ export default function RootLayout({
       <body
         className={`${geist.variable} ${geistMono.variable} ${caveat.variable}`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSON_LD) }}
+        />
         <SiteNav />
         {children}
         <SiteFooter />

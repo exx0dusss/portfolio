@@ -1,8 +1,17 @@
+import type { Metadata } from "next";
+
 import { NavDots } from "@/components/layout/nav-dots";
 import { Reveal } from "@/components/motion/reveal";
 
 import { TimelineRow } from "./_components/timeline-row";
 import { EDUCATION, ROLES } from "./_components/timeline";
+
+export const metadata: Metadata = {
+  title: "Experience",
+  description:
+    "Roles and education of Tymur Mustafaiev — front-end, UX/UI design, and full-stack work at Softica Tech, MyLamp, and PCEXPERT; Master’s student at PJATK in Warsaw.",
+  alternates: { canonical: "/experience" },
+};
 
 export default function ExperiencePage() {
   return (

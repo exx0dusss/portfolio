@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { NavDots } from "@/components/layout/nav-dots";
 import { Reveal } from "@/components/motion/reveal";
 import { ImageSlot } from "@/components/ui/image-slot";
@@ -10,6 +12,13 @@ import {
   ProjectHero,
   SectionLabel,
 } from "../_components";
+
+export const metadata: Metadata = {
+  title: "MyLamp",
+  description:
+    "A full-stack e-commerce product for a lighting business with 20+ years in the trade — storefront, landing, a CRM to run it, and a Telegram bot with a web-app.",
+  alternates: { canonical: "/projects/mylamp" },
+};
 
 export default function MylampPage() {
   return (

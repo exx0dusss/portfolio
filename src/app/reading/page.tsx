@@ -1,8 +1,17 @@
+import type { Metadata } from "next";
+
 import { NavDots } from "@/components/layout/nav-dots";
 import { Reveal } from "@/components/motion/reveal";
 
 import { BookCard } from "./_components/book-card";
 import { BOOKS } from "./_components/books";
+
+export const metadata: Metadata = {
+  title: "Reading",
+  description:
+    "The books behind how Tymur Mustafaiev designs and builds — interface design, CSS, TypeScript, Node.js, data-intensive systems, and software architecture.",
+  alternates: { canonical: "/reading" },
+};
 
 export default function ReadingPage() {
   return (
@@ -14,9 +23,9 @@ export default function ReadingPage() {
             On my shelf.
           </Reveal>
           <Reveal as="p" delay={2} className="page-lead">
-            A few books that shaped how I build and think — a mix of engineering
-            and design. Each links out to its source. Drop the covers in and
-            swap any title for your own.
+            The books behind how I design and build — from interfaces and CSS to
+            Node.js, data systems, and architecture. Each links out to its
+            source.
           </Reveal>
         </header>
 

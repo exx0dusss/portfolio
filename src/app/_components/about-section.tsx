@@ -8,7 +8,7 @@ export function AboutSection() {
   return (
     <section className="card" id="about">
       <Reveal as="div" className="clabel">
-        <span className="num">03</span> About
+        <span className="num">04</span> About
       </Reveal>
       <div className="about-grid">
         <Reveal className="about-portrait">

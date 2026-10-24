@@ -20,21 +20,22 @@ export function HeroSection() {
         />
       </Reveal>
       <Reveal as="div" className="eye">
-        Middle Front-End Developer &amp; UX/UI Designer
+        Front-End Engineer &amp; UX/UI Designer
       </Reveal>
       <Reveal as="h1" delay={1}>
-        I build full-stack web apps — <span className="q">and design the interfaces.</span>
+        I design and build interfaces — <span className="q">in TypeScript, across the stack.</span>
       </Reveal>
       <Reveal as="p" className="intro" delay={2}>
-        I&#8217;m Tymur, a developer based in Warsaw. I work across the stack in
-        TypeScript — frontend, backend, and the data model — and design as I go.
-        My work ranges from web apps and internal tools to developer tooling.
-        Recent projects include <Link href="/#work">ExdBots</Link>, a research
-        data platform, and an e-commerce store.
+        I&#8217;m Tymur, a front-end engineer and designer based in Warsaw. I take
+        products from Figma to production — React and Next.js on the front,
+        Node.js and Postgres underneath — and I&#8217;m increasingly building AI
+        features and agentic tooling into them. Recent projects include{" "}
+        <Link href="/projects/exdbots">ExdBots</Link>, a research data platform,
+        and an e-commerce store.
       </Reveal>
       <Reveal as="div" className="now" delay={3}>
         <span className="dot" />
-        Looking for a Design Engineer role · Warsaw, PL
+        Open to front-end, full-stack TypeScript &amp; AI product roles · Warsaw, PL
       </Reveal>
       <Reveal as="div" className="cta" delay={3}>
         <Button asChild variant="primary">

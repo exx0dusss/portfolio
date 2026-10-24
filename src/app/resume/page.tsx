@@ -7,9 +7,10 @@ import { PrintButton } from "./_components/print-button";
 import "./resume.css";
 
 export const metadata: Metadata = {
-  title: "Résumé — Tymur Mustafaiev",
+  title: "Résumé",
   description:
-    "Résumé of Tymur Mustafaiev — Middle Front-End Developer & UX/UI Designer based in Warsaw.",
+    "Résumé of Tymur Mustafaiev — Front-End Engineer & UX/UI Designer based in Warsaw.",
+  alternates: { canonical: "/resume" },
 };
 
 const EMAIL = "tymurmustafaiev029@gmail.com";
@@ -34,7 +35,7 @@ export default function ResumePage() {
         <header className="r-head">
           <div>
             <h1>Tymur Mustafaiev</h1>
-            <div className="r-title">Middle Front-End Developer &amp; UX/UI Designer</div>
+            <div className="r-title">Front-End Engineer &amp; UX/UI Designer</div>
           </div>
           <div className="r-contact">
             Warsaw, Poland
@@ -55,7 +56,7 @@ export default function ResumePage() {
               </div>
               <div className="sk">
                 <div className="skk">Frameworks</div>
-                <div className="skv">React, Next.js, TanStack Start, Node.js, Deno, NestJS</div>
+                <div className="skv">React, Next.js, TanStack Start, Node.js, NestJS, Deno, Bun</div>
               </div>
               <div className="sk">
                 <div className="skk">UI &amp; Design</div>
@@ -66,11 +67,14 @@ export default function ResumePage() {
               </div>
               <div className="sk">
                 <div className="skk">Testing</div>
-                <div className="skv">Playwright, Vitest, Jest, MSW</div>
+                <div className="skv">Playwright, Vitest, Jest, MSW, Storybook</div>
               </div>
               <div className="sk">
                 <div className="skk">Tooling &amp; AI</div>
-                <div className="skv">Git, pnpm, Vite, TanStack Query/Form, Claude, Cursor, Codex</div>
+                <div className="skv">
+                  Git, pnpm, Vite, TanStack Query/Form, AI SDK, agentic engineering (Claude Code,
+                  Cursor, Codex)
+                </div>
               </div>
             </div>
 
@@ -137,10 +141,10 @@ export default function ResumePage() {
             <div className="r-block">
               <h2 className="r-h">Summary</h2>
               <p className="r-summary">
-                Full-stack engineer and UX/UI designer who treats software as a craft and loves
-                shipping beautiful, well-built things. Adaptive and independent, with a focus on
-                responsive, scalable applications across the whole stack — interface, backend, and
-                the systems behind them.
+                Front-end engineer and UX/UI designer who treats software as a craft and loves
+                shipping beautiful, well-built things. I take products from Figma to production in
+                TypeScript — interface, backend, and the systems behind them — and I&#8217;m
+                increasingly building AI features into them.
               </p>
             </div>
 

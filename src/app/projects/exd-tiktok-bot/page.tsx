@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { NavDots } from "@/components/layout/nav-dots";
@@ -12,6 +13,13 @@ import {
 } from "../_components";
 
 const ACCENT = { color: "var(--accent)" } as const;
+
+export const metadata: Metadata = {
+  title: "exd-tiktok-bot",
+  description:
+    "A Telegram bot that downloads TikTok videos — and the project where the ExdBots system design was born.",
+  alternates: { canonical: "/projects/exd-tiktok-bot" },
+};
 
 export default function ExdTiktokBotPage() {
   return (
