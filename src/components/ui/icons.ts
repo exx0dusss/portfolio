@@ -5,6 +5,7 @@ export {
   ArrowLeftIcon,
   ArrowRightIcon,
   ArrowsOutIcon,
+  ArrowUpIcon,
   ArrowUpRightIcon,
   BookOpenIcon,
   BriefcaseIcon,

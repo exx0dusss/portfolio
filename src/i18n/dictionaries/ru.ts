@@ -20,6 +20,7 @@ export const ru: Dictionary = {
     language: "Язык",
     theme: { label: "Тема", system: "Системная", light: "Светлая", dark: "Тёмная" },
     menu: { open: "Открыть меню", close: "Закрыть меню" },
+    toTop: "Наверх",
     certificates: "Сертификаты",
   },
   footer: { certificates: "Сертификаты", colophon: "Колофон" },

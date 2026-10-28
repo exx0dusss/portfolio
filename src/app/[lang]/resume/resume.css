@@ -246,6 +246,7 @@
   .dock,
   .navdots,
   .foot,
+  .scroll-top,
   .r-bar {
     display: none !important;
   }

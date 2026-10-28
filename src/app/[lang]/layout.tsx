@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 
 import { HistoryScroll } from "@/components/layout/history-scroll";
+import { ScrollToTop } from "@/components/layout/scroll-to-top";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteNav } from "@/components/layout/site-nav";
 import { getDictionary, hasLocale, LOCALES, OG_LOCALE } from "@/i18n";
@@ -103,6 +104,7 @@ export default async function RootLayout({
         <SiteNav lang={lang} dict={dict.nav} name={dict.name} />
         {children}
         <SiteFooter lang={lang} dict={dict.footer} name={dict.name} />
+        <ScrollToTop label={dict.nav.toTop} />
       </body>
     </html>
   );

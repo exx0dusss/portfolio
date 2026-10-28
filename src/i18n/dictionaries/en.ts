@@ -26,6 +26,7 @@ export interface Dictionary {
     language: string;
     theme: { label: string; system: string; light: string; dark: string };
     menu: { open: string; close: string };
+    toTop: string;
     certificates: string;
   };
   footer: { certificates: string; colophon: string };
@@ -97,6 +98,7 @@ export const en: Dictionary = {
     language: "Language",
     theme: { label: "Theme", system: "System", light: "Light", dark: "Dark" },
     menu: { open: "Open menu", close: "Close menu" },
+    toTop: "Back to top",
     certificates: "Certificates",
   },
   footer: { certificates: "Certificates", colophon: "Colophon" },

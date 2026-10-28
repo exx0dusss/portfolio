@@ -20,6 +20,7 @@ export const uk: Dictionary = {
     language: "Мова",
     theme: { label: "Тема", system: "Системна", light: "Світла", dark: "Темна" },
     menu: { open: "Відкрити меню", close: "Закрити меню" },
+    toTop: "Нагору",
     certificates: "Сертифікати",
   },
   footer: { certificates: "Сертифікати", colophon: "Колофон" },

@@ -282,6 +282,51 @@ a {
   width: 18px;
   height: 18px;
 }
+
+/* back-to-top button (layout/scroll-to-top): fixed bottom-right, fades and
+   rises in once past the first screen. Below the nav and popups. */
+.scroll-top {
+  position: fixed;
+  right: 24px;
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--fg-dim);
+  box-shadow: 0 6px 18px -8px rgb(var(--shadow-rgb) / 0.35);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.2s,
+    transform 0.35s var(--ease-out),
+    color 0.15s,
+    border-color 0.15s;
+}
+.scroll-top[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+}
+.scroll-top:hover {
+  color: var(--fg);
+  border-color: var(--fg-faint);
+}
+.scroll-top svg {
+  width: 18px;
+  height: 18px;
+}
+@media (max-width: 760px) {
+  .scroll-top {
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+  }
+}
 .nav-cta {
   display: inline-flex;
   align-items: center;
