@@ -846,7 +846,9 @@ a {
     border-bottom: 1px solid var(--line);
   }
   .mobile-menu li a {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 12px;
     padding: 14px 0;
     font-size: 28px;
     font-weight: 600;
@@ -854,6 +856,34 @@ a {
     color: var(--fg);
   }
   .mobile-menu li a.active {
+    color: var(--accent-ink);
+  }
+  /* item icon: tucked away left of the label (its width plus the gap),
+     sliding in and pushing the label right on hover or keyboard focus; the
+     current page always shows its icon, in the accent like its label */
+  .menu-icon {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    margin-left: -36px;
+    color: var(--fg-faint);
+    opacity: 0;
+    transition:
+      margin-left 0.25s var(--ease-out),
+      opacity 0.2s var(--ease-out);
+  }
+  .mobile-menu li a:focus-visible .menu-icon,
+  .mobile-menu li a.active .menu-icon {
+    margin-left: 0;
+    opacity: 1;
+  }
+  @media (hover: hover) {
+    .mobile-menu li a:hover .menu-icon {
+      margin-left: 0;
+      opacity: 1;
+    }
+  }
+  .mobile-menu li a.active .menu-icon {
     color: var(--accent-ink);
   }
   .mobile-menu-end {

@@ -5,7 +5,17 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { FaceIcon } from "@/components/ui/face-icon";
-import { EnvelopeSimpleIcon, ListIcon, XIcon } from "@/components/ui/icons";
+import {
+  BookOpenIcon,
+  CertificateIcon,
+  EnvelopeSimpleIcon,
+  FileTextIcon,
+  FolderSimpleIcon,
+  ListIcon,
+  PathIcon,
+  UserIcon,
+  XIcon,
+} from "@/components/ui/icons";
 import {
   LOCALE_LABEL,
   LOCALES,
@@ -53,13 +63,14 @@ export function SiteNav({ lang, dict, name }: SiteNavProps) {
   const { path } = splitLocale(usePathname());
   const [open, setOpen] = useState(false);
 
+  // icons appear in the mobile menu only (on hover/focus, and for the page you're on)
   const links = [
-    { label: dict.work, path: "/projects" },
-    { label: dict.about, path: "/about" },
-    { label: dict.experience, path: "/experience" },
-    { label: dict.reading, path: "/reading" },
+    { label: dict.work, path: "/projects", Icon: FolderSimpleIcon },
+    { label: dict.about, path: "/about", Icon: UserIcon },
+    { label: dict.experience, path: "/experience", Icon: PathIcon },
+    { label: dict.reading, path: "/reading", Icon: BookOpenIcon },
     // the résumé is English-only for now
-    { label: dict.resume, path: "/resume", englishOnly: true },
+    { label: dict.resume, path: "/resume", englishOnly: true, Icon: FileTextIcon },
   ];
   const href = (link: { path: string; englishOnly?: boolean }) =>
     link.englishOnly ? link.path : localePath(lang, link.path);
@@ -133,17 +144,21 @@ export function SiteNav({ lang, dict, name }: SiteNavProps) {
       {/* inert while closed: hidden links stay out of tab order and AT */}
       <div id="mobile-menu" className="mobile-menu" data-open={open} inert={!open}>
         <ul>
-          {[...links, { label: dict.certificates, path: "/certificates" }].map((link) => (
-            <li key={link.path}>
-              <Link
-                href={href(link)}
-                className={cn(path.startsWith(link.path) && "active")}
-                onClick={close}
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
+          {[...links, { label: dict.certificates, path: "/certificates", Icon: CertificateIcon }].map(
+            ({ Icon, ...link }) => (
+              <li key={link.path}>
+                <Link
+                  href={href(link)}
+                  className={cn(path.startsWith(link.path) && "active")}
+                  aria-current={path.startsWith(link.path) ? "page" : undefined}
+                  onClick={close}
+                >
+                  <Icon className="menu-icon" aria-hidden />
+                  <span>{link.label}</span>
+                </Link>
+              </li>
+            ),
+          )}
         </ul>
         <div className="mobile-menu-end">
           <LangSwitch lang={lang} path={path} label={dict.language} />
