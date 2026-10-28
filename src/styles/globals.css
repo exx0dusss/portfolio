@@ -239,9 +239,11 @@
   --spacing-mail-pad: 0.12em;
   --spacing-mail-icon: 0.55em;
   /* a project's favicon beside its case-study title: 0.8 of the title's
-     height, a quarter of it apart */
+     height, a quarter of it apart, and nudged down 0.1em so it centres on
+     the title's first line (the title's line height is 1em) */
   --spacing-title-icon: 0.8em;
   --spacing-title-icon-gap: 0.25em;
+  --spacing-title-icon-offset: 0.1em;
 
   /* experience timeline: when and where, then the role */
   --grid-template-columns-timeline: 172px 1fr;

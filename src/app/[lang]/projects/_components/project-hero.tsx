@@ -114,14 +114,15 @@ export function ProjectHero({
   return (
     <PageHeader>
       <Backlink />
-      {/* the favicon sits beside the title at the title's size (em); both fly
+      {/* the favicon sits beside the title at the title's size (em), centred
+          on its first line so a wrapped title keeps it at the top; both fly
           in from the project's row in the work list */}
-      <div className="flex items-center gap-title-icon-gap text-title">
+      <div className="flex items-start gap-title-icon-gap text-title">
         {favicon && (
           <ViewTransition name={projectIconTransition(name)} share="morph">
             {/* eslint-disable-next-line @next/next/no-img-element -- 128px local icon */}
             <img
-              className="size-title-icon flex-none rounded-title-icon border border-line bg-icon-tile object-cover"
+              className="mt-title-icon-offset size-title-icon flex-none rounded-title-icon border border-line bg-icon-tile object-cover"
               src={favicon}
               alt=""
               width={128}
