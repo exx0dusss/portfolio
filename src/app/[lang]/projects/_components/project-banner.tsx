@@ -1,8 +1,15 @@
 "use client";
 
-import { MeshGradient } from "@paper-design/shaders-react";
 import { useReducedMotion } from "motion/react";
+import dynamic from "next/dynamic";
 import { useSyncExternalStore } from "react";
+
+/** The shader loads after the page is interactive (client only), so it stays
+ *  out of the critical path; the page's own background shows until then. */
+const MeshGradient = dynamic(
+  () => import("@paper-design/shaders-react").then((mod) => mod.MeshGradient),
+  { ssr: false },
+);
 
 /** The site's theme as rendered: the visitor's pick in the nav (data-theme on
  *  <html>), otherwise the OS, as the dark: variant resolves it. */
@@ -26,6 +33,10 @@ const isDark = () => {
  * project's own palette, flowing slowly (Paper Shaders, WebGL), fading into
  * the page. Sits behind the nav and the hero without taking any space.
  * Decorative; it holds still when the visitor prefers reduced motion.
+ *
+ * Kept light on the GPU: drawn at no more than 640×360 and stretched (soft
+ * colour has no detail to lose), faded in once loaded, and paused by Paper
+ * itself while scrolled out of view or in a background tab.
  *
  * Each theme gets its own palette. Include the page background among the
  * colours, so the art dissolves into the page rather than sitting on it as a
@@ -53,15 +64,14 @@ export function ProjectBanner({
       className="pointer-events-none absolute inset-x-0 top-0 -z-1 h-banner mask-b-from-35% mask-b-to-100% dark:opacity-60"
     >
       <MeshGradient
-        className="size-full"
+        className="size-full transition-opacity duration-700 ease-pop starting:opacity-0"
         colors={dark ? colors.dark : colors.light}
         distortion={0.8}
         swirl={0.15}
         speed={reduce ? 0 : 0.25}
         {...pattern}
-        // soft colour needs no full resolution; cap it to spare the GPU
         minPixelRatio={1}
-        maxPixelCount={1280 * 720}
+        maxPixelCount={640 * 360}
       />
     </div>
   );
