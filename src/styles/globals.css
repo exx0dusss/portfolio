@@ -26,12 +26,16 @@
   --color-ink-hover: var(--ink-hover);
   --color-figure-ink: var(--figure-ink);
   --color-overlay: rgb(var(--shadow-rgb) / 0.45);
+  /* the nav bar's translucent surface, under its backdrop blur */
+  --color-nav: var(--nav-bg);
 
   --font-sans: var(--sans);
   --font-mono: var(--mono);
 
   /* the site's ease-out (hover, press), as the `ease-pop` utility */
   --ease-pop: var(--ease-out);
+  /* CSS's own default curve; Tailwind's transitions otherwise use theirs */
+  --ease-standard: ease;
 
   --radius-card: 12px;
 
@@ -48,16 +52,27 @@
   --text-16: 16px;
   --text-20: 20px;
   --text-26: 26px;
+  --text-28: 28px;
 
+  --radius-6: 6px;
   --radius-7: 7px;
   --radius-9: 9px;
 
+  /* the nav brand's name over its role line */
+  --leading-brand: 1.25;
   --leading-label: 1.3;
   --leading-title: 1.35;
   --leading-compact: 1.4;
   --leading-copy: 1.6;
 
   --tracking-snug: -0.01em;
+  /* large display type, e.g. the mobile menu's items */
+  --tracking-heading: -0.03em;
+
+  /* the page column (--w) and its side gutter (--gutter, 20px below 860px):
+     `max-w-page`, `px-gutter` */
+  --container-page: var(--w);
+  --spacing-gutter: var(--gutter);
 
   /* a comfortable line for short centred copy */
   --container-measure: 44ch;
@@ -73,10 +88,30 @@
   --shadow-pressed: inset 0 0 0 1px var(--line), 0 1px 2px rgb(var(--shadow-rgb) / 0.12);
 
   --blur-overlay: 6px;
+  --blur-nav: 12px;
+
+  /* nav bar: brand, links centred between, controls; below 1040px the
+     links move into the menu and the controls take the rest */
+  --grid-template-columns-nav: auto 1fr auto;
+  --grid-template-columns-nav-compact: 1fr auto;
+  /* the mobile menu fills the screen under the 68px bar */
+  --height-menu: calc(100dvh - 68px);
+
+  /* floating corner buttons (back to top): clear of the home indicator */
+  --inset-corner: calc(24px + env(safe-area-inset-bottom));
+  --inset-corner-phone: calc(16px + env(safe-area-inset-bottom));
+  --shadow-float: 0 6px 18px -8px rgb(var(--shadow-rgb) / 0.35);
 
   /* the site's phone breakpoint is max-width: 760px; Tailwind's max-*
      variants are "below", so max-phone: means up to 760px */
   --breakpoint-phone: 761px;
+  /* other max-width breakpoints, N+1 so max-*: means up to N: small
+     laptops (1180px), where the nav links move into the menu (1040px),
+     small phones (520px) and the narrowest ones (400px) */
+  --breakpoint-laptop: 1181px;
+  --breakpoint-nav: 1041px;
+  --breakpoint-small: 521px;
+  --breakpoint-tiny: 401px;
 }
 
 :root {
@@ -205,6 +240,29 @@
     scale 0.35s var(--ease-out);
 }
 
+/* the mobile menu: fades and drops in; visibility flips only once the fade
+   out has finished (the open state drops that delay) */
+@utility transition-menu {
+  transition:
+    opacity 0.2s ease,
+    translate 0.3s var(--ease-out),
+    visibility 0s linear 0.3s;
+}
+/* a mobile menu item's icon sliding in from the left */
+@utility transition-menu-icon {
+  transition:
+    margin-left 0.25s var(--ease-out),
+    opacity 0.2s var(--ease-out);
+}
+/* the back-to-top button: fades and rises in, quick color on hover */
+@utility transition-scroll-top {
+  transition:
+    opacity 0.2s,
+    translate 0.35s var(--ease-out),
+    color 0.15s,
+    border-color 0.15s;
+}
+
 /* Tailwind's border widths are whole pixels; placeholders use 1.5px */
 @utility border-1.5 {
   border-width: 1.5px;
@@ -212,222 +270,6 @@
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-}
-
-/* nav */
-.nav {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: var(--nav-bg);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--line);
-}
-.nav-in {
-  max-width: var(--w);
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-  height: 68px;
-  display: grid;
-  /* links centred in the space between the brand and the controls, never
-     closer than the column gap to either */
-  grid-template-columns: auto 1fr auto;
-  column-gap: 32px;
-  align-items: center;
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  line-height: 1.25;
-  font-size: 14px;
-}
-/* in the nav brand: 32px, tilting on hover */
-.brand [data-slot="face-icon"] {
-  width: 32px;
-  height: 32px;
-  transition: transform 0.35s var(--ease-out);
-}
-.brand:hover [data-slot="face-icon"] {
-  transform: rotate(-8deg);
-}
-.brand-text {
-  display: flex;
-  flex-direction: column;
-}
-.brand b {
-  font-weight: 600;
-}
-.brand-text > span {
-  font-size: 12.5px;
-  color: var(--fg-faint);
-}
-.nav-links {
-  justify-self: center;
-  display: flex;
-  gap: 28px;
-  font-size: 14px;
-}
-.nav-links a {
-  position: relative;
-  color: var(--fg-dim);
-  transition: color 0.15s;
-}
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -6px;
-  height: 2px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform 0.35s var(--ease-out);
-}
-.nav-links a:hover::after,
-.nav-links a.active::after {
-  transform: scaleX(1);
-}
-.nav-links a:hover,
-.nav-links a.active {
-  color: var(--fg);
-}
-.nav-end {
-  justify-self: end;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.lang-switch {
-  display: flex;
-  gap: 2px;
-  font-family: var(--mono);
-  font-size: 12px;
-}
-.lang-switch a {
-  padding: 5px 7px;
-  border-radius: 6px;
-  color: var(--fg-faint);
-  transition: color 0.15s, background 0.15s;
-}
-.lang-switch a:hover {
-  color: var(--fg);
-}
-.lang-switch a[aria-current] {
-  color: var(--fg);
-  background: var(--card-2);
-}
-.nav-desktop-only {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.menu-toggle,
-.theme-toggle {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  padding: 0;
-  border: none;
-  border-radius: 999px;
-  background: none;
-  color: var(--fg-dim);
-  cursor: pointer;
-  transition: color 0.15s, background 0.15s;
-}
-.menu-toggle {
-  display: none;
-  color: var(--fg);
-}
-.menu-toggle svg {
-  width: 22px;
-  height: 22px;
-}
-.menu-toggle:hover,
-.theme-toggle:hover {
-  color: var(--fg);
-  background: var(--card-2);
-}
-.theme-toggle svg {
-  width: 18px;
-  height: 18px;
-}
-
-/* back-to-top button (layout/scroll-to-top): fixed bottom-right, fades and
-   rises in once past the first screen. Below the nav and popups. */
-.scroll-top {
-  position: fixed;
-  right: 24px;
-  bottom: calc(24px + env(safe-area-inset-bottom));
-  z-index: 40;
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  padding: 0;
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  background: var(--card);
-  color: var(--fg-dim);
-  box-shadow: 0 6px 18px -8px rgb(var(--shadow-rgb) / 0.35);
-  cursor: pointer;
-  opacity: 0;
-  transform: translateY(12px);
-  transition:
-    opacity 0.2s,
-    transform 0.35s var(--ease-out),
-    color 0.15s,
-    border-color 0.15s;
-}
-.scroll-top[data-visible="true"] {
-  opacity: 1;
-  transform: none;
-}
-.scroll-top:hover {
-  color: var(--fg);
-  border-color: var(--fg-faint);
-}
-.scroll-top svg {
-  width: 18px;
-  height: 18px;
-}
-@media (max-width: 760px) {
-  .scroll-top {
-    right: 16px;
-    bottom: calc(16px + env(safe-area-inset-bottom));
-  }
-}
-.nav-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 9px 15px;
-  border-radius: 999px;
-  background: var(--fg);
-  color: var(--bg);
-  font-size: 13.5px;
-  font-weight: 500;
-  transition: background 0.15s, transform 0.35s var(--ease-out);
-}
-.nav-cta:hover {
-  background: var(--ink-hover);
-  transform: translateY(-2px);
-}
-.nav-cta:active {
-  transform: scale(0.94);
-  transition-duration: 0.1s;
-}
-.nav-cta svg {
-  width: 16px;
-  height: 16px;
-}
-
-/* mobile menu: a panel directly under the bar. Absolute, not fixed — the
-   nav's backdrop-filter makes it the containing block for fixed children. */
-.mobile-menu {
-  display: none;
 }
 
 /* page shell: sections stacked on a 12-column grid, divided by ink rules */
@@ -823,155 +665,6 @@
   font-weight: 500;
   letter-spacing: 0;
   color: var(--accent-ink);
-}
-
-/* footer */
-.foot {
-  max-width: var(--w);
-  margin: 0 auto;
-  padding: 0 var(--gutter) 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  font-size: 13.5px;
-  color: var(--fg-dim);
-}
-.foot::before {
-  content: "";
-  flex-basis: 100%;
-  height: 1px;
-  margin-bottom: 8px;
-  background: var(--line);
-}
-.foot-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 22px;
-}
-.foot-links a {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--fg);
-  transition: color 0.15s;
-}
-.foot-links a:hover {
-  color: var(--accent-ink);
-}
-.foot-links svg {
-  width: 17px;
-  height: 17px;
-}
-
-/* nav: the role line under the name goes first, so the five links keep
-   their air on small laptops */
-@media (max-width: 1180px) {
-  .brand-text > span {
-    display: none;
-  }
-}
-
-/* nav: below ~1040px the links, language and theme controls no longer fit
-   one row with room around them, so they move into the menu */
-@media (max-width: 1040px) {
-  .nav-in {
-    grid-template-columns: 1fr auto;
-  }
-  .nav-links,
-  .nav-desktop-only {
-    display: none;
-  }
-  .menu-toggle {
-    display: grid;
-  }
-  .mobile-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    height: calc(100dvh - 68px);
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-    padding: 12px var(--gutter) 32px;
-    overflow-y: auto;
-    background: var(--bg);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-8px);
-    transition:
-      opacity 0.2s ease,
-      transform 0.3s var(--ease-out),
-      visibility 0s linear 0.3s;
-  }
-  .mobile-menu[data-open="true"] {
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    transition-delay: 0s;
-  }
-  .mobile-menu ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  .mobile-menu li {
-    border-bottom: 1px solid var(--line);
-  }
-  .mobile-menu li a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 0;
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    color: var(--fg);
-  }
-  .mobile-menu li a.active {
-    color: var(--accent-ink);
-  }
-  /* item icon: tucked away left of the label (its width plus the gap),
-     sliding in and pushing the label right on hover or keyboard focus; the
-     current page always shows its icon, in the accent like its label */
-  .menu-icon {
-    flex: none;
-    width: 24px;
-    height: 24px;
-    margin-left: -36px;
-    color: var(--fg-faint);
-    opacity: 0;
-    transition:
-      margin-left 0.25s var(--ease-out),
-      opacity 0.2s var(--ease-out);
-  }
-  .mobile-menu li a:focus-visible .menu-icon,
-  .mobile-menu li a.active .menu-icon {
-    margin-left: 0;
-    opacity: 1;
-  }
-  @media (hover: hover) {
-    .mobile-menu li a:hover .menu-icon {
-      margin-left: 0;
-      opacity: 1;
-    }
-  }
-  .mobile-menu li a.active .menu-icon {
-    color: var(--accent-ink);
-  }
-  .mobile-menu-end {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .mobile-menu .lang-switch {
-    font-size: 14px;
-  }
-  .mobile-menu .lang-switch a {
-    padding: 8px 12px;
-  }
 }
 
 @media (max-width: 860px) {
@@ -1724,27 +1417,6 @@
   }
 }
 
-
-@media (max-width: 520px) {
-  .nav-cta {
-    padding: 9px;
-  }
-  .nav-cta-text {
-    display: none;
-  }
-  /* small phones: name only, then (below) just the face */
-  .brand-text > span {
-    display: none;
-  }
-  .brand-text b {
-    white-space: nowrap;
-  }
-}
-@media (max-width: 400px) {
-  .brand-text {
-    display: none;
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
   html {

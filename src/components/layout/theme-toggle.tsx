@@ -6,6 +6,8 @@ import { CircleHalfIcon, MoonIcon, SunIcon } from "@/components/ui/icons";
 import type { Dictionary } from "@/i18n/dictionaries/en";
 import { THEME_KEY } from "@/lib/theme";
 
+import { NavButton } from "./nav-button";
+
 type Mode = "system" | "light" | "dark";
 
 const ORDER: Mode[] = ["system", "light", "dark"];
@@ -59,8 +61,8 @@ export function ThemeToggle({ labels }: { labels: Dictionary["nav"]["theme"] }) 
   const label = `${labels.label}: ${labels[mode]}`;
 
   return (
-    <button type="button" className="theme-toggle" onClick={cycle} aria-label={label} title={label}>
+    <NavButton onClick={cycle} aria-label={label} title={label}>
       <Icon aria-hidden />
-    </button>
+    </NavButton>
   );
 }

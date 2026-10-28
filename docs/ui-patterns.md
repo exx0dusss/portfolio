@@ -96,8 +96,8 @@ function FactHeader({ className, ...props }: React.ComponentProps<"div">) {
 - **Callers may add layout classes only** (`mt-6`, `w-full`); appearance
   belongs inside the component. `@shadcn/lint`'s `no-restyle` enforces it.
 - **A part styled by where it sits** is targeted from the parent's CSS by
-  its slot, not a class: `.brand [data-slot="face-icon"]` (the nav's tilt),
-  `[data-slot="fact"] [data-slot="meter"]` (the hero's stacked meter).
+  its slot, not a class: `[data-slot="fact"] [data-slot="meter"]` (the
+  hero's stacked meter).
 - **What Tailwind can't express** gets a named `@utility` in `globals.css`
   (`transition-press`, `border-1.5`), not a long arbitrary value.
 - **A third-party widget** is themed in a CSS file next to its wrapper,
@@ -292,7 +292,7 @@ Enabled in `eslint.config.mjs` for `src/`:
 | Rule | What it enforces here |
 | --- | --- |
 | `no-arbitrary-values` | No off-scale values like `mt-[13px]`; use the theme scale |
-| `no-restyle` (`allow: ["layout"]`) | Pages may add layout classes (`mt-6`, `w-full`) to a component, not restyle it. A component placed somewhere special is styled by its parent's CSS (`.brand [data-slot="face-icon"]`) |
+| `no-restyle` (`allow: ["layout"]`) | Pages may add layout classes (`mt-6`, `w-full`) to a component, not restyle it. A component placed somewhere special is styled by its parent's CSS (`[data-slot="fact"] [data-slot="meter"]`) |
 | `require-static-classes` | Class names must be readable static strings, not built like `` `bg-${tone}` `` |
 
 All three apply to `src/components/ui/` too, plus `no-unknown-classes`:

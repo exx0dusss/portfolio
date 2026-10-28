@@ -1,7 +1,8 @@
 /* Résumé-specific document layout + print rules, ported from the
    resume.html / resume-print.html prototypes. Imported by the résumé page;
    plain CSS in App Router is global, so the @media print block can reach the
-   shared chrome (.nav/.dock/.navdots/.foot) to hide it when printing. */
+   shared chrome (.dock/.navdots) to hide it when printing. The nav, footer
+   and back-to-top button hide themselves (print:hidden). */
 
 .resume {
   max-width: 900px;
@@ -242,11 +243,8 @@
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
-  .nav,
   .dock,
   .navdots,
-  .foot,
-  .scroll-top,
   .r-bar {
     display: none !important;
   }
