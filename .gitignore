@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .superpowers/
+
+# screenshot sets from scripts/visual-diff.mjs
+/.visual/
