@@ -2,5 +2,14 @@
  *  work list and the case-study heading morph into each other. Built from
  *  the title, which both places already have. */
 export function projectTitleTransition(title: string): string {
-  return `project-title-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+  return `project-title-${slugOf(title)}`;
+}
+
+/** The same for a project's favicon, which flies beside its title. */
+export function projectIconTransition(title: string): string {
+  return `project-icon-${slugOf(title)}`;
+}
+
+function slugOf(title: string): string {
+  return title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 }

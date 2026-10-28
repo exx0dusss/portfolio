@@ -115,6 +115,8 @@
   --radius-9: 9px;
   /* the contact email's copy button, in em: it scales with the address */
   --radius-mail: 0.2em;
+  /* a project's favicon beside its case-study title, in em of the title */
+  --radius-title-icon: 0.2em;
   /* a book cover: tight at the spine, rounder at the fore-edge */
   --radius-3: 3px;
   --radius-8: 8px;
@@ -216,9 +218,8 @@
 
   --blur-overlay: 6px;
   --blur-nav: 12px;
-  /* a case study's banner (ProjectBanner): tall, softly blurred */
-  --blur-banner: 16px;
-  --height-banner: 560px;
+  /* a case study's opening banner (ProjectBanner): most of the first screen */
+  --height-banner: clamp(280px, 62svh, 640px);
 
   /* nav bar: brand, links centred between, controls; below 1040px the
      links move into the menu and the controls take the rest */
@@ -237,6 +238,10 @@
   --spacing-mail-gap: 0.3em;
   --spacing-mail-pad: 0.12em;
   --spacing-mail-icon: 0.55em;
+  /* a project's favicon beside its case-study title: 0.8 of the title's
+     height, a quarter of it apart */
+  --spacing-title-icon: 0.8em;
+  --spacing-title-icon-gap: 0.25em;
 
   /* experience timeline: when and where, then the role */
   --grid-template-columns-timeline: 172px 1fr;
@@ -283,8 +288,6 @@
   --accent: #ff4f00;
   --accent-ink: #c2410c;
   --accent-soft: rgba(255, 79, 0, 0.1);
-  /* how strongly a case study's colour wash shows (ProjectBanner) */
-  --banner-opacity: 0.7;
   /* fonts are spelled out here, not aliased to the @theme values: Tailwind v4
      drops unused theme variables, which left var(--font-sans) undefined */
   --sans: var(--font-geist), system-ui, sans-serif;
@@ -327,7 +330,6 @@
     --accent: #ff5a1f;
     --accent-ink: #ff8a5c;
     --accent-soft: rgba(255, 90, 31, 0.18);
-    --banner-opacity: 0.4;
     --nav-bg: rgba(12, 12, 12, 0.85);
     --ink-hover: #ffffff;
     --fg-soft: #d4d4d4;
@@ -352,7 +354,6 @@
   --accent: #ff5a1f;
   --accent-ink: #ff8a5c;
   --accent-soft: rgba(255, 90, 31, 0.18);
-  --banner-opacity: 0.4;
   --nav-bg: rgba(12, 12, 12, 0.85);
   --ink-hover: #ffffff;
   --fg-soft: #d4d4d4;

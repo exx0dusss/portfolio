@@ -34,6 +34,8 @@ export interface HeroAction {
 
 export interface ProjectHeroData {
   name: string;
+  /** The project site's own icon, shown beside the name. */
+  favicon?: string;
   tagline: ReactNode;
   meta: MetaItem[];
   openness: Openness;

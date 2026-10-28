@@ -39,11 +39,12 @@ export default async function KosmetikProfiPage({ params }: { params: Promise<{ 
   await requireEnglish(params);
   return (
     <>
-      <ProjectBanner src="/projects/kosmetik-profi/banner.webp" />
+      <ProjectBanner src={COVER.src} />
       <PageShell>
         <ProjectStructuredData {...SEO} />
         <ProjectHero
           name="Kosmetik Profi"
+          favicon="/projects/kosmetik-profi/favicon.png"
           tagline="Website and admin panel for a cosmetology practice in Münster — a bilingual price list, booking for two locations, and an admin the practice runs on its own."
           meta={[
             { key: "Year", value: "2024 — present", sub: "maintained since launch" },

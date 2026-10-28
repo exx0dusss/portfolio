@@ -1,0 +1,19 @@
+/* The banner blurs and dims as the page scrolls, tied to the scroll position
+   (a scroll-driven animation), so it can't be a utility. Sharp and still
+   where scroll timelines aren't supported or motion is reduced. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-slot="project-banner-image"] {
+      animation: banner-blur linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 480px;
+    }
+  }
+}
+@keyframes banner-blur {
+  to {
+    filter: blur(24px) saturate(1.2);
+    opacity: 0.55;
+    scale: 1.06;
+  }
+}

@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/icons";
 import { Meter, MeterLabel, MeterSegments } from "@/components/ui/meter";
 import { cn } from "@/lib/utils/cn";
-import { projectTitleTransition } from "@/lib/view-transition";
+import { projectIconTransition, projectTitleTransition } from "@/lib/view-transition";
 
 import { Backlink } from "./backlink";
 import type { Openness, OpennessTone, ProjectHeroData } from "./projects-detail";
@@ -98,6 +98,7 @@ function OpennessBadge({ openness }: { openness: Openness }) {
  */
 export function ProjectHero({
   name,
+  favicon,
   tagline,
   meta,
   openness,
@@ -112,9 +113,25 @@ export function ProjectHero({
   return (
     <PageHeader>
       <Backlink />
-      <ViewTransition name={projectTitleTransition(name)} share="morph">
-        <h1 className="m-0 text-title leading-none font-semibold tracking-display">{name}</h1>
-      </ViewTransition>
+      {/* the favicon sits beside the title at the title's size (em); both fly
+          in from the project's row in the work list */}
+      <div className="flex items-center gap-title-icon-gap text-title">
+        {favicon && (
+          <ViewTransition name={projectIconTransition(name)} share="morph">
+            {/* eslint-disable-next-line @next/next/no-img-element -- 128px local icon */}
+            <img
+              className="size-title-icon flex-none rounded-title-icon border border-line bg-icon-tile object-cover"
+              src={favicon}
+              alt=""
+              width={128}
+              height={128}
+            />
+          </ViewTransition>
+        )}
+        <ViewTransition name={projectTitleTransition(name)} share="morph">
+          <h1 className="m-0 text-title leading-none font-semibold tracking-display">{name}</h1>
+        </ViewTransition>
+      </div>
       <p className="mt-4 max-w-tagline text-17 leading-copy text-fg-dim">{tagline}</p>
       <Facts columns={columns} className="mt-6">
         {meta.map((item) => (
