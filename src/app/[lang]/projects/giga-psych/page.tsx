@@ -41,7 +41,7 @@ export default async function GigaPsychPage({ params }: { params: Promise<{ lang
         <Section>
           <SectionLabel>Overview</SectionLabel>
           <Prose>
-            <p className="lead-q">
+            <p className="max-w-tagline">
               Research data is only useful if the people who collected it can actually explore it.
               This platform turned a pile of experimental data into something a research team could
               query.

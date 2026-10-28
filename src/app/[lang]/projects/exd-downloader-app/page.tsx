@@ -13,8 +13,6 @@ import {
   ProjectStructuredData,
 } from "../_components";
 
-const ACCENT = { color: "var(--accent)" } as const;
-
 const SEO = {
   slug: "exd-downloader-app",
   title: "ExdDownloaderApp",
@@ -56,7 +54,7 @@ export default async function ExdDownloaderAppPage({
         <Section>
           <SectionLabel>Overview</SectionLabel>
           <Prose>
-            <p className="lead-q">
+            <p className="max-w-tagline">
               It looks simple — send a link, get a video. Under the hood it&#8217;s where I figured
               out how to structure a bot that could actually grow.
             </p>
@@ -69,7 +67,7 @@ export default async function ExdDownloaderAppPage({
             <p>
               Those patterns worked well enough that I pulled them out into reusable libraries. The
               SDK idea and the internal packages that now power{" "}
-              <Link href="/projects/exdbots" style={ACCENT}>
+              <Link href="/projects/exdbots" className="text-accent">
                 ExdBots
               </Link>{" "}
               all started here. It&#8217;s the template the platform grew from.
@@ -111,7 +109,7 @@ export default async function ExdDownloaderAppPage({
 
         <Section id="architecture">
           <SectionLabel>Architecture</SectionLabel>
-          <div style={{ marginBottom: 22 }}>
+          <div className="mb-5.5">
             <Prose>
               <p>
                 A small, deliberate pipeline: the menu/state core is the part that later generalized

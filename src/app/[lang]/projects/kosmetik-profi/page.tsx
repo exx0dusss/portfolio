@@ -12,6 +12,7 @@ import {
   GalleryCover,
   NextProjectLink,
   OpenGalleryButton,
+  ProjectCover,
   ProjectHero,
   projectMetadata,
   ProjectStructuredData,
@@ -77,15 +78,15 @@ export default async function KosmetikProfiPage({ params }: { params: Promise<{ 
         />
 
         <Section>
-          <div className="p-cover">
+          <ProjectCover>
             <GalleryCover cover={COVER} />
-          </div>
+          </ProjectCover>
         </Section>
 
         <Section>
           <SectionLabel>Overview</SectionLabel>
           <Prose>
-            <p className="lead-q">
+            <p className="max-w-tagline">
               A cosmetology practice with two studios in Münster needed one clear place for its
               treatments, prices and bookings — in German and English.
             </p>
@@ -137,7 +138,7 @@ export default async function KosmetikProfiPage({ params }: { params: Promise<{ 
 
         <Section id="architecture">
           <SectionLabel>Architecture</SectionLabel>
-          <div style={{ marginBottom: 22 }}>
+          <div className="mb-5.5">
             <Prose>
               <p>
                 One small server renders every page. Visitors and the admin panel read and write the

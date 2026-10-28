@@ -18,9 +18,10 @@ const techLinkVariants = cva("", {
   variants: {
     variant: {
       /** Bright, underlined word inside prose. */
-      inline: "tech-link",
+      inline:
+        "font-medium text-fg underline decoration-line-strong decoration-1 underline-offset-3 transition-colors duration-150 ease-pop hover:decoration-fg focus-visible:decoration-fg",
       /** Logo + name pill, for stack lists. */
-      chip: "tech-chip",
+      chip: "inline-flex items-center gap-2 rounded-10 border border-line bg-card py-1.25 pr-2.75 pl-1.25 text-13.5 text-fg transition-colors duration-150 ease-pop hover:border-line-strong focus-visible:border-line-strong",
     },
   },
   defaultVariants: {
@@ -50,7 +51,9 @@ function TechLink({
 }) {
   const tech = getTech(id);
   const { preview } = tech;
-  const logo = (size: "sm" | "lg") => <BrandIcon name={tech.name} path={tech.iconPath} size={size} />;
+  const logo = (size: "sm" | "lg") => (
+    <BrandIcon name={tech.name} path={tech.iconPath} size={size} />
+  );
 
   return (
     <HoverCard>
@@ -59,6 +62,7 @@ function TechLink({
         target="_blank"
         rel="noopener noreferrer"
         data-slot="tech-link"
+        data-variant={variant ?? "inline"}
         className={cn(techLinkVariants({ variant }), className)}
       >
         {variant === "chip" && logo("sm")}

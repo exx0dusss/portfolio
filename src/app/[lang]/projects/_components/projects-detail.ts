@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import type { TechId } from "@/lib/tech";
 
-/** Visual tone for the openness badge — maps to .openness.{open|source|client|nda}. */
+/** Visual tone for the openness badge: the color of its dot (TONE_DOT in project-hero). */
 export type OpennessTone = "open" | "source" | "client" | "nda";
 
 export interface Openness {

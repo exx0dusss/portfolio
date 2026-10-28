@@ -29,7 +29,12 @@ export function Backlink() {
   };
 
   return (
-    <Link className="backlink" href="/projects" scroll={false} onClick={onClick}>
+    <Link
+      className="mb-5.5 inline-flex items-center gap-2 text-13 text-fg-dim transition-backlink hover:gap-2.75 hover:text-accent-ink [&_svg]:size-3.5"
+      href="/projects"
+      scroll={false}
+      onClick={onClick}
+    >
       <ArrowLeftIcon aria-hidden /> Work
     </Link>
   );

@@ -2,7 +2,7 @@ import type { Icon } from "@phosphor-icons/react";
 import { ViewTransition } from "react";
 
 import { PageHeader } from "@/components/page";
-import { TechLink } from "@/components/tech-link";
+import { StackList } from "@/components/stack-list";
 import { ButtonLink } from "@/components/ui/button";
 import {
   Fact,
@@ -25,10 +25,11 @@ import {
   UserIcon,
 } from "@/components/ui/icons";
 import { Meter, MeterLabel, MeterSegments } from "@/components/ui/meter";
+import { cn } from "@/lib/utils/cn";
 import { projectTitleTransition } from "@/lib/view-transition";
 
 import { Backlink } from "./backlink";
-import type { Openness, ProjectHeroData } from "./projects-detail";
+import type { Openness, OpennessTone, ProjectHeroData } from "./projects-detail";
 
 /** Icon for each fact tile, by its label; unknown labels get a neutral mark. */
 const FACT_ICONS: Record<string, Icon> = {
@@ -65,11 +66,25 @@ function HeroFact({
   );
 }
 
-/** Access label with a tone dot — maps the openness tone onto .openness.*. */
+/** The access dot's color per tone, same language as the work-list status. */
+const TONE_DOT: Record<OpennessTone, string> = {
+  open: "bg-status-green",
+  source: "bg-accent",
+  client: "bg-status-amber",
+  nda: "bg-fg-faint",
+};
+
+/** Access label with a tone dot. Long labels wrap; on phones the dot then
+ *  sits on the first line. */
 function OpennessBadge({ openness }: { openness: Openness }) {
   return (
-    <span className={`openness ${openness.tone}`}>
-      <span className="od" />
+    <span className="inline-flex items-center gap-1.75 max-phone:items-start">
+      <span
+        className={cn(
+          "size-1.75 rounded-full max-phone:mt-dot-first-line",
+          TONE_DOT[openness.tone],
+        )}
+      />
       {openness.label}
     </span>
   );
@@ -95,12 +110,12 @@ export function ProjectHero({
   const tiles = meta.length + (difficulty ? 1 : 0) + 1;
   const columns = tiles <= 4 ? tiles : Math.ceil(tiles / 2);
   return (
-    <PageHeader className="p-hero">
+    <PageHeader>
       <Backlink />
       <ViewTransition name={projectTitleTransition(name)} share="morph">
-        <h1 className="p-name">{name}</h1>
+        <h1 className="m-0 text-title leading-none font-semibold tracking-display">{name}</h1>
       </ViewTransition>
-      <p className="p-tag">{tagline}</p>
+      <p className="mt-4 max-w-tagline text-17 leading-copy text-fg-dim">{tagline}</p>
       <Facts columns={columns} className="mt-6">
         {meta.map((item) => (
           <HeroFact key={item.key} label={item.key}>
@@ -130,18 +145,12 @@ export function ProjectHero({
         </HeroFact>
         {stack && stack.length > 0 && (
           <HeroFact label="Stack" span="full">
-            <ul className="stack-list">
-              {stack.map((id) => (
-                <li key={id}>
-                  <TechLink id={id} variant="chip" />
-                </li>
-              ))}
-            </ul>
+            <StackList stack={stack} />
           </HeroFact>
         )}
       </Facts>
       {((actions && actions.length > 0) || extraActions) && (
-        <div className="p-actions">
+        <div className="mt-6 flex flex-wrap gap-2.5">
           {actions?.map((action) =>
             action.href.startsWith("#") ? (
               <ButtonLink key={action.label} variant={action.variant} href={action.href}>

@@ -9,6 +9,7 @@ import {
   FeatureGrid,
   Gallery,
   NextProjectLink,
+  ProjectCover,
   ProjectHero,
   projectMetadata,
   ProjectStructuredData,
@@ -41,19 +42,19 @@ export default async function SalonSvitloPage({ params }: { params: Promise<{ la
         />
 
         <Section>
-          <div className="p-cover">
+          <ProjectCover>
             <ImageSlot
               shape="rect"
               placeholder="Drop a cover screenshot (storefront)"
-              style={{ display: "block", width: "100%", height: "auto", aspectRatio: "16/9" }}
+              className="aspect-video h-auto w-full"
             />
-          </div>
+          </ProjectCover>
         </Section>
 
         <Section>
           <SectionLabel>Overview</SectionLabel>
           <Prose>
-            <p className="lead-q">
+            <p className="max-w-tagline">
               A lighting shop with two decades of experience, but no real digital presence.
               SalonSvitlo is the whole stack that brought the business online — and gave the team
               the tools to run it.
@@ -106,7 +107,7 @@ export default async function SalonSvitloPage({ params }: { params: Promise<{ la
 
         <Section id="architecture">
           <SectionLabel>Architecture</SectionLabel>
-          <div style={{ marginBottom: 22 }}>
+          <div className="mb-5.5">
             <Prose>
               <p>
                 Storefront, Telegram bot, and the AI assistant all read and write through one core —

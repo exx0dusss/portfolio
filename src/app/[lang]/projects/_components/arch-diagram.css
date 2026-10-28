@@ -1,0 +1,152 @@
+/* Architecture diagram (arch-diagram.tsx): the parts Tailwind can't express
+   clearly. The panel, columns and nodes are utilities; what stays here is
+   - the flow arrow, drawn with pseudo-elements, and its scroll-driven dash
+     animation (keyframes);
+   - the lane layout: container queries on the diagram's own width, keyed on
+     the column count (data-cols), which overrides the column utilities.
+   These rules are unlayered, so they beat the utilities they override. */
+
+/* flow arrow sitting on the divider (centred on the column's left edge);
+   its background masks the dashed line behind it. Stacked lanes rotate it
+   to point down, below. */
+[data-slot="arch-link"] {
+  --arch-dash: repeating-linear-gradient(90deg, var(--fg-faint) 0 4px, transparent 4px 7px);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 28px;
+  height: 14px;
+  background: var(--card-2);
+  transform: translate(-50%, -50%);
+}
+[data-slot="arch-link"]::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  right: 4px;
+  height: 1.5px;
+  margin-top: -0.75px;
+  background: var(--arch-dash);
+}
+[data-slot="arch-link"]::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 3px;
+  width: 6px;
+  height: 6px;
+  border-top: 1.5px solid var(--fg-faint);
+  border-right: 1.5px solid var(--fg-faint);
+  transform: translateY(-50%) rotate(45deg);
+}
+/* the dashes travel along the arrow as the diagram scrolls through view,
+   and stop when scrolling does. Static where scroll timelines aren't
+   supported or motion is reduced. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-slot="arch-link"]::before {
+      animation: arch-flow linear both;
+      animation-timeline: view();
+    }
+  }
+}
+@keyframes arch-flow {
+  from {
+    background-position: -28px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+/* narrow: each group becomes a lane, label on top and its nodes side by
+   side. Columns need ~150px each, so the switch depends on how many there
+   are (container queries can't read the column count, hence data-cols). */
+@container arch (max-width: 740px) {
+  [data-slot="arch-flow"][data-cols="5"] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  [data-slot="arch-flow"][data-cols="5"] > [data-slot="arch-column"] {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    padding: 20px 0;
+  }
+  [data-slot="arch-flow"][data-cols="5"] > [data-slot="arch-column"]:first-child {
+    padding-top: 0;
+  }
+  [data-slot="arch-flow"][data-cols="5"] > [data-slot="arch-column"]:last-child {
+    padding-bottom: 0;
+  }
+  [data-slot="arch-flow"][data-cols="5"] > [data-slot="arch-column"]:not(:first-child) {
+    border-left: none;
+    border-top: 1px dashed var(--line-strong);
+  }
+  [data-slot="arch-flow"][data-cols="5"] [data-slot="arch-column-title"] {
+    grid-column: 1 / -1;
+  }
+  [data-slot="arch-flow"][data-cols="5"] [data-slot="arch-link"] {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+}
+@container arch (max-width: 600px) {
+  [data-slot="arch-flow"][data-cols="4"] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  [data-slot="arch-flow"][data-cols="4"] > [data-slot="arch-column"] {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    padding: 20px 0;
+  }
+  [data-slot="arch-flow"][data-cols="4"] > [data-slot="arch-column"]:first-child {
+    padding-top: 0;
+  }
+  [data-slot="arch-flow"][data-cols="4"] > [data-slot="arch-column"]:last-child {
+    padding-bottom: 0;
+  }
+  [data-slot="arch-flow"][data-cols="4"] > [data-slot="arch-column"]:not(:first-child) {
+    border-left: none;
+    border-top: 1px dashed var(--line-strong);
+  }
+  [data-slot="arch-flow"][data-cols="4"] [data-slot="arch-column-title"] {
+    grid-column: 1 / -1;
+  }
+  [data-slot="arch-flow"][data-cols="4"] [data-slot="arch-link"] {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+}
+@container arch (max-width: 460px) {
+  [data-slot="arch-flow"]:is([data-cols="2"], [data-cols="3"]) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  [data-slot="arch-flow"]:is([data-cols="2"], [data-cols="3"]) > [data-slot="arch-column"] {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    padding: 20px 0;
+  }
+  [data-slot="arch-flow"]:is([data-cols="2"], [data-cols="3"])
+    > [data-slot="arch-column"]:first-child {
+    padding-top: 0;
+  }
+  [data-slot="arch-flow"]:is([data-cols="2"], [data-cols="3"])
+    > [data-slot="arch-column"]:last-child {
+    padding-bottom: 0;
+  }
+  [data-slot="arch-flow"]:is([data-cols="2"], [data-cols="3"])
+    > [data-slot="arch-column"]:not(:first-child) {
+    border-left: none;
+    border-top: 1px dashed var(--line-strong);
+  }
+  [data-slot="arch-flow"]:is([data-cols="2"], [data-cols="3"]) [data-slot="arch-column-title"] {
+    grid-column: 1 / -1;
+  }
+  [data-slot="arch-flow"]:is([data-cols="2"], [data-cols="3"]) [data-slot="arch-link"] {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+}

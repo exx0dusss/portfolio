@@ -36,6 +36,15 @@
   /* the printed résumé's rules: grey under section titles, black under the name */
   --color-print-line: #bbb;
   --color-print-ink: #000;
+  /* status dots (project access): live/open green, client-work amber */
+  --color-status-green: #16a34a;
+  --color-status-amber: #d97706;
+  /* a dark chip over a screenshot (the gallery's fullscreen hint) */
+  --color-scrim: rgb(0 0 0 / 0.55);
+  --color-on-scrim: #fff;
+  /* the live preview's frame: the embedded site's own light page */
+  --color-frame: #fff;
+  --color-frame-ink: #737373;
 
   --font-sans: var(--sans);
   --font-mono: var(--mono);
@@ -75,6 +84,8 @@
   --text-12\.8: 12.8px;
   --text-14\.5: 14.5px;
   --text-31: 31px;
+  --text-10\.5: 10.5px;
+  --text-17: 17px;
 
   --radius-6: 6px;
   --radius-7: 7px;
@@ -84,6 +95,10 @@
   /* a book cover: tight at the spine, rounder at the fore-edge */
   --radius-3: 3px;
   --radius-8: 8px;
+  --radius-10: 10px;
+  --radius-13: 13px;
+  --radius-14: 14px;
+  --radius-28: 28px;
 
   /* the nav brand's name over its role line */
   --leading-brand: 1.25;
@@ -121,6 +136,8 @@
   --tracking-name: -0.022em;
   /* a timeline entry's role */
   --tracking-role: -0.012em;
+  /* small uppercase labels (architecture column titles) */
+  --tracking-label: 0.08em;
 
   /* the page column (--w) and its side gutter (--gutter, 20px below 860px):
      `max-w-page`, `px-gutter` */
@@ -145,6 +162,10 @@
   --container-resume: 900px;
   /* a timeline entry's description */
   --container-entry: 76ch;
+  /* a project's tagline and an overview's opening paragraph */
+  --container-tagline: 60ch;
+  /* the live-preview dialog: up to 1440px, 24px clear of each edge */
+  --container-live-preview: min(1440px, 100vw - 48px);
 
   --shadow-popover: 0 18px 48px rgb(var(--shadow-rgb) / 0.18);
   --shadow-dialog: 0 30px 80px rgb(var(--shadow-rgb) / 0.3);
@@ -157,6 +178,11 @@
     0 2px 4px rgb(var(--shadow-rgb) / 0.08), 0 18px 32px -12px rgb(var(--shadow-rgb) / 0.3);
   /* a book cover's tilt as it lifts off the shelf */
   --rotate-tilt: 1.5deg;
+  /* an architecture diagram's node: a slight lift off the panel */
+  --shadow-node: 0 2px 6px -3px rgb(var(--shadow-rgb) / 0.2);
+  /* the live preview's desktop frame (hairline) and phone frame (bezel) */
+  --shadow-frame: 0 0 0 1px var(--line-strong), 0 20px 50px rgb(var(--shadow-rgb) / 0.18);
+  --shadow-frame-phone: 0 0 0 6px var(--fg-soft), 0 20px 50px rgb(var(--shadow-rgb) / 0.25);
 
   --blur-overlay: 6px;
   --blur-nav: 12px;
@@ -186,6 +212,11 @@
   --spacing-shelf: clamp(18px, 3vw, 26px);
   /* a book title's two lines, reserved even for one-line titles */
   --spacing-book-title: calc(2 * 1.3em);
+  /* centres a 7px dot on the first line of the text beside it */
+  --spacing-dot-first-line: calc(0.5lh - 3.5px);
+  /* the live-preview dialog: bar, stage, note; 24px clear of each edge */
+  --grid-template-rows-live-preview: auto minmax(0, 1fr) auto;
+  --height-live-preview: calc(100dvh - 48px);
 
   /* floating corner buttons (back to top): clear of the home indicator */
   --inset-corner: calc(24px + env(safe-area-inset-bottom));
@@ -391,6 +422,23 @@
     rotate 0.4s var(--ease-out),
     box-shadow 0.25s ease;
 }
+/* the project hero's "← Work" link: color, and the arrow easing away */
+@utility transition-backlink {
+  transition:
+    color 0.15s,
+    gap 0.15s;
+}
+/* the next-project arrow: slides on hover, quick color */
+@utility transition-next-arrow {
+  transition:
+    translate 0.2s,
+    color 0.15s;
+}
+/* Tailwind's scale steps are whole percents; a gallery tile's screenshot
+   zooms to 101.5% on hover */
+@utility scale-101.5 {
+  scale: 1.015;
+}
 
 @media (max-width: 860px) {
   :root {
@@ -398,448 +446,16 @@
   }
 }
 
-/* ===== project detail pages ===== */
-.backlink {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  color: var(--fg-dim);
-  margin-bottom: 22px;
-  transition: color 0.15s, gap 0.15s;
-}
-.backlink:hover {
-  color: var(--accent-ink);
-  gap: 11px;
-}
-.backlink svg {
-  width: 14px;
-  height: 14px;
-}
-
-.p-name {
-  margin: 0;
-  font-size: clamp(38px, 5.6vw, 64px);
-  font-weight: 600;
-  letter-spacing: -0.045em;
-  line-height: 1;
-}
-.p-tag {
-  margin-top: 16px;
-  font-size: 17px;
-  color: var(--fg-dim);
-  line-height: 1.6;
-  max-width: 60ch;
-}
-/* ---------- fact tiles (ui/fact), meter (ui/meter) ----------
-   The parts style themselves; these are the hero's tweaks for what sits
-   inside a tile. Long access labels wrap instead of overflowing. */
-[data-slot="fact"] .openness {
-  white-space: normal;
-}
-/* phones: the meter reads like the other tiles (word first, bar under it)
-   and the access dot sits on the first line when the label wraps. */
+/* the hero's difficulty meter (ui/meter in a ui/fact tile), styled by where
+   it sits: on phones it reads like the other tiles, word first and bar under
+   it. Its own gap can't be set from the page (no-restyle). */
 @media (max-width: 760px) {
   [data-slot="fact"] [data-slot="meter"] {
     flex-direction: column-reverse;
     align-items: flex-start;
     gap: 6px;
   }
-  [data-slot="fact"] .openness {
-    align-items: flex-start;
-  }
-  [data-slot="fact"] .openness .od {
-    margin-top: calc(0.5lh - 3.5px);
-  }
-  [data-slot="fact"] .stack-list {
-    gap: 6px;
-  }
-  [data-slot="fact"] .tech-chip {
-    gap: 7px;
-    padding: 4px 9px 4px 4px;
-    font-size: 13px;
-  }
 }
-.stack-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.p-actions {
-  margin-top: 24px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-/* access: a dot and a label, same language as the work-list status */
-.openness {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  white-space: nowrap;
-}
-.openness .od {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--fg-faint);
-}
-.openness.open .od {
-  background: #16a34a;
-}
-.openness.source .od {
-  background: var(--accent);
-}
-.openness.client .od {
-  background: #d97706;
-}
-
-.p-cover {
-  border: 1px solid var(--line);
-  border-radius: var(--radius-card);
-  overflow: hidden;
-  background: var(--card-2);
-}
-
-/* a case study's opening line, inside Prose. Only the weight and measure
-   ever applied: Prose's paragraph styles outranked the rest, so the line
-   reads in the prose's size and color */
-.lead-q {
-  font-weight: 400;
-  max-width: 60ch;
-}
-
-.feat {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
-.feat .f {
-  border: 1px solid var(--line);
-  border-radius: var(--radius-card);
-  padding: 18px 20px;
-}
-.feat .ft {
-  font-size: 14.5px;
-  font-weight: 500;
-  color: var(--fg);
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-.feat .ft .fn {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--accent-ink);
-}
-.feat .fd {
-  margin-top: 8px;
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--fg-dim);
-}
-
-/* architecture diagram. Sized by its own width (container query): one
-   column per group when there's room, horizontal lanes when there isn't, so
-   a group never wraps onto its own stretched row. */
-.arch {
-  container: arch / inline-size;
-  border: 1px solid var(--line-strong);
-  border-radius: 14px;
-  background: var(--card-2);
-  padding: 32px;
-  position: relative;
-  overflow: hidden;
-}
-.arch-flow {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(var(--arch-cols, 4), minmax(0, 1fr));
-}
-.arch-col {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-width: 0;
-  padding: 0 20px;
-}
-/* flow arrow sitting on the divider (centred on the column's left edge);
-   its background masks the dashed line behind it. Stacked lanes rotate it
-   to point down, below. */
-.arch-link {
-  --arch-dash: repeating-linear-gradient(
-    90deg,
-    var(--fg-faint) 0 4px,
-    transparent 4px 7px
-  );
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 28px;
-  height: 14px;
-  background: var(--card-2);
-  transform: translate(-50%, -50%);
-}
-.arch-link::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 2px;
-  right: 4px;
-  height: 1.5px;
-  margin-top: -0.75px;
-  background: var(--arch-dash);
-}
-.arch-link::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 3px;
-  width: 6px;
-  height: 6px;
-  border-top: 1.5px solid var(--fg-faint);
-  border-right: 1.5px solid var(--fg-faint);
-  transform: translateY(-50%) rotate(45deg);
-}
-/* the dashes travel along the arrow as the diagram scrolls through view,
-   and stop when scrolling does. Static where scroll timelines aren't
-   supported or motion is reduced. */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .arch-link::before {
-      animation: arch-flow linear both;
-      animation-timeline: view();
-    }
-  }
-}
-@keyframes arch-flow {
-  from {
-    background-position: -28px 0;
-  }
-  to {
-    background-position: 0 0;
-  }
-}
-.arch-col:first-child {
-  padding-left: 0;
-}
-.arch-col:last-child {
-  padding-right: 0;
-}
-.arch-col:not(:first-child) {
-  border-left: 1px dashed var(--line-strong);
-}
-.arch-ct {
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--fg-faint);
-  margin-bottom: 2px;
-}
-/* narrow: each group becomes a lane, label on top and its nodes side by
-   side. Columns need ~150px each, so the switch depends on how many there
-   are (container queries can't read --arch-cols, hence data-cols). */
-@container arch (max-width: 740px) {
-  .arch-flow[data-cols="5"] {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .arch-flow[data-cols="5"] > .arch-col {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    padding: 20px 0;
-  }
-  .arch-flow[data-cols="5"] > .arch-col:first-child {
-    padding-top: 0;
-  }
-  .arch-flow[data-cols="5"] > .arch-col:last-child {
-    padding-bottom: 0;
-  }
-  .arch-flow[data-cols="5"] > .arch-col:not(:first-child) {
-    border-left: none;
-    border-top: 1px dashed var(--line-strong);
-  }
-  .arch-flow[data-cols="5"] .arch-ct {
-    grid-column: 1 / -1;
-  }
-  .arch-flow[data-cols="5"] .arch-link {
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(90deg);
-  }
-}
-@container arch (max-width: 600px) {
-  .arch-flow[data-cols="4"] {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .arch-flow[data-cols="4"] > .arch-col {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    padding: 20px 0;
-  }
-  .arch-flow[data-cols="4"] > .arch-col:first-child {
-    padding-top: 0;
-  }
-  .arch-flow[data-cols="4"] > .arch-col:last-child {
-    padding-bottom: 0;
-  }
-  .arch-flow[data-cols="4"] > .arch-col:not(:first-child) {
-    border-left: none;
-    border-top: 1px dashed var(--line-strong);
-  }
-  .arch-flow[data-cols="4"] .arch-ct {
-    grid-column: 1 / -1;
-  }
-  .arch-flow[data-cols="4"] .arch-link {
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(90deg);
-  }
-}
-@container arch (max-width: 460px) {
-  .arch-flow:is([data-cols="2"], [data-cols="3"]) {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .arch-flow:is([data-cols="2"], [data-cols="3"]) > .arch-col {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    padding: 20px 0;
-  }
-  .arch-flow:is([data-cols="2"], [data-cols="3"]) > .arch-col:first-child {
-    padding-top: 0;
-  }
-  .arch-flow:is([data-cols="2"], [data-cols="3"]) > .arch-col:last-child {
-    padding-bottom: 0;
-  }
-  .arch-flow:is([data-cols="2"], [data-cols="3"]) > .arch-col:not(:first-child) {
-    border-left: none;
-    border-top: 1px dashed var(--line-strong);
-  }
-  .arch-flow:is([data-cols="2"], [data-cols="3"]) .arch-ct {
-    grid-column: 1 / -1;
-  }
-  .arch-flow:is([data-cols="2"], [data-cols="3"]) .arch-link {
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(90deg);
-  }
-}
-.node {
-  border: 1px solid var(--line-strong);
-  background: var(--bg);
-  border-radius: 10px;
-  padding: 13px 15px;
-  font-size: 13px;
-  color: var(--fg);
-  font-weight: 500;
-  box-shadow: 0 2px 6px -3px rgb(var(--shadow-rgb) / 0.2);
-}
-.node .ns {
-  display: block;
-  font-size: 11.5px;
-  color: var(--fg-faint);
-  font-weight: 400;
-  margin-top: 2px;
-}
-.node.accent {
-  border-color: var(--accent);
-  background: var(--accent-soft);
-  color: var(--accent-ink);
-}
-.arch-note {
-  margin-top: 26px;
-  font-size: 12.5px;
-  color: var(--fg-faint);
-  font-family: var(--mono);
-}
-
-.gal {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
-.gal .g {
-  border: 1px solid var(--line-strong);
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--card-2);
-}
-.gal .g.wide {
-  grid-column: 1 / -1;
-}
-
-.locked {
-  border: 1px dashed var(--line-strong);
-  border-radius: 13px;
-  padding: 22px 24px;
-  background: var(--card-2);
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-}
-.locked .li {
-  font-size: 20px;
-  flex: none;
-}
-.locked .lt {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--fg);
-}
-.locked .ld {
-  font-size: 13px;
-  color: var(--fg-dim);
-  margin-top: 4px;
-  line-height: 1.6;
-}
-
-.next-proj {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-.next-proj .npl {
-  font-size: 13.5px;
-  color: var(--fg-faint);
-}
-.next-proj .npn {
-  font-size: 28px;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  color: var(--fg);
-  margin-top: 5px;
-  transition: color 0.15s;
-}
-.next-proj:hover .npn {
-  color: var(--accent-ink);
-}
-.next-proj .npa {
-  width: 26px;
-  height: 26px;
-  color: var(--fg-faint);
-  transition: transform 0.2s, color 0.15s;
-}
-.next-proj:hover .npa {
-  transform: translateX(4px);
-  color: var(--accent-ink);
-}
-
-@media (max-width: 760px) {
-  .feat,
-  .gal {
-    grid-template-columns: 1fr;
-  }
-  .arch {
-    padding: 22px;
-  }
-}
-
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -905,188 +521,5 @@ html[data-theme-switch]::view-transition-new(root) {
   *::after {
     transition-duration: 0.01ms !important;
     animation: none !important;
-  }
-}
-
-/* ---------- tech links: inline link + chip (components/tech-link) ---------- */
-.tech-link {
-  color: var(--fg);
-  font-weight: 500;
-  text-decoration: underline;
-  text-decoration-color: var(--line-strong);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-  transition: text-decoration-color 0.15s var(--ease-out);
-}
-.tech-link:hover,
-.tech-link:focus-visible {
-  text-decoration-color: var(--fg);
-}
-.tech-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 11px 5px 5px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--card);
-  font-size: 13.5px;
-  color: var(--fg);
-  transition: border-color 0.15s var(--ease-out);
-}
-.tech-chip:hover,
-.tech-chip:focus-visible {
-  border-color: var(--line-strong);
-}
-
-
-
-/* ---------- gallery tiles that open the lightbox ---------- */
-.g-open {
-  position: relative;
-  display: block;
-  width: 100%;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: zoom-in;
-}
-.g-open [data-slot="image-slot-image"] {
-  transition: transform 0.4s var(--ease-out);
-}
-.g-open:hover [data-slot="image-slot-image"] {
-  transform: scale(1.015);
-}
-.g-open:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: -2px;
-}
-.g-hint {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  background: rgb(0 0 0 / 0.55);
-  color: #fff;
-  opacity: 0;
-  transition: opacity 0.2s var(--ease-out);
-}
-.g-open:hover .g-hint,
-.g-open:focus-visible .g-hint {
-  opacity: 1;
-}
-@media (hover: none) {
-  .g-hint {
-    opacity: 1;
-  }
-}
-
-/* ---------- live preview (components/live-preview) ----------
-   The real site in a desktop or phone frame. The iframe renders at a fixed
-   viewport and is scaled to fit the stage (--frame-scale). */
-.live-preview {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  gap: 14px;
-  width: min(1440px, calc(100vw - 48px));
-  height: calc(100dvh - 48px);
-  padding: 16px;
-}
-.live-preview-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 12px;
-  padding-right: 44px; /* room for the close button */
-}
-.live-preview-address {
-  display: flex;
-  flex: 1 1 200px;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-  padding: 8px 14px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--card-2);
-  color: var(--fg-faint);
-}
-.live-preview-address svg {
-  flex: none;
-  width: 15px;
-  height: 15px;
-}
-.live-preview-host {
-  overflow: hidden;
-  font-size: 13px;
-  font-weight: 500;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: var(--fg);
-}
-.live-preview-stage {
-  display: grid;
-  place-items: center;
-  min-height: 0;
-  padding: 16px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--card-2);
-}
-.live-preview-frame {
-  position: relative;
-  width: var(--frame-w);
-  height: var(--frame-h);
-  overflow: hidden;
-  border-radius: 8px;
-  background: #fff;
-  box-shadow:
-    0 0 0 1px var(--line-strong),
-    0 20px 50px rgb(var(--shadow-rgb) / 0.18);
-}
-.live-preview-frame[data-device="phone"] {
-  border-radius: 28px;
-  box-shadow:
-    0 0 0 6px var(--fg-soft),
-    0 20px 50px rgb(var(--shadow-rgb) / 0.25);
-}
-.live-preview-frame iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  border: 0;
-  background: #fff;
-  transform: scale(var(--frame-scale));
-  transform-origin: 0 0;
-}
-.live-preview-loading {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  display: grid;
-  place-items: center;
-  background: #fff;
-  font-size: 13px;
-  color: #737373;
-}
-.live-preview-note {
-  font-size: 12px;
-  color: var(--fg-faint);
-}
-@media (max-width: 760px) {
-  .live-preview {
-    width: 100vw;
-    height: 100dvh;
-    padding: 12px;
-    border: none;
-    border-radius: 0;
-  }
-  .live-preview-stage {
-    padding: 10px;
   }
 }
