@@ -19,6 +19,7 @@ import {
 import { LOCALE_LABEL, LOCALES, type Locale, localePath, splitLocale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/en";
 import { cn } from "@/lib/utils/cn";
+import { startLocaleSwitch, useEndLocaleSwitch } from "@/lib/locale-switch";
 import { LOCALE_SWITCH } from "@/lib/view-transition";
 
 import { NavButton } from "./nav-button";
@@ -58,8 +59,9 @@ function LangSwitch({
             inMenu && "px-3 py-2",
           )}
           href={localePath(locale, path)}
-          // the same page in another language: no title morph
+          // the same page in another language: no title morph, no entrances
           transitionTypes={[LOCALE_SWITCH]}
+          onClick={locale === lang ? undefined : startLocaleSwitch}
           hrefLang={locale}
           lang={locale}
           aria-current={locale === lang ? "true" : undefined}
@@ -77,6 +79,7 @@ function LangSwitch({
 export function SiteNav({ lang, dict, name }: SiteNavProps) {
   const { path } = splitLocale(usePathname());
   const [open, setOpen] = useState(false);
+  useEndLocaleSwitch();
 
   // icons appear in the mobile menu only (on hover/focus, and for the page you're on)
   const links = [

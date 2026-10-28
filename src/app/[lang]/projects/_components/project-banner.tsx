@@ -1,8 +1,12 @@
 "use client";
 
+import type { PaperShaderElement } from "@paper-design/shaders";
 import { useReducedMotion } from "motion/react";
 import dynamic from "next/dynamic";
-import { useSyncExternalStore } from "react";
+import { useCallback, useRef, useState, useSyncExternalStore } from "react";
+
+import { useBeforeLocaleSwitch, useLocaleSwitched } from "@/lib/locale-switch";
+import { cn } from "@/lib/utils/cn";
 
 /** The shader loads after the page is interactive (client only), so it stays
  *  out of the critical path; the page's own background shows until then. */
@@ -28,6 +32,16 @@ const isDark = () => {
   return picked ? picked === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
 };
 
+/** Where the banner's animation stood when a language switch started (Paper
+ *  frames are milliseconds of animation time), so the page mounted in the
+ *  new language carries on from there instead of starting over. */
+let lastFrame: { frame: number; at: number; speed: number } | undefined;
+
+function resumeFrame() {
+  if (!lastFrame) return 0;
+  return lastFrame.frame + (performance.now() - lastFrame.at) * lastFrame.speed;
+}
+
 /**
  * A case study's colours behind its hero: one continuous mesh gradient in the
  * project's own palette, flowing slowly (Paper Shaders, WebGL), fading into
@@ -36,7 +50,8 @@ const isDark = () => {
  *
  * Kept light on the GPU: drawn at no more than 640×360 and stretched (soft
  * colour has no detail to lose), faded in once loaded, and paused by Paper
- * itself while scrolled out of view or in a background tab.
+ * itself while scrolled out of view or in a background tab. A language
+ * switch neither fades it in again nor restarts its flow.
  *
  * Each theme gets its own palette. Include the page background among the
  * colours, so the art dissolves into the page rather than sitting on it as a
@@ -56,6 +71,16 @@ export function ProjectBanner({
 }) {
   const dark = useSyncExternalStore(subscribeTheme, isDark, () => false);
   const reduce = useReducedMotion();
+  const speed = reduce ? 0 : 0.25;
+  const switched = useLocaleSwitched();
+  const [frame] = useState(() => (switched ? resumeFrame() : 0));
+  const shader = useRef<PaperShaderElement>(null);
+  useBeforeLocaleSwitch(
+    useCallback(() => {
+      const mount = shader.current?.paperShaderMount;
+      if (mount) lastFrame = { frame: mount.getCurrentFrame(), at: performance.now(), speed };
+    }, [speed]),
+  );
 
   return (
     <div
@@ -64,11 +89,16 @@ export function ProjectBanner({
       className="pointer-events-none absolute inset-x-0 top-0 -z-1 h-banner mask-b-from-35% mask-b-to-100% dark:opacity-60"
     >
       <MeshGradient
-        className="size-full transition-opacity duration-700 ease-pop starting:opacity-0"
+        ref={shader}
+        className={cn(
+          "size-full",
+          !switched && "transition-opacity duration-700 ease-pop starting:opacity-0",
+        )}
         colors={dark ? colors.dark : colors.light}
         distortion={0.8}
         swirl={0.15}
-        speed={reduce ? 0 : 0.25}
+        speed={speed}
+        frame={frame}
         {...pattern}
         minPixelRatio={1}
         maxPixelCount={640 * 360}

@@ -2,6 +2,8 @@
 
 import { motion, useReducedMotion } from "motion/react";
 
+import { useLocaleSwitched } from "@/lib/locale-switch";
+
 import { IN_VIEW, POP } from "./springs";
 
 interface RevealProps {
@@ -19,7 +21,8 @@ const DELAYS: Record<number, number> = { 0: 0, 1: 0.08, 2: 0.16, 3: 0.24 };
 
 /**
  * Scroll reveal: springs up into place once when scrolled into view.
- * Collapses to a no-op under prefers-reduced-motion.
+ * Collapses to a no-op under prefers-reduced-motion, and starts in place
+ * after a language switch.
  */
 export function Reveal({
   children,
@@ -29,6 +32,8 @@ export function Reveal({
   "data-slot": slot,
 }: RevealProps) {
   const reduce = useReducedMotion();
+  // the same page in another language: already in place, no entrance
+  const settled = useLocaleSwitched();
   const MotionTag = motion[as] as typeof motion.div;
 
   if (reduce) {
@@ -44,7 +49,7 @@ export function Reveal({
     <MotionTag
       data-slot={slot}
       className={className}
-      initial={{ opacity: 0, y: 28 }}
+      initial={settled ? false : { opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={IN_VIEW}
       transition={{ ...POP, delay: DELAYS[delay] }}

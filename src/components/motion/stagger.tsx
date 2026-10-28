@@ -2,7 +2,9 @@
 
 import { motion, useReducedMotion, type Variants } from "motion/react";
 
-import { IN_VIEW, POP, STAGGER } from "./springs";
+import { useLocaleSwitched } from "@/lib/locale-switch";
+
+import { LIST_IN_VIEW, POP, STAGGER } from "./springs";
 
 interface StaggerProps {
   children: React.ReactNode;
@@ -17,9 +19,10 @@ const ITEM: Variants = {
 };
 
 /** A list whose StaggerItem children spring in one after another when the
- *  list scrolls into view. */
+ *  list scrolls into view; after a language switch they start in place. */
 export function Stagger({ children, className, as = "div" }: StaggerProps) {
   const reduce = useReducedMotion();
+  const settled = useLocaleSwitched();
   const MotionTag = motion[as] as typeof motion.div;
 
   if (reduce) {
@@ -28,7 +31,13 @@ export function Stagger({ children, className, as = "div" }: StaggerProps) {
   }
 
   return (
-    <MotionTag className={className} variants={LIST} initial="hidden" whileInView="show" viewport={IN_VIEW}>
+    <MotionTag
+      className={className}
+      variants={LIST}
+      initial={settled ? false : "hidden"}
+      whileInView="show"
+      viewport={LIST_IN_VIEW}
+    >
       {children}
     </MotionTag>
   );
