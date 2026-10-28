@@ -31,8 +31,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return localizedMetadata(lang, "/about", getDictionary(lang).pages.about);
 }
 
-/** About me: written later. For now an empty state that points to the work
- *  and résumé, so the page is never a dead end. */
+/** About me: written later. For now an empty state that points to the work,
+ *  résumé and certificates, so the page is never a dead end. */
 export default async function AboutPage({ params }: Props) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
@@ -61,6 +61,9 @@ export default async function AboutPage({ params }: Props) {
               {/* the résumé is English-only */}
               <ButtonLink render={<LocaleLink href="/resume" />} variant="ghost">
                 {page.actions.resume}
+              </ButtonLink>
+              <ButtonLink render={<LocaleLink href="/certificates" />} variant="ghost">
+                {page.actions.certificates}
               </ButtonLink>
             </EmptyContent>
           </Empty>

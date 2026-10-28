@@ -324,7 +324,7 @@ export const uk: Dictionary = {
         description:
           "Ця сторінка ще пишеться. Поки що найбільше про мене розкажуть проєкти та резюме.",
       },
-      actions: { work: "Мої проєкти", resume: "Резюме" },
+      actions: { work: "Мої проєкти", resume: "Резюме", certificates: "Сертифікати" },
     },
     reading: {
       title: "Книги",

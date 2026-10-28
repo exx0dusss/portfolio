@@ -1,5 +1,5 @@
 // Saves each certificate's image (the issuer's certificate, or the course's
-// preview card) from src/app/[lang]/certificates/_components/certificates.json
+// preview card) from src/lib/certificates/certificates.json
 // into public/certificates/ as WebP, keeping its aspect ratio, and records the
 // size beside it so pages reserve the space. The site never calls these hosts
 // at runtime. Re-run after adding a certificate:
@@ -10,7 +10,7 @@ import path from "node:path";
 import sharp from "sharp";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
-const DIR = path.join(ROOT, "src/app/[lang]/certificates/_components");
+const DIR = path.join(ROOT, "src/lib/certificates");
 const IMG_DIR = path.join(ROOT, "public/certificates");
 const WIDTH = 1200;
 

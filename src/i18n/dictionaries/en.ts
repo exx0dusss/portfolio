@@ -84,7 +84,7 @@ export interface Dictionary {
     };
     about: PageCopy & {
       empty: { title: string; description: string };
-      actions: { work: string; resume: string };
+      actions: { work: string; resume: string; certificates: string };
     };
   };
 }
@@ -371,7 +371,7 @@ export const en: Dictionary = {
         description:
           "This page is still being written. Meanwhile, my projects and résumé tell most of the story.",
       },
-      actions: { work: "See my work", resume: "Open résumé" },
+      actions: { work: "See my work", resume: "Open résumé", certificates: "Certificates" },
     },
     reading: {
       title: "Reading",

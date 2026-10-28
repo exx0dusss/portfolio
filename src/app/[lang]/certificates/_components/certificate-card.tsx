@@ -15,7 +15,7 @@ import { LinkPreviewBody, LinkPreviewSite, LinkPreviewTitle } from "@/components
 import type { Dictionary, Locale } from "@/i18n";
 import { getTech } from "@/lib/tech";
 
-import type { Certificate } from "./certificates";
+import type { Certificate } from "@/lib/certificates";
 
 type CertificateCopy = Dictionary["pages"]["certificates"];
 

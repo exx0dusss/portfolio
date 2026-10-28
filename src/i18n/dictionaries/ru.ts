@@ -324,7 +324,7 @@ export const ru: Dictionary = {
         description:
           "Эта страница ещё пишется. Пока что больше всего обо мне расскажут проекты и резюме.",
       },
-      actions: { work: "Мои проекты", resume: "Резюме" },
+      actions: { work: "Мои проекты", resume: "Резюме", certificates: "Сертификаты" },
     },
     reading: {
       title: "Книги",

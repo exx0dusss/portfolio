@@ -2,9 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
+import { LocaleLink } from "@/components/locale-link";
 import { PageShell } from "@/components/page";
 import { ButtonLink } from "@/components/ui/button";
 import { hasLocale } from "@/i18n";
+import { getTech } from "@/lib/tech";
+
+import { CERTIFICATES } from "@/lib/certificates";
 
 import { PrintButton } from "./_components/print-button";
 import {
@@ -209,18 +213,16 @@ export default async function ResumePage({ params }: { params: Promise<{ lang: s
 
             <ResumeSection>
               <ResumeSectionTitle>Certifications</ResumeSectionTitle>
-              <ResumeProject>
-                Next.js App Router Fundamentals — <b>Vercel</b>
-              </ResumeProject>
-              <ResumeProject>
-                React Foundations for Next.js — <b>Vercel</b>
-              </ResumeProject>
-              <ResumeProject>NestJS: Zero to Hero — Modern TypeScript Back-end</ResumeProject>
-              <ResumeProject>The Complete SQL Bootcamp: Zero to Hero</ResumeProject>
-              <ResumeProject>React — Full Course, Redux &amp; Redux Toolkit</ResumeProject>
-              <ResumeProject>
-                Understanding NPM · Introduction to Programming Using JavaScript
-              </ResumeProject>
+              {/* the same list as the certificates page, titles as printed */}
+              {CERTIFICATES.map((certificate) => (
+                <ResumeProject key={certificate.id}>
+                  {certificate.title} — <b>{getTech(certificate.issuer).name}</b>{" "}
+                  <ResumeYear>{certificate.issued.slice(0, 4)}</ResumeYear>
+                </ResumeProject>
+              ))}
+              <ResumeLink className="mt-2.5">
+                <LocaleLink href="/certificates">Certificates with credential links</LocaleLink>
+              </ResumeLink>
             </ResumeSection>
           </div>
         </div>

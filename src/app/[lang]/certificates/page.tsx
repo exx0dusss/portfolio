@@ -12,9 +12,9 @@ import {
   SectionLabel,
 } from "@/components/page";
 import { getDictionary, hasLocale, localizedMetadata } from "@/i18n";
+import { CERTIFICATES } from "@/lib/certificates";
 
 import { CertificateCard } from "./_components/certificate-card";
-import { CERTIFICATES } from "./_components/certificates";
 
 type Props = { params: Promise<{ lang: string }> };
 
