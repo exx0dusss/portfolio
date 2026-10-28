@@ -1,12 +1,15 @@
-// Downloads each technology's logo in its own colours, for the tech chips'
-// hover (src/components/tech-link.tsx). Logos come from svgl (svgl.app, open
-// source; light and dark versions where it has both); a brand whose real logo
-// is one colour is drawn from its Simple Icons shape in that colour. Logos
-// with no colour of their own (black and white marks) are skipped: the chip's
-// grey mark already is their look. Files go to public/tech-logos/ and the map
-// to src/lib/tech-logos.json; the site never calls these hosts at runtime.
-// Re-run after adding a tech:
+// Saves the logos the tech links use (src/components/tech-link.tsx); the site
+// never calls these hosts at runtime. Re-run after adding a tech:
 //   pnpm tech:logos
+//
+// 1. Colour logos, shown when a chip is hovered: from svgl (svgl.app, open
+//    source; light and dark versions where it has both), or a brand's Simple
+//    Icons shape in its one colour. Logos with no colour of their own (black
+//    and white marks) are skipped: the grey mark already is their look.
+//    Files in public/tech-logos/, map in src/lib/tech-logos.json.
+// 2. Grey marks for brands Simple Icons doesn't have: taken from the brand's
+//    own favicon or mask icon, background dropped and recoloured to
+//    currentColor. Map in src/lib/tech-marks.json.
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -14,6 +17,7 @@ import * as icons from "simple-icons";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const OUT = path.join(ROOT, "src/lib/tech-logos.json");
+const MARKS_OUT = path.join(ROOT, "src/lib/tech-marks.json");
 const DIR = path.join(ROOT, "public/tech-logos");
 
 /** Tech id -> its svgl title, or a Simple Icons export for one-colour logos. */
@@ -30,11 +34,38 @@ const SOURCES = {
   tailwind: { svgl: "Tailwind CSS" },
   shadcn: { svgl: "shadcn/ui" },
   "base-ui": { svgl: "Base UI" },
-  motion: { svgl: "Motion" },
   vercel: { svgl: "Vercel" },
   cloudflare: { svgl: "Cloudflare" },
   github: { svgl: "GitHub" },
 };
+
+/** Tech id -> the brand's own one-colour mark, and what to drop around it
+ *  (a background shape). Geist has no mark: its brand is the typeface, and
+ *  the tile's initial is set in Geist. */
+const MARKS = {
+  // the favicon draws the mark in a band across a 64px square: crop to it
+  motion: { url: "https://motion.dev/favicon.svg", drop: /<rect[^>]*\/>/, viewBox: "10 10 44 44" },
+  easyweek: {
+    url: "https://easyweek.io/favicons/favicon.svg",
+    drop: /<path[^>]*fill="#469E30"[^>]*\/>/,
+  },
+  lightbox: { url: "https://yet-another-react-lightbox.com/safari-pinned-tab.svg" },
+};
+
+/** An SVG's viewBox and inner markup, painted in currentColor, with anything
+ *  but drawing removed (prolog, metadata, scripts, event attributes). */
+function toMark(svg, drop) {
+  const viewBox = svg.match(/viewBox="([^"]+)"/)[1];
+  let body = svg.slice(svg.indexOf(">", svg.indexOf("<svg")) + 1, svg.lastIndexOf("</svg>"));
+  if (drop) body = body.replace(drop, "");
+  body = body
+    .replace(/<metadata>[\s\S]*?<\/metadata>|<script[\s\S]*?<\/script>/g, "")
+    .replace(/\son\w+="[^"]*"/g, "")
+    .replace(/fill="(?!none)[^"]*"/g, 'fill="currentColor"')
+    .replace(/\s+/g, " ")
+    .trim();
+  return { viewBox, body };
+}
 
 /** True when the SVG uses a colour that isn't grey (saturation over 0.25). */
 function hasColour(svg) {
@@ -91,6 +122,14 @@ for (const [id, source] of Object.entries(SOURCES)) {
   console.log(`saved    ${id}${map[id].dark ? " (light + dark)" : ""}`);
 }
 await writeFile(OUT, JSON.stringify(map, null, 2) + "\n");
+
+const marks = {};
+for (const [id, { url, drop, viewBox }] of Object.entries(MARKS)) {
+  marks[id] = toMark(await (await fetch(url)).text(), drop);
+  if (viewBox) marks[id].viewBox = viewBox;
+  console.log(`mark     ${id}`);
+}
+await writeFile(MARKS_OUT, JSON.stringify(marks, null, 2) + "\n");
 console.log(
   `\n${Object.keys(map).length} logos -> public/tech-logos/, map in src/lib/tech-logos.json`,
 );

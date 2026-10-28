@@ -27,10 +27,6 @@
   "tailwind": {
     "light": "/tech-logos/tailwind.svg"
   },
-  "motion": {
-    "light": "/tech-logos/motion.svg",
-    "dark": "/tech-logos/motion.dark.svg"
-  },
   "cloudflare": {
     "light": "/tech-logos/cloudflare.svg"
   }

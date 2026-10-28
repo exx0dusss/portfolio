@@ -32,6 +32,13 @@ const brandIconInitialVariants = cva("leading-none font-semibold", {
   },
 });
 
+/** A one-colour mark: an SVG viewBox and its inner markup, from the site's own
+ *  logo registry (src/lib/tech.ts). */
+interface BrandMark {
+  viewBox: string;
+  body: string;
+}
+
 /** A logo in its own colours, with an optional version for dark backgrounds. */
 interface BrandLogo {
   light: string;
@@ -43,24 +50,24 @@ interface BrandLogo {
 const LAYER = "col-start-1 row-start-1 transition-opacity duration-150 ease-standard";
 
 /**
- * A brand logo in a square thumbnail. Every logo is a single-colour 24×24
- * path (Simple Icons) painted in currentColor, so a row of them reads as one
- * set in both themes. Without a `path` it shows the name's initial.
+ * A brand logo in a square thumbnail. Every mark is single-colour, painted
+ * in currentColor, so a row of them reads as one set in both themes. Without
+ * a `mark` it shows the name's initial.
  *
  * Given a `logo` (the brand's own colours), it crossfades to it while the
  * nearest `group/brand` parent is hovered or keyboard-focused:
  *
- *   <a className="group/brand …"><BrandIcon name="NestJS" path={…} logo={…} /></a>
+ *   <a className="group/brand …"><BrandIcon name="NestJS" mark={…} logo={…} /></a>
  */
 function BrandIcon({
   name,
-  path,
+  mark,
   logo,
   size,
   className,
   ...props
 }: Omit<React.ComponentProps<"span">, "children"> &
-  VariantProps<typeof brandIconVariants> & { name: string; path?: string; logo?: BrandLogo }) {
+  VariantProps<typeof brandIconVariants> & { name: string; mark?: BrandMark; logo?: BrandLogo }) {
   return (
     <span
       data-slot="brand-icon"
@@ -68,17 +75,17 @@ function BrandIcon({
       className={cn(brandIconVariants({ size }), className)}
       {...props}
     >
-      {path ? (
+      {mark ? (
         <svg
-          viewBox="0 0 24 24"
+          viewBox={mark.viewBox}
           fill="currentColor"
           className={cn(
             LAYER,
             logo && "group-hover/brand:opacity-0 group-focus-visible/brand:opacity-0",
           )}
-        >
-          <path d={path} />
-        </svg>
+          // the registry's own SVG markup, generated and checked in by scripts
+          dangerouslySetInnerHTML={{ __html: mark.body }}
+        />
       ) : (
         <span className={cn(LAYER, brandIconInitialVariants({ size }))}>{name[0]}</span>
       )}
@@ -111,4 +118,4 @@ function BrandIcon({
   );
 }
 
-export { BrandIcon, type BrandLogo, brandIconVariants };
+export { BrandIcon, type BrandLogo, type BrandMark, brandIconVariants };

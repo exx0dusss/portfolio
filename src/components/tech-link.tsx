@@ -48,9 +48,7 @@ function TechLink({
 }) {
   const tech = getTech(id);
   const { preview } = tech;
-  const logo = (size: "sm" | "lg") => (
-    <BrandIcon name={tech.name} path={tech.iconPath} size={size} />
-  );
+  const logo = (size: "sm" | "lg") => <BrandIcon name={tech.name} mark={tech.mark} size={size} />;
 
   return (
     <HoverCard>
@@ -66,7 +64,7 @@ function TechLink({
       >
         {/* the chip's logo shows its own colours while the chip is hovered */}
         {variant === "chip" && (
-          <BrandIcon name={tech.name} path={tech.iconPath} logo={tech.logo} size="sm" />
+          <BrandIcon name={tech.name} mark={tech.mark} logo={tech.logo} size="sm" />
         )}
         {children ?? tech.name}
       </HoverCardTrigger>
