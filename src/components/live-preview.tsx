@@ -36,7 +36,10 @@ function LivePreview({ url, label = "Try it live" }: { url: string; label?: stri
       <DialogTrigger render={<Button variant="ghost" />}>
         <BrowserIcon aria-hidden /> {label}
       </DialogTrigger>
-      <DialogContent className="live-preview" showCloseButton>
+      <DialogContent
+        className="grid h-live-preview w-live-preview grid-rows-live-preview gap-3.5 p-4 max-phone:h-dvh max-phone:w-screen max-phone:rounded-none max-phone:border-none max-phone:p-3"
+        showCloseButton
+      >
         <LivePreviewBody url={url} host={host} />
       </DialogContent>
     </Dialog>
@@ -72,10 +75,11 @@ function LivePreviewBody({ url, host }: { url: string; host: string }) {
 
   return (
     <>
-      <div className="live-preview-bar">
-        <div className="live-preview-address">
+      {/* pr-11 leaves room for the close button */}
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2.5 pr-11">
+        <div className="flex min-w-0 grow basis-50 items-center gap-2 rounded-full border border-line bg-card-2 px-3.5 py-2 text-fg-faint [&_svg]:size-3.75 [&_svg]:flex-none">
           <GlobeIcon aria-hidden />
-          <DialogTitle className="live-preview-host">{host}</DialogTitle>
+          <DialogTitle className="truncate text-13 font-medium text-fg">{host}</DialogTitle>
         </div>
         <ToggleGroup
           aria-label="Preview size"
@@ -89,21 +93,20 @@ function LivePreviewBody({ url, host }: { url: string; host: string }) {
           <ToggleGroupItem value="desktop">Desktop</ToggleGroupItem>
           <ToggleGroupItem value="phone">Phone</ToggleGroupItem>
         </ToggleGroup>
-        <ButtonLink
-          variant="ghost"
-          size="sm"
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <ButtonLink variant="ghost" size="sm" href={url} target="_blank" rel="noopener noreferrer">
           Open in new tab <ArrowUpRightIcon aria-hidden />
         </ButtonLink>
       </div>
 
-      <div ref={stageRef} className="live-preview-stage">
+      <div
+        ref={stageRef}
+        className="grid min-h-0 place-items-center overflow-hidden rounded-card border border-line bg-card-2 p-4 max-phone:p-2.5"
+      >
+        {/* the iframe renders at the device's fixed viewport and is scaled
+            (--frame-scale) to fit the stage; the frame takes the scaled size */}
         {scale > 0 && (
           <div
-            className="live-preview-frame"
+            className="relative h-(--frame-h) w-(--frame-w) overflow-hidden rounded-8 bg-frame shadow-frame data-[device=phone]:rounded-28 data-[device=phone]:shadow-frame-phone"
             data-device={device}
             style={
               {
@@ -112,11 +115,16 @@ function LivePreviewBody({ url, host }: { url: string; host: string }) {
               } as React.CSSProperties
             }
           >
-            {!loaded && <div className="live-preview-loading">Loading {host}…</div>}
+            {!loaded && (
+              <div className="absolute inset-0 z-1 grid place-items-center bg-frame text-13 text-frame-ink">
+                Loading {host}…
+              </div>
+            )}
             <iframe
               key={device}
               src={url}
               title={`${host}, live`}
+              className="absolute top-0 left-0 origin-top-left scale-(--frame-scale) border-0 bg-frame"
               width={viewport.width}
               height={viewport.height}
               referrerPolicy="no-referrer"
@@ -127,7 +135,7 @@ function LivePreviewBody({ url, host }: { url: string; host: string }) {
         )}
       </div>
 
-      <DialogDescription className="live-preview-note">
+      <DialogDescription className="text-12 text-fg-faint">
         The real site, loaded from {host}. It may set its own cookies.
       </DialogDescription>
     </>

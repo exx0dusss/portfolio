@@ -28,6 +28,9 @@
   --color-overlay: rgb(var(--shadow-rgb) / 0.45);
   /* the nav bar's translucent surface, under its backdrop blur */
   --color-nav: var(--nav-bg);
+  /* the live preview's frame: the embedded site's own light page */
+  --color-frame: #fff;
+  --color-frame-ink: #737373;
 
   --font-sans: var(--sans);
   --font-mono: var(--mono);
@@ -57,6 +60,8 @@
   --radius-6: 6px;
   --radius-7: 7px;
   --radius-9: 9px;
+  --radius-8: 8px;
+  --radius-28: 28px;
 
   /* the nav brand's name over its role line */
   --leading-brand: 1.25;
@@ -81,11 +86,16 @@
 
   /* dialogs: 480px, never wider than the screen minus a 16px gutter */
   --container-dialog: min(480px, 100vw - 32px);
+  /* the live-preview dialog: up to 1440px, 24px clear of each edge */
+  --container-live-preview: min(1440px, 100vw - 48px);
 
   --shadow-popover: 0 18px 48px rgb(var(--shadow-rgb) / 0.18);
   --shadow-dialog: 0 30px 80px rgb(var(--shadow-rgb) / 0.3);
   /* a selected segment: hairline ring plus a soft lift */
   --shadow-pressed: inset 0 0 0 1px var(--line), 0 1px 2px rgb(var(--shadow-rgb) / 0.12);
+  /* the live preview's desktop frame (hairline) and phone frame (bezel) */
+  --shadow-frame: 0 0 0 1px var(--line-strong), 0 20px 50px rgb(var(--shadow-rgb) / 0.18);
+  --shadow-frame-phone: 0 0 0 6px var(--fg-soft), 0 20px 50px rgb(var(--shadow-rgb) / 0.25);
 
   --blur-overlay: 6px;
   --blur-nav: 12px;
@@ -96,6 +106,9 @@
   --grid-template-columns-nav-compact: 1fr auto;
   /* the mobile menu fills the screen under the 68px bar */
   --height-menu: calc(100dvh - 68px);
+  /* the live-preview dialog: bar, stage, note; 24px clear of each edge */
+  --grid-template-rows-live-preview: auto minmax(0, 1fr) auto;
+  --height-live-preview: calc(100dvh - 48px);
 
   /* floating corner buttons (back to top): clear of the home indicator */
   --inset-corner: calc(24px + env(safe-area-inset-bottom));
@@ -1611,111 +1624,4 @@ html[data-theme-switch]::view-transition-new(root) {
   font-family: var(--mono);
   font-size: 12px;
   color: var(--fg-faint);
-}
-
-
-/* ---------- live preview (components/live-preview) ----------
-   The real site in a desktop or phone frame. The iframe renders at a fixed
-   viewport and is scaled to fit the stage (--frame-scale). */
-.live-preview {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  gap: 14px;
-  width: min(1440px, calc(100vw - 48px));
-  height: calc(100dvh - 48px);
-  padding: 16px;
-}
-.live-preview-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 12px;
-  padding-right: 44px; /* room for the close button */
-}
-.live-preview-address {
-  display: flex;
-  flex: 1 1 200px;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-  padding: 8px 14px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--card-2);
-  color: var(--fg-faint);
-}
-.live-preview-address svg {
-  flex: none;
-  width: 15px;
-  height: 15px;
-}
-.live-preview-host {
-  overflow: hidden;
-  font-size: 13px;
-  font-weight: 500;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: var(--fg);
-}
-.live-preview-stage {
-  display: grid;
-  place-items: center;
-  min-height: 0;
-  padding: 16px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--card-2);
-}
-.live-preview-frame {
-  position: relative;
-  width: var(--frame-w);
-  height: var(--frame-h);
-  overflow: hidden;
-  border-radius: 8px;
-  background: #fff;
-  box-shadow:
-    0 0 0 1px var(--line-strong),
-    0 20px 50px rgb(var(--shadow-rgb) / 0.18);
-}
-.live-preview-frame[data-device="phone"] {
-  border-radius: 28px;
-  box-shadow:
-    0 0 0 6px var(--fg-soft),
-    0 20px 50px rgb(var(--shadow-rgb) / 0.25);
-}
-.live-preview-frame iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  border: 0;
-  background: #fff;
-  transform: scale(var(--frame-scale));
-  transform-origin: 0 0;
-}
-.live-preview-loading {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  display: grid;
-  place-items: center;
-  background: #fff;
-  font-size: 13px;
-  color: #737373;
-}
-.live-preview-note {
-  font-size: 12px;
-  color: var(--fg-faint);
-}
-@media (max-width: 760px) {
-  .live-preview {
-    width: 100vw;
-    height: 100dvh;
-    padding: 12px;
-    border: none;
-    border-radius: 0;
-  }
-  .live-preview-stage {
-    padding: 10px;
-  }
 }
