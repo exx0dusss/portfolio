@@ -140,8 +140,26 @@ a `label`), `openness`, and `stack` (tech ids). Tile icons come from
 ### Gallery
 
 `Gallery` takes `{ placeholder, wide?, src?, alt? }` items. Tiles with a
-`src` open a fullscreen `yet-another-react-lightbox` (swipe, arrows, zoom,
-Esc). Its colours are set through `--yarl__*` variables on `.lightbox`.
+`src` open `ui/lightbox`: a fullscreen viewer on
+`yet-another-react-lightbox` with a title and "2 of 4" header, round outline
+buttons, and a thumbnail strip. Swipe, arrow keys, zoom (pinch, scroll,
+double-tap), and Esc, swipe down or the backdrop to close.
+
+- It's dark in both themes: screenshots read best on dark.
+- The backdrop and blur sit on the root `.lightbox`, so they cover the
+  thumbnail strip too; inner layers stay transparent.
+- The active thumbnail's ring is the only accent in the view.
+- The carousel is finite: a short set has a start and an end, and each
+  image appears in the strip once.
+- Style it through the `--yarl__*` variables on `.lightbox`. Phones drop the
+  arrows (swipe instead) and the slide padding.
+
+To reuse it elsewhere:
+
+```tsx
+const [index, setIndex] = useState(-1);
+<Lightbox slides={[{ src, alt, title }]} index={index} onClose={() => setIndex(-1)} />
+```
 
 ## Troubleshooting
 

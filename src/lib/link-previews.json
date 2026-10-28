@@ -26,6 +26,17 @@
     "site": "docker.com",
     "image": "/link-previews/docker.webp"
   },
+  "coolify": {
+    "title": "Coolify - Self-hosting with superpowers",
+    "description": "Self-hosting platform with superpowers. Deploy apps, databases & 360+ services to your server. Open-source alternative to Heroku.",
+    "site": "coolify.io",
+    "image": "/link-previews/coolify.webp"
+  },
+  "ovhcloud": {
+    "title": "OVHcloud VPS",
+    "description": "Virtual private servers from a European cloud provider, with root access and unlimited traffic.",
+    "site": "ovhcloud.com"
+  },
   "jwt": {
     "title": "JSON Web Tokens - jwt.io",
     "description": "JSON Web Token (JWT) is a compact URL-safe means of representing claims to be transferred between two parties. The claims in a JWT are encoded as a JSON object that is digitally signed using JSON Web Signature (JWS).",

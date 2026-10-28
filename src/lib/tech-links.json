@@ -9,6 +9,13 @@
   },
   "typeorm": { "name": "TypeORM", "href": "https://typeorm.io", "title": "TypeORM" },
   "docker": { "name": "Docker", "href": "https://www.docker.com" },
+  "coolify": { "name": "Coolify", "href": "https://coolify.io" },
+  "ovhcloud": {
+    "name": "OVHcloud",
+    "href": "https://www.ovhcloud.com/en/vps/",
+    "title": "OVHcloud VPS",
+    "description": "Virtual private servers from a European cloud provider, with root access and unlimited traffic."
+  },
   "jwt": { "name": "JWT", "href": "https://jwt.io" },
   "easyweek": {
     "name": "EasyWeek",

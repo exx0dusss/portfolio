@@ -36,12 +36,12 @@ export default async function KosmetikProfiPage({
           meta={[
             { key: "Year", value: "2024 — present", sub: "maintained since launch" },
             { key: "Built", value: "2 days", sub: "to the first version" },
-            { key: "Role", value: "Web developer", sub: "admin panel: design & build" },
+            { key: "Role", value: "Web developer", sub: "admin panel design, hosting & deploys" },
             { key: "Type", value: "Business website", sub: "with an admin panel" },
           ]}
           difficulty={{ level: 1, label: "Very easy" }}
           openness={{ tone: "client", label: "Client work · live site" }}
-          stack={["nestjs", "handlebars", "typeorm", "sqlite", "jwt", "docker"]}
+          stack={["nestjs", "handlebars", "typeorm", "sqlite", "jwt", "docker", "coolify", "ovhcloud"]}
           actions={[
             {
               variant: "primary",
@@ -150,6 +150,13 @@ export default async function KosmetikProfiPage({
                 title: "Data",
                 nodes: [{ title: "SQLite", sub: "TypeORM" }],
               },
+              {
+                title: "Hosting",
+                nodes: [
+                  { title: "OVHcloud VPS", sub: "Coolify · Docker" },
+                  { title: "Auto-deploy", sub: "on merge to main" },
+                ],
+              },
             ]}
             note="// one server, one database file — sized for a single practice"
           />
@@ -170,6 +177,13 @@ export default async function KosmetikProfiPage({
               up in search, not a client-side app. The data sits in <TechLink id="sqlite" /> through{" "}
               <TechLink id="typeorm" />: the right size for one practice, with no separate database
               to run.
+            </p>
+            <p>
+              I also set up where it runs. I helped the practice get its domain, configured the DNS,
+              and set up an <TechLink id="ovhcloud" /> VPS with <TechLink id="coolify" />, which
+              builds the Docker image and redeploys the site whenever a change is merged into the
+              main branch. It&#8217;s a minimal DevOps setup, but a complete one: a merged pull
+              request reaches the live site without anyone logging into the server.
             </p>
             <p>
               I&#8217;ve kept maintaining it since: &#8220;from&#8221; prices and the location picker

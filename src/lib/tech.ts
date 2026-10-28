@@ -1,5 +1,6 @@
 import {
   type SimpleIcon,
+  siCoolify,
   siCss,
   siDocker,
   siGooglemaps,
@@ -8,6 +9,7 @@ import {
   siJsonwebtokens,
   siNestjs,
   siNextdotjs,
+  siOvh,
   siReact,
   siSpring,
   siSqlite,
@@ -38,6 +40,8 @@ const ICONS: Partial<Record<TechId, SimpleIcon>> = {
   sqlite: siSqlite,
   typeorm: siTypeorm,
   docker: siDocker,
+  coolify: siCoolify,
+  ovhcloud: siOvh,
   jwt: siJsonwebtokens,
   "google-maps": siGooglemaps,
   react: siReact,
