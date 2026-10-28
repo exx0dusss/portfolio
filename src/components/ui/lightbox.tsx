@@ -6,6 +6,8 @@ import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
+// the site's theme for the library, after its own styles
+import "./lightbox.css";
 
 import {
   CaretLeftIcon,
@@ -86,10 +88,13 @@ function Lightbox({
         iconZoomOut: () => <MagnifyingGlassMinusIcon />,
         controls: () =>
           slide && (
-            <div className="lightbox-header" aria-live="polite">
-              {slide.title && <span className="lightbox-title">{slide.title}</span>}
+            <div
+              className="pointer-events-none absolute top-0 left-0 flex items-baseline gap-2.5 px-5 py-5.5 max-phone:px-4"
+              aria-live="polite"
+            >
+              {slide.title && <span className="text-14 font-medium text-fg">{slide.title}</span>}
               {slides.length > 1 && (
-                <span className="lightbox-count">
+                <span className="text-13 text-fg-dim tabular-nums">
                   {current + 1} of {slides.length}
                 </span>
               )}
