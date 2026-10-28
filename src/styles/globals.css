@@ -1363,32 +1363,38 @@ a {
   color: var(--fg-dim);
 }
 
-/* architecture diagram */
+/* architecture diagram. Sized by its own width (container query): one
+   column per group when there's room, horizontal lanes when there isn't, so
+   a group never wraps onto its own stretched row. */
 .arch {
+  container: arch / inline-size;
   border: 1px solid var(--line-strong);
   border-radius: 14px;
   background: var(--card-2);
-  padding: 26px;
+  padding: 32px;
   position: relative;
   overflow: hidden;
 }
 .arch-flow {
   position: relative;
-  display: flex;
-  align-items: stretch;
-  gap: 0;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(var(--arch-cols, 4), minmax(0, 1fr));
 }
 .arch-col {
-  flex: 1;
-  min-width: 150px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 0 14px;
+  gap: 12px;
+  min-width: 0;
+  padding: 0 20px;
 }
-.arch-col:not(:last-child) {
-  border-right: 1px dashed var(--line-strong);
+.arch-col:first-child {
+  padding-left: 0;
+}
+.arch-col:last-child {
+  padding-right: 0;
+}
+.arch-col:not(:first-child) {
+  border-left: 1px dashed var(--line-strong);
 }
 .arch-ct {
   font-size: 10.5px;
@@ -1396,13 +1402,85 @@ a {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--fg-faint);
-  margin-bottom: 3px;
+  margin-bottom: 2px;
+}
+/* narrow: each group becomes a lane, label on top and its nodes side by
+   side. Columns need ~150px each, so the switch depends on how many there
+   are (container queries can't read --arch-cols, hence data-cols). */
+@container arch (max-width: 740px) {
+  .arch-flow[data-cols="5"] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .arch-flow[data-cols="5"] > .arch-col {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    padding: 20px 0;
+  }
+  .arch-flow[data-cols="5"] > .arch-col:first-child {
+    padding-top: 0;
+  }
+  .arch-flow[data-cols="5"] > .arch-col:last-child {
+    padding-bottom: 0;
+  }
+  .arch-flow[data-cols="5"] > .arch-col:not(:first-child) {
+    border-left: none;
+    border-top: 1px dashed var(--line-strong);
+  }
+  .arch-flow[data-cols="5"] .arch-ct {
+    grid-column: 1 / -1;
+  }
+}
+@container arch (max-width: 600px) {
+  .arch-flow[data-cols="4"] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .arch-flow[data-cols="4"] > .arch-col {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    padding: 20px 0;
+  }
+  .arch-flow[data-cols="4"] > .arch-col:first-child {
+    padding-top: 0;
+  }
+  .arch-flow[data-cols="4"] > .arch-col:last-child {
+    padding-bottom: 0;
+  }
+  .arch-flow[data-cols="4"] > .arch-col:not(:first-child) {
+    border-left: none;
+    border-top: 1px dashed var(--line-strong);
+  }
+  .arch-flow[data-cols="4"] .arch-ct {
+    grid-column: 1 / -1;
+  }
+}
+@container arch (max-width: 460px) {
+  .arch-flow:is([data-cols="2"], [data-cols="3"]) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .arch-flow:is([data-cols="2"], [data-cols="3"]) > .arch-col {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    padding: 20px 0;
+  }
+  .arch-flow:is([data-cols="2"], [data-cols="3"]) > .arch-col:first-child {
+    padding-top: 0;
+  }
+  .arch-flow:is([data-cols="2"], [data-cols="3"]) > .arch-col:last-child {
+    padding-bottom: 0;
+  }
+  .arch-flow:is([data-cols="2"], [data-cols="3"]) > .arch-col:not(:first-child) {
+    border-left: none;
+    border-top: 1px dashed var(--line-strong);
+  }
+  .arch-flow:is([data-cols="2"], [data-cols="3"]) .arch-ct {
+    grid-column: 1 / -1;
+  }
 }
 .node {
   border: 1px solid var(--line-strong);
   background: var(--bg);
   border-radius: 10px;
-  padding: 11px 13px;
+  padding: 13px 15px;
   font-size: 13px;
   color: var(--fg);
   font-weight: 500;
@@ -1421,7 +1499,7 @@ a {
   color: var(--accent-ink);
 }
 .arch-note {
-  margin-top: 16px;
+  margin-top: 26px;
   font-size: 12.5px;
   color: var(--fg-faint);
   font-family: var(--mono);
@@ -1504,13 +1582,8 @@ a {
   .gal {
     grid-template-columns: 1fr;
   }
-  .arch-col {
-    border-right: none !important;
-    border-bottom: 1px dashed var(--line-strong);
-    padding: 14px 0;
-  }
-  .arch-col:last-child {
-    border-bottom: none;
+  .arch {
+    padding: 22px;
   }
 }
 
