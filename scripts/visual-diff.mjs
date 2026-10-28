@@ -8,10 +8,15 @@
  *   pnpm visual capture current           # after it
  *   pnpm visual compare baseline current  # lists pages that differ
  *
+ *   pnpm visual check [baseline]          # all of it in one go: build, start
+ *                                         # a server, capture "current",
+ *                                         # compare with the baseline, stop
+ *
  * Shots go to .visual/<set>/, diff images (changed pixels in red) to
  * .visual/diff/. Uses the installed Google Chrome (playwright-core, no
  * browser download). BASE_URL overrides http://localhost:3100.
  */
+import { execFileSync, spawn } from "node:child_process";
 import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -166,10 +171,37 @@ async function compare(a, b) {
   process.exitCode = changed ? 1 : 0;
 }
 
+/** Build, serve on BASE_URL's port, capture "current", compare, stop. */
+async function check(baseline = "baseline") {
+  execFileSync("pnpm", ["build"], { cwd: ROOT, stdio: "inherit" });
+  const port = new URL(BASE_URL).port || "3100";
+  const server = spawn("pnpm", ["exec", "next", "start", "-p", port], {
+    cwd: ROOT,
+    stdio: "ignore",
+    detached: true,
+  });
+  try {
+    for (let tries = 0; ; tries++) {
+      try {
+        if ((await fetch(BASE_URL)).ok) break;
+      } catch {}
+      if (tries > 60) throw new Error(`server on ${BASE_URL} didn't start`);
+      await new Promise((resolve) => setTimeout(resolve, 500));
+    }
+    await capture("current");
+    await compare(baseline, "current");
+  } finally {
+    process.kill(-server.pid);
+  }
+}
+
 const [command, ...args] = process.argv.slice(2);
-if (command === "capture" && args[0]) await capture(args[0]);
+if (command === "check") await check(args[0]);
+else if (command === "capture" && args[0]) await capture(args[0]);
 else if (command === "compare" && args.length === 2) await compare(args[0], args[1]);
 else {
-  console.error("usage: pnpm visual capture <set> | pnpm visual compare <a> <b>");
+  console.error(
+    "usage: pnpm visual check [baseline] | pnpm visual capture <set> | pnpm visual compare <a> <b>",
+  );
   process.exitCode = 2;
 }
