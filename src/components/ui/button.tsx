@@ -7,37 +7,48 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils/cn";
 
 /**
- * Button atoms on Base UI. Maps the portfolio's two CTA looks (`btn-p` solid
- * ink, `btn-g` ghost outline) onto CVA variants. Styling lives in globals.css
- * so the buttons stay token-driven and identical to the approved design; CVA
- * just selects which class set to paint.
+ * Button atoms on Base UI, styled with Tailwind through CVA.
  *
  * - `Button` is an action: a real `<button>` (Base UI Button).
  * - `ButtonLink` is navigation that looks like a button: an `<a>` with link
  *   semantics. Base UI's Button would give a rendered `<a>` `role="button"`,
  *   so links go through `useRender` instead.
+ *
+ *   <Button onClick={save}>Save</Button>
+ *   <ButtonLink href="/cv.pdf" variant="ghost" size="sm">CV</ButtonLink>
  */
-const buttonVariants = cva("btn", {
-  variants: {
-    variant: {
-      primary: "btn-p",
-      ghost: "btn-g",
+const buttonVariants = cva(
+  "inline-flex cursor-pointer items-center gap-2 rounded-full font-medium whitespace-nowrap transition-press hover:-translate-y-0.5 active:translate-y-0 active:scale-94 active:duration-100 [&_svg]:size-4",
+  {
+    variants: {
+      variant: {
+        /** Solid ink. */
+        primary: "bg-fg text-bg hover:bg-ink-hover",
+        /** Outlined, transparent. */
+        ghost: "bg-transparent text-fg inset-ring inset-ring-line-strong hover:inset-ring-fg-faint",
+      },
+      size: {
+        default: "px-4.25 py-2.75 text-14",
+        sm: "px-3.5 py-2 text-13",
+      },
+    },
+    defaultVariants: {
+      variant: "primary",
+      size: "default",
     },
   },
-  defaultVariants: {
-    variant: "primary",
-  },
-});
+);
 
 function Button({
   className,
   variant,
+  size,
   ...props
 }: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
   return (
     <ButtonPrimitive
       data-slot="button"
-      className={cn(buttonVariants({ variant }), className)}
+      className={cn(buttonVariants({ variant, size }), className)}
       {...props}
     />
   );
@@ -50,6 +61,7 @@ function Button({
 function ButtonLink({
   className,
   variant,
+  size,
   render,
   ...props
 }: useRender.ComponentProps<"a"> & VariantProps<typeof buttonVariants>) {
@@ -58,7 +70,7 @@ function ButtonLink({
     render,
     props: {
       "data-slot": "button",
-      className: cn(buttonVariants({ variant }), className),
+      className: cn(buttonVariants({ variant, size }), className),
       ...props,
     },
   });

@@ -90,8 +90,8 @@ function LivePreviewBody({ url, host }: { url: string; host: string }) {
           <ToggleGroupItem value="phone">Phone</ToggleGroupItem>
         </ToggleGroup>
         <ButtonLink
-          className="live-preview-open"
           variant="ghost"
+          size="sm"
           href={url}
           target="_blank"
           rel="noopener noreferrer"

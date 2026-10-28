@@ -32,6 +32,11 @@
   --ease-pop: var(--ease-out);
 
   --radius-card: 12px;
+
+  /* font sizes in px, size only: line height comes from the context, as in
+     the original CSS (Tailwind's text-sm etc. would also set one) */
+  --text-13: 13px;
+  --text-14: 14px;
 }
 
 :root {
@@ -120,28 +125,44 @@
   color-scheme: dark;
 }
 
-* {
-  box-sizing: border-box;
+/* element defaults sit in Tailwind's base layer, below utilities, so a
+   component's classes (a ButtonLink's text color) aren't overridden by
+   `a { color: inherit }` */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 84px;
+  }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  ::selection {
+    background: var(--accent-soft);
+  }
 }
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 84px;
-}
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--fg);
-  font-family: var(--sans);
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-a {
-  color: inherit;
-  text-decoration: none;
-}
-::selection {
-  background: var(--accent-soft);
+
+/* press feedback shared by buttons: quick color, springy lift and press.
+   Tailwind's translate and scale utilities set the translate and scale
+   properties, not transform, so those are what transition. */
+@utility transition-press {
+  transition:
+    background 0.15s,
+    box-shadow 0.15s,
+    translate 0.35s var(--ease-out),
+    scale 0.35s var(--ease-out);
 }
 :focus-visible {
   outline: 2px solid var(--accent);
@@ -517,48 +538,6 @@ a {
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 36px;
-}
-
-/* buttons (also exposed as shadcn Button variants) */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 11px 17px;
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: 500;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: background 0.15s, box-shadow 0.15s, transform 0.35s var(--ease-out);
-}
-.btn:hover {
-  transform: translateY(-2px);
-}
-.btn:active {
-  transform: scale(0.94);
-  transition-duration: 0.1s;
-}
-.btn svg {
-  width: 16px;
-  height: 16px;
-}
-.btn-p {
-  background: var(--fg);
-  color: var(--bg);
-  border: none;
-}
-.btn-p:hover {
-  background: var(--ink-hover);
-}
-.btn-g {
-  background: transparent;
-  color: var(--fg);
-  border: none;
-  box-shadow: inset 0 0 0 1px var(--line-strong);
-}
-.btn-g:hover {
-  box-shadow: inset 0 0 0 1px var(--fg-faint);
 }
 
 /* work list — one column per project; hover tints an inset panel */
@@ -2388,10 +2367,6 @@ html[data-theme-switch]::view-transition-new(root) {
   text-overflow: ellipsis;
   white-space: nowrap;
   color: var(--fg);
-}
-.live-preview-open.btn {
-  padding: 8px 14px;
-  font-size: 13px;
 }
 .live-preview-stage {
   display: grid;
