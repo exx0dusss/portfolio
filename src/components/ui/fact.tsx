@@ -106,11 +106,14 @@ function FactLabel({ className, ...props }: React.ComponentProps<"span">) {
   );
 }
 
+/** Line height in whole pixels (22px, not 1.6 × 14 = 22.4): fractional tile
+ *  heights put each grid row on a different sub-pixel, so equal gaps render
+ *  as 20 or 21 device pixels. */
 function FactValue({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="fact-value"
-      className={cn("text-14 text-fg max-phone:text-13.5", className)}
+      className={cn("text-14 leading-5.5 text-fg max-phone:text-13.5", className)}
       {...props}
     />
   );
