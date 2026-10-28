@@ -13,10 +13,12 @@ const linkClass =
   "inline-flex items-center gap-1.5 text-fg transition-colors duration-150 ease-standard hover:text-accent-ink [&_svg]:size-4.25";
 
 /** Page footer, shared across every page. A hairline rule (the ::before,
- *  a full-width flex item) sits above the copyright and the links. */
+ *  a full-width flex item) sits above the copyright and the links. The
+ *  bottom padding clears the back-to-top button (44px, 16–24px from the
+ *  corner), so it never covers the last link. */
 export function SiteFooter({ lang, dict, name }: SiteFooterProps) {
   return (
-    <footer className="mx-auto flex max-w-page flex-wrap items-center justify-between gap-4 px-gutter pb-10 text-13.5 text-fg-dim before:mb-2 before:h-px before:basis-full before:bg-line print:hidden">
+    <footer className="mx-auto flex max-w-page flex-wrap items-center justify-between gap-4 px-gutter pb-22 text-13.5 text-fg-dim before:mb-2 before:h-px before:basis-full before:bg-line print:hidden">
       <span>© 2026 {name}</span>
       <div className="flex flex-wrap gap-5.5">
         <Link href={localePath(lang, "/certificates")} className={linkClass}>
@@ -31,8 +33,9 @@ export function SiteFooter({ lang, dict, name }: SiteFooterProps) {
         <a href="https://linkedin.com/in/tymur-mustafaiev-968b3724b" className={linkClass}>
           <LinkedinLogoIcon aria-hidden /> LinkedIn
         </a>
-        <a href="https://x.com/exx0dvs" className={linkClass}>
-          <XLogoIcon aria-hidden /> X
+        {/* the logo alone: a lone "X" beside it reads like a close button */}
+        <a href="https://x.com/exx0dvs" className={linkClass} aria-label="X" title="X">
+          <XLogoIcon aria-hidden />
         </a>
       </div>
     </footer>
