@@ -1472,11 +1472,69 @@ a {
   grid-template-columns: repeat(var(--arch-cols, 4), minmax(0, 1fr));
 }
 .arch-col {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 12px;
   min-width: 0;
   padding: 0 20px;
+}
+/* flow arrow sitting on the divider (centred on the column's left edge);
+   its background masks the dashed line behind it. Stacked lanes rotate it
+   to point down, below. */
+.arch-link {
+  --arch-dash: repeating-linear-gradient(
+    90deg,
+    var(--fg-faint) 0 4px,
+    transparent 4px 7px
+  );
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 28px;
+  height: 14px;
+  background: var(--card-2);
+  transform: translate(-50%, -50%);
+}
+.arch-link::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  right: 4px;
+  height: 1.5px;
+  margin-top: -0.75px;
+  background: var(--arch-dash);
+}
+.arch-link::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 3px;
+  width: 6px;
+  height: 6px;
+  border-top: 1.5px solid var(--fg-faint);
+  border-right: 1.5px solid var(--fg-faint);
+  transform: translateY(-50%) rotate(45deg);
+}
+/* the dashes travel along the arrow as the diagram scrolls through view,
+   and stop when scrolling does. Static where scroll timelines aren't
+   supported or motion is reduced. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .arch-link::before {
+      animation: arch-flow linear both;
+      animation-timeline: view();
+    }
+  }
+}
+@keyframes arch-flow {
+  from {
+    background-position: -28px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
 }
 .arch-col:first-child {
   padding-left: 0;
@@ -1520,6 +1578,11 @@ a {
   .arch-flow[data-cols="5"] .arch-ct {
     grid-column: 1 / -1;
   }
+  .arch-flow[data-cols="5"] .arch-link {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
 }
 @container arch (max-width: 600px) {
   .arch-flow[data-cols="4"] {
@@ -1543,6 +1606,11 @@ a {
   .arch-flow[data-cols="4"] .arch-ct {
     grid-column: 1 / -1;
   }
+  .arch-flow[data-cols="4"] .arch-link {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
 }
 @container arch (max-width: 460px) {
   .arch-flow:is([data-cols="2"], [data-cols="3"]) {
@@ -1565,6 +1633,11 @@ a {
   }
   .arch-flow:is([data-cols="2"], [data-cols="3"]) .arch-ct {
     grid-column: 1 / -1;
+  }
+  .arch-flow:is([data-cols="2"], [data-cols="3"]) .arch-link {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
   }
 }
 .node {

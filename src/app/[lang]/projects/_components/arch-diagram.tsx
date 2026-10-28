@@ -5,6 +5,7 @@ import type { ArchData } from "./projects-detail";
 /**
  * Author → SDK → Surfaces → Data style column flow used on the detail pages.
  * Each column holds titled nodes; one node per diagram may be `accent`.
+ * An arrow on each divider shows the direction of flow.
  *
  * Layout follows the diagram's own width (a container query), not the
  * window's: side-by-side columns while each gets ~150px, horizontal lanes
@@ -19,8 +20,11 @@ export function ArchDiagram({ columns, note }: ArchData) {
         data-cols={columns.length}
         style={{ "--arch-cols": columns.length } as React.CSSProperties}
       >
-        {columns.map((column) => (
+        {columns.map((column, index) => (
           <div className="arch-col" key={column.title}>
+            {/* arrow on the divider from the previous column; turns to point
+                down when the columns stack into lanes */}
+            {index > 0 && <span className="arch-link" aria-hidden />}
             <div className="arch-ct">{column.title}</div>
             {column.nodes.map((node) => (
               <div className={`node${node.accent ? " accent" : ""}`} key={node.title}>
