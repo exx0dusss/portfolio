@@ -1,0 +1,87 @@
+{
+  "nestjs": {
+    "title": "NestJS - A progressive Node.js framework",
+    "description": "NestJS is a framework for building efficient, scalable Node.js web applications. It uses modern JavaScript, is built with TypeScript and combines elements of OOP (Object Oriented Programming), FP (Functional Programming), and FRP (Functional Reactive Programming).",
+    "site": "nestjs.com",
+    "image": "/link-previews/nestjs.webp"
+  },
+  "handlebars": {
+    "title": "Handlebars",
+    "description": "Minimal templating on steroids",
+    "site": "handlebarsjs.com"
+  },
+  "sqlite": {
+    "title": "SQLite",
+    "description": "A small, fast, self-contained, high-reliability, full-featured SQL database engine.",
+    "site": "sqlite.org"
+  },
+  "typeorm": {
+    "title": "TypeORM",
+    "description": "TypeORM is an ORM that can run in NodeJS, Browser, Cordova, Ionic, React Native, NativeScript, Expo, and Electron platforms and can be used with TypeScript and JavaScript.",
+    "site": "typeorm.io"
+  },
+  "docker": {
+    "title": "Docker: Accelerated Container Application Development",
+    "description": "Docker is a platform designed to help developers build, share, and run container applications. We handle the tedious setup, so you can focus on the code.",
+    "site": "docker.com",
+    "image": "/link-previews/docker.webp"
+  },
+  "jwt": {
+    "title": "JSON Web Tokens - jwt.io",
+    "description": "JSON Web Token (JWT) is a compact URL-safe means of representing claims to be transferred between two parties. The claims in a JWT are encoded as a JSON object that is digitally signed using JSON Web Signature (JWS).",
+    "site": "jwt.io",
+    "image": "/link-previews/jwt.webp"
+  },
+  "easyweek": {
+    "title": "EasyWeek",
+    "description": "Online booking and scheduling for beauty, wellness and other appointment-based businesses.",
+    "site": "easyweek.io",
+    "image": "/link-previews/easyweek.webp"
+  },
+  "google-maps": {
+    "title": "Maps Embed API",
+    "description": "Easily embed and customize Google Maps on your web page or blog by setting the Google Maps Embed API URL.",
+    "site": "developers.google.com",
+    "image": "/link-previews/google-maps.webp"
+  },
+  "react": {
+    "title": "React",
+    "description": "React is the library for web and native user interfaces. Build user interfaces out of individual pieces called components written in JavaScript. React is designed to let you seamlessly combine components written by independent people, teams, and organizations.",
+    "site": "react.dev",
+    "image": "/link-previews/react.webp"
+  },
+  "nextjs": {
+    "title": "Next.js by Vercel - The React Framework",
+    "description": "Next.js by Vercel is the full-stack React framework for the web.",
+    "site": "nextjs.org",
+    "image": "/link-previews/nextjs.webp"
+  },
+  "udemy": {
+    "title": "Udemy",
+    "description": "An online learning platform with video courses on programming, design, business and more.",
+    "site": "udemy.com"
+  },
+  "spring": {
+    "title": "Spring",
+    "description": "Level up your Java code and explore what Spring can do for you.",
+    "site": "spring.io",
+    "image": "/link-previews/spring.webp"
+  },
+  "thymeleaf": {
+    "title": "Thymeleaf",
+    "description": "A modern server-side Java template engine for both web and standalone environments.",
+    "site": "thymeleaf.org"
+  },
+  "html": {
+    "title": "HTML: HyperText Markup Language | MDN",
+    "description": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content. Other technologies besides HTML are generally used to describe a web page's appearance/presentation (CSS) or functionality/behavior (JavaScript).",
+    "site": "developer.mozilla.org",
+    "image": "/link-previews/html.webp"
+  },
+  "css-subgrid": {
+    "title": "Subgrid - CSS | MDN",
+    "description": "The CSS grid layout module includes a subgrid value for grid-template-columns and grid-template-rows. This guide details what subgrid does and gives some use cases and design patterns that the feature solves.",
+    "site": "developer.mozilla.org",
+    "image": "/link-previews/css-subgrid.webp"
+  }
+}

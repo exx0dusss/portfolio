@@ -1,3 +1,4 @@
+import { plugin as shadcn } from "@shadcn/lint";
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
@@ -5,6 +6,12 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  // @shadcn/lint: design-system rules for components/ui. Registered with no
+  // rules enabled yet; see docs/ui-patterns.md#lint for the proposed set.
+  {
+    files: ["**/*.{js,jsx,ts,tsx}"],
+    plugins: { shadcn },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:

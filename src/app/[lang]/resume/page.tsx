@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
+import { ButtonLink } from "@/components/ui/button";
 import { requireEnglish } from "@/i18n";
 
 import { PrintButton } from "./_components/print-button";
@@ -29,11 +29,13 @@ export default async function ResumePage({
         <div className="r-bar">
           <span className="lbl">Résumé</span>
           <div className="acts">
-            <Button variant="ghost" asChild>
-              <a href="/tymur-mustafaiev-cv.pdf" download="tymur-mustafaiev-cv.pdf">
-                Download PDF
-              </a>
-            </Button>
+            <ButtonLink
+              variant="ghost"
+              href="/tymur-mustafaiev-cv.pdf"
+              download="tymur-mustafaiev-cv.pdf"
+            >
+              Download PDF
+            </ButtonLink>
             <PrintButton />
           </div>
         </div>

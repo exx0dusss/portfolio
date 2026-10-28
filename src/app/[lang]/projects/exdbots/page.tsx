@@ -196,7 +196,7 @@ export default async function ExdbotsPage({
           />
         </section>
 
-        <NextProjectLink name="Giga Psych" href="/projects/giga-psych" />
+        <NextProjectLink name="Kosmetik Profi" href="/projects/kosmetik-profi" />
       </main>
     </>
   );

@@ -1,14 +1,21 @@
-import * as React from "react";
-import { Slot } from "radix-ui";
+"use client";
+
+import { Button as ButtonPrimitive } from "@base-ui/react/button";
+import { useRender } from "@base-ui/react/use-render";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils/cn";
 
 /**
- * Button atom. Maps the portfolio's two CTA looks (`btn-p` solid ink,
- * `btn-g` ghost outline) onto CVA variants. Styling lives in globals.css so
- * the buttons stay token-driven and identical to the approved design; CVA
+ * Button atoms on Base UI. Maps the portfolio's two CTA looks (`btn-p` solid
+ * ink, `btn-g` ghost outline) onto CVA variants. Styling lives in globals.css
+ * so the buttons stay token-driven and identical to the approved design; CVA
  * just selects which class set to paint.
+ *
+ * - `Button` is an action: a real `<button>` (Base UI Button).
+ * - `ButtonLink` is navigation that looks like a button: an `<a>` with link
+ *   semantics. Base UI's Button would give a rendered `<a>` `role="button"`,
+ *   so links go through `useRender` instead.
  */
 const buttonVariants = cva("btn", {
   variants: {
@@ -22,16 +29,13 @@ const buttonVariants = cva("btn", {
   },
 });
 
-interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
-}
-
-function Button({ className, variant, asChild = false, ...props }: ButtonProps) {
-  const Comp = asChild ? Slot.Root : "button";
+function Button({
+  className,
+  variant,
+  ...props
+}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
   return (
-    <Comp
+    <ButtonPrimitive
       data-slot="button"
       className={cn(buttonVariants({ variant }), className)}
       {...props}
@@ -39,4 +43,25 @@ function Button({ className, variant, asChild = false, ...props }: ButtonProps) 
   );
 }
 
-export { Button, buttonVariants };
+/**
+ *   <ButtonLink href="/cv.pdf" download>CV</ButtonLink>
+ *   <ButtonLink render={<Link href="/resume" />} variant="ghost">Résumé</ButtonLink>
+ */
+function ButtonLink({
+  className,
+  variant,
+  render,
+  ...props
+}: useRender.ComponentProps<"a"> & VariantProps<typeof buttonVariants>) {
+  return useRender({
+    defaultTagName: "a",
+    render,
+    props: {
+      "data-slot": "button",
+      className: cn(buttonVariants({ variant }), className),
+      ...props,
+    },
+  });
+}
+
+export { Button, ButtonLink, buttonVariants };

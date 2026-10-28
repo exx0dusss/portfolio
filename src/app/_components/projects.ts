@@ -41,6 +41,13 @@ export const PROJECTS: Project[] = [
     href: "/projects/exdbots",
   },
   {
+    slug: "kosmetik-profi",
+    title: "Kosmetik Profi",
+    since: 2024,
+    status: "live",
+    href: "/projects/kosmetik-profi",
+  },
+  {
     slug: "giga-psych",
     title: "Giga Psych",
     status: "research",

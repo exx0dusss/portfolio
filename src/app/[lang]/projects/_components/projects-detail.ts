@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import type { TechId } from "@/lib/tech";
+
 /** Visual tone for the openness badge — maps to .openness.{open|source|client|nda}. */
 export type OpennessTone = "open" | "source" | "client" | "nda";
 
@@ -11,6 +13,14 @@ export interface Openness {
 export interface MetaItem {
   key: string;
   value: string;
+  /** Second, quieter line under the value. */
+  sub?: string;
+}
+
+/** How hard the project was to build, on a 1–5 scale. */
+export interface Difficulty {
+  level: 1 | 2 | 3 | 4 | 5;
+  label: string;
 }
 
 /** A hero action button (real external URL or in-page anchor). */
@@ -27,6 +37,9 @@ export interface ProjectHeroData {
   tagline: ReactNode;
   meta: MetaItem[];
   openness: Openness;
+  difficulty?: Difficulty;
+  /** Technologies shown as logo chips, each linking to its site. */
+  stack?: TechId[];
   actions?: HeroAction[];
 }
 
@@ -56,6 +69,9 @@ export interface GalleryItem {
   placeholder: string;
   /** 16:9 wide tile spans the row; otherwise 4:3. */
   wide?: boolean;
+  /** Screenshot path under /public; the placeholder shows until one is set. */
+  src?: string;
+  alt?: string;
 }
 
 export interface NextProjectLinkData {

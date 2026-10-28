@@ -13,6 +13,8 @@ interface ImageSlotProps {
   /** Corner radius (px) for shape="rounded". */
   radius?: number;
   fit?: Fit;
+  /** Native lazy loading for below-the-fold images. */
+  loading?: "lazy" | "eager";
   /** Empty-state caption. */
   placeholder?: string;
   className?: string;
@@ -32,6 +34,7 @@ export function ImageSlot({
   shape = "rounded",
   radius = 12,
   fit = "cover",
+  loading,
   placeholder = "Image",
   className,
   style,
@@ -53,7 +56,14 @@ export function ImageSlot({
     >
       {src ? (
         // eslint-disable-next-line @next/next/no-img-element -- arbitrary aspect ratios; sized by the slot box, not next/image
-        <img src={src} alt={alt} style={{ objectFit: fit }} className="img-slot-img" />
+        <img
+          src={src}
+          alt={alt}
+          loading={loading}
+          decoding="async"
+          style={{ objectFit: fit }}
+          className="img-slot-img"
+        />
       ) : (
         <div className="img-slot-ph" style={{ borderRadius }}>
           <ImageIcon size={26} aria-hidden />

@@ -13,6 +13,7 @@ export type {
   HeroAction,
   MetaItem,
   NextProjectLinkData,
+  Difficulty,
   Openness,
   ProjectHeroData,
 } from "./projects-detail";

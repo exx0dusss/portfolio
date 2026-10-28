@@ -108,6 +108,11 @@ export const en: Dictionary = {
           "A platform for building, connecting and monitoring Telegram bots without writing code.",
         facets: ["Web platform", "SDK"],
       },
+      "kosmetik-profi": {
+        description:
+          "Website and admin panel for a cosmetology practice in Münster, with a bilingual price list and booking for two locations.",
+        facets: ["Website", "Admin panel"],
+      },
       "giga-psych": {
         description:
           "Research data platform built with PJATK's XR Lab and the University of Amsterdam.",

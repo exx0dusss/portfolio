@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
-import { Button } from "@/components/ui/button";
+import { ButtonLink } from "@/components/ui/button";
 import {
   ArrowDownIcon,
   BrowserIcon,
@@ -40,18 +40,14 @@ export function HeroSection({ dict }: { dict: Dictionary["hero"] }) {
           })}
         </Stagger>
         <Reveal className="hero-actions" delay={3}>
-          <Button asChild>
-            {/* a plain fragment link: the browser scrolls natively, without the
-                client router (which could append the hash twice) */}
-            <a href="#work">
-              <ArrowDownIcon aria-hidden /> {dict.seeWork}
-            </a>
-          </Button>
-          <Button asChild variant="ghost">
-            <Link href="/resume">
-              <FileTextIcon aria-hidden /> {dict.resume}
-            </Link>
-          </Button>
+          {/* a plain fragment link: the browser scrolls natively, without the
+              client router (which could append the hash twice) */}
+          <ButtonLink href="#work">
+            <ArrowDownIcon aria-hidden /> {dict.seeWork}
+          </ButtonLink>
+          <ButtonLink render={<Link href="/resume" />} variant="ghost">
+            <FileTextIcon aria-hidden /> {dict.resume}
+          </ButtonLink>
         </Reveal>
       </div>
       <Reveal className="hero-figure" delay={2}>
