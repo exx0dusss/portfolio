@@ -1666,11 +1666,32 @@ a {
   }
 }
 
-/* theme switch: a short crossfade of the whole page */
+/* theme switch and route changes: a short crossfade of the whole page */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 0.35s;
   animation-timing-function: var(--ease-out);
+}
+/* a project's name morphs from the work list into the case-study heading
+   (lib/view-transition); a brief blur mid-flight hides the text scaling */
+::view-transition-group(.morph) {
+  animation-duration: 0.42s;
+  animation-timing-function: var(--ease-out);
+}
+::view-transition-image-pair(.morph) {
+  animation-name: morph-blur;
+}
+@keyframes morph-blur {
+  35% {
+    filter: blur(2px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

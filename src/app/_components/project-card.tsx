@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { ViewTransition } from "react";
 
 import { StaggerItem } from "@/components/motion/stagger";
 import { ArrowUpRightIcon, ImagesIcon } from "@/components/ui/icons";
 import type { Dictionary } from "@/i18n";
+import { projectTitleTransition } from "@/lib/view-transition";
 
 import type { Project } from "./projects";
 
@@ -21,7 +23,9 @@ export function ProjectCard({ project, dict }: { project: Project; dict: Diction
             // eslint-disable-next-line @next/next/no-img-element -- 128px local icon shown at 22px
             <img className="prow-icon" src={project.favicon} alt="" width={22} height={22} />
           )}
-          <h3>{project.title}</h3>
+          <ViewTransition name={projectTitleTransition(project.title)} share="morph">
+            <h3>{project.title}</h3>
+          </ViewTransition>
           <span className="pstatus" data-status={project.status}>
             {dict.status[project.status]}
           </span>

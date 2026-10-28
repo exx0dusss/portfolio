@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // React <ViewTransition> on route changes: a project's name morphs from the
+  // work list into the case-study heading. Unsupported browsers just navigate.
+  experimental: {
+    viewTransition: true,
+  },
   // Projects renamed in Oct 2026; keep old links working.
   async redirects() {
     return [

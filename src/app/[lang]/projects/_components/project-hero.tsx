@@ -1,4 +1,5 @@
 import type { Icon } from "@phosphor-icons/react";
+import { ViewTransition } from "react";
 
 import { TechLink } from "@/components/tech-link";
 import { ButtonLink } from "@/components/ui/button";
@@ -23,6 +24,7 @@ import {
   UserIcon,
 } from "@/components/ui/icons";
 import { Meter, MeterLabel, MeterSegments } from "@/components/ui/meter";
+import { projectTitleTransition } from "@/lib/view-transition";
 
 import { Backlink } from "./backlink";
 import type { Openness, ProjectHeroData } from "./projects-detail";
@@ -94,7 +96,9 @@ export function ProjectHero({
   return (
     <header className="card p-hero">
       <Backlink />
-      <h1 className="p-name">{name}</h1>
+      <ViewTransition name={projectTitleTransition(name)} share="morph">
+        <h1 className="p-name">{name}</h1>
+      </ViewTransition>
       <p className="p-tag">{tagline}</p>
       <Facts columns={columns} className="mt-6">
         {meta.map((item) => (

@@ -177,6 +177,19 @@ while the dialog is open, so the page loads nothing from the site until a
 visitor asks. Check the site sends no `X-Frame-Options` or CSP
 `frame-ancestors` header first, or the frame stays blank.
 
+### Page transitions
+
+`experimental.viewTransition` is on in `next.config.ts`, so route changes
+crossfade. A project's name also morphs from its row in the work list into
+the case-study heading: both are wrapped in React's `<ViewTransition>` with
+`name={projectTitleTransition(title)}` and `share="morph"` (styles under
+`::view-transition-group(.morph)`).
+
+React only morphs when **both** elements are in the viewport at the moment
+of the update. A row you had to scroll to falls back to the crossfade, since
+the new page's heading is still off-screen until Next scrolls to the top.
+That's expected, not a bug. Reduced motion turns all of it off.
+
 ## Troubleshooting
 
 **A CSS change doesn't show up in `pnpm dev`.** Turbopack can keep serving
