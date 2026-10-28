@@ -6,6 +6,23 @@ import { ButtonLink } from "@/components/ui/button";
 import { requireEnglish } from "@/i18n";
 
 import { PrintButton } from "./_components/print-button";
+import {
+  ResumeBullets,
+  ResumeCompany,
+  ResumeDetail,
+  ResumeEntry,
+  ResumeLanguage,
+  ResumeLink,
+  ResumeMeta,
+  ResumeProject,
+  ResumeRole,
+  ResumeSection,
+  ResumeSectionTitle,
+  ResumeSkill,
+  ResumeSubRole,
+  ResumeWhen,
+  ResumeYear,
+} from "./_components/resume";
 import "./resume.css";
 
 export const metadata: Metadata = {
@@ -20,11 +37,14 @@ const LINKEDIN = "https://linkedin.com/in/tymur-mustafaiev-968b3724b";
 export default async function ResumePage({ params }: { params: Promise<{ lang: string }> }) {
   await requireEnglish(params);
   return (
-    <PageShell>
-      <article className="resume">
-        <div className="r-bar">
-          <span className="lbl">Résumé</span>
-          <div className="acts">
+    // printed, the sheet fills the page
+    <PageShell className="print:max-w-none print:p-0">
+      <article className="mx-auto max-w-resume px-13 py-11.5 max-phone:px-6 max-phone:py-7.5 print:max-w-none print:p-0!">
+        <div className="mb-6.5 flex flex-wrap items-center justify-between gap-4 print:hidden">
+          <span className="text-11.5 font-medium tracking-caps text-fg-faint uppercase">
+            Résumé
+          </span>
+          <div className="flex gap-2.25">
             <ButtonLink
               variant="ghost"
               href="/tymur-mustafaiev-cv.pdf"
@@ -36,12 +56,14 @@ export default async function ResumePage({ params }: { params: Promise<{ lang: s
           </div>
         </div>
 
-        <header className="r-head">
+        <header className="flex items-end justify-between gap-7 border-b-2 border-fg pb-4.5 max-phone:flex-col max-phone:items-start max-phone:gap-3 print:border-print-ink">
           <div>
-            <h1>Tymur Mustafaiev</h1>
-            <div className="r-title">Front-End Engineer &amp; UX/UI Designer</div>
+            <h1 className="text-31 leading-none font-semibold tracking-name">Tymur Mustafaiev</h1>
+            <div className="mt-1.75 text-15 text-fg-dim">
+              Front-End Engineer &amp; UX/UI Designer
+            </div>
           </div>
-          <div className="r-contact">
+          <div className="text-right text-12.5 leading-address whitespace-nowrap text-fg-dim max-phone:text-left max-phone:whitespace-normal [&_a]:text-accent-ink print:[&_a]:text-accent">
             Warsaw, Poland
             <br />
             <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
@@ -50,190 +72,154 @@ export default async function ResumePage({ params }: { params: Promise<{ lang: s
           </div>
         </header>
 
-        <div className="r-grid">
-          <aside className="r-side">
-            <div className="r-block">
-              <h2 className="r-h">Skills</h2>
-              <div className="sk">
-                <div className="skk">Languages</div>
-                <div className="skv">TypeScript, JavaScript, HTML, CSS, SQL</div>
-              </div>
-              <div className="sk">
-                <div className="skk">Frameworks</div>
-                <div className="skv">
-                  React, Next.js, TanStack Start, Node.js, NestJS, Deno, Bun
-                </div>
-              </div>
-              <div className="sk">
-                <div className="skk">UI &amp; Design</div>
-                <div className="skv">
-                  Figma, Tailwind, shadcn/ui (Radix, Base UI), design systems, interaction design,
-                  a11y
-                </div>
-              </div>
-              <div className="sk">
-                <div className="skk">Testing</div>
-                <div className="skv">Playwright, Vitest, Jest, MSW, Storybook</div>
-              </div>
-              <div className="sk">
-                <div className="skk">Tooling &amp; AI</div>
-                <div className="skv">
-                  Git, pnpm, Vite, TanStack Query/Form, AI SDK, agentic engineering (Claude Code,
-                  Cursor, Codex)
-                </div>
-              </div>
-            </div>
+        {/* print: the gap overrides the phone one too (A4 is under 760px wide) */}
+        <div className="mt-6.5 grid grid-cols-resume gap-10 max-phone:grid-cols-resume-stacked max-phone:gap-7 print:gap-8.5!">
+          <aside>
+            <ResumeSection>
+              <ResumeSectionTitle>Skills</ResumeSectionTitle>
+              <ResumeSkill label="Languages">TypeScript, JavaScript, HTML, CSS, SQL</ResumeSkill>
+              <ResumeSkill label="Frameworks">
+                React, Next.js, TanStack Start, Node.js, NestJS, Deno, Bun
+              </ResumeSkill>
+              <ResumeSkill label="UI & Design">
+                Figma, Tailwind, shadcn/ui (Radix, Base UI), design systems, interaction design,
+                a11y
+              </ResumeSkill>
+              <ResumeSkill label="Testing">Playwright, Vitest, Jest, MSW, Storybook</ResumeSkill>
+              <ResumeSkill label="Tooling & AI">
+                Git, pnpm, Vite, TanStack Query/Form, AI SDK, agentic engineering (Claude Code,
+                Cursor, Codex)
+              </ResumeSkill>
+            </ResumeSection>
 
-            <div className="r-block">
-              <h2 className="r-h">Languages</h2>
-              <div className="r-lang">
-                <span>English</span>
-                <span className="lv">Fluent (C1)</span>
-              </div>
-              <div className="r-lang">
-                <span>Ukrainian</span>
-                <span className="lv">Native</span>
-              </div>
-              <div className="r-lang">
-                <span>Russian</span>
-                <span className="lv">Native</span>
-              </div>
-              <div className="r-lang">
-                <span>Japanese</span>
-                <span className="lv">Basic</span>
-              </div>
-              <div className="r-lang">
-                <span>Polish</span>
-                <span className="lv">Basic</span>
-              </div>
-            </div>
+            <ResumeSection>
+              <ResumeSectionTitle>Languages</ResumeSectionTitle>
+              <ResumeLanguage name="English" level="Fluent (C1)" />
+              <ResumeLanguage name="Ukrainian" level="Native" />
+              <ResumeLanguage name="Russian" level="Native" />
+              <ResumeLanguage name="Japanese" level="Basic" />
+              <ResumeLanguage name="Polish" level="Basic" />
+            </ResumeSection>
 
-            <div className="r-block r-edu">
-              <h2 className="r-h">Education</h2>
-              <div className="r-item">
-                <div className="r-role">Master’s Degree</div>
-                <div className="skv">
+            <ResumeSection>
+              <ResumeSectionTitle>Education</ResumeSectionTitle>
+              <ResumeEntry className="mb-3.25 last:mb-3.25">
+                <ResumeRole size="sm">Master’s Degree</ResumeRole>
+                <ResumeDetail className="mt-0.75">
                   Polish-Japanese Academy of IT (PJATK), Warsaw · 2026–present
-                </div>
-              </div>
-              <div className="r-item">
-                <div className="r-role">Bachelor’s Degree</div>
-                <div className="skv">Polish-Japanese Academy of IT (PJATK), Warsaw · 2022–2026</div>
-              </div>
-            </div>
+                </ResumeDetail>
+              </ResumeEntry>
+              <ResumeEntry className="mb-3.25 last:mb-3.25">
+                <ResumeRole size="sm">Bachelor’s Degree</ResumeRole>
+                <ResumeDetail className="mt-0.75">
+                  Polish-Japanese Academy of IT (PJATK), Warsaw · 2022–2026
+                </ResumeDetail>
+              </ResumeEntry>
+            </ResumeSection>
 
-            <div className="r-block">
-              <h2 className="r-h">Links</h2>
-              <div className="li">
+            <ResumeSection>
+              <ResumeSectionTitle>Links</ResumeSectionTitle>
+              <ResumeLink>
                 <Link href="/">Portfolio — this site</Link>
-              </div>
-              <div className="li">
+              </ResumeLink>
+              <ResumeLink>
                 <a href="https://github.com/exx0dusss">github.com/exx0dusss</a>
-              </div>
-              <div className="li">
+              </ResumeLink>
+              <ResumeLink>
                 <a href={LINKEDIN}>linkedin.com/in/tymur-mustafaiev</a>
-              </div>
-              <div className="li">
+              </ResumeLink>
+              <ResumeLink>
                 <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-              </div>
-            </div>
+              </ResumeLink>
+            </ResumeSection>
           </aside>
 
-          <div className="r-main">
-            <div className="r-block">
-              <h2 className="r-h">Summary</h2>
-              <p className="r-summary">
+          <div>
+            <ResumeSection>
+              <ResumeSectionTitle>Summary</ResumeSectionTitle>
+              <p className="text-13.5 leading-summary text-fg-dim">
                 Front-end engineer and UX/UI designer who treats software as a craft and loves
                 shipping beautiful, well-built things. I take products from Figma to production in
                 TypeScript — interface, backend, and the systems behind them — and I&#8217;m
                 increasingly building AI features into them.
               </p>
-            </div>
+            </ResumeSection>
 
-            <div className="r-block">
-              <h2 className="r-h">Experience</h2>
+            <ResumeSection>
+              <ResumeSectionTitle>Experience</ResumeSectionTitle>
 
-              <div className="r-item">
-                <div className="r-role">Front-End Developer &amp; Designer</div>
-                <div className="r-meta">
-                  <span className="r-co">Softica Tech</span>
-                  <span className="r-when">2025 — May 2026 · Remote</span>
-                </div>
-                <div className="r-sub">
-                  <span className="rr">Middle Front-End Developer</span>
-                  <span className="rw">Feb 2026 — May 2026</span>
-                </div>
-                <div className="r-sub">
-                  <span className="rr">Lead UX/UI Designer</span>
-                  <span className="rw">Mar 2025 — May 2026</span>
-                </div>
-                <div className="r-sub">
-                  <span className="rr">Junior Front-End Developer</span>
-                  <span className="rw">Feb 2025 — Feb 2026</span>
-                </div>
-              </div>
+              <ResumeEntry>
+                <ResumeRole>Front-End Developer &amp; Designer</ResumeRole>
+                <ResumeMeta>
+                  <ResumeCompany>Softica Tech</ResumeCompany>
+                  <ResumeWhen>2025 — May 2026 · Remote</ResumeWhen>
+                </ResumeMeta>
+                <ResumeSubRole role="Middle Front-End Developer" when="Feb 2026 — May 2026" />
+                <ResumeSubRole role="Lead UX/UI Designer" when="Mar 2025 — May 2026" />
+                <ResumeSubRole role="Junior Front-End Developer" when="Feb 2025 — Feb 2026" />
+              </ResumeEntry>
 
-              <div className="r-item">
-                <div className="r-role">Full-Stack Developer</div>
-                <div className="r-meta">
-                  <span className="r-co">SalonSvitlo</span>
-                  <span className="r-when">Oct 2024 — Present · Remote</span>
-                </div>
-                <ul className="r-bullets">
+              <ResumeEntry>
+                <ResumeRole>Full-Stack Developer</ResumeRole>
+                <ResumeMeta>
+                  <ResumeCompany>SalonSvitlo</ResumeCompany>
+                  <ResumeWhen>Oct 2024 — Present · Remote</ResumeWhen>
+                </ResumeMeta>
+                <ResumeBullets>
                   <li>
                     Designing and building a full-stack e-commerce product for a lighting business —
                     store, landing, CRM, and a Telegram bot with a web-app.
                   </li>
-                </ul>
-              </div>
+                </ResumeBullets>
+              </ResumeEntry>
 
-              <div className="r-item">
-                <div className="r-role">Lead Front-End Developer</div>
-                <div className="r-meta">
-                  <span className="r-co">PCEXPERT</span>
-                  <span className="r-when">Mar 2024 — Jul 2024 · Warsaw</span>
-                </div>
-              </div>
-            </div>
+              <ResumeEntry>
+                <ResumeRole>Lead Front-End Developer</ResumeRole>
+                <ResumeMeta>
+                  <ResumeCompany>PCEXPERT</ResumeCompany>
+                  <ResumeWhen>Mar 2024 — Jul 2024 · Warsaw</ResumeWhen>
+                </ResumeMeta>
+              </ResumeEntry>
+            </ResumeSection>
 
-            <div className="r-block">
-              <h2 className="r-h">Selected Projects</h2>
-              <div className="r-proj">
+            <ResumeSection>
+              <ResumeSectionTitle>Selected Projects</ResumeSectionTitle>
+              <ResumeProject>
                 <b>ExdBots</b> — a platform for managing Telegram applications: build &amp; monitor
                 bots through a no-code web editor, connect existing bots, and handle ad management
-                and statistics from one interface. <span className="yr">2026 — present</span>
-              </div>
-              <div className="r-proj">
+                and statistics from one interface. <ResumeYear>2026 — present</ResumeYear>
+              </ResumeProject>
+              <ResumeProject>
                 <b>SalonSvitlo</b> — full-stack e-commerce for a lighting business with 20+ years in
                 the trade: store, landing, CRM and a Telegram web-app.{" "}
-                <span className="yr">2024 — present</span>
-              </div>
-              <div className="r-proj">
+                <ResumeYear>2024 — present</ResumeYear>
+              </ResumeProject>
+              <ResumeProject>
                 <b>TikTok Downloader Bot</b> — a Telegram-based application with a strong back-end,
                 continuously improved. The origin of the ExdBots system design.{" "}
-                <span className="yr">2023 — present</span>
-              </div>
-              <div className="r-proj">
+                <ResumeYear>2023 — present</ResumeYear>
+              </ResumeProject>
+              <ResumeProject>
                 <b>Kosmetik Profi</b> — landing page for a German cosmetology brand.{" "}
-                <span className="yr">2024</span>
-              </div>
-            </div>
+                <ResumeYear>2024</ResumeYear>
+              </ResumeProject>
+            </ResumeSection>
 
-            <div className="r-block">
-              <h2 className="r-h">Certifications</h2>
-              <div className="r-proj">
+            <ResumeSection>
+              <ResumeSectionTitle>Certifications</ResumeSectionTitle>
+              <ResumeProject>
                 Next.js App Router Fundamentals — <b>Vercel</b>
-              </div>
-              <div className="r-proj">
+              </ResumeProject>
+              <ResumeProject>
                 React Foundations for Next.js — <b>Vercel</b>
-              </div>
-              <div className="r-proj">NestJS: Zero to Hero — Modern TypeScript Back-end</div>
-              <div className="r-proj">The Complete SQL Bootcamp: Zero to Hero</div>
-              <div className="r-proj">React — Full Course, Redux &amp; Redux Toolkit</div>
-              <div className="r-proj">
+              </ResumeProject>
+              <ResumeProject>NestJS: Zero to Hero — Modern TypeScript Back-end</ResumeProject>
+              <ResumeProject>The Complete SQL Bootcamp: Zero to Hero</ResumeProject>
+              <ResumeProject>React — Full Course, Redux &amp; Redux Toolkit</ResumeProject>
+              <ResumeProject>
                 Understanding NPM · Introduction to Programming Using JavaScript
-              </div>
-            </div>
+              </ResumeProject>
+            </ResumeSection>
           </div>
         </div>
       </article>

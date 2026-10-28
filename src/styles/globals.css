@@ -33,6 +33,9 @@
   --color-status-dev: var(--status-dev);
   /* the white tile behind a project's favicon, in both themes */
   --color-icon-tile: var(--icon-tile);
+  /* the printed résumé's rules: grey under section titles, black under the name */
+  --color-print-line: #bbb;
+  --color-print-ink: #000;
 
   --font-sans: var(--sans);
   --font-mono: var(--mono);
@@ -68,6 +71,10 @@
   --text-hero: clamp(36px, 5vw, 60px);
   --text-title: clamp(38px, 5.6vw, 64px);
   --text-mail: clamp(16px, calc((100vw - 40px) / 16.5), 54px);
+  --text-11: 11px;
+  --text-12\.8: 12.8px;
+  --text-14\.5: 14.5px;
+  --text-31: 31px;
 
   --radius-6: 6px;
   --radius-7: 7px;
@@ -89,6 +96,11 @@
   --leading-prose: 1.72;
   /* the home page's skill lists */
   --leading-list: 2;
+  /* résumé: secondary detail lines, bullets, the summary, the contact block */
+  --leading-detail: 1.5;
+  --leading-bullet: 1.55;
+  --leading-summary: 1.62;
+  --leading-address: 1.75;
 
   --tracking-snug: -0.01em;
   /* large display type, e.g. the mobile menu's items */
@@ -98,6 +110,10 @@
   /* the hero title; page titles and the contact email */
   --tracking-hero: -0.04em;
   --tracking-display: -0.045em;
+  /* small uppercase labels (the résumé's section titles) */
+  --tracking-caps: 0.09em;
+  /* the résumé's name */
+  --tracking-name: -0.022em;
 
   /* the page column (--w) and its side gutter (--gutter, 20px below 860px):
      `max-w-page`, `px-gutter` */
@@ -118,6 +134,8 @@
 
   /* dialogs: 480px, never wider than the screen minus a 16px gutter */
   --container-dialog: min(480px, 100vw - 32px);
+  /* the résumé sheet */
+  --container-resume: 900px;
 
   --shadow-popover: 0 18px 48px rgb(var(--shadow-rgb) / 0.18);
   --shadow-dialog: 0 30px 80px rgb(var(--shadow-rgb) / 0.3);
@@ -131,6 +149,9 @@
      links move into the menu and the controls take the rest */
   --grid-template-columns-nav: auto 1fr auto;
   --grid-template-columns-nav-compact: 1fr auto;
+  /* résumé: sidebar and main column; one column on phones */
+  --grid-template-columns-resume: 1fr 2.15fr;
+  --grid-template-columns-resume-stacked: 1fr;
   /* the mobile menu fills the screen under the 68px bar */
   --height-menu: calc(100dvh - 68px);
 
