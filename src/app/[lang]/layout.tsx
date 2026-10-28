@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 
-import { InstantHistoryScroll } from "@/components/layout/instant-history-scroll";
+import { HistoryScroll } from "@/components/layout/history-scroll";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteNav } from "@/components/layout/site-nav";
 import { getDictionary, hasLocale, LOCALES, OG_LOCALE } from "@/i18n";
@@ -99,7 +99,7 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSON_LD) }}
         />
-        <InstantHistoryScroll />
+        <HistoryScroll />
         <SiteNav lang={lang} dict={dict.nav} name={dict.name} />
         {children}
         <SiteFooter lang={lang} dict={dict.footer} name={dict.name} />
