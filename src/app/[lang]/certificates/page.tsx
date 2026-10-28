@@ -37,7 +37,7 @@ export default async function CertificatesPage({ params }: Props) {
         <Reveal as="h2" className="clabel">
           {page.credentials}
         </Reveal>
-        <Stagger className="cert-list">
+        <Stagger>
           {CERTIFICATES.map((certificate) => (
             <StaggerItem key={certificate.title}>
               {/* course titles stay in their original English */}
