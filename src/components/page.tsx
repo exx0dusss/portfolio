@@ -72,7 +72,10 @@ function PageTitle({ className, delay = 1, children }: RevealPartProps) {
       as="h1"
       data-slot="page-title"
       delay={delay}
-      className={cn("text-title leading-none font-semibold tracking-display", className)}
+      className={cn(
+        "text-title leading-none font-semibold tracking-display max-tiny:text-title-sm",
+        className,
+      )}
     >
       {children}
     </Reveal>

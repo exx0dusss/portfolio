@@ -102,6 +102,9 @@
      viewport so it stays on one line down to 320px, capped at 54px) */
   --text-hero: clamp(36px, 5vw, 60px);
   --text-title: clamp(38px, 5.6vw, 64px);
+  /* titles on very small screens (max-tiny:), so the longest one-word name
+     (ExdDownloaderApp) fits at 320px and short ones stay on one line */
+  --text-title-sm: clamp(28px, 9vw, 38px);
   --text-mail: clamp(16px, calc((100vw - 40px) / 16.5), 54px);
   --text-11: 11px;
   --text-12\.8: 12.8px;

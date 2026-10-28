@@ -117,7 +117,7 @@ export function ProjectHero({
       {/* the favicon sits beside the title at the title's size (em), centred
           on its first line so a wrapped title keeps it at the top; both fly
           in from the project's row in the work list */}
-      <div className="flex items-start gap-title-icon-gap text-title">
+      <div className="flex items-start gap-title-icon-gap text-title max-tiny:text-title-sm">
         {favicon && (
           <ViewTransition name={projectIconTransition(name)} share="morph">
             {/* eslint-disable-next-line @next/next/no-img-element -- 128px local icon */}
@@ -131,7 +131,9 @@ export function ProjectHero({
           </ViewTransition>
         )}
         <ViewTransition name={projectTitleTransition(name)} share="morph">
-          <h1 className="m-0 text-title leading-none font-semibold tracking-display">{name}</h1>
+          <h1 className="m-0 text-title leading-none font-semibold tracking-display max-tiny:text-title-sm">
+            {name}
+          </h1>
         </ViewTransition>
       </div>
       <p className="mt-4 max-w-tagline text-17 leading-copy text-fg-dim">{tagline}</p>

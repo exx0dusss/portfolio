@@ -9,7 +9,7 @@ import { extendTailwindMerge, validators } from "tailwind-merge";
 const twMerge = extendTailwindMerge({
   extend: {
     theme: {
-      text: [validators.isNumber, "hero", "title", "mail"],
+      text: [validators.isNumber, "hero", "title", "title-sm", "mail"],
       container: [(value: string) => /^[a-z][a-z-]*$/.test(value)],
     },
   },
