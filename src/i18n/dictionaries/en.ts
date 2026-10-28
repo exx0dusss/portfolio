@@ -20,6 +20,7 @@ export interface Dictionary {
     work: string;
     experience: string;
     reading: string;
+    about: string;
     resume: string;
     contact: string;
     language: string;
@@ -52,6 +53,10 @@ export interface Dictionary {
     experience: PageCopy & { roles: string; education: string };
     certificates: PageCopy & { credentials: string; verify: string; course: string };
     reading: PageCopy & { books: string };
+    about: PageCopy & {
+      empty: { title: string; description: string };
+      actions: { work: string; resume: string };
+    };
   };
 }
 
@@ -67,6 +72,7 @@ export const en: Dictionary = {
   nav: {
     role: "Front-end engineer · Warsaw",
     work: "Work",
+    about: "About",
     experience: "Experience",
     reading: "Reading",
     resume: "Résumé",
@@ -182,6 +188,19 @@ export const en: Dictionary = {
       credentials: "Credentials",
       verify: "Verify",
       course: "Course",
+    },
+    about: {
+      title: "About",
+      description:
+        "About Tymur Mustafaiev: a front-end engineer and UX/UI designer in Warsaw. This page is being written.",
+      heading: "About me.",
+      lead: "Who I am, how I work, and what I'm looking for.",
+      empty: {
+        title: "Working on the content",
+        description:
+          "This page is still being written. Meanwhile, my projects and résumé tell most of the story.",
+      },
+      actions: { work: "See my work", resume: "Open résumé" },
     },
     reading: {
       title: "Reading",

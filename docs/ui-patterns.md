@@ -177,6 +177,33 @@ while the dialog is open, so the page loads nothing from the site until a
 visitor asks. Check the site sends no `X-Frame-Options` or CSP
 `frame-ancestors` header first, or the frame stays blank.
 
+### Empty states
+
+`ui/empty` (`Empty`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`,
+`EmptyDescription`, `EmptyContent`) is for "nothing here yet". Always give
+it a way forward in `EmptyContent`, as the About page does with links to the
+work and the résumé. `BuildingIcon` is its "under construction"
+illustration: a CSS loop in currentColor with the accent only on the block,
+still under reduced motion.
+
+### Project SEO and preview cards
+
+Each case study's metadata comes from `projectMetadata(SEO)` and its
+structured data from `<ProjectStructuredData {...SEO} />`, both in
+`projects/_components/project-seo.tsx`. `SEO` is `{ slug, title,
+description }`; keep the description around 150 characters.
+
+The preview card is the folder's `opengraph-image.tsx`, which calls
+`renderProjectCard(slug)`. It reads the project's favicon and `cardImage`
+from `PROJECTS` and the one-liner and facets from the English dictionary.
+`cardImage` must be PNG or JPEG: the card generator can't read WebP. One
+1200×630 card serves Open Graph (Facebook, LinkedIn, WhatsApp, Telegram,
+Slack, Discord, iMessage, Mastodon) and the X card.
+
+Satori (the card generator) quirks: spaces in long text come out uneven,
+so text that wraps goes through `Words`; and a tightly tracked name is
+measured too wide, so nothing sits right after the title.
+
 ### Page transitions
 
 `experimental.viewTransition` is on in `next.config.ts`, so route changes

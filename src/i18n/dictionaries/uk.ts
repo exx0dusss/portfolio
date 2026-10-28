@@ -12,6 +12,7 @@ export const uk: Dictionary = {
   nav: {
     role: "Фронтенд-інженер · Варшава",
     work: "Проєкти",
+    about: "Про мене",
     experience: "Досвід",
     reading: "Книги",
     resume: "Резюме",
@@ -168,6 +169,19 @@ export const uk: Dictionary = {
       credentials: "Курси",
       verify: "Перевірити",
       course: "Курс",
+    },
+    about: {
+      title: "Про мене",
+      description:
+        "Про Тимура Мустафаєва: фронтенд-інженер і UX/UI-дизайнер у Варшаві. Сторінка в роботі.",
+      heading: "Про мене.",
+      lead: "Хто я, як працюю і що шукаю.",
+      empty: {
+        title: "Працюю над змістом",
+        description:
+          "Ця сторінка ще пишеться. Поки що найбільше про мене розкажуть проєкти та резюме.",
+      },
+      actions: { work: "Мої проєкти", resume: "Резюме" },
     },
     reading: {
       title: "Книги",

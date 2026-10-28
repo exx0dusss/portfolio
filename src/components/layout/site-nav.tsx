@@ -55,6 +55,7 @@ export function SiteNav({ lang, dict, name }: SiteNavProps) {
 
   const links = [
     { label: dict.work, path: "/projects" },
+    { label: dict.about, path: "/about" },
     { label: dict.experience, path: "/experience" },
     { label: dict.reading, path: "/reading" },
     // the résumé is English-only for now
