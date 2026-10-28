@@ -1993,6 +1993,21 @@ a {
   margin-bottom: 8px;
   color: var(--fg);
 }
+/* variant="icon": a Phosphor icon framed like the site's other icon tiles */
+.empty-media-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--card);
+  color: var(--fg-dim);
+}
+.empty-media-icon svg {
+  width: 32px;
+  height: 32px;
+}
 .empty-title {
   margin: 0;
   font-size: 20px;
@@ -2013,90 +2028,6 @@ a {
   justify-content: center;
   gap: 10px;
   margin-top: 22px;
-}
-
-/* ---------- building under construction (components/building-icon) ----------
-   A 4s loop: the block lowers onto the roofline (the cable stretching with
-   it), the new floor rises as the block fades, then everything resets.
-   Reduced motion (global rule) leaves the finished floor and raised block. */
-.building {
-  display: block;
-  width: 112px;
-  height: 112px;
-}
-.building-windows {
-  stroke: var(--fg-faint);
-}
-.building-load,
-.building-floor,
-.building-cable {
-  transform-box: fill-box;
-  animation-duration: 4s;
-  animation-timing-function: var(--ease-out);
-  animation-iteration-count: infinite;
-}
-.building-load {
-  animation-name: building-load;
-}
-.building-cable {
-  transform-origin: top;
-  animation-name: building-cable;
-}
-.building-floor {
-  transform-origin: bottom;
-  animation-name: building-floor;
-}
-@keyframes building-load {
-  0% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  40%,
-  50% {
-    transform: translateY(22px);
-    opacity: 1;
-  }
-  60% {
-    transform: translateY(22px);
-    opacity: 0;
-  }
-  90% {
-    transform: translateY(0);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-@keyframes building-cable {
-  0% {
-    transform: scaleY(1);
-  }
-  40%,
-  55% {
-    transform: scaleY(2.83);
-  }
-  80%,
-  100% {
-    transform: scaleY(1);
-  }
-}
-@keyframes building-floor {
-  0%,
-  45% {
-    transform: scaleY(0);
-    opacity: 0;
-  }
-  60%,
-  88% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scaleY(1);
-    opacity: 0;
-  }
 }
 
 /* ---------- dialog (ui/dialog) ---------- */

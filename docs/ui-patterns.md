@@ -182,9 +182,9 @@ visitor asks. Check the site sends no `X-Frame-Options` or CSP
 `ui/empty` (`Empty`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`,
 `EmptyDescription`, `EmptyContent`) is for "nothing here yet". Always give
 it a way forward in `EmptyContent`, as the About page does with links to the
-work and the résumé. `BuildingIcon` is its "under construction"
-illustration: a CSS loop in currentColor with the accent only on the block,
-still under reduced motion.
+work and the résumé. Use `EmptyMedia variant="icon"` with a Phosphor icon
+(the About page uses `CraneTowerIcon`), so the illustration matches the
+site's icon set.
 
 ### Project SEO and preview cards
 

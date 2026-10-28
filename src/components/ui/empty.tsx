@@ -1,3 +1,5 @@
+import { cva, type VariantProps } from "class-variance-authority";
+
 import { cn } from "@/lib/utils/cn";
 
 /**
@@ -6,7 +8,7 @@ import { cn } from "@/lib/utils/cn";
  *
  *   <Empty>
  *     <EmptyHeader>
- *       <EmptyMedia><BuildingIcon /></EmptyMedia>
+ *       <EmptyMedia variant="icon"><CraneTowerIcon /></EmptyMedia>
  *       <EmptyTitle>Working on the content</EmptyTitle>
  *       <EmptyDescription>What to do meanwhile.</EmptyDescription>
  *     </EmptyHeader>
@@ -21,8 +23,33 @@ function EmptyHeader({ className, ...props }: React.ComponentProps<"div">) {
   return <div data-slot="empty-header" className={cn("empty-header", className)} {...props} />;
 }
 
-function EmptyMedia({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="empty-media" className={cn("empty-media", className)} {...props} />;
+const emptyMediaVariants = cva("empty-media", {
+  variants: {
+    variant: {
+      /** Whatever you put in, as is (an illustration). */
+      default: "",
+      /** An icon framed in a small rounded tile. */
+      icon: "empty-media-icon",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+
+function EmptyMedia({
+  className,
+  variant,
+  ...props
+}: React.ComponentProps<"div"> & VariantProps<typeof emptyMediaVariants>) {
+  return (
+    <div
+      data-slot="empty-media"
+      data-variant={variant ?? "default"}
+      className={cn(emptyMediaVariants({ variant }), className)}
+      {...props}
+    />
+  );
 }
 
 function EmptyTitle({ className, ...props }: React.ComponentProps<"h2">) {
@@ -39,4 +66,12 @@ function EmptyContent({ className, ...props }: React.ComponentProps<"div">) {
   return <div data-slot="empty-content" className={cn("empty-content", className)} {...props} />;
 }
 
-export { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle };
+export {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  emptyMediaVariants,
+  EmptyTitle,
+};

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { BuildingIcon } from "@/components/building-icon";
 import { Reveal } from "@/components/motion/reveal";
 import { ButtonLink } from "@/components/ui/button";
 import {
@@ -13,6 +12,7 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty";
+import { CraneTowerIcon } from "@/components/ui/icons";
 import { getDictionary, hasLocale, localePath, localizedMetadata } from "@/i18n";
 
 type Props = { params: Promise<{ lang: string }> };
@@ -46,8 +46,8 @@ export default async function AboutPage({ params }: Props) {
         <Reveal>
           <Empty>
             <EmptyHeader>
-              <EmptyMedia>
-                <BuildingIcon />
+              <EmptyMedia variant="icon">
+                <CraneTowerIcon aria-hidden />
               </EmptyMedia>
               <EmptyTitle>{page.empty.title}</EmptyTitle>
               <EmptyDescription>{page.empty.description}</EmptyDescription>

@@ -16,6 +16,7 @@ export {
   CheckIcon,
   CircleHalfIcon,
   CopyIcon,
+  CraneTowerIcon,
   DatabaseIcon,
   DiamondsFourIcon,
   EnvelopeSimpleIcon,
