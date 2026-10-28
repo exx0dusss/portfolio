@@ -12,6 +12,8 @@ export interface TimelineEntry {
   description?: string;
   /** Optional tag chips (`.proj-tags`). */
   tags?: string[];
+  /** Case study for this role; the company name links to it. */
+  href?: string;
 }
 
 /** Professional roles, newest first. */
@@ -40,7 +42,8 @@ export const ROLES: TimelineEntry[] = [
     role: "Freelance Web Developer",
     company: "Kosmetik Profi",
     description:
-      "Designed and built the website for a cosmetology practice in Germany (Dec 2024).",
+      "Built the website for a cosmetology practice in Germany, designed and built its admin panel, and set up its hosting and deploys (Dec 2024).",
+    href: "/projects/kosmetik-profi",
   },
   {
     year: "2024",

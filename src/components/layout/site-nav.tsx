@@ -84,7 +84,7 @@ export function SiteNav({ lang, dict, name }: SiteNavProps) {
       <div className="nav-in">
         {/* aria-label keeps the link named when only the face shows (<400px) */}
         <Link className="brand" href={localePath(lang, "/")} aria-label={name} onClick={close}>
-          <FaceIcon className="brand-face" />
+          <FaceIcon />
           <span className="brand-text">
             <b>{name}</b>
             <span>{dict.role}</span>

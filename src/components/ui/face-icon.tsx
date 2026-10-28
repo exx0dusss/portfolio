@@ -1,10 +1,14 @@
+import { cn } from "@/lib/utils/cn";
+
 /** The stick figure's head (same drawing as app/icon.svg), themed through
  *  the --figure-* tokens so it matches the hero figure in light and dark.
- *  Decorative. */
+ *  Decorative. Paints itself (`.face-icon`); where it sits decides its size,
+ *  e.g. `.brand .face-icon` in the nav. */
 export function FaceIcon({ className }: { className?: string }) {
   return (
     <svg
-      className={className}
+      data-slot="face-icon"
+      className={cn("face-icon", className)}
       viewBox="264 57 196 196"
       fill="none"
       stroke="currentColor"

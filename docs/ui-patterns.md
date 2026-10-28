@@ -228,43 +228,29 @@ again.
 
 ## Lint
 
-`@shadcn/lint` is registered in `eslint.config.mjs` with **no rules enabled
-yet**, following its setup guide. Run everything with:
+`@shadcn/lint` runs with the rest of ESLint. Run everything with:
 
 ```bash
 pnpm lint
 ```
 
-A dry run of each rule on this codebase (October 2026):
+Enabled in `eslint.config.mjs` for `src/`:
 
-| Rule | Findings | Notes |
+| Rule | What it enforces here |
+| --- | --- |
+| `no-arbitrary-values` | No off-scale values like `mt-[13px]`; use the theme scale |
+| `no-restyle` (`allow: ["layout"]`) | Pages may add layout classes (`mt-6`, `w-full`) to a component, not restyle it. A component placed somewhere special is styled by its parent's CSS (`.brand .face-icon`) |
+| `require-static-classes` | Class names must be readable static strings, not built like `` `bg-${tone}` `` |
+
+`no-restyle` and `require-static-classes` are off inside `src/components/`,
+where components style themselves and call their own variant functions.
+
+Not enabled, from a dry run in October 2026:
+
+| Rule | Findings | Why not |
 | --- | --- | --- |
-| `no-arbitrary-values` | 0 | Ready to enable |
-| `no-restyle` | 1 | With `allow: ["layout"]`: `brand-face` on `FaceIcon` in the site nav |
-| `require-static-classes` | 1 | `TechLink` forwarding classes; expected in component folders |
 | `no-raw-colors` | 5 | All in `app/apple-icon.tsx`, which draws a PNG and needs literal colours |
 | `no-inline-styles` | 66 | Mostly OG and icon images (inline-only by design), plus `ImageSlot` sizing |
 | `no-unknown-classes` | 99 | Reports the site's own classes from `globals.css`; not usable as is |
-
-A proposed starting set, once the findings above are handled:
-
-```js
-{
-  files: ["src/**/*.{ts,tsx}"],
-  rules: {
-    "shadcn/no-arbitrary-values": "error",
-    "shadcn/no-restyle": ["error", { allow: ["layout"] }],
-    "shadcn/require-static-classes": "error",
-  },
-},
-{
-  // components may style themselves and call their own variant functions
-  files: ["src/components/**/*.{ts,tsx}"],
-  rules: {
-    "shadcn/no-restyle": "off",
-    "shadcn/require-static-classes": "off",
-  },
-},
-```
 
 Rules and options: <https://github.com/shadcn-ui/lint#rules>.
