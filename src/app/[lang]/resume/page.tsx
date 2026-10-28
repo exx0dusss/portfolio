@@ -133,10 +133,6 @@ export default async function ResumePage({
                 <a href="https://github.com/exx0dusss">github.com/exx0dusss</a>
               </div>
               <div className="li">
-                Orgs: <a href="https://github.com/ExdBots">ExdBots</a> ·{" "}
-                <a href="https://github.com/Salon-Svitlo">Salon-Svitlo</a>
-              </div>
-              <div className="li">
                 <a href={LINKEDIN}>linkedin.com/in/tymur-mustafaiev</a>
               </div>
               <div className="li">

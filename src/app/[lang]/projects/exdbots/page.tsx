@@ -47,8 +47,7 @@ export default async function ExdbotsPage({
           ]}
           openness={{ tone: "source", label: "Source-available" }}
           actions={[
-            { variant: "primary", label: "View the org", href: "https://github.com/ExdBots", external: true },
-            { variant: "ghost", label: "See architecture", href: "#architecture" },
+            { variant: "primary", label: "See architecture", href: "#architecture" },
           ]}
         />
 
@@ -180,12 +179,8 @@ export default async function ExdbotsPage({
               everywhere.
             </p>
             <p>
-              It&#8217;s built in TypeScript end to end — Next.js for the console, the SDK and UI
-              packages published under the{" "}
-              <a href="https://github.com/ExdBots" target="_blank" rel="noopener" style={ACCENT}>
-                @exdbots
-              </a>{" "}
-              org, Postgres for storage. Parts are being opened up as they stabilize.
+              It&#8217;s built in TypeScript end to end — Next.js for the console, the SDK and UI as
+              their own packages, Postgres for storage.
             </p>
           </Reveal>
         </section>

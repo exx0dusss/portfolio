@@ -43,14 +43,6 @@ export default async function SalonSvitloPage({
             { key: "Type", value: "E-commerce platform" },
           ]}
           openness={{ tone: "client", label: "Client work · private" }}
-          actions={[
-            {
-              variant: "ghost",
-              label: "Salon-Svitlo org",
-              href: "https://github.com/Salon-Svitlo",
-              external: true,
-            },
-          ]}
         />
 
         <section className="card">

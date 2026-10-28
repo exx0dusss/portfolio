@@ -47,8 +47,8 @@ export default async function ExdDownloaderAppPage({
           actions={[
             {
               variant: "primary",
-              label: "View on GitHub",
-              href: "https://github.com/exx0dusss",
+              label: "Open in Telegram",
+              href: "https://t.me/ExdDownloadApp",
               external: true,
             },
           ]}
