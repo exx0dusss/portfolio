@@ -60,8 +60,8 @@ function Detail({ label, children }: { label: string; children: React.ReactNode 
 
 /**
  * One credential, laid out like LinkedIn's list: a gallery card with the
- * certificate (cropped to its top, where the issuer and title are), issuer
- * and title. Clicking opens a dialog with the whole certificate, the
+ * certificate (cropped to its top, where the issuer and title are), issuer,
+ * title, issue date and credential ID. Clicking opens a dialog with the whole certificate, the
  * credential's details and a link to its public page.
  */
 export function CertificateCard({
@@ -99,8 +99,14 @@ export function CertificateCard({
         <LinkPreviewBody>
           <CertificateIssuer certificate={certificate} copy={copy} />
           <LinkPreviewTitle>{title}</LinkPreviewTitle>
-          <div className="mt-1 text-12.5 text-fg-faint">
-            {copy.issued} {issued}
+          {/* issued, then the credential ID (cut to one line; the dialog has it whole) */}
+          <div className="mt-1 flex flex-col text-12.5 text-fg-faint">
+            <span>
+              {copy.issued} {issued}
+            </span>
+            <span className="truncate">
+              {copy.credentialId} {credentialId}
+            </span>
           </div>
         </LinkPreviewBody>
       </DialogTrigger>
