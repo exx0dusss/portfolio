@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 
+import { InstantHistoryScroll } from "@/components/layout/instant-history-scroll";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteNav } from "@/components/layout/site-nav";
 import { getDictionary, hasLocale, LOCALES, OG_LOCALE } from "@/i18n";
@@ -78,7 +79,15 @@ export default async function RootLayout({
     // font variables go on <html>: the stacks in globals.css are declared on
     // :root, and var() resolves where the custom property is defined
     // suppressHydrationWarning: THEME_SCRIPT may set data-theme before React hydrates
-    <html lang={lang} className={`${geist.variable} ${geistMono.variable}`} suppressHydrationWarning>
+    // data-scroll-behavior="smooth": globals.css scrolls smoothly for in-page
+    // anchors; this tells Next to jump instantly on route changes and
+    // back/forward instead (Next 16 no longer does that by default)
+    <html
+      lang={lang}
+      className={`${geist.variable} ${geistMono.variable}`}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <body>
         {/* beforeInteractive: Next injects this into the server HTML's <head> so
             a saved theme applies before paint (a raw <script> in a component
@@ -90,6 +99,7 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSON_LD) }}
         />
+        <InstantHistoryScroll />
         <SiteNav lang={lang} dict={dict.nav} name={dict.name} />
         {children}
         <SiteFooter lang={lang} dict={dict.footer} name={dict.name} />
