@@ -1,6 +1,30 @@
 /* ProjectBanner's colour fields: soft radial blobs, each in one palette
    colour, drifting on their own slow loops so the mix never visibly repeats.
    Keyframed transforms on several layers, so CSS rather than utilities. */
+
+/* the palette for the theme: the visitor's pick in the nav (data-theme),
+   otherwise the OS, as the site's dark: variant does */
+[data-slot="project-banner"] {
+  --banner-1: var(--banner-light-1);
+  --banner-2: var(--banner-light-2);
+  --banner-3: var(--banner-light-3);
+  --banner-4: var(--banner-light-4);
+}
+:root[data-theme="dark"] [data-slot="project-banner"] {
+  --banner-1: var(--banner-dark-1);
+  --banner-2: var(--banner-dark-2);
+  --banner-3: var(--banner-dark-3);
+  --banner-4: var(--banner-dark-4);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-slot="project-banner"] {
+    --banner-1: var(--banner-dark-1);
+    --banner-2: var(--banner-dark-2);
+    --banner-3: var(--banner-dark-3);
+    --banner-4: var(--banner-dark-4);
+  }
+}
+
 /* at least 560px wide, so on a phone the fields overlap into one wash
    instead of reading as separate spots */
 [data-slot="project-banner-field"] {
