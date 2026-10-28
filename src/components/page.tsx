@@ -98,8 +98,9 @@ function PageLead({ className, delay = 2, children }: RevealPartProps) {
 /**
  * One section of a page, under an ink rule. With a SectionLabel, the label
  * takes the left three columns beside all of the content; without one
- * (cover shots, the next-project link) the content runs full width. Below
- * 860px the label stacks above the content.
+ * (cover shots, the next-project link) the content runs full width. A child
+ * marked data-span="full" (a wide diagram) spans all twelve columns anyway,
+ * placed below the label. Below 860px the label stacks above the content.
  *
  *   <Section id="work">…</Section>
  *   <Section render={<Link href="/next" />}>…</Section>
@@ -111,7 +112,7 @@ function Section({ className, render, ...props }: useRender.ComponentProps<"sect
     props: {
       "data-slot": "section",
       className: cn(
-        "relative grid grid-cols-12 gap-x-6 border-t border-fg pt-11 pb-14 *:not-data-[slot=section-label]:col-span-full has-[>[data-slot=section-label]]:*:not-data-[slot=section-label]:col-start-4 max-tablet:block max-tablet:pt-9 max-tablet:pb-11",
+        "relative grid grid-cols-12 gap-x-6 border-t border-fg pt-11 pb-14 *:not-data-[slot=section-label]:col-span-full has-[>[data-slot=section-label]]:*:not-data-[slot=section-label]:not-data-[span=full]:col-start-4 max-tablet:block max-tablet:pt-9 max-tablet:pb-11",
         className,
       ),
       ...props,

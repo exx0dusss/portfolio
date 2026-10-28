@@ -10,7 +10,8 @@
     "links:previews": "node scripts/link-previews.mjs",
     "visual": "node scripts/visual-diff.mjs",
     "tech:logos": "node scripts/tech-logos.mjs",
-    "certificates:images": "node scripts/certificate-images.mjs"
+    "certificates:images": "node scripts/certificate-images.mjs",
+    "diagrams": "node scripts/diagrams.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.9.0",

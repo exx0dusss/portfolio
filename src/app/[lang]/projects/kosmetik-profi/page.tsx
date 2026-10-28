@@ -7,7 +7,6 @@ import { TechLink } from "@/components/tech-link";
 import { hasLocale } from "@/i18n";
 
 import {
-  ArchDiagram,
   FeatureGrid,
   Gallery,
   GalleryCover,
@@ -19,6 +18,7 @@ import {
   projectMetadata,
   ProjectStructuredData,
   projectTheme,
+  SketchDiagram,
 } from "../_components";
 
 /** The cover is also the first gallery slide, so all five screenshots open together. */
@@ -167,38 +167,9 @@ export default async function KosmetikProfiPage({ params }: { params: Promise<{ 
               </p>
             </Prose>
           </div>
-          <ArchDiagram
-            columns={[
-              {
-                title: "People",
-                nodes: [
-                  { title: "Public site", sub: "DE · EN" },
-                  { title: "Admin panel", sub: "login · JWT" },
-                ],
-              },
-              {
-                title: "Server",
-                nodes: [{ title: "NestJS", sub: "Handlebars pages", accent: true }],
-              },
-              {
-                title: "Services",
-                nodes: [
-                  { title: "EasyWeek", sub: "booking" },
-                  { title: "Google Maps", sub: "locations" },
-                ],
-              },
-              {
-                title: "Data",
-                nodes: [{ title: "SQLite", sub: "TypeORM" }],
-              },
-              {
-                title: "Hosting",
-                nodes: [
-                  { title: "OVHcloud VPS", sub: "Coolify · Docker" },
-                  { title: "Auto-deploy", sub: "on merge to main" },
-                ],
-              },
-            ]}
+          <SketchDiagram
+            slug="kosmetik-profi"
+            alt="Architecture sketch. A visitor's browser gets its pages from a NestJS app and itself loads EasyWeek booking, an embedded Google Map and Google Tag Manager; the admin logs in and edits the price list through the same app. NestJS and its SQLite file share one Docker container on an OVHcloud VPS, which Coolify rebuilds when main changes on GitHub."
             note="// one server, one database file — sized for a single practice"
           />
         </Section>

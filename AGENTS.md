@@ -20,3 +20,11 @@ Tailwind (CVA for variants) on the site's own tokens in
 - Pass only data (no functions) from server components into Base UI parts.
 
 After making changes, run `pnpm lint` and fix all errors.
+
+# Architecture diagrams
+
+Case-study architecture is a hand-drawn Excalidraw sketch exported to SVG.
+Read `docs/diagrams.md` before adding or changing one: get the architecture
+from the project's code, lay it out with the shared spacing rules in
+`scripts/diagrams/sketch.mjs`, and run `pnpm diagrams` (it audits gaps and
+padding, then exports desktop and mobile versions).
