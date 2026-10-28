@@ -39,7 +39,7 @@ but map its classes onto the site's tokens before shipping (`bg-card`, not
 | Folder | Holds | Example |
 | --- | --- | --- |
 | `src/components/ui/` | Generic, reusable parts with no site content | `Button`, `HoverCard`, `Fact`, `Meter` |
-| `src/components/` | Site-specific compositions of `ui/` parts | `TechLink` |
+| `src/components/` | Site-specific compositions of `ui/` parts, and the page shell every route shares (`page.tsx`) | `TechLink`, `PageShell`, `Section`, `SectionLabel` |
 | `app/**/_components/` | Pieces used by one route | `ProjectHero`, `Gallery` |
 
 Files are kebab-case. Import UI from `@/components/ui/*`, never from
@@ -105,9 +105,9 @@ function FactHeader({ className, ...props }: React.ComponentProps<"div">) {
   The markup the site renders inside it still uses Tailwind.
 - Tailwind's `translate-*` and `scale-*` set the `translate` and `scale`
   properties, not `transform`: transition those.
-- Element defaults (`a`, `body`) sit in `@layer base`. Unlayered CSS beats
-  every utility, so a plain `a { color: inherit }` would recolor a
-  `ButtonLink`.
+- Element defaults (`a`, `body`, the `:focus-visible` ring) sit in
+  `@layer base`. Unlayered CSS beats every utility, so a plain
+  `a { color: inherit }` would recolor a `ButtonLink`.
 - Inside CSS comments, never write `*/` (as in `translate-*/scale-*`): it
   ends the comment and silently drops the rule after it.
 

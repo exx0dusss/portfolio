@@ -1,0 +1,33 @@
+/* The stick figure's motion. SVG groups animated in the drawing's own
+   coordinates (transform-box: view-box, origins in viewBox units) with
+   keyframes, so it stays CSS rather than utilities. */
+
+/* the bubble grows out of its tail tip, just after the hero settles */
+.figure-bubble {
+  transform-box: view-box;
+  transform-origin: 258px 178px;
+  animation: figure-bubble 0.45s var(--ease-out) 0.6s backwards;
+}
+@keyframes figure-bubble {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+/* the raised arm waves while the figure is hovered */
+.figure-arm {
+  transform-box: view-box;
+  transform-origin: 360px 270px;
+  transition: transform 0.6s var(--ease-out);
+}
+[data-slot="stick-figure"]:hover .figure-arm {
+  animation: figure-wave 0.9s var(--ease-out);
+}
+@keyframes figure-wave {
+  25% {
+    transform: rotate(-10deg);
+  }
+  60% {
+    transform: rotate(6deg);
+  }
+}

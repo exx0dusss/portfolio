@@ -1,8 +1,8 @@
-import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import { Section, SectionLabel } from "@/components/page";
 import type { Dictionary } from "@/i18n";
 
 import { EDUCATION, localizeTimeline } from "../[lang]/experience/_components/timeline";
+import { RoleList } from "./role-list";
 
 interface EducationSectionProps {
   label: string;
@@ -16,16 +16,7 @@ export function EducationSection({ label, dict }: EducationSectionProps) {
   return (
     <Section id="education">
       <SectionLabel>{label}</SectionLabel>
-      <Stagger className="xp">
-        {rows.map((row) => (
-          <StaggerItem className="xp-row" key={`${row.role}-${row.year}`}>
-            <div>
-              <b>{row.role}</b> <span>· {row.company}</span>
-            </div>
-            <span className="xp-year">{row.year}</span>
-          </StaggerItem>
-        ))}
-      </Stagger>
+      <RoleList rows={rows} />
     </Section>
   );
 }

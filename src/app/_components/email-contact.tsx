@@ -32,13 +32,18 @@ export function EmailContact({
   }
 
   return (
-    <div className="mail">
-      <a className="mail-addr" href={`mailto:${email}`}>
+    // the address plus icon, in one line that scales with the viewport
+    // (text-mail); the gap, padding and icon are in em so they scale too
+    <div className="relative mt-3 inline-flex items-center gap-mail-gap text-mail leading-mail font-semibold tracking-display text-fg">
+      <a
+        className="whitespace-nowrap underline decoration-transparent decoration-3 underline-offset-8 transition-colors duration-200 ease-standard hover:decoration-accent focus-visible:decoration-accent"
+        href={`mailto:${email}`}
+      >
         {email}
       </a>
       <button
         type="button"
-        className="mail-copy"
+        className="-m-mail-pad inline-flex cursor-pointer rounded-mail p-mail-pad transition-transform duration-200 ease-pop hover:scale-108 focus-visible:outline-offset-2"
         onClick={copy}
         aria-label={`${copyLabel} ${email}`}
         title={copyLabel}
@@ -46,17 +51,24 @@ export function EmailContact({
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
             key={copied ? "check" : "copy"}
-            className="mail-icon"
+            className="inline-flex"
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.5, opacity: 0 }}
             transition={{ ...POP, duration: 0.25 }}
           >
-            {copied ? <CheckIcon aria-hidden /> : <CopyIcon aria-hidden />}
+            {copied ? (
+              <CheckIcon className="block size-mail-icon text-accent" aria-hidden />
+            ) : (
+              <CopyIcon className="block size-mail-icon text-accent" aria-hidden />
+            )}
           </motion.span>
         </AnimatePresence>
       </button>
-      <span className="mail-hint" aria-live="polite">
+      <span
+        className="absolute top-full left-0 mt-2.5 text-14 font-medium tracking-normal text-accent-ink"
+        aria-live="polite"
+      >
         {copied ? copiedLabel : ""}
       </span>
     </div>

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { Stagger } from "@/components/motion/stagger";
 import {
   PageEyebrow,
   PageHeader,
@@ -13,8 +12,7 @@ import {
 } from "@/components/page";
 import { getDictionary, hasLocale, localizedMetadata } from "@/i18n";
 
-import { ProjectCard } from "../../_components/project-card";
-import { PROJECTS } from "../../_components/projects";
+import { ProjectList } from "../../_components/project-list";
 
 type Props = { params: Promise<{ lang: string }> };
 
@@ -40,11 +38,7 @@ export default async function ProjectsPage({ params }: Props) {
 
       <Section>
         <SectionLabel>{page.label}</SectionLabel>
-        <Stagger className="plist">
-          {PROJECTS.map((project) => (
-            <ProjectCard key={project.slug} project={project} dict={dict.work} />
-          ))}
-        </Stagger>
+        <ProjectList dict={dict.work} />
       </Section>
     </PageShell>
   );

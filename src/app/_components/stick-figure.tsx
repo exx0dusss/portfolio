@@ -1,15 +1,18 @@
+import "./stick-figure.css";
+
 /** Waving stick figure beside the hero, saying "HI" in a comic speech
  *  bubble. Drawn as SVG so it is transparent, crisp at any size and inherits
- *  --figure-ink (set on .hero-figure). Face, bubble and features use the other
- *  --figure-* tokens: in the dark theme he keeps a white face and bubble with
- *  dark features, and his body turns gray.
- *  The legs are short and the drawing ends at the feet, so
- *  the figure stands on the section rule below the hero. The bubble pops in
- *  on load and the raised arm waves on
- *  hover (see .figure-* in globals.css). Decorative, hidden from AT. */
+ *  --figure-ink (text-figure-ink on the hero's figure column). Face, bubble
+ *  and features use the other --figure-* tokens: in the dark theme he keeps
+ *  a white face and bubble with dark features, and his body turns gray.
+ *  The legs are short and the drawing ends at the feet, so the figure
+ *  stands on the section rule below the hero. The bubble pops in on load
+ *  and the raised arm waves on hover (see stick-figure.css). Decorative,
+ *  hidden from AT. */
 export function StickFigure({ className }: { className?: string }) {
   return (
     <svg
+      data-slot="stick-figure"
       className={className}
       viewBox="0 -20 570 570"
       fill="none"

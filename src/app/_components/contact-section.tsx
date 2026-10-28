@@ -9,8 +9,10 @@ const EMAIL = "tymurmustafaiev029@gmail.com";
  *  mail app, and a button beside it copies the address. */
 export function ContactSection({ dict }: { dict: Dictionary["contact"] }) {
   return (
-    <section className="contact" id="contact">
-      <Reveal as="p">{dict.prompt}</Reveal>
+    <section className="border-t border-fg pt-20 pb-14" id="contact">
+      <Reveal as="p" className="text-15 text-fg-dim">
+        {dict.prompt}
+      </Reveal>
       <Reveal delay={1}>
         <EmailContact email={EMAIL} copyLabel={dict.copy} copiedLabel={dict.copied} />
       </Reveal>
