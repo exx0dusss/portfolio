@@ -1,8 +1,7 @@
-// Snapshots link-preview metadata for every linked entry in each source below
-// (the tech registry and the certificates): title, description and site name
-// from the page's meta tags, plus its og:image resized into the source's
-// folder under public/. The site stays static and never calls these hosts at
-// runtime. Re-run after adding a link:
+// Snapshots link-preview metadata for every entry in src/lib/tech-links.json:
+// title, description and site name from the page's meta tags, plus its
+// og:image resized into public/link-previews/. The site stays static and never
+// calls these hosts at runtime. Re-run after adding a link:
 //   pnpm links:previews
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -10,17 +9,9 @@ import path from "node:path";
 import sharp from "sharp";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
-const CERTIFICATES = "src/app/[lang]/certificates/_components";
-/** links: { id: { href?, title?, description? } } in; previews out; images
- *  served from /<images>/. Entries without an href are skipped. */
-const SOURCES = [
-  { links: "src/lib/tech-links.json", out: "src/lib/link-previews.json", images: "link-previews" },
-  {
-    links: `${CERTIFICATES}/certificates.json`,
-    out: `${CERTIFICATES}/certificate-previews.json`,
-    images: "link-previews/certificates",
-  },
-];
+const LINKS = path.join(ROOT, "src/lib/tech-links.json");
+const OUT = path.join(ROOT, "src/lib/link-previews.json");
+const IMG_DIR = path.join(ROOT, "public/link-previews");
 const HEADERS = {
   "user-agent":
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36",
@@ -53,7 +44,7 @@ function meta(html, ...keys) {
   return undefined;
 }
 
-async function snapshot(id, { href }, images) {
+async function snapshot(id, { href }) {
   const res = await fetch(href, { headers: HEADERS, redirect: "follow" });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const html = await res.text();
@@ -71,8 +62,8 @@ async function snapshot(id, { href }, images) {
       await sharp(Buffer.from(await img.arrayBuffer()))
         .resize({ width: 640, height: 336, fit: "cover" })
         .webp({ quality: 80 })
-        .toFile(path.join(ROOT, "public", images, file));
-      image = `/${images}/${file}`;
+        .toFile(path.join(IMG_DIR, file));
+      image = `/link-previews/${file}`;
     } catch (err) {
       console.warn(`  ${id}: no image (${err.message})`);
     }
@@ -80,30 +71,27 @@ async function snapshot(id, { href }, images) {
   return { title, description, image };
 }
 
-for (const source of SOURCES) {
-  const links = JSON.parse(await readFile(path.join(ROOT, source.links), "utf8"));
-  await mkdir(path.join(ROOT, "public", source.images), { recursive: true });
+const links = JSON.parse(await readFile(LINKS, "utf8"));
+await mkdir(IMG_DIR, { recursive: true });
 
-  const previews = {};
-  for (const [id, link] of Object.entries(links)) {
-    if (!link.href) continue;
-    let fetched = {};
-    try {
-      fetched = await snapshot(id, link, source.images);
-    } catch (err) {
-      // Some hosts block scripted requests; the preview then shows only what
-      // the source provides (name, host, any title/description override).
-      console.warn(`err ${id}: ${err.message}`);
-    }
-    // A title or description in the source overrides the scraped one.
-    previews[id] = {
-      title: link.title ?? fetched.title,
-      description: link.description ?? fetched.description,
-      site: host(link.href),
-      image: fetched.image,
-    };
-    console.log(`ok  ${id}: ${previews[id].title ?? "(no title)"}`);
+const previews = {};
+for (const [id, link] of Object.entries(links)) {
+  let fetched = {};
+  try {
+    fetched = await snapshot(id, link);
+  } catch (err) {
+    // Some hosts block scripted requests; the hovercard then shows only what
+    // tech-links.json provides (name, host, any title/description override).
+    console.warn(`err ${id}: ${err.message}`);
   }
-  await writeFile(path.join(ROOT, source.out), `${JSON.stringify(previews, null, 2)}\n`);
-  console.log(`wrote ${source.out}`);
+  // A title or description in tech-links.json overrides the scraped one.
+  previews[id] = {
+    title: link.title ?? fetched.title,
+    description: link.description ?? fetched.description,
+    site: host(link.href),
+    image: fetched.image,
+  };
+  console.log(`ok  ${id}: ${previews[id].title ?? "(no title)"}`);
 }
+await writeFile(OUT, `${JSON.stringify(previews, null, 2)}\n`);
+console.log(`wrote ${path.relative(ROOT, OUT)}`);

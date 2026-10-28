@@ -190,6 +190,8 @@
 
   /* dialogs: 480px, never wider than the screen minus a 16px gutter */
   --container-dialog: min(480px, 100vw - 32px);
+  /* wide dialogs (a certificate): 640px, same gutter */
+  --container-dialog-wide: min(640px, 100vw - 32px);
   /* the résumé sheet */
   --container-resume: 900px;
   /* a timeline entry's description */
@@ -260,6 +262,8 @@
   /* the viewer dialog: bar, stage, note; 24px clear of each edge */
   --grid-template-rows-viewer: auto minmax(0, 1fr) auto;
   --height-viewer: calc(100dvh - 48px);
+  /* a tall dialog scrolls inside the screen, 16px clear top and bottom */
+  --height-dialog: calc(100dvh - 32px);
 
   /* floating corner buttons (back to top): clear of the home indicator */
   --inset-corner: calc(24px + env(safe-area-inset-bottom));

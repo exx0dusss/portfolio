@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils/cn";
  *     </DialogContent>
  *   </Dialog>
  *
+ * `size="wide"` is the same dialog at 640px, for an image worth reading.
  * `size="viewer"` is a near-fullscreen dialog laid out as bar, stage and
  * note (the live preview), edge to edge on phones; its title and
  * description then use `size="sm"`.
@@ -60,6 +61,8 @@ const dialogContentVariants = cva(
     variants: {
       size: {
         default: "w-dialog p-5",
+        /** Room for an image worth reading, such as a certificate. */
+        wide: "max-h-dialog w-dialog-wide overflow-y-auto p-5",
         viewer:
           "grid h-viewer w-viewer grid-rows-viewer gap-3.5 p-4 max-phone:h-dvh max-phone:w-screen max-phone:rounded-none max-phone:border-none max-phone:p-3",
       },

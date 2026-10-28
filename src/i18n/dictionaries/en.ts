@@ -52,7 +52,18 @@ export interface Dictionary {
   pages: {
     projects: PageCopy & { label: string };
     experience: PageCopy & { roles: string; education: string };
-    certificates: PageCopy & { credentials: string; verify: string; course: string };
+    certificates: PageCopy & {
+      credentials: string;
+      showCredential: string;
+      issued: string;
+      credentialId: string;
+      length: string;
+      /** Abbreviation after a course's length in hours. */
+      hoursUnit: string;
+      skills: string;
+      outdated: string;
+      outdatedNote: string;
+    };
     reading: PageCopy & { books: string };
     colophon: PageCopy & {
       facts: Record<
@@ -205,8 +216,14 @@ export const en: Dictionary = {
       heading: "Courses & certifications.",
       lead: "Online courses I’ve completed across front-end, back-end, and the fundamentals — including the official Next.js courses from Vercel.",
       credentials: "Credentials",
-      verify: "Verify",
-      course: "Course",
+      showCredential: "Show credential",
+      issued: "Issued",
+      credentialId: "Credential ID",
+      length: "Length",
+      hoursUnit: "h",
+      skills: "Skills",
+      outdated: "Outdated",
+      outdatedNote: "The course has been rewritten since I took it.",
     },
     colophon: {
       title: "Colophon",

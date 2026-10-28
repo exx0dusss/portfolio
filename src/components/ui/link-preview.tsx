@@ -4,8 +4,6 @@
 // component renders, even inside a closed hover card. Rendering the image
 // here means the server only sends `src` as a string, and the browser
 // fetches it when the card actually opens.
-import { cva, type VariantProps } from "class-variance-authority";
-
 import { ArrowUpRightIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/utils/cn";
 
@@ -29,36 +27,20 @@ function LinkPreview({ className, ...props }: React.ComponentProps<"div">) {
   return <div data-slot="link-preview" className={className} {...props} />;
 }
 
-const linkPreviewMediaVariants = cva(
-  "grid aspect-640/336 w-full place-items-center border-line bg-card-2",
-  {
-    variants: {
-      variant: {
-        /** Flush with its card's top edge, ruled off from the body. */
-        edge: "border-b",
-        /** Free-standing inside padded content (a dialog). */
-        framed: "overflow-hidden rounded-10 border",
-      },
-    },
-    defaultVariants: {
-      variant: "edge",
-    },
-  },
-);
-
 /** The 640×336 (≈1.9:1) preview image; pass children instead of `src` for a fallback. */
 function LinkPreviewMedia({
   src,
-  variant,
   className,
   children,
   ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof linkPreviewMediaVariants> & { src?: string }) {
+}: React.ComponentProps<"div"> & { src?: string }) {
   return (
     <div
       data-slot="link-preview-media"
-      data-variant={variant ?? "edge"}
-      className={cn(linkPreviewMediaVariants({ variant }), className)}
+      className={cn(
+        "grid aspect-640/336 w-full place-items-center border-b border-line bg-card-2",
+        className,
+      )}
       {...props}
     >
       {src ? (
@@ -151,7 +133,6 @@ export {
   LinkPreviewDescription,
   LinkPreviewFooter,
   LinkPreviewMedia,
-  linkPreviewMediaVariants,
   LinkPreviewSite,
   LinkPreviewTitle,
 };

@@ -2,26 +2,71 @@
   "nextjs-app-router": {
     "title": "Next.js App Router Fundamentals",
     "issuer": "vercel",
-    "href": "https://nextjs.org/learn/dashboard-app"
+    "issued": "2025-06",
+    "credentialId": "dashboard-app",
+    "href": "https://nextjs.org/learn/dashboard-app",
+    "image": "https://nextjs.org/api/og?title=App+Router&section=Chapter+1&type=learn&sig=1ceb0eb5fc78b95e",
+    "skills": ["Next.js"],
+    "outdated": true
   },
   "react-foundations": {
     "title": "React Foundations for Next.js",
     "issuer": "vercel",
-    "href": "https://nextjs.org/learn/react-foundations"
+    "issued": "2025-06",
+    "credentialId": "react-foundations",
+    "href": "https://nextjs.org/learn/react-foundations",
+    "image": "https://nextjs.org/api/og?title=React+Foundations&section=Chapter+1&type=learn&sig=a064a5c1b29fe4da",
+    "skills": ["Next.js"],
+    "outdated": true
+  },
+  "react-redux": {
+    "title": "React - Полный Курс по React, Redux и Redux Toolkit",
+    "issuer": "udemy",
+    "issued": "2025-06",
+    "credentialId": "UC-b0b644dc-efc4-415e-912d-801fa76e85f6",
+    "href": "https://www.udemy.com/certificate/UC-b0b644dc-efc4-415e-912d-801fa76e85f6/",
+    "image": "https://udemy-certificate.s3.amazonaws.com/image/UC-b0b644dc-efc4-415e-912d-801fa76e85f6.jpg",
+    "hours": 32.5,
+    "skills": ["React.js", "Redux.js"]
   },
   "nestjs-zero-to-hero": {
-    "title": "NestJS: Zero to Hero — Modern TypeScript Back-end",
+    "title": "NestJS Zero to Hero - Modern TypeScript Back-end Development",
     "issuer": "udemy",
-    "href": "https://www.udemy.com/course/nestjs-zero-to-hero/",
-    "description": "Develop and deploy enterprise back-end applications following best practices using Node.js and TypeScript."
+    "issued": "2025-06",
+    "credentialId": "UC-7953ac35-cc92-4f2e-ad6d-611e9d564465",
+    "href": "https://www.udemy.com/certificate/UC-7953ac35-cc92-4f2e-ad6d-611e9d564465/",
+    "image": "https://udemy-certificate.s3.amazonaws.com/image/UC-7953ac35-cc92-4f2e-ad6d-611e9d564465.jpg",
+    "hours": 9,
+    "skills": ["TypeScript", "NestJS"]
   },
   "complete-sql-bootcamp": {
-    "title": "The Complete SQL Bootcamp: Zero to Hero",
+    "title": "The Complete SQL Bootcamp: Go from Zero to Hero",
     "issuer": "udemy",
-    "href": "https://www.udemy.com/course/the-complete-sql-bootcamp/",
-    "description": "Become an expert at SQL: queries, joins, aggregations, and building databases with PostgreSQL."
+    "issued": "2024-09",
+    "credentialId": "UC-d7337662-6524-4dd3-bdef-9731cc3dd008",
+    "href": "https://www.udemy.com/certificate/UC-d7337662-6524-4dd3-bdef-9731cc3dd008/",
+    "image": "https://udemy-certificate.s3.amazonaws.com/image/UC-d7337662-6524-4dd3-bdef-9731cc3dd008.jpg",
+    "hours": 9,
+    "skills": ["SQL", "PostgreSQL"]
   },
-  "react-redux": { "title": "React — Full Course, Redux & Redux Toolkit" },
-  "understanding-npm": { "title": "Understanding NPM — Node.js Package Manager" },
-  "intro-javascript": { "title": "Introduction to Programming Using JavaScript" }
+  "understanding-npm": {
+    "title": "Understanding NPM - Node.js Package Manager",
+    "issuer": "udemy",
+    "issued": "2022-10",
+    "credentialId": "UC-6202dcd7-1a57-40de-b2ea-c674e21ee1c9",
+    "href": "https://www.udemy.com/certificate/UC-6202dcd7-1a57-40de-b2ea-c674e21ee1c9/",
+    "image": "https://udemy-certificate.s3.amazonaws.com/image/UC-6202dcd7-1a57-40de-b2ea-c674e21ee1c9.jpg",
+    "hours": 2.5,
+    "skills": ["Node.js", "npm"]
+  },
+  "javascript-full-course": {
+    "title": "JavaScript - Полный Курс По JavaScript (Включает 80 Задач)",
+    "issuer": "udemy",
+    "issued": "2022-09",
+    "credentialId": "UC-78b04f03-64ba-4dea-89a0-9d62f88c5134",
+    "href": "https://www.udemy.com/certificate/UC-78b04f03-64ba-4dea-89a0-9d62f88c5134/",
+    "image": "https://udemy-certificate.s3.amazonaws.com/image/UC-78b04f03-64ba-4dea-89a0-9d62f88c5134.jpg",
+    "hours": 23.5,
+    "skills": ["JavaScript"]
+  }
 }

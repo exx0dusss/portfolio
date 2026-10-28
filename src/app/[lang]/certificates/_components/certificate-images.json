@@ -1,0 +1,37 @@
+{
+  "nextjs-app-router": {
+    "src": "/certificates/nextjs-app-router.webp",
+    "width": 1200,
+    "height": 628
+  },
+  "react-foundations": {
+    "src": "/certificates/react-foundations.webp",
+    "width": 1200,
+    "height": 628
+  },
+  "react-redux": {
+    "src": "/certificates/react-redux.webp",
+    "width": 1200,
+    "height": 893
+  },
+  "nestjs-zero-to-hero": {
+    "src": "/certificates/nestjs-zero-to-hero.webp",
+    "width": 1200,
+    "height": 893
+  },
+  "complete-sql-bootcamp": {
+    "src": "/certificates/complete-sql-bootcamp.webp",
+    "width": 1200,
+    "height": 893
+  },
+  "understanding-npm": {
+    "src": "/certificates/understanding-npm.webp",
+    "width": 1200,
+    "height": 893
+  },
+  "javascript-full-course": {
+    "src": "/certificates/javascript-full-course.webp",
+    "width": 1200,
+    "height": 893
+  }
+}

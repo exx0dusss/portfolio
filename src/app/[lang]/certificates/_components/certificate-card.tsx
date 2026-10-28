@@ -10,62 +10,71 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { ArrowUpRightIcon, CertificateIcon } from "@/components/ui/icons";
-import {
-  LinkPreviewBody,
-  LinkPreviewMedia,
-  LinkPreviewSite,
-  LinkPreviewTitle,
-} from "@/components/ui/link-preview";
+import { ArrowUpRightIcon } from "@/components/ui/icons";
+import { LinkPreviewBody, LinkPreviewSite, LinkPreviewTitle } from "@/components/ui/link-preview";
+import type { Dictionary, Locale } from "@/i18n";
 import { getTech } from "@/lib/tech";
 
 import type { Certificate } from "./certificates";
 
-/** The course page's preview image, or the issuer's logo (a certificate mark
- *  for courses without one) where the page has none or blocks snapshots. */
-function CertificateMedia({
+type CertificateCopy = Dictionary["pages"]["certificates"];
+
+/** "2025-06" → "Jun 2025", in the page's language. */
+function formatIssued(issued: string, lang: Locale) {
+  const [year, month] = issued.split("-").map(Number);
+  return new Intl.DateTimeFormat(lang, { month: "short", year: "numeric", timeZone: "UTC" }).format(
+    new Date(Date.UTC(year, month - 1)),
+  );
+}
+
+/** Issuer logo and name, with an "Outdated" tag for rewritten courses. */
+function CertificateIssuer({
   certificate,
-  variant,
+  copy,
 }: {
   certificate: Certificate;
-  variant?: "edge" | "framed";
+  copy: CertificateCopy;
 }) {
-  const issuer = certificate.issuer && getTech(certificate.issuer);
+  const issuer = getTech(certificate.issuer);
   return (
-    <LinkPreviewMedia src={certificate.preview?.image} variant={variant}>
-      {issuer ? (
-        <BrandIcon name={issuer.name} mark={issuer.mark} size="lg" />
-      ) : (
-        <span className="grid size-16 place-items-center rounded-16 border border-line bg-card text-fg-dim [&_svg]:size-8">
-          <CertificateIcon aria-hidden />
+    <LinkPreviewSite icon={<BrandIcon name={issuer.name} mark={issuer.mark} size="sm" />}>
+      {issuer.name}
+      {certificate.outdated && (
+        <span className="ml-1 rounded-full border border-line px-1.75 text-11.5 leading-normal text-fg-dim">
+          {copy.outdated}
         </span>
       )}
-    </LinkPreviewMedia>
+    </LinkPreviewSite>
+  );
+}
+
+/** One row of the dialog's details. */
+function Detail({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="flex gap-3 max-small:flex-col max-small:gap-0.5">
+      <dt className="w-30 flex-none text-fg-faint">{label}</dt>
+      <dd className="m-0 min-w-0 break-words text-fg">{children}</dd>
+    </div>
   );
 }
 
 /**
- * One credential as a gallery card: the course page's preview, issuer and
- * title. Clicking opens a dialog with the course description and a link to
- * its public page.
+ * One credential, laid out like LinkedIn's list: a gallery card with the
+ * certificate (cropped to its top, where the issuer and title are), issuer
+ * and title. Clicking opens a dialog with the whole certificate, the
+ * credential's details and a link to its public page.
  */
 export function CertificateCard({
   certificate,
-  issuerFallback,
-  verifyLabel,
+  copy,
+  lang,
 }: {
   certificate: Certificate;
-  /** Issuer line for courses without a known platform. */
-  issuerFallback: string;
-  verifyLabel: string;
+  copy: CertificateCopy;
+  lang: Locale;
 }) {
-  const { title, href, preview } = certificate;
-  const issuer = certificate.issuer && getTech(certificate.issuer);
-  const site = (
-    <LinkPreviewSite icon={issuer && <BrandIcon name={issuer.name} mark={issuer.mark} size="sm" />}>
-      {issuer?.name ?? issuerFallback}
-    </LinkPreviewSite>
-  );
+  const { title, image, href, hours, skills, credentialId, outdated } = certificate;
+  const issued = formatIssued(certificate.issued, lang);
 
   return (
     <Dialog>
@@ -73,30 +82,64 @@ export function CertificateCard({
         render={<Card variant="interactive" render={<button type="button" />} />}
         className="size-full"
       >
-        <CertificateMedia certificate={certificate} />
+        <div className="aspect-640/336 w-full overflow-hidden border-b border-line bg-card-2">
+          {image && (
+            // eslint-disable-next-line @next/next/no-img-element -- local snapshot, sized by the script
+            <img
+              src={image.src}
+              alt=""
+              width={image.width}
+              height={image.height}
+              loading="lazy"
+              decoding="async"
+              className="block size-full object-cover object-top"
+            />
+          )}
+        </div>
         <LinkPreviewBody>
-          {site}
+          <CertificateIssuer certificate={certificate} copy={copy} />
           <LinkPreviewTitle>{title}</LinkPreviewTitle>
+          <div className="mt-1 text-12.5 text-fg-faint">
+            {copy.issued} {issued}
+          </div>
         </LinkPreviewBody>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent size="wide">
         <div className="flex flex-col gap-4">
           {/* pr-10 keeps the title clear of the close button */}
           <div className="pr-10">
             <DialogHeader>
-              {site}
+              <CertificateIssuer certificate={certificate} copy={copy} />
               <DialogTitle>{title}</DialogTitle>
             </DialogHeader>
           </div>
-          <CertificateMedia certificate={certificate} variant="framed" />
-          {preview?.description && <DialogDescription>{preview.description}</DialogDescription>}
-          {href && (
-            <DialogFooter>
-              <ButtonLink href={href} target="_blank" rel="noopener" size="sm">
-                {verifyLabel} <ArrowUpRightIcon aria-hidden />
-              </ButtonLink>
-            </DialogFooter>
+          {image && (
+            // eslint-disable-next-line @next/next/no-img-element -- local snapshot, sized by the script
+            <img
+              src={image.src}
+              alt={title}
+              width={image.width}
+              height={image.height}
+              decoding="async"
+              className="block h-auto w-full rounded-10 border border-line"
+            />
           )}
+          {outdated && <DialogDescription>{copy.outdatedNote}</DialogDescription>}
+          <dl className="m-0 flex flex-col gap-2 text-13.5">
+            <Detail label={copy.issued}>{issued}</Detail>
+            <Detail label={copy.credentialId}>{credentialId}</Detail>
+            {hours !== undefined && (
+              <Detail label={copy.length}>
+                {hours.toLocaleString(lang)} {copy.hoursUnit}
+              </Detail>
+            )}
+            <Detail label={copy.skills}>{skills.join(", ")}</Detail>
+          </dl>
+          <DialogFooter>
+            <ButtonLink href={href} target="_blank" rel="noopener" size="sm">
+              {copy.showCredential} <ArrowUpRightIcon aria-hidden />
+            </ButtonLink>
+          </DialogFooter>
         </div>
       </DialogContent>
     </Dialog>
