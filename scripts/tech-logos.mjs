@@ -3,13 +3,16 @@
 //   pnpm tech:logos
 //
 // 1. Colour logos, shown when a chip is hovered: from svgl (svgl.app, open
-//    source; light and dark versions where it has both), or a brand's Simple
-//    Icons shape in its one colour. Logos with no colour of their own (black
-//    and white marks) are skipped: the grey mark already is their look.
-//    Files in public/tech-logos/, map in src/lib/tech-logos.json.
+//    source; light and dark versions where it has both), Devicon where svgl
+//    only has a wordmark, or a brand's Simple Icons shape in its one colour.
+//    Chips show icons, not wordmarks: a logo much wider than tall is flagged
+//    unless it's known to be the icon (WIDE_ICONS). Logos with no colour of
+//    their own (black and white marks) are skipped: the grey mark already is
+//    their look. Files in public/tech-logos/ (shown with <img>, so their
+//    markup never runs), map in src/lib/tech-logos.json.
 // 2. Grey marks for brands Simple Icons doesn't have: taken from the brand's
-//    own favicon or mask icon, background dropped and recoloured to
-//    currentColor. Map in src/lib/tech-marks.json.
+//    own favicon or mask icon, background dropped, parsed against a drawing
+//    allowlist and recoloured to currentColor. Map in src/lib/tech-marks.json.
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -24,7 +27,8 @@ const DIR = path.join(ROOT, "public/tech-logos");
 const SOURCES = {
   nestjs: { svgl: "NestJS" },
   typeorm: { svgl: "TypeORM" },
-  sqlite: { svgl: "SQLite" },
+  // svgl's SQLite is the wordmark; Devicon's is the feather alone
+  sqlite: { devicon: "sqlite" },
   jwt: { svgl: "JWT" },
   docker: { svgl: "Docker" },
   coolify: { simpleIcon: "siCoolify" },
@@ -39,6 +43,19 @@ const SOURCES = {
   github: { svgl: "GitHub" },
 };
 
+/** Logos that are wide by nature (a cloud, a wave), not wordmarks. */
+const WIDE_ICONS = new Set(["cloudflare", "tailwind"]);
+
+/** Width over height, from the SVG's viewBox. */
+function aspectOf(svg) {
+  const [, , width, height] = svg
+    .match(/viewBox="([^"]+)"/)[1]
+    .trim()
+    .split(/[\s,]+/)
+    .map(Number);
+  return width / height;
+}
+
 /** Tech id -> the brand's own one-colour mark, and what to drop around it
  *  (a background shape). Geist has no mark: its brand is the typeface, and
  *  the tile's initial is set in Geist. */
@@ -52,19 +69,68 @@ const MARKS = {
   lightbox: { url: "https://yet-another-react-lightbox.com/safari-pinned-tab.svg" },
 };
 
-/** An SVG's viewBox and inner markup, painted in currentColor, with anything
- *  but drawing removed (prolog, metadata, scripts, event attributes). */
+/** What a mark may contain: drawing only. Anything else (script, style, use,
+ *  image, foreignObject, links, event handlers, url() references) fails the
+ *  script instead of being cleaned up, so nothing executable can reach the
+ *  page. BrandIcon renders the result as React elements, never as HTML. */
+const ALLOWED_TAGS = new Set(["g", "path", "circle", "ellipse", "rect", "polygon", "polyline"]);
+const ALLOWED_ATTRS = new Set([
+  "d",
+  "transform",
+  "fill",
+  "fill-rule",
+  "clip-rule",
+  "cx",
+  "cy",
+  "r",
+  "rx",
+  "ry",
+  "x",
+  "y",
+  "width",
+  "height",
+  "points",
+  "opacity",
+  "stroke",
+]);
+/** Parts of a file that aren't drawing and are skipped whole. */
+const SKIPPED =
+  /<\?xml[\s\S]*?\?>|<!DOCTYPE[\s\S]*?>|<!--[\s\S]*?-->|<metadata>[\s\S]*?<\/metadata>|<title>[\s\S]*?<\/title>|<desc>[\s\S]*?<\/desc>/gi;
+
+/** An SVG's viewBox and its drawing as a tree of allowed elements, every
+ *  fill painted in currentColor. Throws on anything outside the allowlist. */
 function toMark(svg, drop) {
-  const viewBox = svg.match(/viewBox="([^"]+)"/)[1];
+  const viewBox = svg.match(/viewBox="([^"]+)"/)[1].trim();
+  if (!/^[\d.\s,-]+$/.test(viewBox)) throw new Error(`unexpected viewBox "${viewBox}"`);
   let body = svg.slice(svg.indexOf(">", svg.indexOf("<svg")) + 1, svg.lastIndexOf("</svg>"));
   if (drop) body = body.replace(drop, "");
-  body = body
-    .replace(/<metadata>[\s\S]*?<\/metadata>|<script[\s\S]*?<\/script>/g, "")
-    .replace(/\son\w+="[^"]*"/g, "")
-    .replace(/fill="(?!none)[^"]*"/g, 'fill="currentColor"')
-    .replace(/\s+/g, " ")
-    .trim();
-  return { viewBox, body };
+  body = body.replace(SKIPPED, "");
+
+  const root = { children: [] };
+  const stack = [root];
+  for (const [, closing, tag, rawAttrs, selfClosing] of body.matchAll(
+    /<(\/?)([a-zA-Z]+)([^>]*?)(\/?)>/g,
+  )) {
+    if (!ALLOWED_TAGS.has(tag)) throw new Error(`<${tag}> isn't allowed in a mark`);
+    if (closing) {
+      stack.pop();
+      continue;
+    }
+    const attrs = {};
+    // values may span lines (long path data): match across them, then
+    // collapse the whitespace
+    for (const [, name, , raw] of rawAttrs.matchAll(/([\w:-]+)\s*=\s*(["'])([\s\S]*?)\2/g)) {
+      const value = raw.replace(/\s+/g, " ").trim();
+      if (!ALLOWED_ATTRS.has(name)) throw new Error(`${name}="…" isn't allowed in a mark`);
+      if (/url\(|:|&/.test(value)) throw new Error(`unexpected value ${name}="${value}"`);
+      attrs[name] =
+        (name === "fill" || name === "stroke") && value !== "none" ? "currentColor" : value;
+    }
+    const node = { tag, attrs, children: [] };
+    stack.at(-1).children.push(node);
+    if (!selfClosing) stack.push(node);
+  }
+  return { viewBox, nodes: root.children };
 }
 
 /** True when the SVG uses a colour that isn't grey (saturation over 0.25). */
@@ -97,6 +163,11 @@ async function svglLogo(title) {
   return { light: await get(routes.light), dark: routes.dark && (await get(routes.dark)) };
 }
 
+async function deviconLogo(name) {
+  const url = `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${name}/${name}-original.svg`;
+  return { light: await (await fetch(url)).text() };
+}
+
 function simpleIconLogo(name) {
   const icon = icons[name];
   return {
@@ -108,7 +179,14 @@ await rm(DIR, { recursive: true, force: true });
 await mkdir(DIR, { recursive: true });
 const map = {};
 for (const [id, source] of Object.entries(SOURCES)) {
-  const logo = source.svgl ? await svglLogo(source.svgl) : simpleIconLogo(source.simpleIcon);
+  const logo = source.svgl
+    ? await svglLogo(source.svgl)
+    : source.devicon
+      ? await deviconLogo(source.devicon)
+      : simpleIconLogo(source.simpleIcon);
+  if (aspectOf(logo.light) > 1.8 && !WIDE_ICONS.has(id)) {
+    console.warn(`check    ${id}: ${aspectOf(logo.light).toFixed(1)}:1, likely a wordmark`);
+  }
   if (!hasColour(logo.light) && !(logo.dark && hasColour(logo.dark))) {
     console.log(`skip     ${id} (no colour of its own)`);
     continue;

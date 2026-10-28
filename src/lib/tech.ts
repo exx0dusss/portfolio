@@ -27,6 +27,8 @@ import {
   siVercel,
 } from "simple-icons";
 
+import type { BrandMark } from "@/components/ui/brand-icon";
+
 import previews from "./link-previews.json";
 import logos from "./tech-logos.json";
 import marks from "./tech-marks.json";
@@ -34,11 +36,9 @@ import links from "./tech-links.json";
 
 export type TechId = keyof typeof links;
 
-/** An SVG mark: its viewBox and inner markup, drawn in currentColor. */
-export interface TechMark {
-  viewBox: string;
-  body: string;
-}
+/** An SVG mark: its viewBox and drawing (a tree of allowlisted drawing
+ *  elements), painted in currentColor. */
+export type TechMark = BrandMark;
 
 /** Everything the site knows about a technology or service: where it lives,
  *  its logo, and the link-preview snapshot from `pnpm links:previews`. */
@@ -86,8 +86,13 @@ const ICONS: Partial<Record<TechId, SimpleIcon>> = {
 
 function markOf(id: TechId): TechMark | undefined {
   const icon = ICONS[id];
-  if (icon) return { viewBox: "0 0 24 24", body: `<path d="${icon.path}"/>` };
-  return (marks as Partial<Record<TechId, TechMark>>)[id];
+  if (icon) {
+    return {
+      viewBox: "0 0 24 24",
+      nodes: [{ tag: "path", attrs: { d: icon.path }, children: [] }],
+    };
+  }
+  return (marks as unknown as Partial<Record<TechId, TechMark>>)[id];
 }
 
 export function getTech(id: TechId): Tech {

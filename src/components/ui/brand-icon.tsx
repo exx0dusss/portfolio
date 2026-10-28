@@ -1,4 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
+import { createElement } from "react";
 
 import { cn } from "@/lib/utils/cn";
 
@@ -32,11 +33,47 @@ const brandIconInitialVariants = cva("leading-none font-semibold", {
   },
 });
 
-/** A one-colour mark: an SVG viewBox and its inner markup, from the site's own
- *  logo registry (src/lib/tech.ts). */
+/** Drawing elements a mark may use (the allowlist `pnpm tech:logos` parses
+ *  against). */
+type MarkTag = "g" | "path" | "circle" | "ellipse" | "rect" | "polygon" | "polyline";
+
+/** One element of a mark's drawing. */
+interface MarkNode {
+  tag: MarkTag;
+  attrs: Record<string, string>;
+  children: MarkNode[];
+}
+
+/** A one-colour mark: an SVG viewBox and its drawing as a tree of drawing
+ *  elements, from the site's logo registry (src/lib/tech.ts). Rendered as
+ *  React elements, never injected as HTML. */
 interface BrandMark {
   viewBox: string;
-  body: string;
+  nodes: MarkNode[];
+}
+
+const MARK_TAGS = new Set<string>([
+  "g",
+  "path",
+  "circle",
+  "ellipse",
+  "rect",
+  "polygon",
+  "polyline",
+]);
+
+/** SVG attribute names as React props: fill-rule -> fillRule. */
+const reactProp = (name: string) => name.replace(/-([a-z])/g, (_, c: string) => c.toUpperCase());
+
+function renderNodes(nodes: MarkNode[]): React.ReactNode[] {
+  return nodes
+    .filter((node) => MARK_TAGS.has(node.tag))
+    .map((node, index) => {
+      const props = Object.fromEntries(
+        Object.entries(node.attrs).map(([name, value]) => [reactProp(name), value]),
+      );
+      return createElement(node.tag, { key: index, ...props }, ...renderNodes(node.children));
+    });
 }
 
 /** A logo in its own colours, with an optional version for dark backgrounds. */
@@ -83,9 +120,9 @@ function BrandIcon({
             LAYER,
             logo && "group-hover/brand:opacity-0 group-focus-visible/brand:opacity-0",
           )}
-          // the registry's own SVG markup, generated and checked in by scripts
-          dangerouslySetInnerHTML={{ __html: mark.body }}
-        />
+        >
+          {renderNodes(mark.nodes)}
+        </svg>
       ) : (
         <span className={cn(LAYER, brandIconInitialVariants({ size }))}>{name[0]}</span>
       )}
