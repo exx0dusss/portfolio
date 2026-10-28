@@ -1,0 +1,27 @@
+{
+  "nextjs-app-router": {
+    "title": "Next.js App Router Fundamentals",
+    "issuer": "vercel",
+    "href": "https://nextjs.org/learn/dashboard-app"
+  },
+  "react-foundations": {
+    "title": "React Foundations for Next.js",
+    "issuer": "vercel",
+    "href": "https://nextjs.org/learn/react-foundations"
+  },
+  "nestjs-zero-to-hero": {
+    "title": "NestJS: Zero to Hero — Modern TypeScript Back-end",
+    "issuer": "udemy",
+    "href": "https://www.udemy.com/course/nestjs-zero-to-hero/",
+    "description": "Develop and deploy enterprise back-end applications following best practices using Node.js and TypeScript."
+  },
+  "complete-sql-bootcamp": {
+    "title": "The Complete SQL Bootcamp: Zero to Hero",
+    "issuer": "udemy",
+    "href": "https://www.udemy.com/course/the-complete-sql-bootcamp/",
+    "description": "Become an expert at SQL: queries, joins, aggregations, and building databases with PostgreSQL."
+  },
+  "react-redux": { "title": "React — Full Course, Redux & Redux Toolkit" },
+  "understanding-npm": { "title": "Understanding NPM — Node.js Package Manager" },
+  "intro-javascript": { "title": "Introduction to Programming Using JavaScript" }
+}

@@ -1,0 +1,24 @@
+{
+  "nextjs-app-router": {
+    "title": "Next.js App Router Fundamentals",
+    "description": "Learn how to build a full-stack web application with the free, Next.js Foundations course.",
+    "site": "nextjs.org",
+    "image": "/link-previews/certificates/nextjs-app-router.webp"
+  },
+  "react-foundations": {
+    "title": "React Foundations for Next.js",
+    "description": "Learn the fundamental JavaScript and React concepts that'll help you get started with Next.js.",
+    "site": "nextjs.org",
+    "image": "/link-previews/certificates/react-foundations.webp"
+  },
+  "nestjs-zero-to-hero": {
+    "title": "NestJS: Zero to Hero — Modern TypeScript Back-end",
+    "description": "Develop and deploy enterprise back-end applications following best practices using Node.js and TypeScript.",
+    "site": "udemy.com"
+  },
+  "complete-sql-bootcamp": {
+    "title": "The Complete SQL Bootcamp: Zero to Hero",
+    "description": "Become an expert at SQL: queries, joins, aggregations, and building databases with PostgreSQL.",
+    "site": "udemy.com"
+  }
+}

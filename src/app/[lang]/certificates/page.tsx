@@ -39,15 +39,12 @@ export default async function CertificatesPage({ params }: Props) {
 
       <Section>
         <SectionLabel>{page.credentials}</SectionLabel>
-        <Stagger>
+        <Stagger className="grid grid-cols-2 gap-3.5 max-phone:grid-cols-1">
           {CERTIFICATES.map((certificate) => (
-            <StaggerItem key={certificate.title}>
-              {/* course titles stay in their original English */}
+            <StaggerItem key={certificate.id}>
               <CertificateCard
-                certificate={{
-                  ...certificate,
-                  issuer: certificate.issuer === "Course" ? page.course : certificate.issuer,
-                }}
+                certificate={certificate}
+                issuerFallback={page.course}
                 verifyLabel={page.verify}
               />
             </StaggerItem>
