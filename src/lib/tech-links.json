@@ -1,22 +1,41 @@
 {
-  "nestjs": { "name": "NestJS", "href": "https://nestjs.com" },
-  "handlebars": { "name": "Handlebars", "href": "https://handlebarsjs.com" },
+  "nestjs": {
+    "name": "NestJS",
+    "href": "https://nestjs.com"
+  },
+  "handlebars": {
+    "name": "Handlebars",
+    "href": "https://handlebarsjs.com"
+  },
   "sqlite": {
     "name": "SQLite",
     "href": "https://sqlite.org",
     "title": "SQLite",
     "description": "A small, fast, self-contained, high-reliability, full-featured SQL database engine."
   },
-  "typeorm": { "name": "TypeORM", "href": "https://typeorm.io", "title": "TypeORM" },
-  "docker": { "name": "Docker", "href": "https://www.docker.com" },
-  "coolify": { "name": "Coolify", "href": "https://coolify.io" },
+  "typeorm": {
+    "name": "TypeORM",
+    "href": "https://typeorm.io",
+    "title": "TypeORM"
+  },
+  "docker": {
+    "name": "Docker",
+    "href": "https://www.docker.com"
+  },
+  "coolify": {
+    "name": "Coolify",
+    "href": "https://coolify.io"
+  },
   "ovhcloud": {
     "name": "OVHcloud",
     "href": "https://www.ovhcloud.com/en/vps/",
     "title": "OVHcloud VPS",
     "description": "Virtual private servers from a European cloud provider, with root access and unlimited traffic."
   },
-  "jwt": { "name": "JWT", "href": "https://jwt.io" },
+  "jwt": {
+    "name": "JWT",
+    "href": "https://jwt.io"
+  },
   "easyweek": {
     "name": "EasyWeek",
     "href": "https://easyweek.io",
@@ -28,23 +47,88 @@
     "href": "https://developers.google.com/maps/documentation/embed/get-started",
     "title": "Maps Embed API"
   },
-  "react": { "name": "React", "href": "https://react.dev" },
-  "nextjs": { "name": "Next.js", "href": "https://nextjs.org" },
+  "react": {
+    "name": "React",
+    "href": "https://react.dev"
+  },
+  "nextjs": {
+    "name": "Next.js",
+    "href": "https://nextjs.org"
+  },
   "udemy": {
     "name": "Udemy",
     "href": "https://www.udemy.com",
     "title": "Udemy",
     "description": "An online learning platform with video courses on programming, design, business and more."
   },
-  "spring": { "name": "Spring", "href": "https://spring.io", "title": "Spring" },
+  "spring": {
+    "name": "Spring",
+    "href": "https://spring.io",
+    "title": "Spring"
+  },
   "thymeleaf": {
     "name": "Thymeleaf",
     "href": "https://www.thymeleaf.org",
     "description": "A modern server-side Java template engine for both web and standalone environments."
   },
-  "html": { "name": "HTML", "href": "https://developer.mozilla.org/en-US/docs/Web/HTML" },
+  "html": {
+    "name": "HTML",
+    "href": "https://developer.mozilla.org/en-US/docs/Web/HTML"
+  },
   "css-subgrid": {
     "name": "CSS subgrid",
     "href": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Subgrid"
+  },
+  "typescript": {
+    "name": "TypeScript",
+    "href": "https://www.typescriptlang.org",
+    "title": "TypeScript"
+  },
+  "tailwind": {
+    "name": "Tailwind CSS",
+    "href": "https://tailwindcss.com"
+  },
+  "shadcn": {
+    "name": "shadcn/ui",
+    "href": "https://ui.shadcn.com"
+  },
+  "base-ui": {
+    "name": "Base UI",
+    "href": "https://base-ui.com"
+  },
+  "motion": {
+    "name": "Motion",
+    "href": "https://motion.dev"
+  },
+  "phosphor": {
+    "name": "Phosphor",
+    "href": "https://phosphoricons.com"
+  },
+  "simple-icons": {
+    "name": "Simple Icons",
+    "href": "https://simpleicons.org"
+  },
+  "geist": {
+    "name": "Geist",
+    "href": "https://vercel.com/font"
+  },
+  "vercel": {
+    "name": "Vercel",
+    "href": "https://vercel.com",
+    "title": "Vercel"
+  },
+  "cloudflare": {
+    "name": "Cloudflare",
+    "href": "https://www.cloudflare.com",
+    "title": "Cloudflare"
+  },
+  "github": {
+    "name": "GitHub",
+    "href": "https://github.com",
+    "title": "GitHub"
+  },
+  "lightbox": {
+    "name": "Yet Another React Lightbox",
+    "href": "https://yet-another-react-lightbox.com"
   }
 }

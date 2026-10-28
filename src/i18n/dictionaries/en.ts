@@ -28,7 +28,7 @@ export interface Dictionary {
     menu: { open: string; close: string };
     certificates: string;
   };
-  footer: { certificates: string };
+  footer: { certificates: string; colophon: string };
   hero: { title: string; scope: [string, string, string, string]; seeWork: string; resume: string };
   work: {
     label: string;
@@ -53,6 +53,23 @@ export interface Dictionary {
     experience: PageCopy & { roles: string; education: string };
     certificates: PageCopy & { credentials: string; verify: string; course: string };
     reading: PageCopy & { books: string };
+    colophon: PageCopy & {
+      facts: Record<
+        "framework" | "language" | "components" | "styling" | "hosting" | "languages",
+        { label: string; value: string; sub: string }
+      >;
+      stack: string;
+      sections: { architecture: string; design: string; quality: string; story: string };
+      architecture: {
+        intro: string;
+        columns: { title: string; nodes: { title: string; sub: string; accent?: boolean }[] }[];
+        note: string;
+      };
+      design: string[];
+      swatches: Record<"bg" | "surface" | "fg" | "dim" | "line" | "accent", string>;
+      quality: { fn: string; title: string; description: string }[];
+      story: string[];
+    };
     about: PageCopy & {
       empty: { title: string; description: string };
       actions: { work: string; resume: string };
@@ -82,7 +99,7 @@ export const en: Dictionary = {
     menu: { open: "Open menu", close: "Close menu" },
     certificates: "Certificates",
   },
-  footer: { certificates: "Certificates" },
+  footer: { certificates: "Certificates", colophon: "Colophon" },
   hero: {
     title: "I design and build web products",
     scope: [
@@ -188,6 +205,141 @@ export const en: Dictionary = {
       credentials: "Credentials",
       verify: "Verify",
       course: "Course",
+    },
+    colophon: {
+      title: "Colophon",
+      description: "How tymurmustafaiev.com is built: Next.js 16 and React 19, shadcn on Base UI, Tailwind v4 tokens, deployed on Vercel. The stack, design and workflow.",
+      heading: "How this site is built.",
+      lead: "The stack, the design decisions and the workflow behind this portfolio, which is a project in its own right.",
+      facts: {
+        framework: {
+          label: "Framework",
+          value: "Next.js 16",
+          sub: "App Router, React 19",
+        },
+        language: {
+          label: "Language",
+          value: "TypeScript",
+          sub: "strict, no any",
+        },
+        components: {
+          label: "Components",
+          value: "shadcn on Base UI",
+          sub: "styled by the site's own CSS",
+        },
+        styling: {
+          label: "Styling",
+          value: "Tailwind CSS v4",
+          sub: "plus hand-written CSS on design tokens",
+        },
+        hosting: {
+          label: "Hosting",
+          value: "Vercel",
+          sub: "a preview per branch, production on merge",
+        },
+        languages: {
+          label: "Languages",
+          value: "3",
+          sub: "English, Ukrainian, Russian",
+        }
+      },
+      stack: "Stack",
+      sections: {
+        architecture: "Architecture",
+        design: "Design",
+        quality: "Quality",
+        story: "Why this stack",
+      },
+      architecture: {
+        intro: "Every page is rendered to static HTML when the site is built. A small proxy maps each address to its language, and the CDN serves the rest.",
+        columns: [
+          {
+            title: "Code",
+            nodes: [
+              {
+                title: "GitHub repo",
+                sub: "TypeScript · pnpm",
+              },
+              {
+                title: "Branch",
+                sub: "preview deploy on push",
+              }
+            ],
+          },
+          {
+            title: "Build",
+            nodes: [
+              {
+                title: "Vercel",
+                sub: "next build",
+                accent: true,
+              }
+            ],
+          },
+          {
+            title: "Delivery",
+            nodes: [
+              {
+                title: "Static pages",
+                sub: "prerendered",
+              },
+              {
+                title: "Proxy",
+                sub: "picks the language",
+              }
+            ],
+          },
+          {
+            title: "Domain",
+            nodes: [
+              {
+                title: "Cloudflare DNS",
+                sub: "tymurmustafaiev.com",
+              }
+            ],
+          }
+        ],
+        note: "// merge to main → production in about a minute and a half",
+      },
+      design: [
+        "One type family, Geist, with Geist Mono for small data. One accent, the orange, used sparingly: a link underline, an active state, the dot of a status.",
+        "Every colour is a token. The same components render light and dark by swapping the tokens, so nothing is styled twice. Switch the theme to see the swatches below change.",
+        "Components follow shadcn's structure on Base UI primitives, but their look comes from the site's own CSS. When the primitives changed, the design stayed the same pixel for pixel.",
+      ],
+      swatches: {
+        bg: "Background",
+        surface: "Surface",
+        fg: "Text",
+        dim: "Muted text",
+        line: "Line",
+        accent: "Accent",
+      },
+      quality: [
+        {
+          fn: "Lint",
+          title: "Design-system rules",
+          description: "@shadcn/lint blocks off-scale values and pages restyling components.",
+        },
+        {
+          fn: "a11y",
+          title: "Accessible by default",
+          description: "Visible keyboard focus, real link and button semantics, and motion that stops when you ask it to.",
+        },
+        {
+          fn: "i18n",
+          title: "Three languages",
+          description: "English, Ukrainian and Russian, each at its own address, with hreflang links between them.",
+        },
+        {
+          fn: "SEO",
+          title: "Made to be shared",
+          description: "Every case study has its own preview card, Open Graph and X tags, and structured data.",
+        }
+      ],
+      story: [
+        "I started this portfolio in Astro, the obvious pick for a static site. Then I switched to Next.js, so it would follow my own Next.js architecture guideline, the one I use for real products.",
+        "The site only needs the guideline's design-system and structure rules, so the heavier parts, like auth and data fetching, stayed out. What's left is what a front-end engineer is judged by: components, tokens and the details.",
+      ]
     },
     about: {
       title: "About",

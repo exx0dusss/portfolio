@@ -16,6 +16,7 @@ export function SiteFooter({ lang, dict, name }: SiteFooterProps) {
       <span>© 2026 {name}</span>
       <div className="foot-links">
         <Link href={localePath(lang, "/certificates")}>{dict.certificates}</Link>
+        <Link href={localePath(lang, "/colophon")}>{dict.colophon}</Link>
         <a href="https://github.com/exx0dusss">
           <GithubLogoIcon aria-hidden /> GitHub
         </a>

@@ -14,7 +14,7 @@ export const LOCALE_LABEL: Record<Locale, string> = { en: "EN", uk: "UA", ru: "R
 
 /** Pages translated into every locale. Everything else (case studies, the
  *  résumé) is English-only for now. */
-export const LOCALIZED_PATHS = ["/", "/projects", "/about", "/experience", "/certificates", "/reading"];
+export const LOCALIZED_PATHS = ["/", "/projects", "/about", "/experience", "/certificates", "/reading", "/colophon"];
 
 export function hasLocale(value: string): value is Locale {
   return (LOCALES as readonly string[]).includes(value);

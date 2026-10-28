@@ -94,5 +94,73 @@
     "description": "The CSS grid layout module includes a subgrid value for grid-template-columns and grid-template-rows. This guide details what subgrid does and gives some use cases and design patterns that the feature solves.",
     "site": "developer.mozilla.org",
     "image": "/link-previews/css-subgrid.webp"
+  },
+  "typescript": {
+    "title": "TypeScript",
+    "description": "TypeScript extends JavaScript by adding types to the language. TypeScript speeds up your development experience by catching errors and providing fixes before you even run your code.",
+    "site": "typescriptlang.org"
+  },
+  "tailwind": {
+    "title": "Tailwind CSS - Rapidly build modern websites without ever leaving your HTML.",
+    "description": "Tailwind CSS is a utility-first CSS framework for rapidly building modern websites without ever leaving your HTML.",
+    "site": "tailwindcss.com",
+    "image": "/link-previews/tailwind.webp"
+  },
+  "shadcn": {
+    "title": "shadcn/ui - The Foundation for your Design System",
+    "description": "Composable, accessible components with thoughtful defaults. Build your own component library with code you can customize, extend, and make your own.",
+    "site": "ui.shadcn.com",
+    "image": "/link-previews/shadcn.webp"
+  },
+  "base-ui": {
+    "title": "Unstyled UI components for accessible design systems · Base UI",
+    "description": "Unstyled UI components for building accessible web apps and design systems.",
+    "site": "base-ui.com",
+    "image": "/link-previews/base-ui.webp"
+  },
+  "motion": {
+    "title": "Motion (prev Framer Motion): JavaScript & React animation library",
+    "description": "Motion (prev Framer Motion) is a fast, production-grade animation library for React, JavaScript and Vue. Build smooth UI animations at a tiny footprint.",
+    "site": "motion.dev",
+    "image": "/link-previews/motion.webp"
+  },
+  "phosphor": {
+    "title": "Phosphor Icons",
+    "description": "A flexible icon family for interfaces, diagrams, presentations — whatever, really.",
+    "site": "phosphoricons.com",
+    "image": "/link-previews/phosphor.webp"
+  },
+  "simple-icons": {
+    "title": "Simple Icons",
+    "site": "simpleicons.org"
+  },
+  "geist": {
+    "title": "Geist Font",
+    "description": "Geist is a typeface made for developers and designers, embodying Vercel&#x27;s design principles of simplicity, minimalism, and speed, drawing inspiration from the renowned Swiss design movement.",
+    "site": "vercel.com",
+    "image": "/link-previews/geist.webp"
+  },
+  "vercel": {
+    "title": "Vercel",
+    "description": "The autonomous stack for every app and agent.",
+    "site": "vercel.com",
+    "image": "/link-previews/vercel.webp"
+  },
+  "cloudflare": {
+    "title": "Cloudflare",
+    "description": "Welcome to Cloudflare - Powering the next generation of applications",
+    "site": "cloudflare.com",
+    "image": "/link-previews/cloudflare.webp"
+  },
+  "github": {
+    "title": "GitHub",
+    "description": "Join the world's most widely adopted, AI-powered developer platform where millions of developers, businesses, and the largest open source community build software that advances humanity.",
+    "site": "github.com",
+    "image": "/link-previews/github.webp"
+  },
+  "lightbox": {
+    "title": "Yet Another React Lightbox",
+    "description": "Modern React lightbox component. Performant, easy to use, customizable and extendable.",
+    "site": "yet-another-react-lightbox.com"
   }
 }

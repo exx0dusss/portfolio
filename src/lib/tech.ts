@@ -1,8 +1,11 @@
 import {
   type SimpleIcon,
+  siBaseui,
+  siCloudflare,
   siCoolify,
   siCss,
   siDocker,
+  siGithub,
   siGooglemaps,
   siHandlebarsdotjs,
   siHtml5,
@@ -11,11 +14,16 @@ import {
   siNextdotjs,
   siOvh,
   siReact,
+  siShadcnui,
+  siSimpleicons,
   siSpring,
   siSqlite,
+  siTailwindcss,
   siThymeleaf,
   siTypeorm,
+  siTypescript,
   siUdemy,
+  siVercel,
 } from "simple-icons";
 
 import previews from "./link-previews.json";
@@ -51,6 +59,14 @@ const ICONS: Partial<Record<TechId, SimpleIcon>> = {
   thymeleaf: siThymeleaf,
   html: siHtml5,
   "css-subgrid": siCss,
+  typescript: siTypescript,
+  tailwind: siTailwindcss,
+  shadcn: siShadcnui,
+  "base-ui": siBaseui,
+  "simple-icons": siSimpleicons,
+  vercel: siVercel,
+  cloudflare: siCloudflare,
+  github: siGithub,
 };
 
 export function getTech(id: TechId): Tech {
