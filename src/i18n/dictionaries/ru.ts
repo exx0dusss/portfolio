@@ -37,6 +37,7 @@ export const ru: Dictionary = {
     label: "Проекты",
     sub: "Избранное",
     status: { live: "Запущен", development: "В разработке", research: "Исследование" },
+    photos: { one: "фото", other: "фото" },
     projects: {
       salonsvitlo: {
         description:

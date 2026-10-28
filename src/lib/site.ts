@@ -9,6 +9,7 @@ export const SITE = {
   sameAs: [
     "https://github.com/exx0dusss",
     "https://linkedin.com/in/tymur-mustafaiev-968b3724b",
+    "https://x.com/exx0dvs",
   ],
   /** Indexed via JSON-LD, including the long tail that isn't shown in the Stack section. */
   knowsAbout: [

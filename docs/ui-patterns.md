@@ -143,6 +143,15 @@ a `label`), `openness`, and `stack` (tech ids). Tile icons come from
 `src` open a fullscreen `yet-another-react-lightbox` (swipe, arrows, zoom,
 Esc). Its colours are set through `--yarl__*` variables on `.lightbox`.
 
+## Troubleshooting
+
+**A CSS change doesn't show up in `pnpm dev`.** Turbopack can keep serving
+an old `globals.css`, even across restarts, especially after the file was
+rewritten by a script rather than saved from an editor. Check what is
+served (`curl` the CSS chunk and search for the rule). If it's stale, stop
+the dev server, wait until it has exited, delete `.next/dev`, and start it
+again.
+
 ## Lint
 
 `@shadcn/lint` is registered in `eslint.config.mjs` with **no rules enabled

@@ -37,6 +37,7 @@ export const uk: Dictionary = {
     label: "Проєкти",
     sub: "Вибране",
     status: { live: "Запущено", development: "У розробці", research: "Дослідження" },
+    photos: { one: "фото", other: "фото" },
     projects: {
       salonsvitlo: {
         description:

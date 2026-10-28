@@ -592,6 +592,32 @@ a {
   font-size: 12px;
   color: var(--fg-faint);
 }
+/* the project site's own icon, framed like a browser tab favicon */
+.prow-icon {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  object-fit: cover;
+}
+/* screenshot count: same mono line as the facets (text on their baseline),
+   with a stacked-images icon */
+.prow-photos {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--fg-dim);
+}
+.prow-photos svg {
+  flex: none;
+  align-self: center;
+  width: 14px;
+  height: 14px;
+}
 
 /* experience (home) */
 .xp-row {

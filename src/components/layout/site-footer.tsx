@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { GithubLogoIcon, LinkedinLogoIcon } from "@/components/ui/icons";
+import { GithubLogoIcon, LinkedinLogoIcon, XLogoIcon } from "@/components/ui/icons";
 import { type Dictionary, type Locale, localePath } from "@/i18n";
 
 interface SiteFooterProps {
@@ -21,6 +21,9 @@ export function SiteFooter({ lang, dict, name }: SiteFooterProps) {
         </a>
         <a href="https://linkedin.com/in/tymur-mustafaiev-968b3724b">
           <LinkedinLogoIcon aria-hidden /> LinkedIn
+        </a>
+        <a href="https://x.com/exx0dvs">
+          <XLogoIcon aria-hidden /> X
         </a>
       </div>
     </footer>

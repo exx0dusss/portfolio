@@ -13,6 +13,10 @@ export interface Project {
   status: ProjectStatus;
   /** Case studies are English-only, so this is never locale-prefixed. */
   href: string;
+  /** The project site's own icon, shown before the title (square, under /public). */
+  favicon?: string;
+  /** How many screenshots the case study shows; omitted until it has real ones. */
+  photos?: number;
 }
 
 /** Work section content, most significant first. */
@@ -46,6 +50,8 @@ export const PROJECTS: Project[] = [
     since: 2024,
     status: "live",
     href: "/projects/kosmetik-profi",
+    favicon: "/projects/kosmetik-profi/favicon.png",
+    photos: 5,
   },
   {
     slug: "giga-psych",

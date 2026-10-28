@@ -20,6 +20,7 @@ export {
   GithubLogoIcon,
   GlobeIcon,
   ImageIcon,
+  ImagesIcon,
   LinkedinLogoIcon,
   ListIcon,
   MoonIcon,
@@ -30,5 +31,6 @@ export {
   SunIcon,
   TimerIcon,
   UserIcon,
+  XLogoIcon,
   XIcon,
 } from "@phosphor-icons/react/dist/ssr";

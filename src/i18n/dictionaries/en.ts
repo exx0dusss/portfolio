@@ -34,6 +34,8 @@ export interface Dictionary {
     sub: string;
     status: { live: string; development: string; research: string };
     projects: Record<string, { description: string; facets: string[]; scaleLabel?: string }>;
+    /** Screenshot count label. Only English inflects; "фото" never changes. */
+    photos: { one: string; other: string };
   };
   experience: {
     label: string;
@@ -90,6 +92,7 @@ export const en: Dictionary = {
     label: "Work",
     sub: "Selected projects",
     status: { live: "Live", development: "In development", research: "Research" },
+    photos: { one: "photo", other: "photos" },
     projects: {
       salonsvitlo: {
         description:

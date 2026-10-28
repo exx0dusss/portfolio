@@ -41,7 +41,7 @@ export async function generateMetadata({
     title: { default: dict.meta.title, template: `%s — ${dict.name}` },
     description: dict.meta.description,
     openGraph: { type: "website", siteName: dict.name, locale: OG_LOCALE[lang] },
-    twitter: { card: "summary_large_image" },
+    twitter: { card: "summary_large_image", creator: "@exx0dvs" },
     verification: { google: "uCjQlgPj32rIfxEi3FCAIj8jYjtoKdYXanH7NP6Peyk" },
   };
 }
