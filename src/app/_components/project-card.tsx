@@ -4,7 +4,11 @@ import { LocaleLink } from "@/components/locale-link";
 import { StaggerItem } from "@/components/motion/stagger";
 import { ArrowUpRightIcon, ImagesIcon } from "@/components/ui/icons";
 import type { Dictionary } from "@/i18n";
-import { projectIconTransition, projectTitleTransition } from "@/lib/view-transition";
+import {
+  PROJECT_MORPH,
+  projectIconTransition,
+  projectTitleTransition,
+} from "@/lib/view-transition";
 
 import type { Project } from "./projects";
 
@@ -27,7 +31,7 @@ export function ProjectCard({ project, dict }: { project: Project; dict: Diction
           {project.favicon && (
             // the project site's own icon, framed like a browser tab favicon;
             // it flies into the case-study heading beside the title
-            <ViewTransition name={projectIconTransition(project.title)} share="morph">
+            <ViewTransition name={projectIconTransition(project.title)} share={PROJECT_MORPH}>
               {/* eslint-disable-next-line @next/next/no-img-element -- 128px local icon shown at 22px */}
               <img
                 className="size-5.5 flex-none rounded-6 border border-line bg-icon-tile object-cover"
@@ -38,7 +42,7 @@ export function ProjectCard({ project, dict }: { project: Project; dict: Diction
               />
             </ViewTransition>
           )}
-          <ViewTransition name={projectTitleTransition(project.title)} share="morph">
+          <ViewTransition name={projectTitleTransition(project.title)} share={PROJECT_MORPH}>
             <h3 className="text-19 font-semibold tracking-title transition-colors duration-150 ease-standard group-hover:text-accent-ink">
               {project.title}
             </h3>

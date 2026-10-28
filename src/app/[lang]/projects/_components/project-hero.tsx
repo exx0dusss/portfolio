@@ -26,7 +26,11 @@ import {
 } from "@/components/ui/icons";
 import { Meter, MeterLabel, MeterSegments } from "@/components/ui/meter";
 import { cn } from "@/lib/utils/cn";
-import { projectIconTransition, projectTitleTransition } from "@/lib/view-transition";
+import {
+  PROJECT_MORPH,
+  projectIconTransition,
+  projectTitleTransition,
+} from "@/lib/view-transition";
 
 import { Backlink } from "./backlink";
 import type { Openness, OpennessTone, ProjectHeroData } from "./projects-detail";
@@ -119,7 +123,7 @@ export function ProjectHero({
           in from the project's row in the work list */}
       <div className="flex items-start gap-title-icon-gap text-title max-tiny:text-title-sm">
         {favicon && (
-          <ViewTransition name={projectIconTransition(name)} share="morph">
+          <ViewTransition name={projectIconTransition(name)} share={PROJECT_MORPH}>
             {/* eslint-disable-next-line @next/next/no-img-element -- 128px local icon */}
             <img
               className="mt-title-icon-offset size-title-icon flex-none rounded-title-icon border border-line bg-icon-tile object-cover"
@@ -130,7 +134,7 @@ export function ProjectHero({
             />
           </ViewTransition>
         )}
-        <ViewTransition name={projectTitleTransition(name)} share="morph">
+        <ViewTransition name={projectTitleTransition(name)} share={PROJECT_MORPH}>
           <h1 className="m-0 text-title leading-none font-semibold tracking-display max-tiny:text-title-sm">
             {name}
           </h1>

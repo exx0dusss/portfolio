@@ -19,6 +19,7 @@ import {
 import { LOCALE_LABEL, LOCALES, type Locale, localePath, splitLocale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/en";
 import { cn } from "@/lib/utils/cn";
+import { LOCALE_SWITCH } from "@/lib/view-transition";
 
 import { NavButton } from "./nav-button";
 import { ThemeToggle } from "./theme-toggle";
@@ -57,6 +58,8 @@ function LangSwitch({
             inMenu && "px-3 py-2",
           )}
           href={localePath(locale, path)}
+          // the same page in another language: no title morph
+          transitionTypes={[LOCALE_SWITCH]}
           hrefLang={locale}
           lang={locale}
           aria-current={locale === lang ? "true" : undefined}
