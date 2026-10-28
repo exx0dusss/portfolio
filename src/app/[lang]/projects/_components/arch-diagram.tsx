@@ -51,6 +51,7 @@ export function ArchDiagram({ columns, note }: ArchData) {
             </div>
             {column.nodes.map((node) => (
               <div
+                data-slot="arch-node"
                 className={cn(
                   "rounded-10 border border-line-strong bg-bg px-3.75 py-3.25 text-13 font-medium text-fg shadow-node",
                   node.accent && "border-accent bg-accent-soft text-accent-ink",

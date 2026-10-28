@@ -61,15 +61,16 @@
 }
 
 /* narrow: each group becomes a lane, label on top and its nodes side by
-   side. Columns need ~150px each, so the switch depends on how many there
-   are (container queries can't read the column count, hence data-cols). */
+   side, wrapping at ~170px each. Nodes grow to fill their row, so a lone
+   node (or one left over on the last row) takes the full width. Columns
+   need ~150px each, so the switch depends on how many there are (container
+   queries can't read the column count, hence data-cols). */
 @container arch (max-width: 740px) {
   [data-slot="arch-flow"][data-cols="5"] {
     grid-template-columns: minmax(0, 1fr);
   }
   [data-slot="arch-flow"][data-cols="5"] > [data-slot="arch-column"] {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    flex-flow: row wrap;
     padding: 20px 0;
   }
   [data-slot="arch-flow"][data-cols="5"] > [data-slot="arch-column"]:first-child {
@@ -83,7 +84,10 @@
     border-top: 1px dashed var(--line-strong);
   }
   [data-slot="arch-flow"][data-cols="5"] [data-slot="arch-column-title"] {
-    grid-column: 1 / -1;
+    flex-basis: 100%;
+  }
+  [data-slot="arch-flow"][data-cols="5"] [data-slot="arch-node"] {
+    flex: 1 1 170px;
   }
   [data-slot="arch-flow"][data-cols="5"] [data-slot="arch-link"] {
     top: 0;
@@ -96,8 +100,7 @@
     grid-template-columns: minmax(0, 1fr);
   }
   [data-slot="arch-flow"][data-cols="4"] > [data-slot="arch-column"] {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    flex-flow: row wrap;
     padding: 20px 0;
   }
   [data-slot="arch-flow"][data-cols="4"] > [data-slot="arch-column"]:first-child {
@@ -111,7 +114,10 @@
     border-top: 1px dashed var(--line-strong);
   }
   [data-slot="arch-flow"][data-cols="4"] [data-slot="arch-column-title"] {
-    grid-column: 1 / -1;
+    flex-basis: 100%;
+  }
+  [data-slot="arch-flow"][data-cols="4"] [data-slot="arch-node"] {
+    flex: 1 1 170px;
   }
   [data-slot="arch-flow"][data-cols="4"] [data-slot="arch-link"] {
     top: 0;
@@ -124,8 +130,7 @@
     grid-template-columns: minmax(0, 1fr);
   }
   [data-slot="arch-flow"]:is([data-cols="2"], [data-cols="3"]) > [data-slot="arch-column"] {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    flex-flow: row wrap;
     padding: 20px 0;
   }
   [data-slot="arch-flow"]:is([data-cols="2"], [data-cols="3"])
@@ -142,7 +147,10 @@
     border-top: 1px dashed var(--line-strong);
   }
   [data-slot="arch-flow"]:is([data-cols="2"], [data-cols="3"]) [data-slot="arch-column-title"] {
-    grid-column: 1 / -1;
+    flex-basis: 100%;
+  }
+  [data-slot="arch-flow"]:is([data-cols="2"], [data-cols="3"]) [data-slot="arch-node"] {
+    flex: 1 1 170px;
   }
   [data-slot="arch-flow"]:is([data-cols="2"], [data-cols="3"]) [data-slot="arch-link"] {
     top: 0;
