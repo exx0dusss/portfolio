@@ -3,6 +3,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Reveal } from "@/components/motion/reveal";
+import {
+  PageEyebrow,
+  PageHeader,
+  PageLead,
+  PageShell,
+  PageTitle,
+  Section,
+} from "@/components/page";
 import { ButtonLink } from "@/components/ui/button";
 import {
   Empty,
@@ -31,18 +39,14 @@ export default async function AboutPage({ params }: Props) {
   const page = getDictionary(lang).pages.about;
 
   return (
-    <main className="shell">
-      <header className="card">
-        <Reveal className="clabel">{page.title}</Reveal>
-        <Reveal as="h1" delay={1} className="page-title">
-          {page.heading}
-        </Reveal>
-        <Reveal as="p" delay={2} className="page-lead">
-          {page.lead}
-        </Reveal>
-      </header>
+    <PageShell>
+      <PageHeader>
+        <PageEyebrow>{page.title}</PageEyebrow>
+        <PageTitle>{page.heading}</PageTitle>
+        <PageLead>{page.lead}</PageLead>
+      </PageHeader>
 
-      <section className="card">
+      <Section>
         <Reveal>
           <Empty>
             <EmptyHeader>
@@ -63,7 +67,7 @@ export default async function AboutPage({ params }: Props) {
             </EmptyContent>
           </Empty>
         </Reveal>
-      </section>
-    </main>
+      </Section>
+    </PageShell>
   );
 }

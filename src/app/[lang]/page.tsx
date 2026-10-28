@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { PageShell } from "@/components/page";
 import { getDictionary, hasLocale, localizedMetadata } from "@/i18n";
 
 import { ContactSection } from "../_components/contact-section";
@@ -24,13 +25,13 @@ export default async function HomePage({ params }: Props) {
   const dict = getDictionary(lang);
 
   return (
-    <main className="shell">
+    <PageShell>
       <HeroSection dict={dict.hero} />
       <WorkSection dict={dict.work} />
       <ExperienceSection lang={lang} dict={dict.experience} />
       <EducationSection label={dict.pages.experience.education} dict={dict.experience} />
       <StackSection dict={dict.skills} />
       <ContactSection dict={dict.contact} />
-    </main>
+    </PageShell>
   );
 }

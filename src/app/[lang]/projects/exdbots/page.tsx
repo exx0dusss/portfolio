@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { Reveal } from "@/components/motion/reveal";
+import { PageShell, Prose, Section, SectionLabel } from "@/components/page";
 import { ImageSlot } from "@/components/ui/image-slot";
 import { requireEnglish } from "@/i18n";
 
@@ -13,7 +13,6 @@ import {
   ProjectHero,
   projectMetadata,
   ProjectStructuredData,
-  SectionLabel,
 } from "../_components";
 
 const ACCENT = { color: "var(--accent)" } as const;
@@ -27,15 +26,11 @@ const SEO = {
 
 export const metadata: Metadata = projectMetadata(SEO);
 
-export default async function ExdbotsPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function ExdbotsPage({ params }: { params: Promise<{ lang: string }> }) {
   await requireEnglish(params);
   return (
     <>
-      <main className="shell">
+      <PageShell>
         <ProjectStructuredData {...SEO} />
         <ProjectHero
           name="ExdBots"
@@ -46,12 +41,10 @@ export default async function ExdbotsPage({
             { key: "Type", value: "Developer platform" },
           ]}
           openness={{ tone: "source", label: "Source-available" }}
-          actions={[
-            { variant: "primary", label: "See architecture", href: "#architecture" },
-          ]}
+          actions={[{ variant: "primary", label: "See architecture", href: "#architecture" }]}
         />
 
-        <section className="card">
+        <Section>
           <div className="p-cover">
             <ImageSlot
               shape="rect"
@@ -59,20 +52,20 @@ export default async function ExdbotsPage({
               style={{ display: "block", width: "100%", height: "auto", aspectRatio: "16/9" }}
             />
           </div>
-        </section>
+        </Section>
 
-        <section className="card">
+        <Section>
           <SectionLabel>Overview</SectionLabel>
-          <Reveal className="prose">
+          <Prose>
             <p className="lead-q">
               Most bot frameworks make you choose between a quick script and a real product. ExdBots
               is the second thing — the tooling I wished existed when I was hand-rolling bots.
             </p>
             <p style={{ marginTop: 18 }}>
-              ExdBots is a platform for people who build on Telegram. It bundles the parts that every
-              serious bot ends up needing — a typed UI layer, reusable mini-app blocks, an SDK, and a
-              management console — so a bot can grow from a weekend project into something with real
-              users without a rewrite.
+              ExdBots is a platform for people who build on Telegram. It bundles the parts that
+              every serious bot ends up needing — a typed UI layer, reusable mini-app blocks, an
+              SDK, and a management console — so a bot can grow from a weekend project into
+              something with real users without a rewrite.
             </p>
             <p>
               The web console acts as the control center: you assemble bot flows, connect bots you
@@ -83,10 +76,10 @@ export default async function ExdbotsPage({
               </Link>{" "}
               — the patterns that worked there became the foundation here.
             </p>
-          </Reveal>
-        </section>
+          </Prose>
+        </Section>
 
-        <section className="card">
+        <Section>
           <SectionLabel>What&#8217;s inside</SectionLabel>
           <FeatureGrid
             features={[
@@ -116,17 +109,17 @@ export default async function ExdbotsPage({
               },
             ]}
           />
-        </section>
+        </Section>
 
-        <section className="card" id="architecture">
+        <Section id="architecture">
           <SectionLabel>Architecture</SectionLabel>
           <div style={{ marginBottom: 22 }}>
-            <Reveal className="prose">
+            <Prose>
               <p>
                 A bot definition is authored once and runs two ways — as a chat interface and as a
                 Mini App — over a shared SDK and data layer.
               </p>
-            </Reveal>
+            </Prose>
           </div>
           <ArchDiagram
             columns={[
@@ -161,16 +154,16 @@ export default async function ExdbotsPage({
             ]}
             note="// one definition → chat + mini-app, one SDK, one data layer"
           />
-        </section>
+        </Section>
 
-        <section className="card">
+        <Section>
           <SectionLabel>How it was built</SectionLabel>
-          <Reveal className="prose">
+          <Prose>
             <p>
-              The platform started as extraction, not invention. After shipping several bots by hand,
-              the same primitives kept reappearing — a menu system, per-user state, a way to render
-              the same flow in chat and in a web view. I pulled those into an SDK, then built the
-              console on top of it.
+              The platform started as extraction, not invention. After shipping several bots by
+              hand, the same primitives kept reappearing — a menu system, per-user state, a way to
+              render the same flow in chat and in a web view. I pulled those into an SDK, then built
+              the console on top of it.
             </p>
             <p>
               The hardest design problem was the <strong>dual surface</strong>: the same bot has to
@@ -182,10 +175,10 @@ export default async function ExdbotsPage({
               It&#8217;s built in TypeScript end to end — Next.js for the console, the SDK and UI as
               their own packages, Postgres for storage.
             </p>
-          </Reveal>
-        </section>
+          </Prose>
+        </Section>
 
-        <section className="card">
+        <Section>
           <SectionLabel>Gallery</SectionLabel>
           <Gallery
             items={[
@@ -194,10 +187,10 @@ export default async function ExdbotsPage({
               { placeholder: "Mini App view" },
             ]}
           />
-        </section>
+        </Section>
 
         <NextProjectLink name="Kosmetik Profi" href="/projects/kosmetik-profi" />
-      </main>
+      </PageShell>
     </>
   );
 }

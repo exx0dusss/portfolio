@@ -28,6 +28,11 @@
   --color-overlay: rgb(var(--shadow-rgb) / 0.45);
   /* the nav bar's translucent surface, under its backdrop blur */
   --color-nav: var(--nav-bg);
+  /* project status dots: live, in development */
+  --color-status-live: var(--status-live);
+  --color-status-dev: var(--status-dev);
+  /* the white tile behind a project's favicon, in both themes */
+  --color-icon-tile: var(--icon-tile);
 
   --font-sans: var(--sans);
   --font-mono: var(--mono);
@@ -49,14 +54,26 @@
   --text-13\.5: 13.5px;
   --text-14: 14px;
   --text-15: 15px;
+  --text-15\.5: 15.5px;
   --text-16: 16px;
+  --text-16\.5: 16.5px;
+  --text-18: 18px;
+  --text-19: 19px;
   --text-20: 20px;
   --text-26: 26px;
   --text-28: 28px;
+  /* fluid display sizes: the home hero's title, sub-page titles, and the
+     contact email (the address plus icon is ~15em wide: it scales with the
+     viewport so it stays on one line down to 320px, capped at 54px) */
+  --text-hero: clamp(36px, 5vw, 60px);
+  --text-title: clamp(38px, 5.6vw, 64px);
+  --text-mail: clamp(16px, calc((100vw - 40px) / 16.5), 54px);
 
   --radius-6: 6px;
   --radius-7: 7px;
   --radius-9: 9px;
+  /* the contact email's copy button, in em: it scales with the address */
+  --radius-mail: 0.2em;
 
   /* the nav brand's name over its role line */
   --leading-brand: 1.25;
@@ -64,10 +81,23 @@
   --leading-title: 1.35;
   --leading-compact: 1.4;
   --leading-copy: 1.6;
+  /* display type: the hero title, the contact email */
+  --leading-hero: 1.05;
+  --leading-mail: 1.1;
+  /* a project row's description; long-form copy (prose, page leads) */
+  --leading-desc: 1.55;
+  --leading-prose: 1.72;
+  /* the home page's skill lists */
+  --leading-list: 2;
 
   --tracking-snug: -0.01em;
   /* large display type, e.g. the mobile menu's items */
   --tracking-heading: -0.03em;
+  /* project names in the work list */
+  --tracking-title: -0.02em;
+  /* the hero title; page titles and the contact email */
+  --tracking-hero: -0.04em;
+  --tracking-display: -0.045em;
 
   /* the page column (--w) and its side gutter (--gutter, 20px below 860px):
      `max-w-page`, `px-gutter` */
@@ -76,6 +106,13 @@
 
   /* a comfortable line for short centred copy */
   --container-measure: 44ch;
+  /* long-form copy, page leads and project descriptions */
+  --container-copy: 64ch;
+  --container-lead: 72ch;
+  --container-desc: 76ch;
+  /* the home hero's copy column and its stick figure */
+  --container-hero: 860px;
+  --container-figure: clamp(240px, 27vw, 400px);
   /* popovers: 320px, never wider than the screen minus a 16px gutter */
   --container-popover: min(320px, 100vw - 32px);
 
@@ -97,6 +134,14 @@
   /* the mobile menu fills the screen under the 68px bar */
   --height-menu: calc(100dvh - 68px);
 
+  /* the home hero: copy, then the figure at its natural width */
+  --grid-template-columns-hero: minmax(0, 1fr) auto;
+  /* the contact email's gap, copy-button padding and icon, in em so they
+     scale with the address */
+  --spacing-mail-gap: 0.3em;
+  --spacing-mail-pad: 0.12em;
+  --spacing-mail-icon: 0.55em;
+
   /* floating corner buttons (back to top): clear of the home indicator */
   --inset-corner: calc(24px + env(safe-area-inset-bottom));
   --inset-corner-phone: calc(16px + env(safe-area-inset-bottom));
@@ -107,8 +152,10 @@
   --breakpoint-phone: 761px;
   /* other max-width breakpoints, N+1 so max-*: means up to N: small
      laptops (1180px), where the nav links move into the menu (1040px),
-     small phones (520px) and the narrowest ones (400px) */
+     small phones (520px) and the narrowest ones (400px); tablets (860px),
+     where sections stack and the gutter narrows */
   --breakpoint-laptop: 1181px;
+  --breakpoint-tablet: 861px;
   --breakpoint-nav: 1041px;
   --breakpoint-small: 521px;
   --breakpoint-tiny: 401px;
@@ -141,6 +188,10 @@
   --figure-shade: #e5e5e5;
   --figure-features: #0a0a0a;
   --figure-ink: var(--fg);
+  /* the same in both themes */
+  --status-live: #16a34a;
+  --status-dev: #d97706;
+  --icon-tile: #ffffff;
   color-scheme: light;
 
   --w: 1180px;
@@ -270,65 +321,6 @@
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-}
-
-/* page shell: sections stacked on a 12-column grid, divided by ink rules */
-.shell {
-  max-width: var(--w);
-  margin: 0 auto;
-  padding: 0 var(--gutter) 24px;
-}
-.card {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: 24px;
-  padding: 44px 0 56px;
-  border-top: 1px solid var(--fg);
-  position: relative;
-}
-.card > * {
-  grid-column: 4 / -1;
-}
-/* the section name sits in the left column beside all of its content */
-.card > .clabel {
-  grid-column: 1 / span 3;
-  grid-row: 1 / span 40;
-  align-self: start;
-}
-/* unlabelled sections (cover shots, next-project link) run full width */
-.card:not(:has(> .clabel)) > * {
-  grid-column: 1 / -1;
-}
-.clabel {
-  margin: 0;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--fg);
-}
-.clabel span {
-  display: block;
-  margin-top: 4px;
-  font-size: 13.5px;
-  font-weight: 400;
-  color: var(--fg-faint);
-}
-.clabel a {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: var(--line-strong);
-}
-/* page headers on sub-pages run full width above the first rule */
-.shell > header.card {
-  display: block;
-  border-top: none;
-  padding: 72px 0 52px;
-}
-.shell > header.card .clabel {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--fg-faint);
-  margin-bottom: 14px;
 }
 
 /* hero: title, what I do, actions — one left-aligned column */
@@ -671,13 +663,6 @@
   :root {
     --gutter: 20px;
   }
-  .card {
-    display: block;
-    padding: 36px 0 44px;
-  }
-  .card > .clabel {
-    margin-bottom: 22px;
-  }
   .hero {
     grid-template-columns: 1fr;
     padding: 56px 0 52px;
@@ -716,29 +701,6 @@
   .cert-grid {
     grid-template-columns: 1fr;
   }
-}
-
-/* page header (sub-pages) */
-.page-title {
-  font-size: clamp(38px, 5.6vw, 64px);
-  font-weight: 600;
-  letter-spacing: -0.045em;
-  margin: 0;
-  line-height: 1;
-}
-.page-lead {
-  margin-top: 15px;
-  font-size: 16.5px;
-  color: var(--fg-dim);
-  line-height: 1.72;
-  max-width: 72ch;
-}
-.page-lead a {
-  color: var(--accent-ink);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
-  text-decoration-color: var(--line-strong);
 }
 
 /* timeline (experience) */
@@ -1066,26 +1028,10 @@
   background: var(--card-2);
 }
 
-.prose {
-  max-width: 64ch;
-}
-.prose p {
-  font-size: 15.5px;
-  line-height: 1.72;
-  color: var(--fg-dim);
-  margin: 0 0 15px;
-}
-.prose p:last-child {
-  margin-bottom: 0;
-}
-.prose strong {
-  color: var(--fg);
-  font-weight: 500;
-}
+/* a case study's opening line, inside Prose. Only the weight and measure
+   ever applied: Prose's paragraph styles outranked the rest, so the line
+   reads in the prose's size and color */
 .lead-q {
-  font-size: 18px;
-  line-height: 1.6;
-  color: var(--fg);
   font-weight: 400;
   max-width: 60ch;
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { Reveal } from "@/components/motion/reveal";
+import { PageShell, Prose, Section, SectionLabel } from "@/components/page";
 import { requireEnglish } from "@/i18n";
 
 import {
@@ -11,7 +11,6 @@ import {
   ProjectHero,
   projectMetadata,
   ProjectStructuredData,
-  SectionLabel,
 } from "../_components";
 
 const ACCENT = { color: "var(--accent)" } as const;
@@ -33,7 +32,7 @@ export default async function ExdDownloaderAppPage({
   await requireEnglish(params);
   return (
     <>
-      <main className="shell">
+      <PageShell>
         <ProjectStructuredData {...SEO} />
         <ProjectHero
           name="ExdDownloaderApp"
@@ -54,18 +53,18 @@ export default async function ExdDownloaderAppPage({
           ]}
         />
 
-        <section className="card">
+        <Section>
           <SectionLabel>Overview</SectionLabel>
-          <Reveal className="prose">
+          <Prose>
             <p className="lead-q">
-              It looks simple — send a link, get a video. Under the hood it&#8217;s where I figured out
-              how to structure a bot that could actually grow.
+              It looks simple — send a link, get a video. Under the hood it&#8217;s where I figured
+              out how to structure a bot that could actually grow.
             </p>
             <p style={{ marginTop: 18 }}>
-              ExdDownloaderApp does one job well: you send it a TikTok link and it returns the video.
-              But it was written before the agentic-engineering era, by hand, and it became my testing
-              ground for <strong>system design</strong> — the menu system, the per-user state, the way
-              flows are structured.
+              ExdDownloaderApp does one job well: you send it a TikTok link and it returns the
+              video. But it was written before the agentic-engineering era, by hand, and it became
+              my testing ground for <strong>system design</strong> — the menu system, the per-user
+              state, the way flows are structured.
             </p>
             <p>
               Those patterns worked well enough that I pulled them out into reusable libraries. The
@@ -75,10 +74,10 @@ export default async function ExdDownloaderAppPage({
               </Link>{" "}
               all started here. It&#8217;s the template the platform grew from.
             </p>
-          </Reveal>
-        </section>
+          </Prose>
+        </Section>
 
-        <section className="card">
+        <Section>
           <SectionLabel>Highlights</SectionLabel>
           <FeatureGrid
             features={[
@@ -108,17 +107,17 @@ export default async function ExdDownloaderAppPage({
               },
             ]}
           />
-        </section>
+        </Section>
 
-        <section className="card" id="architecture">
+        <Section id="architecture">
           <SectionLabel>Architecture</SectionLabel>
           <div style={{ marginBottom: 22 }}>
-            <Reveal className="prose">
+            <Prose>
               <p>
                 A small, deliberate pipeline: the menu/state core is the part that later generalized
                 into the SDK.
               </p>
-            </Reveal>
+            </Prose>
           </div>
           <ArchDiagram
             columns={[
@@ -143,26 +142,26 @@ export default async function ExdDownloaderAppPage({
             ]}
             note="// the menu/state core is what generalized into @exdbots"
           />
-        </section>
+        </Section>
 
-        <section className="card">
+        <Section>
           <SectionLabel>How it was built</SectionLabel>
-          <Reveal className="prose">
+          <Prose>
             <p>
-              This one was written the old way — no agents, no scaffolding, just figuring it out. That
-              constraint is exactly why it matters to me: every structural decision was deliberate,
-              because I had to make it myself.
+              This one was written the old way — no agents, no scaffolding, just figuring it out.
+              That constraint is exactly why it matters to me: every structural decision was
+              deliberate, because I had to make it myself.
             </p>
             <p>
               The breakthrough was realizing the menu and state handling weren&#8217;t specific to
-              TikTok at all — they were a general way to run any bot. Recognizing that, and extracting
-              it cleanly, is what turned a single bot into the foundation for a platform.
+              TikTok at all — they were a general way to run any bot. Recognizing that, and
+              extracting it cleanly, is what turned a single bot into the foundation for a platform.
             </p>
-          </Reveal>
-        </section>
+          </Prose>
+        </Section>
 
         <NextProjectLink name="ExdBots" href="/projects/exdbots" />
-      </main>
+      </PageShell>
     </>
   );
 }

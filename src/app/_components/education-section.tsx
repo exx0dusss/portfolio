@@ -1,5 +1,5 @@
-import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
+import { Section, SectionLabel } from "@/components/page";
 import type { Dictionary } from "@/i18n";
 
 import { EDUCATION, localizeTimeline } from "../[lang]/experience/_components/timeline";
@@ -14,10 +14,8 @@ export function EducationSection({ label, dict }: EducationSectionProps) {
   const rows = localizeTimeline(EDUCATION, dict.education, dict.now);
 
   return (
-    <section className="card" id="education">
-      <Reveal as="h2" className="clabel">
-        {label}
-      </Reveal>
+    <Section id="education">
+      <SectionLabel>{label}</SectionLabel>
       <Stagger className="xp">
         {rows.map((row) => (
           <StaggerItem className="xp-row" key={`${row.role}-${row.year}`}>
@@ -28,6 +26,6 @@ export function EducationSection({ label, dict }: EducationSectionProps) {
           </StaggerItem>
         ))}
       </Stagger>
-    </section>
+    </Section>
   );
 }

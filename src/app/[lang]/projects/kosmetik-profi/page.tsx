@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { LivePreview } from "@/components/live-preview";
-import { Reveal } from "@/components/motion/reveal";
+import { PageShell, Prose, Section, SectionLabel } from "@/components/page";
 import { TechLink } from "@/components/tech-link";
 import { requireEnglish } from "@/i18n";
 
@@ -15,7 +15,6 @@ import {
   ProjectHero,
   projectMetadata,
   ProjectStructuredData,
-  SectionLabel,
 } from "../_components";
 
 /** The cover is also the first gallery slide, so all five screenshots open together. */
@@ -34,15 +33,11 @@ const SEO = {
 
 export const metadata: Metadata = projectMetadata(SEO);
 
-export default async function KosmetikProfiPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function KosmetikProfiPage({ params }: { params: Promise<{ lang: string }> }) {
   await requireEnglish(params);
   return (
     <>
-      <main className="shell">
+      <PageShell>
         <ProjectStructuredData {...SEO} />
         <ProjectHero
           name="Kosmetik Profi"
@@ -55,7 +50,16 @@ export default async function KosmetikProfiPage({
           ]}
           difficulty={{ level: 1, label: "Very easy" }}
           openness={{ tone: "client", label: "Client work · live site" }}
-          stack={["nestjs", "handlebars", "typeorm", "sqlite", "jwt", "docker", "coolify", "ovhcloud"]}
+          stack={[
+            "nestjs",
+            "handlebars",
+            "typeorm",
+            "sqlite",
+            "jwt",
+            "docker",
+            "coolify",
+            "ovhcloud",
+          ]}
           actions={[
             {
               variant: "primary",
@@ -72,15 +76,15 @@ export default async function KosmetikProfiPage({
           }
         />
 
-        <section className="card">
+        <Section>
           <div className="p-cover">
             <GalleryCover cover={COVER} />
           </div>
-        </section>
+        </Section>
 
-        <section className="card">
+        <Section>
           <SectionLabel>Overview</SectionLabel>
-          <Reveal className="prose">
+          <Prose>
             <p className="lead-q">
               A cosmetology practice with two studios in Münster needed one clear place for its
               treatments, prices and bookings — in German and English.
@@ -96,10 +100,10 @@ export default async function KosmetikProfiPage({
               The <strong>admin panel</strong> I designed as well as built, so the owner can keep
               every service and price current without calling a developer.
             </p>
-          </Reveal>
-        </section>
+          </Prose>
+        </Section>
 
-        <section className="card">
+        <Section>
           <SectionLabel>What&#8217;s in it</SectionLabel>
           <FeatureGrid
             features={[
@@ -129,17 +133,17 @@ export default async function KosmetikProfiPage({
               },
             ]}
           />
-        </section>
+        </Section>
 
-        <section className="card" id="architecture">
+        <Section id="architecture">
           <SectionLabel>Architecture</SectionLabel>
           <div style={{ marginBottom: 22 }}>
-            <Reveal className="prose">
+            <Prose>
               <p>
                 One small server renders every page. Visitors and the admin panel read and write the
                 same data, so a price changed in the admin is live on the next page load.
               </p>
-            </Reveal>
+            </Prose>
           </div>
           <ArchDiagram
             columns={[
@@ -175,11 +179,11 @@ export default async function KosmetikProfiPage({
             ]}
             note="// one server, one database file — sized for a single practice"
           />
-        </section>
+        </Section>
 
-        <section className="card">
+        <Section>
           <SectionLabel>How it was built</SectionLabel>
-          <Reveal className="prose">
+          <Prose>
             <p>
               The first version took <strong>two days</strong>. The repository starts on 15 December
               2024 with the public page and the admin already working, and by the next day the admin
@@ -201,45 +205,45 @@ export default async function KosmetikProfiPage({
               request reaches the live site without anyone logging into the server.
             </p>
             <p>
-              I&#8217;ve kept maintaining it since: &#8220;from&#8221; prices and the location picker
-              with <TechLink id="easyweek" /> booking in 2025, legal pages and shareable category
-              links in 2026. In October 2026 a responsive pass fixed prices colliding with long German
-              service names and lined the cards up across each row with{" "}
+              I&#8217;ve kept maintaining it since: &#8220;from&#8221; prices and the location
+              picker with <TechLink id="easyweek" /> booking in 2025, legal pages and shareable
+              category links in 2026. In October 2026 a responsive pass fixed prices colliding with
+              long German service names and lined the cards up across each row with{" "}
               <TechLink id="css-subgrid" />.
             </p>
-          </Reveal>
-        </section>
+          </Prose>
+        </Section>
 
-        <section className="card">
+        <Section>
           <SectionLabel>My review</SectionLabel>
-          <Reveal className="prose">
+          <Prose>
             <p>
-              I picked this stack because the website did not need anything super special. It did not
-              need <TechLink id="react" /> and <TechLink id="nextjs" />. At the time, I have been
-              already building applications with <TechLink id="nestjs" /> as backend while learning
-              it from <TechLink id="udemy" /> courses, official documentation and practise. It is a
-              very convenient framework, and coming from <TechLink id="spring">Java Spring</TechLink>{" "}
-              that I have been learning in university for quite a while, the NestJS was the best way
-              for me to build backends.
+              I picked this stack because the website did not need anything super special. It did
+              not need <TechLink id="react" /> and <TechLink id="nextjs" />. At the time, I have
+              been already building applications with <TechLink id="nestjs" /> as backend while
+              learning it from <TechLink id="udemy" /> courses, official documentation and practise.
+              It is a very convenient framework, and coming from{" "}
+              <TechLink id="spring">Java Spring</TechLink> that I have been learning in university
+              for quite a while, the NestJS was the best way for me to build backends.
             </p>
             <p>
               I decided to try out <TechLink id="handlebars" /> as a frontend technology for a few
               reasons: I wanted to try something new for a simple project, I heard a lot of template
-              engines at that time, especially after work with <TechLink id="thymeleaf" /> and it was
-              an interesting experience for backend to serve the <TechLink id="html" /> as in old good
-              times.
+              engines at that time, especially after work with <TechLink id="thymeleaf" /> and it
+              was an interesting experience for backend to serve the <TechLink id="html" /> as in
+              old good times.
             </p>
             <p>
               I can say that it was a pure joy to build on that stack and each time I return to the
-              website to maintain it, I can easily understand the code I wrote at that time. And even
-              after a few years after I built it and moved fully to React, I can still understand the
-              application code because it was very straightforward and I can say I wrote it very
-              well. I usually dont say that about my older apps.
+              website to maintain it, I can easily understand the code I wrote at that time. And
+              even after a few years after I built it and moved fully to React, I can still
+              understand the application code because it was very straightforward and I can say I
+              wrote it very well. I usually dont say that about my older apps.
             </p>
-          </Reveal>
-        </section>
+          </Prose>
+        </Section>
 
-        <section className="card">
+        <Section>
           <SectionLabel>Gallery</SectionLabel>
           <Gallery
             cover={COVER}
@@ -268,10 +272,10 @@ export default async function KosmetikProfiPage({
               },
             ]}
           />
-        </section>
+        </Section>
 
         <NextProjectLink name="Giga Psych" href="/projects/giga-psych" />
-      </main>
+      </PageShell>
     </>
   );
 }

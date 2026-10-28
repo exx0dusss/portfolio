@@ -3,6 +3,16 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { Reveal } from "@/components/motion/reveal";
+import {
+  PageEyebrow,
+  PageHeader,
+  PageLead,
+  PageShell,
+  PageTitle,
+  Prose,
+  Section,
+  SectionLabel,
+} from "@/components/page";
 import { TechLink } from "@/components/tech-link";
 import {
   Fact,
@@ -24,7 +34,7 @@ import {
 import { getDictionary, hasLocale, localizedMetadata } from "@/i18n";
 import type { TechId } from "@/lib/tech";
 
-import { ArchDiagram, FeatureGrid, SectionLabel } from "../projects/_components";
+import { ArchDiagram, FeatureGrid } from "../projects/_components";
 import { TokenSwatches } from "./_components/token-swatches";
 
 type Props = { params: Promise<{ lang: string }> };
@@ -72,15 +82,11 @@ export default async function ColophonPage({ params }: Props) {
   const page = getDictionary(lang).pages.colophon;
 
   return (
-    <main className="shell">
-      <header className="card">
-        <Reveal className="clabel">{page.title}</Reveal>
-        <Reveal as="h1" delay={1} className="page-title">
-          {page.heading}
-        </Reveal>
-        <Reveal as="p" delay={2} className="page-lead">
-          {page.lead}
-        </Reveal>
+    <PageShell>
+      <PageHeader>
+        <PageEyebrow>{page.title}</PageEyebrow>
+        <PageTitle>{page.heading}</PageTitle>
+        <PageLead>{page.lead}</PageLead>
         <Facts columns={3} className="mt-6">
           {(Object.keys(FACT_ICONS) as FactKey[]).map((key) => {
             const FactGlyph = FACT_ICONS[key];
@@ -114,43 +120,43 @@ export default async function ColophonPage({ params }: Props) {
             </ul>
           </Fact>
         </Facts>
-      </header>
+      </PageHeader>
 
-      <section className="card">
+      <Section>
         <SectionLabel>{page.sections.architecture}</SectionLabel>
         <div className="colophon-intro">
-          <Reveal className="prose">
+          <Prose>
             <p>{page.architecture.intro}</p>
-          </Reveal>
+          </Prose>
         </div>
         <ArchDiagram columns={page.architecture.columns} note={page.architecture.note} />
-      </section>
+      </Section>
 
-      <section className="card">
+      <Section>
         <SectionLabel>{page.sections.design}</SectionLabel>
-        <Reveal className="prose">
+        <Prose>
           {page.design.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
-        </Reveal>
+        </Prose>
         <Reveal>
           <TokenSwatches labels={page.swatches} />
         </Reveal>
-      </section>
+      </Section>
 
-      <section className="card">
+      <Section>
         <SectionLabel>{page.sections.quality}</SectionLabel>
         <FeatureGrid features={page.quality} />
-      </section>
+      </Section>
 
-      <section className="card">
+      <Section>
         <SectionLabel>{page.sections.story}</SectionLabel>
-        <Reveal className="prose">
+        <Prose>
           {page.story.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
-        </Reveal>
-      </section>
-    </main>
+        </Prose>
+      </Section>
+    </PageShell>
   );
 }

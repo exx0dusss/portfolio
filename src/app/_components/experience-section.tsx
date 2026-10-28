@@ -1,23 +1,29 @@
 import Link from "next/link";
 
-import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
+import { Section, SectionLabel, SectionNote } from "@/components/page";
 import { type Dictionary, type Locale, localePath } from "@/i18n";
 
 import { localizeTimeline, ROLES } from "../[lang]/experience/_components/timeline";
 
 /** Experience section: work roles as a compact role / company / years list. */
-export function ExperienceSection({ lang, dict }: { lang: Locale; dict: Dictionary["experience"] }) {
+export function ExperienceSection({
+  lang,
+  dict,
+}: {
+  lang: Locale;
+  dict: Dictionary["experience"];
+}) {
   const rows = localizeTimeline(ROLES, dict.roles, dict.now);
 
   return (
-    <section className="card" id="experience">
-      <Reveal as="h2" className="clabel">
+    <Section id="experience">
+      <SectionLabel>
         {dict.label}
-        <span>
+        <SectionNote>
           {dict.subBefore} <Link href={localePath(lang, "/experience")}>{dict.subLink}</Link>
-        </span>
-      </Reveal>
+        </SectionNote>
+      </SectionLabel>
       <Stagger className="xp">
         {rows.map((row) => (
           <StaggerItem className="xp-row" key={`${row.company}-${row.year}`}>
@@ -28,6 +34,6 @@ export function ExperienceSection({ lang, dict }: { lang: Locale; dict: Dictiona
           </StaggerItem>
         ))}
       </Stagger>
-    </section>
+    </Section>
   );
 }

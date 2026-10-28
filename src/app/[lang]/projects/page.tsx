@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { Reveal } from "@/components/motion/reveal";
 import { Stagger } from "@/components/motion/stagger";
+import {
+  PageEyebrow,
+  PageHeader,
+  PageLead,
+  PageShell,
+  PageTitle,
+  Section,
+  SectionLabel,
+} from "@/components/page";
 import { getDictionary, hasLocale, localizedMetadata } from "@/i18n";
 
 import { ProjectCard } from "../../_components/project-card";
@@ -23,27 +31,21 @@ export default async function ProjectsPage({ params }: Props) {
   const page = dict.pages.projects;
 
   return (
-    <main className="shell">
-      <header className="card">
-        <Reveal className="clabel">{page.title}</Reveal>
-        <Reveal as="h1" delay={1} className="page-title">
-          {page.heading}
-        </Reveal>
-        <Reveal as="p" delay={2} className="page-lead">
-          {page.lead}
-        </Reveal>
-      </header>
+    <PageShell>
+      <PageHeader>
+        <PageEyebrow>{page.title}</PageEyebrow>
+        <PageTitle>{page.heading}</PageTitle>
+        <PageLead>{page.lead}</PageLead>
+      </PageHeader>
 
-      <section className="card">
-        <Reveal as="h2" className="clabel">
-          {page.label}
-        </Reveal>
+      <Section>
+        <SectionLabel>{page.label}</SectionLabel>
         <Stagger className="plist">
           {PROJECTS.map((project) => (
             <ProjectCard key={project.slug} project={project} dict={dict.work} />
           ))}
         </Stagger>
-      </section>
-    </main>
+      </Section>
+    </PageShell>
   );
 }

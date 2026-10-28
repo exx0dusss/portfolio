@@ -253,7 +253,7 @@
     background: #fff !important;
     background-image: none !important;
   }
-  .shell {
+  [data-slot="page-shell"] {
     padding: 0 !important;
     max-width: none !important;
   }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { Reveal } from "@/components/motion/reveal";
+import { PageShell, Prose, Section, SectionLabel } from "@/components/page";
 import { requireEnglish } from "@/i18n";
 
 import {
@@ -10,7 +10,6 @@ import {
   ProjectHero,
   projectMetadata,
   ProjectStructuredData,
-  SectionLabel,
 } from "../_components";
 
 const SEO = {
@@ -22,15 +21,11 @@ const SEO = {
 
 export const metadata: Metadata = projectMetadata(SEO);
 
-export default async function GigaPsychPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function GigaPsychPage({ params }: { params: Promise<{ lang: string }> }) {
   await requireEnglish(params);
   return (
     <>
-      <main className="shell">
+      <PageShell>
         <ProjectStructuredData {...SEO} />
         <ProjectHero
           name="Giga Psych"
@@ -43,29 +38,29 @@ export default async function GigaPsychPage({
           openness={{ tone: "nda", label: "Research · under NDA" }}
         />
 
-        <section className="card">
+        <Section>
           <SectionLabel>Overview</SectionLabel>
-          <Reveal className="prose">
+          <Prose>
             <p className="lead-q">
               Research data is only useful if the people who collected it can actually explore it.
               This platform turned a pile of experimental data into something a research team could
               query.
             </p>
             <p style={{ marginTop: 18 }}>
-              Giga Psych was a collaboration between the <strong>PJATK XR Lab</strong> and researchers
-              at the <strong>University of Amsterdam</strong>. I built the web interface that lets the
-              team browse, filter, and query datasets from their experiments without writing SQL by
-              hand.
+              Giga Psych was a collaboration between the <strong>PJATK XR Lab</strong> and
+              researchers at the <strong>University of Amsterdam</strong>. I built the web interface
+              that lets the team browse, filter, and query datasets from their experiments without
+              writing SQL by hand.
             </p>
             <p>
               Because this is active academic research, the specifics of the data and findings are
-              confidential — so this page stays at the level of what I built and how, rather than what
-              the data showed.
+              confidential — so this page stays at the level of what I built and how, rather than
+              what the data showed.
             </p>
-          </Reveal>
-        </section>
+          </Prose>
+        </Section>
 
-        <section className="card">
+        <Section>
           <SectionLabel>What I built</SectionLabel>
           <FeatureGrid
             features={[
@@ -95,11 +90,11 @@ export default async function GigaPsychPage({
               },
             ]}
           />
-        </section>
+        </Section>
 
-        <section className="card">
+        <Section>
           <SectionLabel>How it was built</SectionLabel>
-          <Reveal className="prose">
+          <Prose>
             <p>
               The brief was unusual for me: the users were researchers, not customers, and the goal
               was clarity over polish. I worked closely with the lab to understand how they thought
@@ -107,19 +102,19 @@ export default async function GigaPsychPage({
               database schema.
             </p>
             <p>
-              It&#8217;s a React front-end over a Postgres-backed API. The interesting work was in the
-              querying layer — letting non-engineers ask precise questions of the data and get back
-              something they could trust and cite.
+              It&#8217;s a React front-end over a Postgres-backed API. The interesting work was in
+              the querying layer — letting non-engineers ask precise questions of the data and get
+              back something they could trust and cite.
             </p>
-          </Reveal>
+          </Prose>
           <LockedNote title="Details limited">
-            Screenshots and dataset specifics are withheld under the research agreement. Happy to talk
-            through my contribution in an interview.
+            Screenshots and dataset specifics are withheld under the research agreement. Happy to
+            talk through my contribution in an interview.
           </LockedNote>
-        </section>
+        </Section>
 
         <NextProjectLink name="SalonSvitlo" href="/projects/salonsvitlo" />
-      </main>
+      </PageShell>
     </>
   );
 }

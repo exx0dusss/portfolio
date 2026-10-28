@@ -6,7 +6,6 @@ export { LockedNote } from "./locked-note";
 export { NextProjectLink } from "./next-project-link";
 export { ProjectHero } from "./project-hero";
 export { ProjectStructuredData, projectMetadata } from "./project-seo";
-export { SectionLabel } from "./section-label";
 export type {
   ArchData,
   FeatureCard,

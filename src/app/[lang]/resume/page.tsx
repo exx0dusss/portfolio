@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { PageShell } from "@/components/page";
 import { ButtonLink } from "@/components/ui/button";
 import { requireEnglish } from "@/i18n";
 
@@ -9,22 +10,17 @@ import "./resume.css";
 
 export const metadata: Metadata = {
   title: "Résumé",
-  description:
-    "Résumé of Tymur Mustafaiev — Front-End Engineer & UX/UI Designer based in Warsaw.",
+  description: "Résumé of Tymur Mustafaiev — Front-End Engineer & UX/UI Designer based in Warsaw.",
   alternates: { canonical: "/resume" },
 };
 
 const EMAIL = "tymurmustafaiev029@gmail.com";
 const LINKEDIN = "https://linkedin.com/in/tymur-mustafaiev-968b3724b";
 
-export default async function ResumePage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function ResumePage({ params }: { params: Promise<{ lang: string }> }) {
   await requireEnglish(params);
   return (
-    <main className="shell">
+    <PageShell>
       <article className="resume">
         <div className="r-bar">
           <span className="lbl">Résumé</span>
@@ -64,7 +60,9 @@ export default async function ResumePage({
               </div>
               <div className="sk">
                 <div className="skk">Frameworks</div>
-                <div className="skv">React, Next.js, TanStack Start, Node.js, NestJS, Deno, Bun</div>
+                <div className="skv">
+                  React, Next.js, TanStack Start, Node.js, NestJS, Deno, Bun
+                </div>
               </div>
               <div className="sk">
                 <div className="skk">UI &amp; Design</div>
@@ -206,8 +204,8 @@ export default async function ResumePage({
                 and statistics from one interface. <span className="yr">2026 — present</span>
               </div>
               <div className="r-proj">
-                <b>SalonSvitlo</b> — full-stack e-commerce for a lighting business with 20+ years in the
-                trade: store, landing, CRM and a Telegram web-app.{" "}
+                <b>SalonSvitlo</b> — full-stack e-commerce for a lighting business with 20+ years in
+                the trade: store, landing, CRM and a Telegram web-app.{" "}
                 <span className="yr">2024 — present</span>
               </div>
               <div className="r-proj">
@@ -239,6 +237,6 @@ export default async function ResumePage({
           </div>
         </div>
       </article>
-    </main>
+    </PageShell>
   );
 }

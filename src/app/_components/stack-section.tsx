@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/motion/reveal";
+import { Section, SectionLabel } from "@/components/page";
 import type { Dictionary } from "@/i18n";
 
 /** Skills section: two plain lists — what I use daily vs. what I've shipped
@@ -6,10 +7,8 @@ import type { Dictionary } from "@/i18n";
  *  JSON-LD only. */
 export function StackSection({ dict }: { dict: Dictionary["skills"] }) {
   return (
-    <section className="card" id="skills">
-      <Reveal as="h2" className="clabel">
-        {dict.label}
-      </Reveal>
+    <Section id="skills">
+      <SectionLabel>{dict.label}</SectionLabel>
       <Reveal className="skills">
         {dict.tiers.map((group) => (
           <div key={group.tier}>
@@ -22,6 +21,6 @@ export function StackSection({ dict }: { dict: Dictionary["skills"] }) {
           </div>
         ))}
       </Reveal>
-    </section>
+    </Section>
   );
 }

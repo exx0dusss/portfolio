@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { Reveal } from "@/components/motion/reveal";
+import { PageShell, Prose, Section, SectionLabel } from "@/components/page";
 import { ImageSlot } from "@/components/ui/image-slot";
 import { requireEnglish } from "@/i18n";
 
@@ -12,7 +12,6 @@ import {
   ProjectHero,
   projectMetadata,
   ProjectStructuredData,
-  SectionLabel,
 } from "../_components";
 
 const SEO = {
@@ -24,15 +23,11 @@ const SEO = {
 
 export const metadata: Metadata = projectMetadata(SEO);
 
-export default async function SalonSvitloPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function SalonSvitloPage({ params }: { params: Promise<{ lang: string }> }) {
   await requireEnglish(params);
   return (
     <>
-      <main className="shell">
+      <PageShell>
         <ProjectStructuredData {...SEO} />
         <ProjectHero
           name="SalonSvitlo"
@@ -45,7 +40,7 @@ export default async function SalonSvitloPage({
           openness={{ tone: "client", label: "Client work · private" }}
         />
 
-        <section className="card">
+        <Section>
           <div className="p-cover">
             <ImageSlot
               shape="rect"
@@ -53,30 +48,31 @@ export default async function SalonSvitloPage({
               style={{ display: "block", width: "100%", height: "auto", aspectRatio: "16/9" }}
             />
           </div>
-        </section>
+        </Section>
 
-        <section className="card">
+        <Section>
           <SectionLabel>Overview</SectionLabel>
-          <Reveal className="prose">
+          <Prose>
             <p className="lead-q">
-              A lighting shop with two decades of experience, but no real digital presence. SalonSvitlo is
-              the whole stack that brought the business online — and gave the team the tools to run
-              it.
+              A lighting shop with two decades of experience, but no real digital presence.
+              SalonSvitlo is the whole stack that brought the business online — and gave the team
+              the tools to run it.
             </p>
             <p style={{ marginTop: 18 }}>
-              SalonSvitlo is more than a store. The customer side is a modern storefront and landing built
-              on current UX practices; the business side is a <strong>CRM</strong> that handles
-              orders, customer chat, and day-to-day operations — plus an AI assistant that can act on
-              the store, and a Telegram bot with a web-app for customers who live in chat.
+              SalonSvitlo is more than a store. The customer side is a modern storefront and landing
+              built on current UX practices; the business side is a <strong>CRM</strong> that
+              handles orders, customer chat, and day-to-day operations — plus an AI assistant that
+              can act on the store, and a Telegram bot with a web-app for customers who live in
+              chat.
             </p>
             <p>
-              The aim was to maximize how involved a traditional business can be in its own tech: one
-              connected system instead of a storefront bolted onto spreadsheets.
+              The aim was to maximize how involved a traditional business can be in its own tech:
+              one connected system instead of a storefront bolted onto spreadsheets.
             </p>
-          </Reveal>
-        </section>
+          </Prose>
+        </Section>
 
-        <section className="card">
+        <Section>
           <SectionLabel>What&#8217;s in it</SectionLabel>
           <FeatureGrid
             features={[
@@ -106,17 +102,17 @@ export default async function SalonSvitloPage({
               },
             ]}
           />
-        </section>
+        </Section>
 
-        <section className="card" id="architecture">
+        <Section id="architecture">
           <SectionLabel>Architecture</SectionLabel>
           <div style={{ marginBottom: 22 }}>
-            <Reveal className="prose">
+            <Prose>
               <p>
                 Storefront, Telegram bot, and the AI assistant all read and write through one core —
                 the CRM and its data layer.
               </p>
-            </Reveal>
+            </Prose>
           </div>
           <ArchDiagram
             columns={[
@@ -148,26 +144,26 @@ export default async function SalonSvitloPage({
             ]}
             note="// one core, many surfaces — store, chat, and AI share the same data"
           />
-        </section>
+        </Section>
 
-        <section className="card">
+        <Section>
           <SectionLabel>How it was built</SectionLabel>
-          <Reveal className="prose">
+          <Prose>
             <p>
               The challenge wasn&#8217;t any single feature — it was making a traditional business
               comfortable owning a connected system. I designed the storefront and the CRM as two
-              faces of the same data, so an order placed in chat, on the web, or by phone all lands in
-              one place.
+              faces of the same data, so an order placed in chat, on the web, or by phone all lands
+              in one place.
             </p>
             <p>
               The AI assistant was the piece that made it click for the client: instead of another
-              dashboard to learn, they can ask the store to do things. It&#8217;s a Next.js + Postgres
-              stack with Stripe for payments and a Telegram Mini App for the bot surface.
+              dashboard to learn, they can ask the store to do things. It&#8217;s a Next.js +
+              Postgres stack with Stripe for payments and a Telegram Mini App for the bot surface.
             </p>
-          </Reveal>
-        </section>
+          </Prose>
+        </Section>
 
-        <section className="card">
+        <Section>
           <SectionLabel>Gallery</SectionLabel>
           <Gallery
             items={[
@@ -176,10 +172,10 @@ export default async function SalonSvitloPage({
               { placeholder: "Telegram web-app" },
             ]}
           />
-        </section>
+        </Section>
 
         <NextProjectLink name="ExdDownloaderApp" href="/projects/exd-downloader-app" />
-      </main>
+      </PageShell>
     </>
   );
 }

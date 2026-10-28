@@ -1,6 +1,7 @@
 import type { Icon } from "@phosphor-icons/react";
 import { ViewTransition } from "react";
 
+import { PageHeader } from "@/components/page";
 import { TechLink } from "@/components/tech-link";
 import { ButtonLink } from "@/components/ui/button";
 import {
@@ -94,7 +95,7 @@ export function ProjectHero({
   const tiles = meta.length + (difficulty ? 1 : 0) + 1;
   const columns = tiles <= 4 ? tiles : Math.ceil(tiles / 2);
   return (
-    <header className="card p-hero">
+    <PageHeader className="p-hero">
       <Backlink />
       <ViewTransition name={projectTitleTransition(name)} share="morph">
         <h1 className="p-name">{name}</h1>
@@ -161,6 +162,6 @@ export function ProjectHero({
           {extraActions}
         </div>
       )}
-    </header>
+    </PageHeader>
   );
 }

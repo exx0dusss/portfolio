@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { Reveal } from "@/components/motion/reveal";
+import {
+  PageEyebrow,
+  PageHeader,
+  PageLead,
+  PageShell,
+  PageTitle,
+  Section,
+  SectionLabel,
+} from "@/components/page";
 import { getDictionary, hasLocale, localizedMetadata } from "@/i18n";
 
 import { TimelineRow } from "./_components/timeline-row";
@@ -24,34 +32,26 @@ export default async function ExperiencePage({ params }: Props) {
   const education = localizeTimeline(EDUCATION, dict.experience.education, dict.experience.now);
 
   return (
-    <main className="shell">
-      <header className="card">
-        <Reveal className="clabel">{page.title}</Reveal>
-        <Reveal as="h1" delay={1} className="page-title">
-          {page.heading}
-        </Reveal>
-        <Reveal as="p" delay={2} className="page-lead">
-          {page.lead}
-        </Reveal>
-      </header>
+    <PageShell>
+      <PageHeader>
+        <PageEyebrow>{page.title}</PageEyebrow>
+        <PageTitle>{page.heading}</PageTitle>
+        <PageLead>{page.lead}</PageLead>
+      </PageHeader>
 
-      <section className="card">
-        <Reveal as="h2" className="clabel">
-          {page.roles}
-        </Reveal>
+      <Section>
+        <SectionLabel>{page.roles}</SectionLabel>
         {roles.map((entry) => (
           <TimelineRow key={`${entry.company}-${entry.year}`} entry={entry} />
         ))}
-      </section>
+      </Section>
 
-      <section className="card">
-        <Reveal as="h2" className="clabel">
-          {page.education}
-        </Reveal>
+      <Section>
+        <SectionLabel>{page.education}</SectionLabel>
         {education.map((entry) => (
           <TimelineRow key={`${entry.company}-${entry.year}`} entry={entry} />
         ))}
-      </section>
-    </main>
+      </Section>
+    </PageShell>
   );
 }

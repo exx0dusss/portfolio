@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
+import {
+  PageEyebrow,
+  PageHeader,
+  PageLead,
+  PageShell,
+  PageTitle,
+  Section,
+  SectionLabel,
+} from "@/components/page";
 import { getDictionary, hasLocale, localizedMetadata } from "@/i18n";
 
 import { CertificateCard } from "./_components/certificate-card";
@@ -22,21 +30,15 @@ export default async function CertificatesPage({ params }: Props) {
   const page = getDictionary(lang).pages.certificates;
 
   return (
-    <main className="shell">
-      <header className="card">
-        <Reveal className="clabel">{page.title}</Reveal>
-        <Reveal as="h1" delay={1} className="page-title">
-          {page.heading}
-        </Reveal>
-        <Reveal as="p" delay={2} className="page-lead">
-          {page.lead}
-        </Reveal>
-      </header>
+    <PageShell>
+      <PageHeader>
+        <PageEyebrow>{page.title}</PageEyebrow>
+        <PageTitle>{page.heading}</PageTitle>
+        <PageLead>{page.lead}</PageLead>
+      </PageHeader>
 
-      <section className="card">
-        <Reveal as="h2" className="clabel">
-          {page.credentials}
-        </Reveal>
+      <Section>
+        <SectionLabel>{page.credentials}</SectionLabel>
         <Stagger className="cert-list">
           {CERTIFICATES.map((certificate) => (
             <StaggerItem key={certificate.title}>
@@ -51,7 +53,7 @@ export default async function CertificatesPage({ params }: Props) {
             </StaggerItem>
           ))}
         </Stagger>
-      </section>
-    </main>
+      </Section>
+    </PageShell>
   );
 }
