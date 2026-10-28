@@ -34,16 +34,21 @@ interface LightboxSlide {
  *   const [index, setIndex] = useState(-1);
  *   <Lightbox slides={slides} index={index} onClose={() => setIndex(-1)} />
  *
- * Opens when `index` is 0 or more.
+ * Opens when `index` is 0 or more. A single slide drops the thumbnail strip
+ * and the arrows. `drawing` is for line art on a transparent background (the
+ * architecture sketches): shown inverted, light on the dark room, as the
+ * page shows it in dark mode.
  */
 function Lightbox({
   slides,
   index,
   onClose,
+  drawing = false,
 }: {
   slides: LightboxSlide[];
   index: number;
   onClose: () => void;
+  drawing?: boolean;
 }) {
   // the slide in view, for the header; follows swipes and thumbnail clicks
   const [current, setCurrent] = useState(index);
@@ -53,6 +58,7 @@ function Lightbox({
     setCurrent(index);
   }
   const slide = slides[current];
+  const single = slides.length === 1;
 
   return (
     <YetAnotherLightbox
@@ -60,9 +66,10 @@ function Lightbox({
       index={index}
       close={onClose}
       slides={slides}
-      plugins={[Thumbnails, Zoom]}
-      // eslint-disable-next-line shadcn/no-unknown-classes -- the hook lightbox.css themes the library through
-      className="lightbox"
+      plugins={single ? [Zoom] : [Thumbnails, Zoom]}
+      // the hooks lightbox.css themes the library through
+      // eslint-disable-next-line shadcn/no-unknown-classes
+      className={drawing ? "lightbox lightbox-drawing" : "lightbox"}
       on={{ view: ({ index: viewed }) => setCurrent(viewed) }}
       // finite: a short set reads better with a start and an end than looping,
       // and the thumbnail strip then shows each image exactly once
@@ -87,6 +94,7 @@ function Lightbox({
         iconClose: () => <XIcon />,
         iconZoomIn: () => <MagnifyingGlassPlusIcon />,
         iconZoomOut: () => <MagnifyingGlassMinusIcon />,
+        ...(single && { buttonPrev: () => null, buttonNext: () => null }),
         controls: () =>
           slide && (
             <div

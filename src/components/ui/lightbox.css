@@ -36,6 +36,13 @@
     0 0 0 1px rgb(255 255 255 / 0.08),
     0 24px 80px rgb(0 0 0 / 0.5);
 }
+/* line drawings (Lightbox drawing): transparent ink, inverted to read on
+   the dark room with hues kept (the page's own dark mode for them), and
+   unframed, since a drawing has no edge */
+.lightbox-drawing .yarl__slide_image {
+  filter: invert(0.93) hue-rotate(180deg);
+  box-shadow: none;
+}
 /* toolbar and arrows: round outline buttons, like the site's icon buttons */
 .lightbox .yarl__button {
   display: grid;
