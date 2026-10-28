@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
+import { LivePreview } from "@/components/live-preview";
 import { Reveal } from "@/components/motion/reveal";
-import { ImageSlot } from "@/components/ui/image-slot";
 import { TechLink } from "@/components/tech-link";
 import { requireEnglish } from "@/i18n";
 
@@ -9,10 +9,19 @@ import {
   ArchDiagram,
   FeatureGrid,
   Gallery,
+  GalleryCover,
   NextProjectLink,
+  OpenGalleryButton,
   ProjectHero,
   SectionLabel,
 } from "../_components";
+
+/** The cover is also the first gallery slide, so all five screenshots open together. */
+const COVER = {
+  placeholder: "Homepage",
+  src: "/projects/kosmetik-profi/hero.webp",
+  alt: "Kosmetik Profi homepage: the practice name, a short introduction and a booking button beside photos of the studio",
+};
 
 export const metadata: Metadata = {
   title: "Kosmetik Profi",
@@ -50,16 +59,17 @@ export default async function KosmetikProfiPage({
               external: true,
             },
           ]}
+          extraActions={
+            <>
+              <LivePreview url="https://kosmetikprof.de/?lang=de" />
+              <OpenGalleryButton count={5} />
+            </>
+          }
         />
 
         <section className="card">
           <div className="p-cover">
-            <ImageSlot
-              shape="rect"
-              src="/projects/kosmetik-profi/hero.webp"
-              alt="Kosmetik Profi homepage: the practice name, a short introduction and a booking button beside photos of the studio"
-              style={{ display: "block", width: "100%", height: "auto", aspectRatio: "16/9" }}
-            />
+            <GalleryCover cover={COVER} />
           </div>
         </section>
 
@@ -227,6 +237,7 @@ export default async function KosmetikProfiPage({
         <section className="card">
           <SectionLabel>Gallery</SectionLabel>
           <Gallery
+            cover={COVER}
             items={[
               {
                 placeholder: "Services",

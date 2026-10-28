@@ -161,6 +161,22 @@ const [index, setIndex] = useState(-1);
 <Lightbox slides={[{ src, alt, title }]} index={index} onClose={() => setIndex(-1)} />
 ```
 
+On a project page, pass the cover to `Gallery` too (`cover={COVER}`) and
+render it with `GalleryCover`: the cover becomes slide 1, and
+`OpenGalleryButton` (in the hero's `extraActions`) opens the same set. The
+open index lives in a small shared store in `gallery.tsx`, because the
+cover, the hero button and the gallery render in different parts of the
+page.
+
+### Live preview
+
+`<LivePreview url="https://…" />` is a "Try it live" button that opens the
+real site in a `ui/dialog`, framed as Desktop (1440×900) or Phone (390×844)
+and scaled to fit (`ui/toggle-group` switches them). The iframe only exists
+while the dialog is open, so the page loads nothing from the site until a
+visitor asks. Check the site sends no `X-Frame-Options` or CSP
+`frame-ancestors` header first, or the frame stays blank.
+
 ## Troubleshooting
 
 **A CSS change doesn't show up in `pnpm dev`.** Turbopack can keep serving

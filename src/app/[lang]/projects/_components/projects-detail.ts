@@ -41,6 +41,8 @@ export interface ProjectHeroData {
   /** Technologies shown as logo chips, each linking to its site. */
   stack?: TechId[];
   actions?: HeroAction[];
+  /** Interactive buttons after the link actions (live preview, screenshots). */
+  extraActions?: ReactNode;
 }
 
 export interface FeatureCard {

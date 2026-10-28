@@ -86,6 +86,7 @@ export function ProjectHero({
   difficulty,
   stack,
   actions,
+  extraActions,
 }: ProjectHeroData) {
   // Rows stay even: up to four tiles share one row, more split into two.
   const tiles = meta.length + (difficulty ? 1 : 0) + 1;
@@ -134,9 +135,9 @@ export function ProjectHero({
           </HeroFact>
         )}
       </Facts>
-      {actions && actions.length > 0 && (
+      {((actions && actions.length > 0) || extraActions) && (
         <div className="p-actions">
-          {actions.map((action) =>
+          {actions?.map((action) =>
             action.href.startsWith("#") ? (
               <ButtonLink key={action.label} variant={action.variant} href={action.href}>
                 {action.label}
@@ -153,6 +154,7 @@ export function ProjectHero({
               </ButtonLink>
             ),
           )}
+          {extraActions}
         </div>
       )}
     </header>

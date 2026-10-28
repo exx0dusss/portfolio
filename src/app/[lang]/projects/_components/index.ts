@@ -1,7 +1,7 @@
 export { ArchDiagram } from "./arch-diagram";
 export { Backlink } from "./backlink";
 export { FeatureGrid } from "./feature-grid";
-export { Gallery } from "./gallery";
+export { Gallery, GalleryCover, OpenGalleryButton } from "./gallery";
 export { LockedNote } from "./locked-note";
 export { NextProjectLink } from "./next-project-link";
 export { ProjectHero } from "./project-hero";

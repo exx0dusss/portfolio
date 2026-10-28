@@ -1876,6 +1876,229 @@ a {
   }
 }
 
+/* ---------- dialog (ui/dialog) ---------- */
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: rgb(var(--shadow-rgb) / 0.45);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  transition: opacity 0.2s var(--ease-out);
+}
+.dialog-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 71;
+  width: min(480px, calc(100vw - 32px));
+  padding: 20px;
+  border: 1px solid var(--line-strong);
+  border-radius: 16px;
+  background: var(--card);
+  color: var(--fg);
+  box-shadow: 0 30px 80px rgb(var(--shadow-rgb) / 0.3);
+  transform: translate(-50%, -50%);
+  transition:
+    opacity 0.2s var(--ease-out),
+    transform 0.2s var(--ease-out);
+}
+.dialog-overlay[data-starting-style],
+.dialog-overlay[data-ending-style] {
+  opacity: 0;
+}
+.dialog-content[data-starting-style],
+.dialog-content[data-ending-style] {
+  opacity: 0;
+  transform: translate(-50%, -48%) scale(0.98);
+}
+.dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: none;
+  color: var(--fg-dim);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+.dialog-close:hover {
+  color: var(--fg);
+  background: var(--card-2);
+}
+.dialog-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.dialog-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+.dialog-description {
+  margin: 0;
+  font-size: 14px;
+  color: var(--fg-dim);
+}
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* ---------- segmented control (ui/toggle-group) ---------- */
+.toggle-group {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card-2);
+}
+.toggle-group-item {
+  padding: 6px 13px;
+  border: none;
+  border-radius: 999px;
+  background: none;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg-dim);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+.toggle-group-item:hover {
+  color: var(--fg);
+}
+.toggle-group-item[data-pressed] {
+  background: var(--card);
+  color: var(--fg);
+  box-shadow:
+    inset 0 0 0 1px var(--line),
+    0 1px 2px rgb(var(--shadow-rgb) / 0.12);
+}
+.toggle-group-item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- live preview (components/live-preview) ----------
+   The real site in a desktop or phone frame. The iframe renders at a fixed
+   viewport and is scaled to fit the stage (--frame-scale). */
+.live-preview {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 14px;
+  width: min(1440px, calc(100vw - 48px));
+  height: calc(100dvh - 48px);
+  padding: 16px;
+}
+.live-preview-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  padding-right: 44px; /* room for the close button */
+}
+.live-preview-address {
+  display: flex;
+  flex: 1 1 200px;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card-2);
+  color: var(--fg-faint);
+}
+.live-preview-address svg {
+  flex: none;
+  width: 15px;
+  height: 15px;
+}
+.live-preview-host {
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--fg);
+}
+.live-preview-open.btn {
+  padding: 8px 14px;
+  font-size: 13px;
+}
+.live-preview-stage {
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  padding: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card-2);
+}
+.live-preview-frame {
+  position: relative;
+  width: var(--frame-w);
+  height: var(--frame-h);
+  overflow: hidden;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px var(--line-strong),
+    0 20px 50px rgb(var(--shadow-rgb) / 0.18);
+}
+.live-preview-frame[data-device="phone"] {
+  border-radius: 28px;
+  box-shadow:
+    0 0 0 6px var(--fg-soft),
+    0 20px 50px rgb(var(--shadow-rgb) / 0.25);
+}
+.live-preview-frame iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0;
+  background: #fff;
+  transform: scale(var(--frame-scale));
+  transform-origin: 0 0;
+}
+.live-preview-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  font-size: 13px;
+  color: #737373;
+}
+.live-preview-note {
+  font-size: 12px;
+  color: var(--fg-faint);
+}
+@media (max-width: 760px) {
+  .live-preview {
+    width: 100vw;
+    height: 100dvh;
+    padding: 12px;
+    border: none;
+    border-radius: 0;
+  }
+  .live-preview-stage {
+    padding: 10px;
+  }
+}
+
 /* ---------- lightbox (ui/lightbox) ----------
    A quiet viewing room: dark in both themes so screenshots read as the
    subject, the page faintly visible through a blur, framed slides, round
