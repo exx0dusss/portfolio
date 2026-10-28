@@ -216,6 +216,9 @@
 
   --blur-overlay: 6px;
   --blur-nav: 12px;
+  /* a case study's banner (ProjectBanner): tall, softly blurred */
+  --blur-banner: 16px;
+  --height-banner: 560px;
 
   /* nav bar: brand, links centred between, controls; below 1040px the
      links move into the menu and the controls take the rest */
@@ -280,6 +283,8 @@
   --accent: #ff4f00;
   --accent-ink: #c2410c;
   --accent-soft: rgba(255, 79, 0, 0.1);
+  /* how strongly a case study's colour wash shows (ProjectBanner) */
+  --banner-opacity: 0.7;
   /* fonts are spelled out here, not aliased to the @theme values: Tailwind v4
      drops unused theme variables, which left var(--font-sans) undefined */
   --sans: var(--font-geist), system-ui, sans-serif;
@@ -322,6 +327,7 @@
     --accent: #ff5a1f;
     --accent-ink: #ff8a5c;
     --accent-soft: rgba(255, 90, 31, 0.18);
+    --banner-opacity: 0.4;
     --nav-bg: rgba(12, 12, 12, 0.85);
     --ink-hover: #ffffff;
     --fg-soft: #d4d4d4;
@@ -346,6 +352,7 @@
   --accent: #ff5a1f;
   --accent-ink: #ff8a5c;
   --accent-soft: rgba(255, 90, 31, 0.18);
+  --banner-opacity: 0.4;
   --nav-bg: rgba(12, 12, 12, 0.85);
   --ink-hover: #ffffff;
   --fg-soft: #d4d4d4;

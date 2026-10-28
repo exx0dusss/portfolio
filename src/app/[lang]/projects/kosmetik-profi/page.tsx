@@ -12,6 +12,7 @@ import {
   GalleryCover,
   NextProjectLink,
   OpenGalleryButton,
+  ProjectBanner,
   ProjectCover,
   ProjectHero,
   projectMetadata,
@@ -38,6 +39,7 @@ export default async function KosmetikProfiPage({ params }: { params: Promise<{ 
   await requireEnglish(params);
   return (
     <>
+      <ProjectBanner src="/projects/kosmetik-profi/banner.webp" />
       <PageShell>
         <ProjectStructuredData {...SEO} />
         <ProjectHero
