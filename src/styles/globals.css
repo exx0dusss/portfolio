@@ -1,41 +1,51 @@
 @import "tailwindcss";
 
-/* ─── Design tokens (Tailwind v4 @theme) ──────────────────────────────────
-   Every color the site uses is declared here once. Text greys are chosen to
-   pass WCAG AA on white; the bright accent is for large type, dots and icons,
-   and --accent-ink is its AA-safe shade for small text. */
-@theme {
-  --color-background: #ffffff;
-  --color-foreground: #0a0a0a;
-  --color-card: #ffffff;
-  --color-card-2: #f6f6f5;
-  --color-muted-foreground: #525252;
-  --color-faint: #737373;
-  --color-line: #e8e8e8;
-  --color-line-soft: #f0f0f0;
-  --color-line-strong: #d4d4d4;
-  --color-accent: #ff4f00;
-  --color-accent-ink: #c2410c;
+/* ─── Design tokens ─────────────────────────────────────────────────────────
+   Colors live in :root (light) and are overridden for dark below. Text greys
+   are chosen to pass WCAG AA on white; the bright accent is for large type,
+   dots and icons, and --accent-ink is its AA-safe shade for small text.
 
-  --font-sans: var(--font-geist), system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+   @theme inline exposes them to Tailwind: `bg-card`, `text-fg-dim`,
+   `border-line-strong` compile to var(--card) etc., so utilities follow the
+   theme. The design's own sizes (13px text, 10px radius) are tokens too, so
+   components use classes like `text-13` instead of arbitrary values. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-card-2: var(--card-2);
+  --color-fg: var(--fg);
+  --color-fg-soft: var(--fg-soft);
+  --color-fg-dim: var(--fg-dim);
+  --color-fg-faint: var(--fg-faint);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-ink-hover: var(--ink-hover);
+
+  --font-sans: var(--sans);
+  --font-mono: var(--mono);
+
+  /* the site's ease-out (hover, press), as the `ease-pop` utility */
+  --ease-pop: var(--ease-out);
 
   --radius-card: 12px;
 }
 
-/* Short aliases used throughout the component CSS below. */
 :root {
-  --bg: var(--color-background);
-  --card: var(--color-card);
-  --card-2: var(--color-card-2);
-  --fg: var(--color-foreground);
-  --fg-dim: var(--color-muted-foreground);
-  --fg-faint: var(--color-faint);
-  --line: var(--color-line);
-  --line-soft: var(--color-line-soft);
-  --line-strong: var(--color-line-strong);
-  --accent: var(--color-accent);
-  --accent-ink: var(--color-accent-ink);
+  --bg: #ffffff;
+  --card: #ffffff;
+  --card-2: #f6f6f5;
+  --fg: #0a0a0a;
+  --fg-dim: #525252;
+  --fg-faint: #737373;
+  --line: #e8e8e8;
+  --line-soft: #f0f0f0;
+  --line-strong: #d4d4d4;
+  --accent: #ff4f00;
+  --accent-ink: #c2410c;
   --accent-soft: rgba(255, 79, 0, 0.1);
   /* fonts are spelled out here, not aliased to the @theme values: Tailwind v4
      drops unused theme variables, which left var(--font-sans) undefined */
