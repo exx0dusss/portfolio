@@ -120,6 +120,7 @@ export function SiteNav({ lang, dict, name }: SiteNavProps) {
     { label: dict.experience, path: "/experience", Icon: PathIcon },
     { label: dict.reading, path: "/reading", Icon: BookOpenIcon },
     { label: dict.resume, path: "/resume", Icon: FileTextIcon },
+    { label: dict.certificates, path: "/certificates", Icon: CertificateIcon },
   ];
   const href = (link: { path: string }) => localePath(lang, link.path);
   const close = () => setOpen(false);
@@ -152,7 +153,7 @@ export function SiteNav({ lang, dict, name }: SiteNavProps) {
         >
           {/* 32px, tilting on hover */}
           <FaceIcon motion="tilt" className="size-8" />
-          {/* the role line goes first (<1180px), so the five links keep their
+          {/* the role line goes first (<1180px), so the six links keep their
               air on small laptops; small phones show the name only, then
               (<400px) just the face */}
           <span className="flex flex-col max-tiny:hidden">
@@ -216,10 +217,7 @@ export function SiteNav({ lang, dict, name }: SiteNavProps) {
         inert={!open}
       >
         <ul>
-          {[
-            ...links,
-            { label: dict.certificates, path: "/certificates", Icon: CertificateIcon },
-          ].map(({ Icon, ...link }) => {
+          {links.map(({ Icon, ...link }) => {
             const active = path.startsWith(link.path);
             return (
               <li key={link.path} className="border-b border-line">
