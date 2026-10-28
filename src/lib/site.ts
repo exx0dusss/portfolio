@@ -1,6 +1,8 @@
 /** Site-wide identity shared by metadata, the sitemap, the OG image, and JSON-LD. */
 export const SITE = {
   url: "https://tymurmustafaiev.com",
+  /** JSON-LD @id of the Person, so other structured data can point at it. */
+  personId: "https://tymurmustafaiev.com/#person",
   name: "Tymur Mustafaiev",
   role: "Front-End Engineer & UX/UI Designer",
   description:

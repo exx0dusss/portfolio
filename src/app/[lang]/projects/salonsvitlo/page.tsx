@@ -10,15 +10,19 @@ import {
   Gallery,
   NextProjectLink,
   ProjectHero,
+  projectMetadata,
+  ProjectStructuredData,
   SectionLabel,
 } from "../_components";
 
-export const metadata: Metadata = {
+const SEO = {
+  slug: "salonsvitlo",
   title: "SalonSvitlo",
   description:
     "A full-stack e-commerce product for a lighting business with 20+ years in the trade — storefront, landing, a CRM to run it, and a Telegram bot with a web-app.",
-  alternates: { canonical: "/projects/salonsvitlo" },
 };
+
+export const metadata: Metadata = projectMetadata(SEO);
 
 export default async function SalonSvitloPage({
   params,
@@ -29,6 +33,7 @@ export default async function SalonSvitloPage({
   return (
     <>
       <main className="shell">
+        <ProjectStructuredData {...SEO} />
         <ProjectHero
           name="SalonSvitlo"
           tagline="A full-stack e-commerce product for a lighting business with 20+ years in the trade — storefront, landing, a CRM to run it, and a Telegram bot with a web-app."

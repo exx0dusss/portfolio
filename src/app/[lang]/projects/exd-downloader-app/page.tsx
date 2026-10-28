@@ -9,17 +9,21 @@ import {
   FeatureGrid,
   NextProjectLink,
   ProjectHero,
+  projectMetadata,
+  ProjectStructuredData,
   SectionLabel,
 } from "../_components";
 
 const ACCENT = { color: "var(--accent)" } as const;
 
-export const metadata: Metadata = {
+const SEO = {
+  slug: "exd-downloader-app",
   title: "ExdDownloaderApp",
   description:
     "A Telegram bot that downloads TikTok videos — and the project where the ExdBots system design was born.",
-  alternates: { canonical: "/projects/exd-downloader-app" },
 };
+
+export const metadata: Metadata = projectMetadata(SEO);
 
 export default async function ExdDownloaderAppPage({
   params,
@@ -30,6 +34,7 @@ export default async function ExdDownloaderAppPage({
   return (
     <>
       <main className="shell">
+        <ProjectStructuredData {...SEO} />
         <ProjectHero
           name="ExdDownloaderApp"
           tagline="A Telegram bot that downloads TikTok videos — and the project where the ExdBots system design was born."

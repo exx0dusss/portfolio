@@ -11,17 +11,21 @@ import {
   Gallery,
   NextProjectLink,
   ProjectHero,
+  projectMetadata,
+  ProjectStructuredData,
   SectionLabel,
 } from "../_components";
 
 const ACCENT = { color: "var(--accent)" } as const;
 
-export const metadata: Metadata = {
+const SEO = {
+  slug: "exdbots",
   title: "ExdBots",
   description:
-    "A platform for building and running Telegram applications — design bots in a no-code web editor, connect existing ones, and manage ads, analytics, and monitoring from a single console.",
-  alternates: { canonical: "/projects/exdbots" },
+    "A platform for building and running Telegram apps: design bots in a no-code editor, connect existing ones, and run ads, analytics and monitoring from one console.",
 };
+
+export const metadata: Metadata = projectMetadata(SEO);
 
 export default async function ExdbotsPage({
   params,
@@ -32,6 +36,7 @@ export default async function ExdbotsPage({
   return (
     <>
       <main className="shell">
+        <ProjectStructuredData {...SEO} />
         <ProjectHero
           name="ExdBots"
           tagline="A platform for building and running Telegram applications — design bots in a no-code web editor, connect existing ones, and manage ads, analytics, and monitoring from a single console."

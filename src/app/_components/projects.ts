@@ -17,6 +17,9 @@ export interface Project {
   favicon?: string;
   /** How many screenshots the case study shows; omitted until it has real ones. */
   photos?: number;
+  /** PNG/JPEG screenshot (under /public) for the social preview card; the
+   *  card generator can't read WebP. Without one the card is text only. */
+  cardImage?: string;
 }
 
 /** Work section content, most significant first. */
@@ -52,6 +55,7 @@ export const PROJECTS: Project[] = [
     href: "/projects/kosmetik-profi",
     favicon: "/projects/kosmetik-profi/favicon.png",
     photos: 5,
+    cardImage: "/projects/kosmetik-profi/card-cover.jpg",
   },
   {
     slug: "giga-psych",

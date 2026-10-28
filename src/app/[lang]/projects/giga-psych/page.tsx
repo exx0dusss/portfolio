@@ -8,15 +8,19 @@ import {
   LockedNote,
   NextProjectLink,
   ProjectHero,
+  projectMetadata,
+  ProjectStructuredData,
   SectionLabel,
 } from "../_components";
 
-export const metadata: Metadata = {
+const SEO = {
+  slug: "giga-psych",
   title: "Giga Psych",
   description:
     "A web platform for exploring psychological research datasets, built with the PJATK XR Lab and researchers at the University of Amsterdam.",
-  alternates: { canonical: "/projects/giga-psych" },
 };
+
+export const metadata: Metadata = projectMetadata(SEO);
 
 export default async function GigaPsychPage({
   params,
@@ -27,6 +31,7 @@ export default async function GigaPsychPage({
   return (
     <>
       <main className="shell">
+        <ProjectStructuredData {...SEO} />
         <ProjectHero
           name="Giga Psych"
           tagline="A web platform for exploring psychological research datasets, built with the PJATK XR Lab and researchers at the University of Amsterdam."

@@ -13,6 +13,8 @@ import {
   NextProjectLink,
   OpenGalleryButton,
   ProjectHero,
+  projectMetadata,
+  ProjectStructuredData,
   SectionLabel,
 } from "../_components";
 
@@ -23,12 +25,14 @@ const COVER = {
   alt: "Kosmetik Profi homepage: the practice name, a short introduction and a booking button beside photos of the studio",
 };
 
-export const metadata: Metadata = {
+const SEO = {
+  slug: "kosmetik-profi",
   title: "Kosmetik Profi",
   description:
-    "Website and admin panel for a cosmetology practice in Münster — a bilingual price list of 53 services, booking for two locations, and an admin the practice runs on its own.",
-  alternates: { canonical: "/projects/kosmetik-profi" },
+    "Website and admin panel for a cosmetology practice in Münster: a bilingual price list of 53 services, booking for two locations, and an admin it runs itself.",
 };
+
+export const metadata: Metadata = projectMetadata(SEO);
 
 export default async function KosmetikProfiPage({
   params,
@@ -39,6 +43,7 @@ export default async function KosmetikProfiPage({
   return (
     <>
       <main className="shell">
+        <ProjectStructuredData {...SEO} />
         <ProjectHero
           name="Kosmetik Profi"
           tagline="Website and admin panel for a cosmetology practice in Münster — a bilingual price list, booking for two locations, and an admin the practice runs on its own."

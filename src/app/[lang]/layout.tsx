@@ -49,6 +49,8 @@ export async function generateMetadata({
 const PERSON_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "Person",
+  // referenced as the author of each case study (lib/project-seo)
+  "@id": SITE.personId,
   name: SITE.name,
   alternateName: ["Тимур Мустафаєв", "Тимур Мустафаев"],
   url: SITE.url,
