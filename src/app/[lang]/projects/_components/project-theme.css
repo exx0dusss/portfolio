@@ -1,0 +1,22 @@
+/* A case study's own accent (projectTheme): re-points the site's accent
+   tokens inside the page, so every accent utility follows. The light or
+   dark set is chosen the way the site's dark: variant does: the visitor's
+   pick in the nav (data-theme), otherwise the OS. The soft tint matches the
+   site's own (10% light, 18% dark). */
+[data-project-theme] {
+  --accent: var(--project-accent);
+  --accent-ink: var(--project-accent-ink);
+  --accent-soft: color-mix(in srgb, var(--project-accent) 10%, transparent);
+}
+:root[data-theme="dark"] [data-project-theme] {
+  --accent: var(--project-accent-dark);
+  --accent-ink: var(--project-accent-ink-dark);
+  --accent-soft: color-mix(in srgb, var(--project-accent-dark) 18%, transparent);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-project-theme] {
+    --accent: var(--project-accent-dark);
+    --accent-ink: var(--project-accent-ink-dark);
+    --accent-soft: color-mix(in srgb, var(--project-accent-dark) 18%, transparent);
+  }
+}

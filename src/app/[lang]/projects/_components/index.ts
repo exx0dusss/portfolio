@@ -8,6 +8,7 @@ export { ProjectBanner } from "./project-banner";
 export { ProjectCover } from "./project-cover";
 export { ProjectHero } from "./project-hero";
 export { ProjectStructuredData, projectMetadata } from "./project-seo";
+export { projectTheme } from "./project-theme";
 export type {
   ArchData,
   FeatureCard,

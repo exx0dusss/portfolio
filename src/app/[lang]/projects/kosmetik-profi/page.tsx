@@ -17,6 +17,7 @@ import {
   ProjectHero,
   projectMetadata,
   ProjectStructuredData,
+  projectTheme,
 } from "../_components";
 
 /** The cover is also the first gallery slide, so all five screenshots open together. */
@@ -48,7 +49,13 @@ export default async function KosmetikProfiPage({ params }: { params: Promise<{ 
         }}
         pattern={{ offsetX: 0.15, offsetY: -0.1, rotation: 25 }}
       />
-      <PageShell>
+      {/* accents in the same honey gold: AA-checked shades for shapes and text */}
+      <PageShell
+        {...projectTheme({
+          light: { accent: "#bf7f24", ink: "#8f5a12" },
+          dark: { accent: "#e8a548", ink: "#f2be6e" },
+        })}
+      >
         <ProjectStructuredData {...SEO} />
         <ProjectHero
           name="Kosmetik Profi"
