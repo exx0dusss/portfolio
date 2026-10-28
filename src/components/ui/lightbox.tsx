@@ -61,6 +61,7 @@ function Lightbox({
       close={onClose}
       slides={slides}
       plugins={[Thumbnails, Zoom]}
+      // eslint-disable-next-line shadcn/no-unknown-classes -- the hook lightbox.css themes the library through
       className="lightbox"
       on={{ view: ({ index: viewed }) => setCurrent(viewed) }}
       // finite: a short set reads better with a start and an end than looping,

@@ -22,8 +22,18 @@ const eslintConfig = defineConfig([
     },
   },
   {
-    // components style themselves and call their own variant functions
+    // ui/ is pure Tailwind: a class that generates no CSS is a typo or a
+    // missing token
+    files: ["src/components/ui/**/*.{ts,tsx}"],
+    rules: {
+      "shadcn/no-unknown-classes": "error",
+    },
+  },
+  {
+    // site components outside ui/ still style themselves with globals.css
+    // classes; ui/ components use Tailwind and follow every rule
     files: ["src/components/**/*.{ts,tsx}"],
+    ignores: ["src/components/ui/**"],
     rules: {
       "shadcn/no-restyle": "off",
       "shadcn/require-static-classes": "off",

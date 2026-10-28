@@ -1,8 +1,8 @@
 # UI patterns
 
 How components are built in this portfolio. The site follows the
-`architectures/nextjs` guideline's UI layer: **shadcn on Base UI**, with the
-approved design's own CSS kept as the source of truth for how things look.
+`architectures/nextjs` guideline's UI layer: **shadcn on Base UI**, styled
+with Tailwind on the design's own tokens.
 
 ## The stack
 
@@ -10,8 +10,8 @@ approved design's own CSS kept as the source of truth for how things look.
 | --- | --- |
 | Primitives | [Base UI](https://base-ui.com) (`@base-ui/react`): behaviour and accessibility only |
 | Component shape | [shadcn](https://ui.shadcn.com) conventions, `base-nova` style, configured in `components.json` |
-| Styling | Hand-written classes in `src/styles/globals.css`, driven by the tokens at its top |
-| Variants | `class-variance-authority` (CVA) selecting those classes |
+| Styling | Tailwind v4 utilities in each `ui/` component, on the tokens at the top of `src/styles/globals.css` |
+| Variants | `class-variance-authority` (CVA) |
 | Class merging | `cn()` from `src/lib/utils/cn.ts` |
 | Icons | Phosphor (`components/ui/icons.ts`); brand logos from Simple Icons |
 
@@ -31,7 +31,8 @@ npx shadcn@4.21.5 docs hover-card     # usage and API notes
 ```
 
 `shadcn add` works too (`components.json` points it at the right folders),
-but swap its Tailwind classes for classes in `globals.css` before shipping.
+but map its classes onto the site's tokens before shipping (`bg-card`, not
+`bg-popover`; `text-13`, not `text-sm`).
 
 ## Where components live
 
@@ -58,35 +59,74 @@ Every `ui/` component follows the shadcn composition rules:
 3. **Spread the rest of the props** onto the element, and type them with
    `React.ComponentProps<"div">` or the primitive's `Props`
    (`ButtonPrimitive.Props`, `PreviewCardPrimitive.Popup.Props`).
-4. **Merge `className` last**: `cn("fact-header", className)`, so callers can
-   add layout classes.
+4. **Merge `className` last**: `cn("flex items-center gap-2", className)`, so
+   callers can add layout classes.
 5. **Variants through CVA**, exported next to the component
    (`buttonVariants`, `brandIconVariants`, `techLinkVariants`).
 6. **A doc comment with a usage example** at the top of each component.
 
 ```tsx
 function FactHeader({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="fact-header" className={cn("fact-header", className)} {...props} />;
+  return (
+    <div
+      data-slot="fact-header"
+      className={cn("mb-1.5 flex items-center gap-2 max-phone:mb-1.25", className)}
+      {...props}
+    />
+  );
 }
 ```
 
 ### Styling
 
-- Each part's class matches its slot: `data-slot="link-preview-title"` →
-  `.link-preview-title` in `globals.css`. Group a component's rules under a
-  `/* ---------- name (ui/file) ---------- */` header.
-- Colours, radii and shadows come from the tokens (`var(--fg)`,
-  `var(--line)`, `var(--radius-card)`, `rgb(var(--shadow-rgb) / 0.18)`), so
-  light and dark mode work without extra rules.
-- Callers may add **layout** utilities only (`mt-6`, `w-full`); appearance
-  belongs inside the component. That's what `@shadcn/lint`'s `no-restyle`
-  enforces (see [Lint](#lint)).
-- A dynamic value goes in through a CSS custom property, not an inline
-  style: `Facts` sets `--fact-cols` and the CSS reads it.
-- Phone rules (`@media (max-width: 760px)`) go **after** the component's base
-  rules. With equal specificity the later rule wins, so a media block placed
-  above the base rules is silently ignored. Phones get tighter spacing, not
-  a different layout.
+- **Tokens.** Colors, sizes and shadows are declared once at the top of
+  `globals.css`: raw values in `:root` (light) and the dark overrides, then
+  `@theme inline` exposes them as utilities that follow the theme:
+  `bg-card`, `text-fg-dim`, `border-line-strong`, `shadow-popover`. Use
+  these, never hex values.
+- **The design's own sizes are tokens**, so nothing needs an arbitrary
+  value: font sizes are named by pixels (`text-13`, `text-12.5`; size only,
+  line height comes from context), plus `rounded-7`, `leading-label`,
+  `max-w-measure`, `w-popover`. Spacing uses Tailwind's 4px scale in
+  quarter steps: `p-3.25` is 13px. Add a token when a new value is needed.
+- **`cn()` knows the px-named sizes** (`lib/utils/cn.ts`). Without that,
+  tailwind-merge reads `text-14` as a color and drops `text-bg` beside it.
+- **Phones:** `max-phone:` is the site's breakpoint (up to 760px). Write the
+  base classes first, then the `max-phone:` ones.
+- **Callers may add layout classes only** (`mt-6`, `w-full`); appearance
+  belongs inside the component. `@shadcn/lint`'s `no-restyle` enforces it.
+- **A part styled by where it sits** is targeted from the parent's CSS by
+  its slot, not a class: `.brand [data-slot="face-icon"]` (the nav's tilt),
+  `[data-slot="fact"] [data-slot="meter"]` (the hero's stacked meter).
+- **What Tailwind can't express** gets a named `@utility` in `globals.css`
+  (`transition-press`, `border-1.5`), not a long arbitrary value.
+- **A third-party widget** is themed in a CSS file next to its wrapper,
+  through the library's own variables and classes (`ui/lightbox.css`).
+  The markup the site renders inside it still uses Tailwind.
+- Tailwind's `translate-*` and `scale-*` set the `translate` and `scale`
+  properties, not `transform`: transition those.
+- Element defaults (`a`, `body`) sit in `@layer base`. Unlayered CSS beats
+  every utility, so a plain `a { color: inherit }` would recolor a
+  `ButtonLink`.
+- Inside CSS comments, never write `*/` (as in `translate-*/scale-*`): it
+  ends the comment and silently drops the rule after it.
+
+### Checking a styling change
+
+`pnpm visual` screenshots every page at 375, 768 and 1280px in both themes,
+plus the hover card, lightbox and live-preview dialog, and compares two sets
+pixel by pixel:
+
+```bash
+pnpm build && pnpm start -p 3100      # in another terminal
+pnpm visual capture baseline          # before the change
+pnpm visual capture current           # after it
+pnpm visual compare baseline current  # lists what differs, diff images in .visual/diff/
+```
+
+Two captures of the same build come out identical, so any difference is
+real. Hover and press states aren't in the shots; check those in the
+browser.
 
 ## Base UI rules of thumb
 
@@ -107,8 +147,9 @@ function FactHeader({ className, ...props }: React.ComponentProps<"div">) {
   server component, pass data, never functions: `Meter` takes
   `aria-valuetext="Very easy, 1 of 5"`, not `getAriaValueText={() => …}`.
 - **Animate with Base UI's state attributes**, not mount keyframes:
-  `[data-starting-style]` and `[data-ending-style]` on the popup give enter
-  and exit transitions (see `.hover-card`).
+  `data-starting-style:` and `data-ending-style:` variants on the popup give
+  enter and exit transitions, and `origin-(--transform-origin)` grows it from
+  its trigger (see `HoverCardContent`).
 - Base UI's Meter adds a visually hidden `<span role="presentation">x</span>`
   for screen readers. It's expected; don't style or remove it.
 
@@ -151,8 +192,9 @@ double-tap), and Esc, swipe down or the backdrop to close.
 - The active thumbnail's ring is the only accent in the view.
 - The carousel is finite: a short set has a start and an end, and each
   image appears in the strip once.
-- Style it through the `--yarl__*` variables on `.lightbox`. Phones drop the
-  arrows (swipe instead) and the slide padding.
+- Style it through the `--yarl__*` variables on `.lightbox`, in
+  `ui/lightbox.css`. Phones drop the arrows (swipe instead) and the slide
+  padding.
 
 To reuse it elsewhere:
 
@@ -206,16 +248,27 @@ measured too wide, so nothing sits right after the title.
 
 ### Page transitions
 
-`experimental.viewTransition` is on in `next.config.ts`, so route changes
-crossfade. A project's name also morphs from its row in the work list into
-the case-study heading: both are wrapped in React's `<ViewTransition>` with
+`experimental.viewTransition` is on in `next.config.ts`. On a route change
+the page itself swaps at once, and only named elements move: a project's
+name morphs from its row in the work list into the case-study heading. Both
+are wrapped in React's `<ViewTransition>` with
 `name={projectTitleTransition(title)}` and `share="morph"` (styles under
-`::view-transition-group(.morph)`).
+`::view-transition-group(.morph)`). To make something else persist, give it
+a `<ViewTransition name>` on both pages; anything without a match swaps.
+The theme switch crossfades the whole page instead (`data-theme-switch`).
 
-React only morphs when **both** elements are in the viewport at the moment
-of the update. A row you had to scroll to falls back to the crossfade, since
-the new page's heading is still off-screen until Next scrolls to the top.
-That's expected, not a bug. Reduced motion turns all of it off.
+React only morphs elements that are in view when it commits the new page,
+so scroll position matters:
+
+- `layout/history-scroll.tsx` restores scroll positions itself (per path,
+  on back, forward and reload) inside React's commit, before it measures.
+- The case study's "← Work" link returns to the list the visitor came from
+  at the same spot (`restoreScrollOnNavigate` with `scroll={false}`), so the
+  title morphs back into its row, however far down.
+- The browser's own back button lands in the right place but doesn't
+  morph: React doesn't start a view transition on popstate.
+
+Reduced motion turns all of it off.
 
 ## Troubleshooting
 
@@ -239,11 +292,16 @@ Enabled in `eslint.config.mjs` for `src/`:
 | Rule | What it enforces here |
 | --- | --- |
 | `no-arbitrary-values` | No off-scale values like `mt-[13px]`; use the theme scale |
-| `no-restyle` (`allow: ["layout"]`) | Pages may add layout classes (`mt-6`, `w-full`) to a component, not restyle it. A component placed somewhere special is styled by its parent's CSS (`.brand .face-icon`) |
+| `no-restyle` (`allow: ["layout"]`) | Pages may add layout classes (`mt-6`, `w-full`) to a component, not restyle it. A component placed somewhere special is styled by its parent's CSS (`.brand [data-slot="face-icon"]`) |
 | `require-static-classes` | Class names must be readable static strings, not built like `` `bg-${tone}` `` |
 
-`no-restyle` and `require-static-classes` are off inside `src/components/`,
-where components style themselves and call their own variant functions.
+All three apply to `src/components/ui/` too, plus `no-unknown-classes`:
+`ui/` is pure Tailwind, so a class that generates no CSS is a typo or a
+missing token. (The one exception, the `lightbox` hook for
+`ui/lightbox.css`, carries a disable comment.) `no-restyle` and
+`require-static-classes` are still off in the rest of `src/components/`
+(layout, tech links, live preview), which use `globals.css` classes until
+they move to Tailwind as well.
 
 Not enabled, from a dry run in October 2026:
 
@@ -251,6 +309,6 @@ Not enabled, from a dry run in October 2026:
 | --- | --- | --- |
 | `no-raw-colors` | 5 | All in `app/apple-icon.tsx`, which draws a PNG and needs literal colours |
 | `no-inline-styles` | 66 | Mostly OG and icon images (inline-only by design), plus `ImageSlot` sizing |
-| `no-unknown-classes` | 99 | Reports the site's own classes from `globals.css`; not usable as is |
+| `no-unknown-classes` (outside `ui/`) | — | Reports the site's own classes from `globals.css` until those components move to Tailwind |
 
 Rules and options: <https://github.com/shadcn-ui/lint#rules>.
