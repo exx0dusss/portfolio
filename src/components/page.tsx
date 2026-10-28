@@ -125,8 +125,8 @@ function Section({ className, render, ...props }: useRender.ComponentProps<"sect
 }
 
 /** A section's name, in its left column (spanning every row of content),
- *  with a button in the gutter that copies a link to the section (its
- *  Section's id). */
+ *  followed by a button that copies a link to the section (its Section's
+ *  id); a SectionNote wraps onto its own line below both. */
 function SectionLabel({ className, delay, children }: RevealPartProps) {
   return (
     <Reveal
@@ -134,7 +134,7 @@ function SectionLabel({ className, delay, children }: RevealPartProps) {
       data-slot="section-label"
       delay={delay}
       className={cn(
-        "group/label relative col-span-3 col-start-1 row-span-40 row-start-1 self-start text-15 leading-compact font-semibold text-fg max-tablet:mb-5.5 [&_a]:underline [&_a]:decoration-line-strong [&_a]:underline-offset-3",
+        "group/label col-span-3 col-start-1 row-span-40 row-start-1 flex flex-wrap items-center gap-x-1.5 self-start text-15 leading-compact font-semibold text-fg max-tablet:mb-5.5 [&_a]:underline [&_a]:decoration-line-strong [&_a]:underline-offset-3 [&>[data-slot=section-note]]:order-2 [&>[data-slot=section-note]]:basis-full",
         className,
       )}
     >
