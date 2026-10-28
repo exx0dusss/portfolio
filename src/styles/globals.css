@@ -25,6 +25,7 @@
   --color-accent-soft: var(--accent-soft);
   --color-ink-hover: var(--ink-hover);
   --color-figure-ink: var(--figure-ink);
+  --color-overlay: rgb(var(--shadow-rgb) / 0.45);
 
   --font-sans: var(--sans);
   --font-mono: var(--mono);
@@ -44,6 +45,7 @@
   --text-13\.5: 13.5px;
   --text-14: 14px;
   --text-15: 15px;
+  --text-16: 16px;
   --text-20: 20px;
   --text-26: 26px;
 
@@ -62,7 +64,15 @@
   /* popovers: 320px, never wider than the screen minus a 16px gutter */
   --container-popover: min(320px, 100vw - 32px);
 
+  /* dialogs: 480px, never wider than the screen minus a 16px gutter */
+  --container-dialog: min(480px, 100vw - 32px);
+
   --shadow-popover: 0 18px 48px rgb(var(--shadow-rgb) / 0.18);
+  --shadow-dialog: 0 30px 80px rgb(var(--shadow-rgb) / 0.3);
+  /* a selected segment: hairline ring plus a soft lift */
+  --shadow-pressed: inset 0 0 0 1px var(--line), 0 1px 2px rgb(var(--shadow-rgb) / 0.12);
+
+  --blur-overlay: 6px;
 
   /* the site's phone breakpoint is max-width: 760px; Tailwind's max-*
      variants are "below", so max-phone: means up to 760px */
@@ -1931,119 +1941,6 @@ html[data-theme-switch]::view-transition-new(root) {
   color: var(--fg-faint);
 }
 
-
-/* ---------- dialog (ui/dialog) ---------- */
-.dialog-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 70;
-  background: rgb(var(--shadow-rgb) / 0.45);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  transition: opacity 0.2s var(--ease-out);
-}
-.dialog-content {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  z-index: 71;
-  width: min(480px, calc(100vw - 32px));
-  padding: 20px;
-  border: 1px solid var(--line-strong);
-  border-radius: 16px;
-  background: var(--card);
-  color: var(--fg);
-  box-shadow: 0 30px 80px rgb(var(--shadow-rgb) / 0.3);
-  transform: translate(-50%, -50%);
-  transition:
-    opacity 0.2s var(--ease-out),
-    transform 0.2s var(--ease-out);
-}
-.dialog-overlay[data-starting-style],
-.dialog-overlay[data-ending-style] {
-  opacity: 0;
-}
-.dialog-content[data-starting-style],
-.dialog-content[data-ending-style] {
-  opacity: 0;
-  transform: translate(-50%, -48%) scale(0.98);
-}
-.dialog-close {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  padding: 0;
-  border: none;
-  border-radius: 999px;
-  background: none;
-  color: var(--fg-dim);
-  cursor: pointer;
-  transition: color 0.15s, background 0.15s;
-}
-.dialog-close:hover {
-  color: var(--fg);
-  background: var(--card-2);
-}
-.dialog-header {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.dialog-title {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-}
-.dialog-description {
-  margin: 0;
-  font-size: 14px;
-  color: var(--fg-dim);
-}
-.dialog-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
-/* ---------- segmented control (ui/toggle-group) ---------- */
-.toggle-group {
-  display: inline-flex;
-  gap: 2px;
-  padding: 3px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--card-2);
-}
-.toggle-group-item {
-  padding: 6px 13px;
-  border: none;
-  border-radius: 999px;
-  background: none;
-  font: inherit;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--fg-dim);
-  cursor: pointer;
-  transition: color 0.15s, background 0.15s, box-shadow 0.15s;
-}
-.toggle-group-item:hover {
-  color: var(--fg);
-}
-.toggle-group-item[data-pressed] {
-  background: var(--card);
-  color: var(--fg);
-  box-shadow:
-    inset 0 0 0 1px var(--line),
-    0 1px 2px rgb(var(--shadow-rgb) / 0.12);
-}
-.toggle-group-item:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
 
 /* ---------- live preview (components/live-preview) ----------
    The real site in a desktop or phone frame. The iframe renders at a fixed

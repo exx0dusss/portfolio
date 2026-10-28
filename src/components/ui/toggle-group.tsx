@@ -18,7 +18,10 @@ function ToggleGroup({ className, ...props }: ToggleGroupPrimitive.Props) {
   return (
     <ToggleGroupPrimitive
       data-slot="toggle-group"
-      className={cn("toggle-group", className)}
+      className={cn(
+        "inline-flex gap-0.5 rounded-full border border-line bg-card-2 p-0.75",
+        className,
+      )}
       {...props}
     />
   );
@@ -28,7 +31,10 @@ function ToggleGroupItem({ className, ...props }: TogglePrimitive.Props) {
   return (
     <TogglePrimitive
       data-slot="toggle-group-item"
-      className={cn("toggle-group-item", className)}
+      className={cn(
+        "cursor-pointer rounded-full bg-transparent px-3.25 py-1.5 text-13 font-medium text-fg-dim transition duration-150 hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent data-pressed:bg-card data-pressed:text-fg data-pressed:shadow-pressed",
+        className,
+      )}
       {...props}
     />
   );

@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils/cn";
 
 /**
  * shadcn dialog (base-nova) on Base UI. Same parts as the registry
- * component; surfaces are painted by `.dialog-*` classes in globals.css.
+ * component, painted with the site's tokens.
  *
  *   <Dialog>
  *     <DialogTrigger render={<Button variant="ghost" />}>Open</DialogTrigger>
@@ -40,7 +40,10 @@ function DialogOverlay({ className, ...props }: DialogPrimitive.Backdrop.Props) 
   return (
     <DialogPrimitive.Backdrop
       data-slot="dialog-overlay"
-      className={cn("dialog-overlay", className)}
+      className={cn(
+        "fixed inset-0 z-70 bg-overlay backdrop-blur-overlay transition-opacity duration-200 ease-pop data-ending-style:opacity-0 data-starting-style:opacity-0",
+        className,
+      )}
       {...props}
     />
   );
@@ -57,12 +60,18 @@ function DialogContent({
       <DialogOverlay />
       <DialogPrimitive.Popup
         data-slot="dialog-content"
-        className={cn("dialog-content", className)}
+        className={cn(
+          "fixed top-1/2 left-1/2 z-71 w-dialog -translate-1/2 rounded-2xl border border-line-strong bg-card p-5 text-fg shadow-dialog transition duration-200 ease-pop data-ending-style:-translate-y-12/25 data-ending-style:scale-98 data-ending-style:opacity-0 data-starting-style:-translate-y-12/25 data-starting-style:scale-98 data-starting-style:opacity-0",
+          className,
+        )}
         {...props}
       >
         {children}
         {showCloseButton && (
-          <DialogPrimitive.Close data-slot="dialog-close" className="dialog-close">
+          <DialogPrimitive.Close
+            data-slot="dialog-close"
+            className="absolute top-3.5 right-3.5 grid size-8.5 cursor-pointer place-items-center rounded-full bg-transparent p-0 text-fg-dim transition-colors duration-150 hover:bg-card-2 hover:text-fg"
+          >
             <XIcon aria-hidden />
             <span className="sr-only">Close</span>
           </DialogPrimitive.Close>
@@ -73,18 +82,22 @@ function DialogContent({
 }
 
 function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="dialog-header" className={cn("dialog-header", className)} {...props} />;
+  return (
+    <div data-slot="dialog-header" className={cn("flex flex-col gap-1.5", className)} {...props} />
+  );
 }
 
 function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="dialog-footer" className={cn("dialog-footer", className)} {...props} />;
+  return (
+    <div data-slot="dialog-footer" className={cn("flex justify-end gap-2", className)} {...props} />
+  );
 }
 
 function DialogTitle({ className, ...props }: DialogPrimitive.Title.Props) {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn("dialog-title", className)}
+      className={cn("m-0 text-16 font-semibold", className)}
       {...props}
     />
   );
@@ -94,7 +107,7 @@ function DialogDescription({ className, ...props }: DialogPrimitive.Description.
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"
-      className={cn("dialog-description", className)}
+      className={cn("m-0 text-14 text-fg-dim", className)}
       {...props}
     />
   );
