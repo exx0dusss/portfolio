@@ -39,7 +39,8 @@ export default async function KosmetikProfiPage({ params }: { params: Promise<{ 
   await requireEnglish(params);
   return (
     <>
-      <ProjectBanner src={COVER.src} />
+      {/* the site's own palette: its booking button, gold icons and studio photos */}
+      <ProjectBanner colors={["#ffd790", "#c3a35a", "#b6816a", "#e3dec1"]} />
       <PageShell>
         <ProjectStructuredData {...SEO} />
         <ProjectHero

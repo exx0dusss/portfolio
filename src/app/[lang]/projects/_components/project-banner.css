@@ -1,19 +1,58 @@
-/* The banner blurs and dims as the page scrolls, tied to the scroll position
-   (a scroll-driven animation), so it can't be a utility. Sharp and still
-   where scroll timelines aren't supported or motion is reduced. */
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) {
-    [data-slot="project-banner-image"] {
-      animation: banner-blur linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 480px;
-    }
+/* ProjectBanner's colour fields: soft radial blobs, each in one palette
+   colour, drifting on their own slow loops so the mix never visibly repeats.
+   Keyframed transforms on several layers, so CSS rather than utilities. */
+/* at least 560px wide, so on a phone the fields overlap into one wash
+   instead of reading as separate spots */
+[data-slot="project-banner-field"] {
+  position: absolute;
+  width: max(62%, 560px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--field), transparent);
+  will-change: transform;
+}
+[data-slot="project-banner-field"]:nth-child(1) {
+  --field: var(--banner-1);
+  top: -30%;
+  left: -12%;
+  animation: banner-drift-a 22s ease-in-out infinite alternate;
+}
+[data-slot="project-banner-field"]:nth-child(2) {
+  --field: var(--banner-2);
+  top: -10%;
+  right: -16%;
+  animation: banner-drift-b 26s ease-in-out infinite alternate;
+}
+[data-slot="project-banner-field"]:nth-child(3) {
+  --field: var(--banner-3);
+  top: 10%;
+  left: 22%;
+  width: max(52%, 460px);
+  animation: banner-drift-c 30s ease-in-out infinite alternate;
+}
+[data-slot="project-banner-field"]:nth-child(4) {
+  --field: var(--banner-4);
+  top: -40%;
+  left: 40%;
+  animation: banner-drift-a 34s ease-in-out infinite alternate-reverse;
+}
+@keyframes banner-drift-a {
+  to {
+    transform: translate(18%, 12%) scale(1.15);
   }
 }
-@keyframes banner-blur {
+@keyframes banner-drift-b {
   to {
-    filter: blur(24px) saturate(1.2);
-    opacity: 0.55;
-    scale: 1.06;
+    transform: translate(-22%, 16%) scale(0.9);
+  }
+}
+@keyframes banner-drift-c {
+  to {
+    transform: translate(14%, -18%) scale(1.2);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-slot="project-banner-field"] {
+    animation: none;
   }
 }

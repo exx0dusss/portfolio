@@ -1,33 +1,34 @@
-import Image from "next/image";
-
 import "./project-banner.css";
 
 /**
- * A case study's opening image: a sharp, full-bleed banner at the top of the
- * page that fades into it at the bottom, with the hero rising over the faded
- * part. As the page scrolls it blurs and dims (project-banner.css), so the
- * colour stays behind the hero without competing with it. Decorative: the
- * same screenshot is in the gallery with its description.
+ * A case study's colours behind its hero: four soft fields in the project's
+ * own palette drifting slowly into each other, fading into the page. Sits
+ * behind the nav and the hero without taking any space. Decorative; the
+ * colours hold still when the visitor prefers reduced motion.
  *
- *   <ProjectBanner src="/projects/kosmetik-profi/hero.webp" />
+ *   <ProjectBanner colors={["#ffd790", "#c3a35a", "#b6816a", "#e3dec1"]} />
  *   <PageShell>…</PageShell>
  */
-export function ProjectBanner({ src }: { src: string }) {
+export function ProjectBanner({ colors }: { colors: [string, string, string, string] }) {
   return (
     <div
       data-slot="project-banner"
       aria-hidden
-      className="pointer-events-none relative -mb-32 h-banner overflow-hidden mask-b-from-40% mask-b-to-90% max-phone:-mb-20"
+      className="pointer-events-none absolute inset-x-0 top-0 -z-1 h-banner overflow-hidden opacity-90 mask-b-from-30% mask-b-to-100% dark:opacity-40"
+      // the palette goes in as custom properties; project-banner.css paints it
+      style={
+        {
+          "--banner-1": colors[0],
+          "--banner-2": colors[1],
+          "--banner-3": colors[2],
+          "--banner-4": colors[3],
+        } as React.CSSProperties
+      }
     >
-      <Image
-        data-slot="project-banner-image"
-        src={src}
-        alt=""
-        fill
-        preload
-        sizes="100vw"
-        className="object-cover object-top"
-      />
+      <span data-slot="project-banner-field" />
+      <span data-slot="project-banner-field" />
+      <span data-slot="project-banner-field" />
+      <span data-slot="project-banner-field" />
     </div>
   );
 }

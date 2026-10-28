@@ -218,8 +218,8 @@
 
   --blur-overlay: 6px;
   --blur-nav: 12px;
-  /* a case study's opening banner (ProjectBanner): most of the first screen */
-  --height-banner: clamp(280px, 62svh, 640px);
+  /* a case study's colour banner (ProjectBanner), behind the nav and hero */
+  --height-banner: clamp(420px, 70svh, 680px);
 
   /* nav bar: brand, links centred between, controls; below 1040px the
      links move into the menu and the controls take the rest */
