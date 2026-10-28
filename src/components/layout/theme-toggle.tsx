@@ -24,12 +24,19 @@ function apply(mode: Mode) {
     else root.dataset.theme = mode;
   };
 
-  // crossfade the whole page via the View Transitions API (see
-  // ::view-transition-* in globals.css); instant where unsupported or when
-  // the visitor prefers reduced motion
+  // crossfade the whole page via the View Transitions API; instant where
+  // unsupported or when the visitor prefers reduced motion.
+  // data-theme-switch marks this transition so globals.css can crossfade
+  // the page here but not on route changes, where only titles morph.
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!document.startViewTransition || reduce) swap();
-  else document.startViewTransition(swap);
+  if (!document.startViewTransition || reduce) {
+    swap();
+    return;
+  }
+  root.dataset.themeSwitch = "";
+  document.startViewTransition(swap).finished.finally(() => {
+    delete root.dataset.themeSwitch;
+  });
 }
 
 /** Cycles System → Light → Dark. "System" follows prefers-color-scheme. */

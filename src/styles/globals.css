@@ -1814,11 +1814,35 @@ a {
   }
 }
 
-/* theme switch and route changes: a short crossfade of the whole page */
-::view-transition-old(root),
+/* route changes: the page itself swaps at once, so only named elements
+   (the project title) move and nothing that exists on one page only, like
+   a card's description, ghosts across. The new page brings its own
+   entrance (Reveal). The old snapshot is hidden, not just left still: the
+   pair blends with plus-lighter, so two static pages would add up. */
+::view-transition-old(root) {
+  display: none;
+}
 ::view-transition-new(root) {
-  animation-duration: 0.35s;
-  animation-timing-function: var(--ease-out);
+  animation: none;
+}
+/* theme switch (theme-toggle sets data-theme-switch): a short crossfade of
+   the whole page */
+html[data-theme-switch]::view-transition-old(root) {
+  display: block;
+  animation: vt-fade-out 0.35s var(--ease-out) both;
+}
+html[data-theme-switch]::view-transition-new(root) {
+  animation: vt-fade-in 0.35s var(--ease-out) both;
+}
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
 }
 /* a project's name morphs from the work list into the case-study heading
    (lib/view-transition); a brief blur mid-flight hides the text scaling */
