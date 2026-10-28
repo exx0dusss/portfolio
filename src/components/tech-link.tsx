@@ -20,7 +20,7 @@ const techLinkVariants = cva("", {
       inline:
         "font-medium text-fg underline decoration-line-strong decoration-1 underline-offset-3 transition-colors duration-150 ease-pop hover:decoration-fg focus-visible:decoration-fg",
       /** Logo + name pill, for stack lists; tighter on phones. */
-      chip: "inline-flex items-center gap-2 rounded-10 border border-line bg-card py-1.25 pr-2.75 pl-1.25 text-13.5 text-fg transition-colors duration-150 ease-pop hover:border-line-strong focus-visible:border-line-strong max-phone:gap-1.75 max-phone:py-1 max-phone:pr-2.25 max-phone:pl-1 max-phone:text-13",
+      chip: "group/brand inline-flex items-center gap-2 rounded-10 border border-line bg-card py-1.25 pr-2.75 pl-1.25 text-13.5 text-fg transition-colors duration-150 ease-pop hover:border-line-strong focus-visible:border-line-strong max-phone:gap-1.75 max-phone:py-1 max-phone:pr-2.25 max-phone:pl-1 max-phone:text-13",
     },
   },
   defaultVariants: {
@@ -64,7 +64,10 @@ function TechLink({
         // eslint-disable-next-line shadcn/require-static-classes
         className={techLinkVariants({ variant })}
       >
-        {variant === "chip" && logo("sm")}
+        {/* the chip's logo shows its own colours while the chip is hovered */}
+        {variant === "chip" && (
+          <BrandIcon name={tech.name} path={tech.iconPath} logo={tech.logo} size="sm" />
+        )}
         {children ?? tech.name}
       </HoverCardTrigger>
       <HoverCardContent>

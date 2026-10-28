@@ -27,6 +27,7 @@ import {
 } from "simple-icons";
 
 import previews from "./link-previews.json";
+import logos from "./tech-logos.json";
 import links from "./tech-links.json";
 
 export type TechId = keyof typeof links;
@@ -39,6 +40,9 @@ export interface Tech {
   href: string;
   /** 24×24 Simple Icons path, painted in currentColor so all logos match. */
   iconPath?: string;
+  /** The logo in its own colours (light and dark-background versions), from
+   *  `pnpm tech:logos`; absent for black-and-white brands. */
+  logo?: { light: string; dark?: string };
   preview: { title?: string; description?: string; site: string; image?: string };
 }
 
@@ -76,6 +80,7 @@ export function getTech(id: TechId): Tech {
     name: link.name,
     href: link.href,
     iconPath: ICONS[id]?.path,
+    logo: (logos as Partial<Record<TechId, Tech["logo"]>>)[id],
     preview: (previews as Record<string, Tech["preview"]>)[id] ?? {
       site: new URL(link.href).hostname.replace(/^www\./, ""),
     },

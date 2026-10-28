@@ -365,6 +365,19 @@
   color-scheme: dark;
 }
 
+/* `dark:` follows the site's theme: the visitor's pick in the nav
+   (data-theme on <html>), otherwise the OS setting */
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="light"]) *) {
+      @slot;
+    }
+  }
+}
+
 /* element defaults sit in Tailwind's base layer, below utilities, so a
    component's classes (a ButtonLink's text color) aren't overridden by
    `a { color: inherit }` */

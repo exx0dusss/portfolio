@@ -1,0 +1,37 @@
+{
+  "nestjs": {
+    "light": "/tech-logos/nestjs.svg"
+  },
+  "typeorm": {
+    "light": "/tech-logos/typeorm.svg"
+  },
+  "sqlite": {
+    "light": "/tech-logos/sqlite.svg"
+  },
+  "jwt": {
+    "light": "/tech-logos/jwt.svg"
+  },
+  "docker": {
+    "light": "/tech-logos/docker.svg"
+  },
+  "coolify": {
+    "light": "/tech-logos/coolify.svg"
+  },
+  "react": {
+    "light": "/tech-logos/react.svg",
+    "dark": "/tech-logos/react.dark.svg"
+  },
+  "typescript": {
+    "light": "/tech-logos/typescript.svg"
+  },
+  "tailwind": {
+    "light": "/tech-logos/tailwind.svg"
+  },
+  "motion": {
+    "light": "/tech-logos/motion.svg",
+    "dark": "/tech-logos/motion.dark.svg"
+  },
+  "cloudflare": {
+    "light": "/tech-logos/cloudflare.svg"
+  }
+}
