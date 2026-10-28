@@ -40,7 +40,7 @@ export default async function ReadingPage({ params }: Props) {
       <Section>
         <SectionLabel>{page.books}</SectionLabel>
         {/* book titles stay in their original English */}
-        <Stagger className="shelf">
+        <Stagger className="grid grid-cols-shelf gap-x-shelf gap-y-8.5">
           {BOOKS.map((book) => (
             <BookCard key={book.slotId} book={book} />
           ))}

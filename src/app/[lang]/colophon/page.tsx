@@ -124,7 +124,7 @@ export default async function ColophonPage({ params }: Props) {
 
       <Section>
         <SectionLabel>{page.sections.architecture}</SectionLabel>
-        <div className="colophon-intro">
+        <div className="mb-5.5">
           <Prose>
             <p>{page.architecture.intro}</p>
           </Prose>

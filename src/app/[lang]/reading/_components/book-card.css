@@ -1,0 +1,19 @@
+/* The book cover's spine (reading/_components/book-card): a soft fold and
+   highlight near the binding edge, plus a hairline frame, drawn over the
+   cover image. A pseudo-element with a multi-stop gradient of raw shades,
+   which utilities can't express cleanly. */
+[data-slot="book-cover"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.16) 0,
+    rgba(255, 255, 255, 0.18) 3px,
+    rgba(0, 0, 0, 0.06) 7px,
+    transparent 14px
+  );
+  box-shadow: inset 0 0 0 1px rgb(var(--shadow-rgb) / 0.08);
+  border-radius: inherit;
+}

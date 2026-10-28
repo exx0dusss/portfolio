@@ -13,19 +13,24 @@ const TOKENS: { key: SwatchKey; token: string }[] = [
 ];
 
 /** A row of colour swatches painted by the live tokens, so they change with
- *  the theme: each shows its name and the CSS variable behind it. */
+ *  the theme: each shows its name and the CSS variable behind it. Six tokens:
+ *  one row on desktop, two even rows below 1040px (three on the narrowest
+ *  phones). */
 export function TokenSwatches({ labels }: { labels: Dictionary["pages"]["colophon"]["swatches"] }) {
   return (
-    <ul className="swatches">
+    <ul className="mt-6.5 grid grid-cols-6 gap-2.5 max-nav:grid-cols-3 max-tiny:grid-cols-2">
       {TOKENS.map(({ key, token }) => (
-        <li key={key} className="swatch">
+        <li
+          key={key}
+          className="flex flex-col gap-1 rounded-card border border-line bg-card-2 px-2.5 pt-2.5 pb-3"
+        >
           <span
-            className="swatch-chip"
+            className="mb-1.5 h-12 rounded-8 border border-line bg-(--swatch)"
             style={{ "--swatch": `var(${token})` } as React.CSSProperties}
             aria-hidden
           />
-          <span className="swatch-name">{labels[key]}</span>
-          <code className="swatch-token">{token}</code>
+          <span className="text-13.5 font-medium text-fg">{labels[key]}</span>
+          <code className="font-mono text-12 text-fg-faint">{token}</code>
         </li>
       ))}
     </ul>

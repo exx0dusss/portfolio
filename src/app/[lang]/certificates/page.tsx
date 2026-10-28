@@ -39,7 +39,7 @@ export default async function CertificatesPage({ params }: Props) {
 
       <Section>
         <SectionLabel>{page.credentials}</SectionLabel>
-        <Stagger className="cert-list">
+        <Stagger>
           {CERTIFICATES.map((certificate) => (
             <StaggerItem key={certificate.title}>
               {/* course titles stay in their original English */}

@@ -81,6 +81,9 @@
   --radius-9: 9px;
   /* the contact email's copy button, in em: it scales with the address */
   --radius-mail: 0.2em;
+  /* a book cover: tight at the spine, rounder at the fore-edge */
+  --radius-3: 3px;
+  --radius-8: 8px;
 
   /* the nav brand's name over its role line */
   --leading-brand: 1.25;
@@ -101,6 +104,8 @@
   --leading-bullet: 1.55;
   --leading-summary: 1.62;
   --leading-address: 1.75;
+  /* a timeline entry's description */
+  --leading-entry: 1.66;
 
   --tracking-snug: -0.01em;
   /* large display type, e.g. the mobile menu's items */
@@ -114,6 +119,8 @@
   --tracking-caps: 0.09em;
   /* the résumé's name */
   --tracking-name: -0.022em;
+  /* a timeline entry's role */
+  --tracking-role: -0.012em;
 
   /* the page column (--w) and its side gutter (--gutter, 20px below 860px):
      `max-w-page`, `px-gutter` */
@@ -136,11 +143,20 @@
   --container-dialog: min(480px, 100vw - 32px);
   /* the résumé sheet */
   --container-resume: 900px;
+  /* a timeline entry's description */
+  --container-entry: 76ch;
 
   --shadow-popover: 0 18px 48px rgb(var(--shadow-rgb) / 0.18);
   --shadow-dialog: 0 30px 80px rgb(var(--shadow-rgb) / 0.3);
   /* a selected segment: hairline ring plus a soft lift */
   --shadow-pressed: inset 0 0 0 1px var(--line), 0 1px 2px rgb(var(--shadow-rgb) / 0.12);
+  /* a book cover on the shelf, resting and lifted on hover */
+  --shadow-book:
+    0 1px 2px rgb(var(--shadow-rgb) / 0.08), 0 8px 20px -8px rgb(var(--shadow-rgb) / 0.22);
+  --shadow-book-lift:
+    0 2px 4px rgb(var(--shadow-rgb) / 0.08), 0 18px 32px -12px rgb(var(--shadow-rgb) / 0.3);
+  /* a book cover's tilt as it lifts off the shelf */
+  --rotate-tilt: 1.5deg;
 
   --blur-overlay: 6px;
   --blur-nav: 12px;
@@ -162,6 +178,14 @@
   --spacing-mail-gap: 0.3em;
   --spacing-mail-pad: 0.12em;
   --spacing-mail-icon: 0.55em;
+
+  /* experience timeline: when and where, then the role */
+  --grid-template-columns-timeline: 172px 1fr;
+  /* reading shelf: two columns even on a 320px phone; ~5 on desktop */
+  --grid-template-columns-shelf: repeat(auto-fill, minmax(min(150px, calc(50% - 10px)), 1fr));
+  --spacing-shelf: clamp(18px, 3vw, 26px);
+  /* a book title's two lines, reserved even for one-line titles */
+  --spacing-book-title: calc(2 * 1.3em);
 
   /* floating corner buttons (back to top): clear of the home indicator */
   --inset-corner: calc(24px + env(safe-area-inset-bottom));
@@ -359,235 +383,19 @@
   border-width: 1.5px;
 }
 
+/* a book cover lifting off the shelf: a slow springy rise and tilt, a
+   quicker shadow */
+@utility transition-book {
+  transition:
+    translate 0.4s var(--ease-out),
+    rotate 0.4s var(--ease-out),
+    box-shadow 0.25s ease;
+}
+
 @media (max-width: 860px) {
   :root {
     --gutter: 20px;
   }
-  .tl {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-  .cert-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* timeline (experience) */
-.tl {
-  display: grid;
-  grid-template-columns: 172px 1fr;
-  gap: 30px;
-  padding: 26px 0;
-  border-top: 1px solid var(--line-soft);
-}
-.tl:first-of-type {
-  border-top: none;
-  padding-top: 4px;
-}
-.tl:last-of-type {
-  padding-bottom: 4px;
-}
-.tl-when {
-  font-size: 13px;
-  color: var(--fg-faint);
-}
-.tl-when .yr {
-  font-family: var(--mono);
-  color: var(--fg-dim);
-}
-.tl-where {
-  font-size: 12.5px;
-  color: var(--fg-faint);
-  margin-top: 5px;
-}
-.tl-role {
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: -0.012em;
-}
-.tl-co {
-  font-size: 14px;
-  color: var(--fg-dim);
-  margin-top: 3px;
-}
-/* a company with a case study: underlined like the site's other inline links */
-.tl-co-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  color: var(--fg);
-  font-weight: 500;
-  text-decoration: underline;
-  text-decoration-color: var(--line-strong);
-  text-underline-offset: 3px;
-  transition: text-decoration-color 0.15s var(--ease-out);
-}
-.tl-co-link:hover,
-.tl-co-link:focus-visible {
-  text-decoration-color: var(--fg);
-}
-.tl-co-link svg {
-  width: 13px;
-  height: 13px;
-  color: var(--fg-faint);
-  transition: transform 0.2s var(--ease-out);
-}
-.tl-co-link:hover svg {
-  transform: translateX(2px);
-}
-.tl-desc {
-  margin-top: 11px;
-  font-size: 14.5px;
-  color: var(--fg-dim);
-  line-height: 1.66;
-  max-width: 76ch;
-}
-.tl-tags {
-  margin-top: 12px;
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--fg-faint);
-}
-
-/* certificates — a plain list with verify links */
-.cert {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 24px;
-  padding: 16px 0;
-  border-top: 1px solid var(--line);
-}
-.cert-list > :first-child .cert {
-  border-top: none;
-  padding-top: 0;
-}
-.cert .ct {
-  font-size: 15.5px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-.cert .ci {
-  margin-top: 2px;
-  font-size: 13.5px;
-  color: var(--fg-dim);
-}
-.cert .cl {
-  flex: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13.5px;
-  color: var(--fg);
-  transition: color 0.15s;
-}
-.cert .cl:hover {
-  color: var(--accent-ink);
-}
-.cert .cl svg {
-  width: 15px;
-  height: 15px;
-}
-
-/* reading shelf */
-.shelf {
-  display: grid;
-  /* two columns even on a 320px phone; ~5 on desktop */
-  grid-template-columns: repeat(auto-fill, minmax(min(150px, calc(50% - 10px)), 1fr));
-  gap: 34px clamp(18px, 3vw, 26px);
-}
-/* each card stretches to its row's height (grid items stretch; the
-   Stagger wrapper passes that on), so the source link can sit at the
-   bottom and line up across the row */
-.shelf > * {
-  display: flex;
-}
-.book {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  color: inherit;
-  text-decoration: none;
-}
-/* every cover fills the same 3:4 slot so the cards line up */
-.book .cover {
-  position: relative;
-  aspect-ratio: 3 / 4;
-  border-radius: 3px 8px 8px 3px;
-  overflow: hidden;
-  background: var(--card-2);
-  box-shadow:
-    0 1px 2px rgb(var(--shadow-rgb) / 0.08),
-    0 8px 20px -8px rgb(var(--shadow-rgb) / 0.22);
-  transition:
-    transform 0.4s var(--ease-out),
-    box-shadow 0.25s ease;
-}
-/* spine: a soft fold + highlight near the binding edge */
-.book .cover::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.16) 0,
-    rgba(255, 255, 255, 0.18) 3px,
-    rgba(0, 0, 0, 0.06) 7px,
-    transparent 14px
-  );
-  box-shadow: inset 0 0 0 1px rgb(var(--shadow-rgb) / 0.08);
-  border-radius: inherit;
-}
-.book .cover img {
-  object-fit: cover;
-}
-.book:hover .cover,
-.book:focus-visible .cover {
-  transform: translateY(-8px) rotate(-1.5deg);
-  box-shadow:
-    0 2px 4px rgb(var(--shadow-rgb) / 0.08),
-    0 18px 32px -12px rgb(var(--shadow-rgb) / 0.3);
-}
-.book .bt {
-  margin-top: 16px;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-  /* two lines reserved even for one-line titles */
-  min-height: calc(2 * 1.3em);
-}
-.book .ba {
-  font-size: 12.5px;
-  color: var(--fg-faint);
-  margin-top: 4px;
-}
-.book .bn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  min-width: 0;
-  margin-top: auto;
-  padding-top: 10px;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--fg-dim);
-  transition: color 0.2s;
-}
-.book .bn-host {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.book:hover .bn {
-  color: var(--accent-ink);
 }
 
 /* ===== project detail pages ===== */
@@ -1176,58 +984,6 @@ html[data-theme-switch]::view-transition-new(root) {
     opacity: 1;
   }
 }
-
-/* ---------- colophon ([lang]/colophon) ---------- */
-.colophon-intro {
-  margin-bottom: 22px;
-}
-/* live design tokens: each chip is painted by its CSS variable */
-.swatches {
-  display: grid;
-  /* six tokens: one row on desktop, two even rows below */
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 10px;
-  margin: 26px 0 0;
-  padding: 0;
-  list-style: none;
-}
-@media (max-width: 1040px) {
-  .swatches {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-@media (max-width: 400px) {
-  .swatches {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-.swatch {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 10px 10px 12px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-card);
-  background: var(--card-2);
-}
-.swatch-chip {
-  height: 48px;
-  margin-bottom: 6px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--swatch);
-}
-.swatch-name {
-  font-size: 13.5px;
-  font-weight: 500;
-  color: var(--fg);
-}
-.swatch-token {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--fg-faint);
-}
-
 
 /* ---------- live preview (components/live-preview) ----------
    The real site in a desktop or phone frame. The iframe renders at a fixed
