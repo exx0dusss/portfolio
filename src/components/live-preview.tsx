@@ -36,10 +36,7 @@ function LivePreview({ url, label = "Try it live" }: { url: string; label?: stri
       <DialogTrigger render={<Button variant="ghost" />}>
         <BrowserIcon aria-hidden /> {label}
       </DialogTrigger>
-      <DialogContent
-        className="grid h-live-preview w-live-preview grid-rows-live-preview gap-3.5 p-4 max-phone:h-dvh max-phone:w-screen max-phone:rounded-none max-phone:border-none max-phone:p-3"
-        showCloseButton
-      >
+      <DialogContent size="viewer" showCloseButton>
         <LivePreviewBody url={url} host={host} />
       </DialogContent>
     </Dialog>
@@ -79,7 +76,7 @@ function LivePreviewBody({ url, host }: { url: string; host: string }) {
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2.5 pr-11">
         <div className="flex min-w-0 grow basis-50 items-center gap-2 rounded-full border border-line bg-card-2 px-3.5 py-2 text-fg-faint [&_svg]:size-3.75 [&_svg]:flex-none">
           <GlobeIcon aria-hidden />
-          <DialogTitle className="truncate text-13 font-medium text-fg">{host}</DialogTitle>
+          <DialogTitle size="sm">{host}</DialogTitle>
         </div>
         <ToggleGroup
           aria-label="Preview size"
@@ -135,7 +132,7 @@ function LivePreviewBody({ url, host }: { url: string; host: string }) {
         )}
       </div>
 
-      <DialogDescription className="text-12 text-fg-faint">
+      <DialogDescription size="sm">
         The real site, loaded from {host}. It may set its own cookies.
       </DialogDescription>
     </>

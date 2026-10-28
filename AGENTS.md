@@ -6,9 +6,9 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # UI components
 
-Components are shadcn-style parts on Base UI. `src/components/ui/` is styled
-with Tailwind (CVA for variants) on the tokens in `src/styles/globals.css`;
-the rest of the site still uses classes from that file. Read
+Components are shadcn-style parts on Base UI. The whole site is styled with
+Tailwind (CVA for variants) on the site's own tokens in
+`src/styles/globals.css`; Tailwind's default theme is removed. Read
 `docs/ui-patterns.md` before adding or changing anything in
 `src/components/`. In short:
 

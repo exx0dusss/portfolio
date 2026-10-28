@@ -47,7 +47,7 @@ function MeterSegments({ className, ...props }: MeterPrimitive.Track.Props) {
         <span
           key={step}
           data-filled={step < value - min ? "" : undefined}
-          className="h-1.5 w-3.5 rounded-xs bg-line-strong data-filled:bg-accent"
+          className="h-1.5 w-3.5 rounded-2 bg-line-strong data-filled:bg-accent"
         />
       ))}
     </MeterPrimitive.Track>

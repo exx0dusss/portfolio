@@ -122,7 +122,7 @@ export function SiteNav({ lang, dict, name }: SiteNavProps) {
           onClick={close}
         >
           {/* 32px, tilting on hover */}
-          <FaceIcon className="size-8 transition-transform duration-350 ease-pop group-hover:-rotate-8" />
+          <FaceIcon motion="tilt" className="size-8" />
           {/* the role line goes first (<1180px), so the five links keep their
               air on small laptops; small phones show the name only, then
               (<400px) just the face */}

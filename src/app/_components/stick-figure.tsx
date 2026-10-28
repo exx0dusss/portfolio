@@ -51,7 +51,7 @@ export function StickFigure({ className }: { className?: string }) {
       <path d="M360 270 Q258 288 206 392" />
       <circle cx="199" cy="405" r="18" fill="currentColor" stroke="none" />
       {/* speech bubble: one path (ellipse + tail toward the head) */}
-      <g className="figure-bubble">
+      <g data-slot="figure-bubble">
         <path
           d="M233.8 120.9 A120 85 0 1 0 202.1 150.1 L258 178 Z"
           fill="var(--figure-face)"
@@ -73,7 +73,7 @@ export function StickFigure({ className }: { className?: string }) {
         </text>
       </g>
       {/* raised, waving arm */}
-      <g className="figure-arm">
+      <g data-slot="figure-arm">
         <path d="M360 270 L456 302 L530 222" />
         <circle cx="540" cy="210" r="18" fill="currentColor" stroke="none" />
       </g>

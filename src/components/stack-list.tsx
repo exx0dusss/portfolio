@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils/cn";
 
 /**
  * A wrapping row of tech logo chips that link out, for the Stack tile of a
- * fact grid (project heroes, the colophon). Phones get a tighter row and
- * smaller chips, so the tile reads like the others.
+ * fact grid (project heroes, the colophon). Phones get a tighter row (and
+ * the chip variant smaller chips), so the tile reads like the others.
  *
  *   <Fact span="full">
  *     <FactHeader>…</FactHeader>
@@ -25,11 +25,7 @@ function StackList({
     >
       {stack.map((id) => (
         <li key={id}>
-          <TechLink
-            id={id}
-            variant="chip"
-            className="max-phone:gap-1.75 max-phone:py-1 max-phone:pr-2.25 max-phone:pl-1 max-phone:text-13"
-          />
+          <TechLink id={id} variant="chip" />
         </li>
       ))}
     </ul>

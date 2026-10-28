@@ -1,6 +1,7 @@
 "use client";
 
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
+import { cva, type VariantProps } from "class-variance-authority";
 
 import { XIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/utils/cn";
@@ -19,6 +20,10 @@ import { cn } from "@/lib/utils/cn";
  *       …
  *     </DialogContent>
  *   </Dialog>
+ *
+ * `size="viewer"` is a near-fullscreen dialog laid out as bar, stage and
+ * note (the live preview), edge to edge on phones; its title and
+ * description then use `size="sm"`.
  */
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
@@ -49,21 +54,36 @@ function DialogOverlay({ className, ...props }: DialogPrimitive.Backdrop.Props) 
   );
 }
 
+const dialogContentVariants = cva(
+  "fixed top-1/2 left-1/2 z-71 -translate-1/2 rounded-16 border border-line-strong bg-card text-fg shadow-dialog transition duration-200 ease-pop data-ending-style:-translate-y-12/25 data-ending-style:scale-98 data-ending-style:opacity-0 data-starting-style:-translate-y-12/25 data-starting-style:scale-98 data-starting-style:opacity-0",
+  {
+    variants: {
+      size: {
+        default: "w-dialog p-5",
+        viewer:
+          "grid h-viewer w-viewer grid-rows-viewer gap-3.5 p-4 max-phone:h-dvh max-phone:w-screen max-phone:rounded-none max-phone:border-none max-phone:p-3",
+      },
+    },
+    defaultVariants: {
+      size: "default",
+    },
+  },
+);
+
 function DialogContent({
   className,
+  size,
   children,
   showCloseButton = true,
   ...props
-}: DialogPrimitive.Popup.Props & { showCloseButton?: boolean }) {
+}: DialogPrimitive.Popup.Props &
+  VariantProps<typeof dialogContentVariants> & { showCloseButton?: boolean }) {
   return (
     <DialogPortal>
       <DialogOverlay />
       <DialogPrimitive.Popup
         data-slot="dialog-content"
-        className={cn(
-          "fixed top-1/2 left-1/2 z-71 w-dialog -translate-1/2 rounded-2xl border border-line-strong bg-card p-5 text-fg shadow-dialog transition duration-200 ease-pop data-ending-style:-translate-y-12/25 data-ending-style:scale-98 data-ending-style:opacity-0 data-starting-style:-translate-y-12/25 data-starting-style:scale-98 data-starting-style:opacity-0",
-          className,
-        )}
+        className={cn(dialogContentVariants({ size }), className)}
         {...props}
       >
         {children}
@@ -93,21 +113,54 @@ function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
   );
 }
 
-function DialogTitle({ className, ...props }: DialogPrimitive.Title.Props) {
+const dialogTitleVariants = cva("m-0", {
+  variants: {
+    size: {
+      default: "text-16 font-semibold",
+      /** One line, for a viewer's bar. */
+      sm: "truncate text-13 font-medium text-fg",
+    },
+  },
+  defaultVariants: {
+    size: "default",
+  },
+});
+
+function DialogTitle({
+  className,
+  size,
+  ...props
+}: DialogPrimitive.Title.Props & VariantProps<typeof dialogTitleVariants>) {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn("m-0 text-16 font-semibold", className)}
+      className={cn(dialogTitleVariants({ size }), className)}
       {...props}
     />
   );
 }
 
-function DialogDescription({ className, ...props }: DialogPrimitive.Description.Props) {
+const dialogDescriptionVariants = cva("m-0", {
+  variants: {
+    size: {
+      default: "text-14 text-fg-dim",
+      sm: "text-12 text-fg-faint",
+    },
+  },
+  defaultVariants: {
+    size: "default",
+  },
+});
+
+function DialogDescription({
+  className,
+  size,
+  ...props
+}: DialogPrimitive.Description.Props & VariantProps<typeof dialogDescriptionVariants>) {
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"
-      className={cn("m-0 text-14 text-fg-dim", className)}
+      className={cn(dialogDescriptionVariants({ size }), className)}
       {...props}
     />
   );

@@ -3,7 +3,7 @@
    keyframes, so it stays CSS rather than utilities. */
 
 /* the bubble grows out of its tail tip, just after the hero settles */
-.figure-bubble {
+[data-slot="figure-bubble"] {
   transform-box: view-box;
   transform-origin: 258px 178px;
   animation: figure-bubble 0.45s var(--ease-out) 0.6s backwards;
@@ -15,12 +15,12 @@
   }
 }
 /* the raised arm waves while the figure is hovered */
-.figure-arm {
+[data-slot="figure-arm"] {
   transform-box: view-box;
   transform-origin: 360px 270px;
   transition: transform 0.6s var(--ease-out);
 }
-[data-slot="stick-figure"]:hover .figure-arm {
+[data-slot="stick-figure"]:hover [data-slot="figure-arm"] {
   animation: figure-wave 0.9s var(--ease-out);
 }
 @keyframes figure-wave {

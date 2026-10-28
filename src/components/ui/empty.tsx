@@ -44,7 +44,7 @@ const emptyMediaVariants = cva("mb-2 text-fg", {
       /** Whatever you put in, as is (an illustration). */
       default: "",
       /** An icon framed in a small rounded tile. */
-      icon: "grid size-16 place-items-center rounded-2xl border border-line bg-card text-fg-dim [&_svg]:size-8",
+      icon: "grid size-16 place-items-center rounded-16 border border-line bg-card text-fg-dim [&_svg]:size-8",
     },
   },
   defaultVariants: {

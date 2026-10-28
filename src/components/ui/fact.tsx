@@ -88,7 +88,7 @@ function FactIcon({ className, ...props }: React.ComponentProps<"span">) {
       data-slot="fact-icon"
       aria-hidden
       className={cn(
-        "grid size-6 place-items-center rounded-7 border border-line bg-card text-fg-dim [&_svg]:size-3.25 max-phone:size-5.5 max-phone:rounded-md max-phone:[&_svg]:size-3",
+        "grid size-6 place-items-center rounded-7 border border-line bg-card text-fg-dim [&_svg]:size-3.25 max-phone:size-5.5 max-phone:rounded-6 max-phone:[&_svg]:size-3",
         className,
       )}
       {...props}

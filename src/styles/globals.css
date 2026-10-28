@@ -9,6 +9,29 @@
    `border-line-strong` compile to var(--card) etc., so utilities follow the
    theme. The design's own sizes (13px text, 10px radius) are tokens too, so
    components use classes like `text-13` instead of arbitrary values. */
+/* Only the site's own tokens: Tailwind's default palette, type scale,
+   radii, shadows and breakpoints are removed, so `text-sm`, `rounded-md` or
+   `text-gray-500` generate nothing (and lint flags them). Spacing and font
+   weights keep Tailwind's scales. */
+@theme {
+  --color-*: initial;
+  --text-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+  --text-shadow-*: initial;
+  --blur-*: initial;
+  --leading-*: initial;
+  --tracking-*: initial;
+  --breakpoint-*: initial;
+  --container-*: initial;
+  --ease-*: initial;
+  --animate-*: initial;
+  --aspect-*: initial;
+  --perspective-*: initial;
+}
+
 @theme inline {
   --color-bg: var(--bg);
   --color-card: var(--card);
@@ -99,6 +122,8 @@
   --radius-13: 13px;
   --radius-14: 14px;
   --radius-28: 28px;
+  --radius-2: 2px;
+  --radius-16: 16px;
 
   /* the nav brand's name over its role line */
   --leading-brand: 1.25;
@@ -121,6 +146,7 @@
   --leading-address: 1.75;
   /* a timeline entry's description */
   --leading-entry: 1.66;
+  --leading-normal: 1.5;
 
   --tracking-snug: -0.01em;
   /* large display type, e.g. the mobile menu's items */
@@ -138,6 +164,7 @@
   --tracking-role: -0.012em;
   /* small uppercase labels (architecture column titles) */
   --tracking-label: 0.08em;
+  --tracking-normal: 0em;
 
   /* the page column (--w) and its side gutter (--gutter, 20px below 860px):
      `max-w-page`, `px-gutter` */
@@ -164,8 +191,8 @@
   --container-entry: 76ch;
   /* a project's tagline and an overview's opening paragraph */
   --container-tagline: 60ch;
-  /* the live-preview dialog: up to 1440px, 24px clear of each edge */
-  --container-live-preview: min(1440px, 100vw - 48px);
+  /* the viewer dialog (the live preview): up to 1440px, 24px clear of each edge */
+  --container-viewer: min(1440px, 100vw - 48px);
 
   --shadow-popover: 0 18px 48px rgb(var(--shadow-rgb) / 0.18);
   --shadow-dialog: 0 30px 80px rgb(var(--shadow-rgb) / 0.3);
@@ -183,6 +210,9 @@
   /* the live preview's desktop frame (hairline) and phone frame (bezel) */
   --shadow-frame: 0 0 0 1px var(--line-strong), 0 20px 50px rgb(var(--shadow-rgb) / 0.18);
   --shadow-frame-phone: 0 0 0 6px var(--fg-soft), 0 20px 50px rgb(var(--shadow-rgb) / 0.25);
+
+  /* screenshots and video frames */
+  --aspect-video: 16 / 9;
 
   --blur-overlay: 6px;
   --blur-nav: 12px;
@@ -214,9 +244,9 @@
   --spacing-book-title: calc(2 * 1.3em);
   /* centres a 7px dot on the first line of the text beside it */
   --spacing-dot-first-line: calc(0.5lh - 3.5px);
-  /* the live-preview dialog: bar, stage, note; 24px clear of each edge */
-  --grid-template-rows-live-preview: auto minmax(0, 1fr) auto;
-  --height-live-preview: calc(100dvh - 48px);
+  /* the viewer dialog: bar, stage, note; 24px clear of each edge */
+  --grid-template-rows-viewer: auto minmax(0, 1fr) auto;
+  --height-viewer: calc(100dvh - 48px);
 
   /* floating corner buttons (back to top): clear of the home indicator */
   --inset-corner: calc(24px + env(safe-area-inset-bottom));

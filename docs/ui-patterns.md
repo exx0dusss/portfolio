@@ -10,7 +10,7 @@ with Tailwind on the design's own tokens.
 | --- | --- |
 | Primitives | [Base UI](https://base-ui.com) (`@base-ui/react`): behaviour and accessibility only |
 | Component shape | [shadcn](https://ui.shadcn.com) conventions, `base-nova` style, configured in `components.json` |
-| Styling | Tailwind v4 utilities in each `ui/` component, on the tokens at the top of `src/styles/globals.css` |
+| Styling | Tailwind v4 utilities in every component and page, on the tokens at the top of `src/styles/globals.css` (Tailwind's own default theme is removed) |
 | Variants | `class-variance-authority` (CVA) |
 | Class merging | `cn()` from `src/lib/utils/cn.ts` |
 | Icons | Phosphor (`components/ui/icons.ts`); brand logos from Simple Icons |
@@ -84,6 +84,11 @@ function FactHeader({ className, ...props }: React.ComponentProps<"div">) {
   `@theme inline` exposes them as utilities that follow the theme:
   `bg-card`, `text-fg-dim`, `border-line-strong`, `shadow-popover`. Use
   these, never hex values.
+- **Only the site's tokens exist.** A `@theme` block above them removes
+  Tailwind's defaults (palette, type scale, radii, shadows, breakpoints,
+  widths, easings), so `text-sm`, `rounded-md` or `text-gray-500` generate
+  nothing and lint flags them. Spacing and font weights keep Tailwind's
+  scales.
 - **The design's own sizes are tokens**, so nothing needs an arbitrary
   value: font sizes are named by pixels (`text-13`, `text-12.5`; size only,
   line height comes from context), plus `rounded-7`, `leading-label`,
@@ -97,12 +102,19 @@ function FactHeader({ className, ...props }: React.ComponentProps<"div">) {
   belongs inside the component. `@shadcn/lint`'s `no-restyle` enforces it.
 - **A part styled by where it sits** is targeted from the parent's CSS by
   its slot, not a class: `[data-slot="fact"] [data-slot="meter"]` (the
-  hero's stacked meter).
+  hero's stacked meter). Prefer a variant on the part when it's a look the
+  design reuses (`FaceIcon motion="tilt"`, `DialogContent size="viewer"`).
 - **What Tailwind can't express** gets a named `@utility` in `globals.css`
   (`transition-press`, `border-1.5`), not a long arbitrary value.
-- **A third-party widget** is themed in a CSS file next to its wrapper,
-  through the library's own variables and classes (`ui/lightbox.css`).
-  The markup the site renders inside it still uses Tailwind.
+- **What stays CSS** lives in a small file next to its component, with a
+  comment saying why: third-party theming (`ui/lightbox.css`, through the
+  library's own variables and classes), SVG keyframe animation
+  (`stick-figure.css`), pseudo-element drawings and container queries keyed
+  on data attributes (`arch-diagram.css`, `book-card.css`), and the
+  résumé's print-wide rules (`resume.css`). `globals.css` holds only the
+  tokens, `@layer base`, named `@utility`s, view transitions and the
+  reduced-motion rules. Hooks in those files are `data-slot` attributes,
+  not classes.
 - Tailwind's `translate-*` and `scale-*` set the `translate` and `scale`
   properties, not `transform`: transition those.
 - Element defaults (`a`, `body`, the `:focus-visible` ring) sit in
@@ -295,13 +307,16 @@ Enabled in `eslint.config.mjs` for `src/`:
 | `no-restyle` (`allow: ["layout"]`) | Pages may add layout classes (`mt-6`, `w-full`) to a component, not restyle it. A component placed somewhere special is styled by its parent's CSS (`[data-slot="fact"] [data-slot="meter"]`) |
 | `require-static-classes` | Class names must be readable static strings, not built like `` `bg-${tone}` `` |
 
-All three apply to `src/components/ui/` too, plus `no-unknown-classes`:
-`ui/` is pure Tailwind, so a class that generates no CSS is a typo or a
-missing token. (The one exception, the `lightbox` hook for
-`ui/lightbox.css`, carries a disable comment.) `no-restyle` and
-`require-static-classes` are still off in the rest of `src/components/`
-(layout, tech links, live preview), which use `globals.css` classes until
-they move to Tailwind as well.
+Plus `no-unknown-classes`: the whole site is Tailwind on the site's own
+tokens, so a class that generates no CSS is a typo or a missing token.
+
+Two lines carry a disable comment, each with its reason:
+
+- the `lightbox` class, the hook `ui/lightbox.css` themes the library
+  through;
+- `TechLink`'s `className={techLinkVariants({ variant })}` on
+  `HoverCardTrigger`: the classes are its own CVA variants, but
+  `require-static-classes` only reads inline `cva()` calls.
 
 Not enabled, from a dry run in October 2026:
 
@@ -309,6 +324,5 @@ Not enabled, from a dry run in October 2026:
 | --- | --- | --- |
 | `no-raw-colors` | 5 | All in `app/apple-icon.tsx`, which draws a PNG and needs literal colours |
 | `no-inline-styles` | 66 | Mostly OG and icon images (inline-only by design), plus `ImageSlot` sizing |
-| `no-unknown-classes` (outside `ui/`) | — | Reports the site's own classes from `globals.css` until those components move to Tailwind |
 
 Rules and options: <https://github.com/shadcn-ui/lint#rules>.

@@ -1,13 +1,33 @@
+import { cva, type VariantProps } from "class-variance-authority";
+
 import { cn } from "@/lib/utils/cn";
+
+const faceIconVariants = cva("flex-none text-figure-ink", {
+  variants: {
+    motion: {
+      none: "",
+      /** Tilts when a `group` parent is hovered (the nav brand). */
+      tilt: "transition-transform duration-350 ease-pop group-hover:-rotate-8",
+    },
+  },
+  defaultVariants: {
+    motion: "none",
+  },
+});
 
 /** The stick figure's head (same drawing as app/icon.svg), themed through
  *  the --figure-* tokens so it matches the hero figure in light and dark.
- *  Decorative. Where it sits decides its size, e.g. the nav brand. */
-export function FaceIcon({ className }: { className?: string }) {
+ *  Decorative. Where it sits decides its size, e.g. the nav brand:
+ *
+ *    <FaceIcon motion="tilt" className="size-8" /> */
+export function FaceIcon({
+  motion,
+  className,
+}: VariantProps<typeof faceIconVariants> & { className?: string }) {
   return (
     <svg
       data-slot="face-icon"
-      className={cn("flex-none text-figure-ink", className)}
+      className={cn(faceIconVariants({ motion }), className)}
       viewBox="264 57 196 196"
       fill="none"
       stroke="currentColor"

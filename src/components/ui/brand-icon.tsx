@@ -7,9 +7,9 @@ const brandIconVariants = cva(
   {
     variants: {
       size: {
-        sm: "size-5 rounded-md [&_svg]:size-2.75",
+        sm: "size-5 rounded-6 [&_svg]:size-2.75",
         md: "size-8 rounded-9 [&_svg]:size-4",
-        lg: "size-16 rounded-2xl [&_svg]:size-8",
+        lg: "size-16 rounded-16 [&_svg]:size-8",
       },
     },
     defaultVariants: {

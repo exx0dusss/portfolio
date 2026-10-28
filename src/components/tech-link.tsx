@@ -12,7 +12,6 @@ import {
   LinkPreviewTitle,
 } from "@/components/ui/link-preview";
 import { getTech, type TechId } from "@/lib/tech";
-import { cn } from "@/lib/utils/cn";
 
 const techLinkVariants = cva("", {
   variants: {
@@ -20,8 +19,8 @@ const techLinkVariants = cva("", {
       /** Bright, underlined word inside prose. */
       inline:
         "font-medium text-fg underline decoration-line-strong decoration-1 underline-offset-3 transition-colors duration-150 ease-pop hover:decoration-fg focus-visible:decoration-fg",
-      /** Logo + name pill, for stack lists. */
-      chip: "inline-flex items-center gap-2 rounded-10 border border-line bg-card py-1.25 pr-2.75 pl-1.25 text-13.5 text-fg transition-colors duration-150 ease-pop hover:border-line-strong focus-visible:border-line-strong",
+      /** Logo + name pill, for stack lists; tighter on phones. */
+      chip: "inline-flex items-center gap-2 rounded-10 border border-line bg-card py-1.25 pr-2.75 pl-1.25 text-13.5 text-fg transition-colors duration-150 ease-pop hover:border-line-strong focus-visible:border-line-strong max-phone:gap-1.75 max-phone:py-1 max-phone:pr-2.25 max-phone:pl-1 max-phone:text-13",
     },
   },
   defaultVariants: {
@@ -42,11 +41,9 @@ const techLinkVariants = cva("", {
 function TechLink({
   id,
   variant,
-  className,
   children,
 }: VariantProps<typeof techLinkVariants> & {
   id: TechId;
-  className?: string;
   children?: React.ReactNode;
 }) {
   const tech = getTech(id);
@@ -63,7 +60,9 @@ function TechLink({
         rel="noopener noreferrer"
         data-slot="tech-link"
         data-variant={variant ?? "inline"}
-        className={cn(techLinkVariants({ variant }), className)}
+        // the classes are TechLink's own variants above; the rule only reads inline cva() calls
+        // eslint-disable-next-line shadcn/require-static-classes
+        className={techLinkVariants({ variant })}
       >
         {variant === "chip" && logo("sm")}
         {children ?? tech.name}
