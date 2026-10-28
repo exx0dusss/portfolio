@@ -24,7 +24,7 @@ import { cn } from "@/lib/utils/cn";
  * Usually placed inside HoverCardContent.
  */
 function LinkPreview({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="link-preview" className={cn("link-preview", className)} {...props} />;
+  return <div data-slot="link-preview" className={className} {...props} />;
 }
 
 /** The 640×336 (≈1.9:1) preview image; pass children instead of `src` for a fallback. */
@@ -35,16 +35,38 @@ function LinkPreviewMedia({
   ...props
 }: React.ComponentProps<"div"> & { src?: string }) {
   return (
-    <div data-slot="link-preview-media" className={cn("link-preview-media", className)} {...props}>
-      {/* eslint-disable-next-line @next/next/no-img-element -- small local snapshot, fixed 640×336 */}
-      {src ? <img src={src} alt="" width={640} height={336} decoding="async" /> : children}
+    <div
+      data-slot="link-preview-media"
+      className={cn(
+        "grid aspect-640/336 w-full place-items-center border-b border-line bg-card-2",
+        className,
+      )}
+      {...props}
+    >
+      {src ? (
+        // eslint-disable-next-line @next/next/no-img-element -- small local snapshot, fixed 640×336
+        <img
+          src={src}
+          alt=""
+          width={640}
+          height={336}
+          decoding="async"
+          className="block size-full object-cover"
+        />
+      ) : (
+        children
+      )}
     </div>
   );
 }
 
 function LinkPreviewBody({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div data-slot="link-preview-body" className={cn("link-preview-body", className)} {...props} />
+    <div
+      data-slot="link-preview-body"
+      className={cn("px-3.5 pt-3 pb-3.25", className)}
+      {...props}
+    />
   );
 }
 
@@ -56,7 +78,11 @@ function LinkPreviewSite({
   ...props
 }: React.ComponentProps<"div"> & { icon?: React.ReactNode }) {
   return (
-    <div data-slot="link-preview-site" className={cn("link-preview-site", className)} {...props}>
+    <div
+      data-slot="link-preview-site"
+      className={cn("flex items-center gap-1.75 text-12 text-fg-faint", className)}
+      {...props}
+    >
       {icon}
       {children}
     </div>
@@ -65,7 +91,11 @@ function LinkPreviewSite({
 
 function LinkPreviewTitle({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div data-slot="link-preview-title" className={cn("link-preview-title", className)} {...props} />
+    <div
+      data-slot="link-preview-title"
+      className={cn("mt-2 text-14 leading-title font-medium text-fg", className)}
+      {...props}
+    />
   );
 }
 
@@ -74,7 +104,7 @@ function LinkPreviewDescription({ className, ...props }: React.ComponentProps<"p
   return (
     <p
       data-slot="link-preview-description"
-      className={cn("link-preview-description", className)}
+      className={cn("m-0 mt-1 line-clamp-3 text-12.5 leading-normal text-fg-dim", className)}
       {...props}
     />
   );
@@ -83,7 +113,11 @@ function LinkPreviewDescription({ className, ...props }: React.ComponentProps<"p
 /** Defaults to the "Opens in a new tab ↗" hint. */
 function LinkPreviewFooter({ className, children, ...props }: React.ComponentProps<"div">) {
   return (
-    <div data-slot="link-preview-footer" className={cn("link-preview-footer", className)} {...props}>
+    <div
+      data-slot="link-preview-footer"
+      className={cn("mt-2.5 flex items-center gap-1 text-11.5 text-fg-faint", className)}
+      {...props}
+    >
       {children ?? (
         <>
           Opens in a new tab <ArrowUpRightIcon aria-hidden />

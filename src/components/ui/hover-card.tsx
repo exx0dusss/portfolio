@@ -7,8 +7,7 @@ import { cn } from "@/lib/utils/cn";
 /**
  * shadcn hover-card (base-nova) on Base UI's Preview Card: a card that opens
  * when a link is hovered or focused. Same parts and props as the registry
- * component; the surface is painted by `.hover-card` in globals.css instead of
- * utility classes, to match the site's own cards.
+ * component, with the surface matched to the site's own cards.
  */
 function HoverCard({ ...props }: PreviewCardPrimitive.Root.Props) {
   return <PreviewCardPrimitive.Root data-slot="hover-card" {...props} />;
@@ -46,7 +45,7 @@ function HoverCardContent({
   return (
     <PreviewCardPrimitive.Portal data-slot="hover-card-portal">
       <PreviewCardPrimitive.Positioner
-        className="hover-card-positioner"
+        className="z-60"
         align={align}
         alignOffset={alignOffset}
         side={side}
@@ -55,7 +54,10 @@ function HoverCardContent({
       >
         <PreviewCardPrimitive.Popup
           data-slot="hover-card-content"
-          className={cn("hover-card", className)}
+          className={cn(
+            "w-popover origin-(--transform-origin) overflow-hidden rounded-card border border-line-strong bg-card shadow-popover transition duration-160 ease-pop data-ending-style:translate-y-1 data-ending-style:scale-98 data-ending-style:opacity-0 data-starting-style:translate-y-1 data-starting-style:scale-98 data-starting-style:opacity-0",
+            className,
+          )}
           {...props}
         />
       </PreviewCardPrimitive.Positioner>
