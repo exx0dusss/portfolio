@@ -85,7 +85,7 @@ export async function renderProjectCard(slug: string) {
           padding: "64px 72px",
         }}
       >
-        <div style={{ display: "flex", flex: 1, alignItems: "center", gap: 48 }}>
+        <div style={{ display: "flex", flex: 1, alignItems: "center", gap: 56 }}>
           <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 26, color: FAINT }}>
               {favicon && (
@@ -107,8 +107,9 @@ export async function renderProjectCard(slug: string) {
               style={{
                 display: "flex",
                 marginTop: 28,
-                // long names (ExdDownloaderApp) step down so they keep clear of the edge
-                fontSize: cover ? 84 : project.title.length > 14 ? 96 : 112,
+                // long names (ExdDownloaderApp) step down so they keep clear of the
+                // edge; beside a cover the column is ~520px, and the name can't wrap
+                fontSize: cover ? 72 : project.title.length > 14 ? 96 : 112,
                 fontWeight: 600,
                 letterSpacing: cover ? -3.5 : -5,
                 lineHeight: 1,
