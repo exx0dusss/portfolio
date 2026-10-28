@@ -4,10 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLinkItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { FaceIcon } from "@/components/ui/face-icon";
 import {
   BookOpenIcon,
+  CaretDownIcon,
   CertificateIcon,
+  CheckIcon,
   EnvelopeSimpleIcon,
   FileTextIcon,
   FolderSimpleIcon,
@@ -16,7 +24,14 @@ import {
   UserIcon,
   XIcon,
 } from "@/components/ui/icons";
-import { LOCALE_LABEL, LOCALES, type Locale, localePath, splitLocale } from "@/i18n/config";
+import {
+  LOCALE_LABEL,
+  LOCALE_NAME,
+  LOCALES,
+  type Locale,
+  localePath,
+  splitLocale,
+} from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/en";
 import { cn } from "@/lib/utils/cn";
 import { startLocaleSwitch, useEndLocaleSwitch } from "@/lib/locale-switch";
@@ -31,39 +46,56 @@ interface SiteNavProps {
   name: string;
 }
 
-/** EN / UA / RU links to the current page in each language (every page
- *  exists in all three; untranslated ones show their English text). Larger
- *  in the mobile menu. */
-function LangSwitch({
-  lang,
-  path,
-  label,
-  inMenu = false,
-}: {
-  lang: Locale;
-  path: string;
-  label: string;
-  inMenu?: boolean;
-}) {
+/** Props for a language link: the current page in `locale`, switched
+ *  without a title morph or entrances (it's the same page). */
+function languageLink(locale: Locale, lang: Locale, path: string) {
+  return {
+    href: localePath(locale, path),
+    transitionTypes: [LOCALE_SWITCH],
+    onClick: locale === lang ? undefined : startLocaleSwitch,
+    hrefLang: locale,
+    lang: locale,
+  };
+}
+
+/** The bar's language picker: the current language (EN ⌄) opening a menu of
+ *  the current page in each language, named in itself. Every page exists in
+ *  all three; untranslated ones show their English text. */
+function LangMenu({ lang, path, label }: { lang: Locale; path: string; label: string }) {
   return (
-    <div
-      className={cn("flex gap-0.5 font-mono text-12", inMenu && "text-14")}
-      role="group"
-      aria-label={label}
-    >
+    <div className="font-mono text-12">
+      <DropdownMenu>
+        <DropdownMenuTrigger aria-label={`${label}: ${LOCALE_NAME[lang]}`}>
+          {LOCALE_LABEL[lang]} <CaretDownIcon aria-hidden />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          {LOCALES.map((locale) => (
+            <DropdownMenuLinkItem
+              key={locale}
+              closeOnClick
+              render={<Link {...languageLink(locale, lang, path)} />}
+              aria-current={locale === lang ? "page" : undefined}
+            >
+              {LOCALE_NAME[locale]}
+              {locale === lang && <CheckIcon className="ml-auto text-accent" aria-hidden />}
+            </DropdownMenuLinkItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+  );
+}
+
+/** EN / UA / RU as a row of links, for the mobile menu, where there's room
+ *  to show them all. */
+function LangSwitch({ lang, path, label }: { lang: Locale; path: string; label: string }) {
+  return (
+    <div className="flex gap-0.5 font-mono text-14" role="group" aria-label={label}>
       {LOCALES.map((locale) => (
         <Link
           key={locale}
-          className={cn(
-            "rounded-6 px-1.75 py-1.25 text-fg-faint transition-colors duration-150 ease-standard hover:text-fg aria-[current=true]:bg-card-2 aria-[current=true]:text-fg",
-            inMenu && "px-3 py-2",
-          )}
-          href={localePath(locale, path)}
-          // the same page in another language: no title morph, no entrances
-          transitionTypes={[LOCALE_SWITCH]}
-          onClick={locale === lang ? undefined : startLocaleSwitch}
-          hrefLang={locale}
-          lang={locale}
+          className="rounded-6 px-3 py-2 text-fg-faint transition-colors duration-150 ease-standard hover:text-fg aria-[current=true]:bg-card-2 aria-[current=true]:text-fg"
+          {...languageLink(locale, lang, path)}
           aria-current={locale === lang ? "true" : undefined}
         >
           {LOCALE_LABEL[locale]}
@@ -146,7 +178,7 @@ export function SiteNav({ lang, dict, name }: SiteNavProps) {
         </div>
         <div className="flex items-center gap-2.5 justify-self-end">
           <div className="flex items-center gap-2.5 max-nav:hidden">
-            <LangSwitch lang={lang} path={path} label={dict.language} />
+            <LangMenu lang={lang} path={path} label={dict.language} />
             <ThemeToggle labels={dict.theme} />
           </div>
           {/* plain <a>: on the home page this is a native in-page jump; elsewhere
@@ -218,7 +250,7 @@ export function SiteNav({ lang, dict, name }: SiteNavProps) {
           })}
         </ul>
         <div className="flex items-center justify-between">
-          <LangSwitch lang={lang} path={path} label={dict.language} inMenu />
+          <LangSwitch lang={lang} path={path} label={dict.language} />
           <ThemeToggle labels={dict.theme} />
         </div>
       </div>

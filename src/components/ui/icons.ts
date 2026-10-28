@@ -11,6 +11,7 @@ export {
   BriefcaseIcon,
   BrowserIcon,
   CalendarBlankIcon,
+  CaretDownIcon,
   CaretLeftIcon,
   CaretRightIcon,
   CertificateIcon,

@@ -12,6 +12,9 @@ export const OG_LOCALE: Record<Locale, string> = { en: "en_US", uk: "uk_UA", ru:
  *  even though the language code is "uk"). */
 export const LOCALE_LABEL: Record<Locale, string> = { en: "EN", uk: "UA", ru: "RU" };
 
+/** Each language's name in itself, for the language menu. */
+export const LOCALE_NAME: Record<Locale, string> = { en: "English", uk: "Українська", ru: "Русский" };
+
 /** Pages translated into every locale. Everything else (case studies, the
  *  résumé) is English-only for now. */
 export const LOCALIZED_PATHS = ["/", "/projects", "/about", "/experience", "/certificates", "/reading", "/colophon"];
