@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { Reveal } from "@/components/motion/reveal";
-import { TechLink } from "@/components/tech-link";
+import { StackList } from "@/components/stack-list";
 import {
   Fact,
   FactDescription,
@@ -105,13 +105,7 @@ export default async function ColophonPage({ params }: Props) {
               </FactIcon>
               <FactLabel>{page.stack}</FactLabel>
             </FactHeader>
-            <ul className="stack-list">
-              {STACK.map((id) => (
-                <li key={id}>
-                  <TechLink id={id} variant="chip" />
-                </li>
-              ))}
-            </ul>
+            <StackList stack={STACK} />
           </Fact>
         </Facts>
       </header>

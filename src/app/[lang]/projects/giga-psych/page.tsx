@@ -46,7 +46,7 @@ export default async function GigaPsychPage({
         <section className="card">
           <SectionLabel>Overview</SectionLabel>
           <Reveal className="prose">
-            <p className="lead-q">
+            <p className="max-w-lead">
               Research data is only useful if the people who collected it can actually explore it.
               This platform turned a pile of experimental data into something a research team could
               query.

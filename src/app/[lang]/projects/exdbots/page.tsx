@@ -10,13 +10,12 @@ import {
   FeatureGrid,
   Gallery,
   NextProjectLink,
+  ProjectCover,
   ProjectHero,
   projectMetadata,
   ProjectStructuredData,
   SectionLabel,
 } from "../_components";
-
-const ACCENT = { color: "var(--accent)" } as const;
 
 const SEO = {
   slug: "exdbots",
@@ -52,19 +51,19 @@ export default async function ExdbotsPage({
         />
 
         <section className="card">
-          <div className="p-cover">
+          <ProjectCover>
             <ImageSlot
               shape="rect"
               placeholder="Drop a cover screenshot (console / editor)"
-              style={{ display: "block", width: "100%", height: "auto", aspectRatio: "16/9" }}
+              className="aspect-video h-auto w-full"
             />
-          </div>
+          </ProjectCover>
         </section>
 
         <section className="card">
           <SectionLabel>Overview</SectionLabel>
           <Reveal className="prose">
-            <p className="lead-q">
+            <p className="max-w-lead">
               Most bot frameworks make you choose between a quick script and a real product. ExdBots
               is the second thing — the tooling I wished existed when I was hand-rolling bots.
             </p>
@@ -78,7 +77,7 @@ export default async function ExdbotsPage({
               The web console acts as the control center: you assemble bot flows, connect bots you
               already run, and watch analytics, ad performance, and health in one place. It grew
               directly out of{" "}
-              <Link href="/projects/exd-downloader-app" style={ACCENT}>
+              <Link href="/projects/exd-downloader-app" className="text-accent">
                 ExdDownloaderApp
               </Link>{" "}
               — the patterns that worked there became the foundation here.
@@ -120,7 +119,7 @@ export default async function ExdbotsPage({
 
         <section className="card" id="architecture">
           <SectionLabel>Architecture</SectionLabel>
-          <div style={{ marginBottom: 22 }}>
+          <div className="mb-5.5">
             <Reveal className="prose">
               <p>
                 A bot definition is authored once and runs two ways — as a chat interface and as a

@@ -12,6 +12,7 @@ import {
   GalleryCover,
   NextProjectLink,
   OpenGalleryButton,
+  ProjectCover,
   ProjectHero,
   projectMetadata,
   ProjectStructuredData,
@@ -73,15 +74,15 @@ export default async function KosmetikProfiPage({
         />
 
         <section className="card">
-          <div className="p-cover">
+          <ProjectCover>
             <GalleryCover cover={COVER} />
-          </div>
+          </ProjectCover>
         </section>
 
         <section className="card">
           <SectionLabel>Overview</SectionLabel>
           <Reveal className="prose">
-            <p className="lead-q">
+            <p className="max-w-lead">
               A cosmetology practice with two studios in Münster needed one clear place for its
               treatments, prices and bookings — in German and English.
             </p>
@@ -133,7 +134,7 @@ export default async function KosmetikProfiPage({
 
         <section className="card" id="architecture">
           <SectionLabel>Architecture</SectionLabel>
-          <div style={{ marginBottom: 22 }}>
+          <div className="mb-5.5">
             <Reveal className="prose">
               <p>
                 One small server renders every page. Visitors and the admin panel read and write the

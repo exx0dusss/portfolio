@@ -53,7 +53,7 @@ const STATES = [
     name: "hover-card",
     page: "/projects/kosmetik-profi",
     run: async (page) => {
-      await page.locator(".tech-chip").first().hover();
+      await page.locator('[data-slot="tech-link"][data-variant="chip"]').first().hover();
       await page.locator('[data-slot="hover-card-content"]').waitFor();
     },
   },

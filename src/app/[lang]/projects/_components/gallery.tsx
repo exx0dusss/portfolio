@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowsOutIcon, ImagesIcon } from "@/components/ui/icons";
 import { ImageSlot } from "@/components/ui/image-slot";
 import { Lightbox } from "@/components/ui/lightbox";
+import { cn } from "@/lib/utils/cn";
 
 import type { GalleryItem } from "./projects-detail";
 
@@ -44,12 +45,18 @@ function OpenTile({
   return (
     <button
       type="button"
-      className="g-open"
+      // the site-wide :focus-visible ring (unlayered CSS) sits 3px outside,
+      // where the tile's frame clips it; this one is drawn inside, hence `!`
+      className="group relative block w-full cursor-zoom-in border-none bg-transparent p-0 focus-visible:-outline-offset-2! **:data-[slot=image-slot-image]:transition-transform **:data-[slot=image-slot-image]:duration-400 **:data-[slot=image-slot-image]:ease-pop hover:**:data-[slot=image-slot-image]:scale-101.5"
       aria-label={`Open “${label}” fullscreen`}
       onClick={() => setOpenIndex(index)}
     >
       {children}
-      <span className="g-hint" aria-hidden>
+      {/* always shown on touch screens, which have no hover to reveal it */}
+      <span
+        className="absolute top-2.5 right-2.5 grid size-7.5 place-items-center rounded-8 bg-scrim text-on-scrim opacity-0 transition-opacity duration-200 ease-pop group-hover:opacity-100 group-focus-visible:opacity-100 [@media(hover:none)]:opacity-100"
+        aria-hidden
+      >
         <ArrowsOutIcon />
       </span>
     </button>
@@ -69,7 +76,7 @@ export function Gallery({ items, cover }: { items: GalleryItem[]; cover?: Galler
 
   return (
     <>
-      <Reveal className="gal">
+      <Reveal className="grid grid-cols-2 gap-3.5 max-phone:grid-cols-1">
         {items.map((item) => {
           const tile = (
             <ImageSlot
@@ -78,16 +85,17 @@ export function Gallery({ items, cover }: { items: GalleryItem[]; cover?: Galler
               alt={item.alt}
               loading="lazy"
               placeholder={item.placeholder}
-              style={{
-                display: "block",
-                width: "100%",
-                height: "auto",
-                aspectRatio: item.wide ? "16/9" : "4/3",
-              }}
+              className={cn("h-auto w-full", item.wide ? "aspect-video" : "aspect-4/3")}
             />
           );
           return (
-            <div className={`g${item.wide ? " wide" : ""}`} key={item.placeholder}>
+            <div
+              className={cn(
+                "overflow-hidden rounded-card border border-line-strong bg-card-2",
+                item.wide && "col-span-full",
+              )}
+              key={item.placeholder}
+            >
               {item.src ? (
                 <OpenTile index={shots.indexOf(item)} label={item.placeholder}>
                   {tile}
@@ -112,7 +120,7 @@ export function GalleryCover({ cover }: { cover: GalleryItem }) {
       src={cover.src}
       alt={cover.alt}
       placeholder={cover.placeholder}
-      style={{ display: "block", width: "100%", height: "auto", aspectRatio: "16/9" }}
+      className="aspect-video h-auto w-full"
     />
   );
   return cover.src ? (
