@@ -2,12 +2,29 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils/cn";
 
-const brandIconVariants = cva("brand-icon", {
+const brandIconVariants = cva(
+  "inline-grid flex-none place-items-center border border-line bg-card text-fg",
+  {
+    variants: {
+      size: {
+        sm: "size-5 rounded-md [&_svg]:size-2.75",
+        md: "size-8 rounded-9 [&_svg]:size-4",
+        lg: "size-16 rounded-2xl [&_svg]:size-8",
+      },
+    },
+    defaultVariants: {
+      size: "md",
+    },
+  },
+);
+
+/** The name's initial, shown when there's no logo; sized to the tile. */
+const brandIconInitialVariants = cva("leading-none font-semibold", {
   variants: {
     size: {
-      sm: "brand-icon-sm",
-      md: "",
-      lg: "brand-icon-lg",
+      sm: "text-10",
+      md: "text-13",
+      lg: "text-26",
     },
   },
   defaultVariants: {
@@ -40,7 +57,7 @@ function BrandIcon({
           <path d={path} />
         </svg>
       ) : (
-        <span className="brand-icon-initial">{name[0]}</span>
+        <span className={brandIconInitialVariants({ size })}>{name[0]}</span>
       )}
     </span>
   );

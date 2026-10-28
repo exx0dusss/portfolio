@@ -24,7 +24,7 @@ function Meter({ className, value, min = 0, max = 5, ...props }: MeterPrimitive.
     <MeterContext.Provider value={{ value, min, max }}>
       <MeterPrimitive.Root
         data-slot="meter"
-        className={cn("meter", className)}
+        className={cn("flex flex-wrap items-center gap-x-2.25 gap-y-1.5", className)}
         value={value}
         min={min}
         max={max}
@@ -40,11 +40,15 @@ function MeterSegments({ className, ...props }: MeterPrimitive.Track.Props) {
   return (
     <MeterPrimitive.Track
       data-slot="meter-segments"
-      className={cn("meter-segments", className)}
+      className={cn("inline-flex gap-0.75", className)}
       {...props}
     >
       {Array.from({ length: max - min }, (_, step) => (
-        <span key={step} data-filled={step < value - min ? "" : undefined} />
+        <span
+          key={step}
+          data-filled={step < value - min ? "" : undefined}
+          className="h-1.5 w-3.5 rounded-xs bg-line-strong data-filled:bg-accent"
+        />
       ))}
     </MeterPrimitive.Track>
   );
@@ -52,9 +56,7 @@ function MeterSegments({ className, ...props }: MeterPrimitive.Track.Props) {
 
 /** Visible wording for the value. Screen readers get `aria-valuetext` instead. */
 function MeterLabel({ className, ...props }: React.ComponentProps<"span">) {
-  return (
-    <span data-slot="meter-label" aria-hidden className={cn("meter-label", className)} {...props} />
-  );
+  return <span data-slot="meter-label" aria-hidden className={className} {...props} />;
 }
 
 export { Meter, MeterLabel, MeterSegments };

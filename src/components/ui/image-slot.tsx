@@ -51,7 +51,7 @@ export function ImageSlot({
   return (
     <div
       data-slot="image-slot"
-      className={cn("img-slot", className)}
+      className={cn("relative block min-h-22.5 overflow-hidden bg-card-2", className)}
       style={{ borderRadius, ...style }}
     >
       {src ? (
@@ -62,12 +62,16 @@ export function ImageSlot({
           loading={loading}
           decoding="async"
           style={{ objectFit: fit }}
-          className="img-slot-img"
+          data-slot="image-slot-image"
+          className="block size-full"
         />
       ) : (
-        <div className="img-slot-ph" style={{ borderRadius }}>
+        <div
+          className="absolute inset-0 flex flex-col items-center justify-center gap-2 border-1.5 border-dashed border-line-strong p-3.5 text-center text-fg-faint [&_svg]:opacity-50"
+          style={{ borderRadius }}
+        >
           <ImageIcon size={26} aria-hidden />
-          <span className="img-slot-cap">{placeholder}</span>
+          <span className="max-w-9/10 text-12 leading-label font-medium">{placeholder}</span>
         </div>
       )}
     </div>
