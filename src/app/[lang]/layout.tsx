@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
-import Script from "next/script";
 
+import { InlineScript } from "@/components/inline-script";
 import { HistoryScroll } from "@/components/layout/history-scroll";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -89,13 +89,12 @@ export default async function RootLayout({
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
+      <head>
+        {/* a saved theme applies before first paint, so the other one never
+            flashes */}
+        <InlineScript html={THEME_SCRIPT} />
+      </head>
       <body>
-        {/* beforeInteractive: Next injects this into the server HTML's <head> so
-            a saved theme applies before paint (a raw <script> in a component
-            is flagged by React and never runs on client renders) */}
-        <Script id="theme-init" strategy="beforeInteractive">
-          {THEME_SCRIPT}
-        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSON_LD) }}
