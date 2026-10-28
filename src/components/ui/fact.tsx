@@ -31,14 +31,15 @@ function Facts({
   className,
   ...props
 }: React.ComponentProps<"div"> & {
-  /** Columns from 761px up; phones always get two. */
+  /** Columns from 761px up; two on large phones, one up to 520px, where two
+   *  columns leave each value too narrow and wrap it. */
   columns?: number;
 }) {
   return (
     <div
       data-slot="facts"
       className={cn(
-        "grid gap-2.5 max-phone:grid-cols-2 max-phone:gap-2",
+        "grid gap-2.5 max-phone:grid-cols-2 max-phone:gap-2 max-small:grid-cols-1",
         COLUMNS[columns],
         className,
       )}

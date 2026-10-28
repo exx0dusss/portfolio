@@ -81,7 +81,8 @@ function OpennessBadge({ openness }: { openness: Openness }) {
     <span className="inline-flex items-center gap-1.75 max-phone:items-start">
       <span
         className={cn(
-          "size-1.75 rounded-full max-phone:mt-dot-first-line",
+          // flex-none: a wrapping label would otherwise squeeze the dot oval
+          "size-1.75 flex-none rounded-full max-phone:mt-dot-first-line",
           TONE_DOT[openness.tone],
         )}
       />
