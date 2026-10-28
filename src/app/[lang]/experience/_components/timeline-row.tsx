@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { LocaleLink } from "@/components/locale-link";
 
 import { Reveal } from "@/components/motion/reveal";
 import { ArrowRightIcon } from "@/components/ui/icons";
@@ -22,7 +22,7 @@ export function TimelineRow({ entry }: { entry: TimelineEntry }) {
         <div className="mt-0.75 text-14 text-fg-dim">
           {entry.href ? (
             // a company with a case study: underlined like the site's other inline links
-            <Link
+            <LocaleLink
               className="group/co inline-flex items-center gap-1.25 font-medium text-fg underline decoration-line-strong underline-offset-3 transition-colors duration-150 ease-pop hover:decoration-fg focus-visible:decoration-fg"
               href={entry.href}
             >
@@ -31,7 +31,7 @@ export function TimelineRow({ entry }: { entry: TimelineEntry }) {
                 aria-hidden
                 className="size-3.25 text-fg-faint transition-transform duration-200 ease-pop group-hover/co:translate-x-0.5"
               />
-            </Link>
+            </LocaleLink>
           ) : (
             entry.company
           )}

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 
 import { PageShell } from "@/components/page";
 import { ButtonLink } from "@/components/ui/button";
-import { requireEnglish } from "@/i18n";
+import { hasLocale } from "@/i18n";
 
 import { PrintButton } from "./_components/print-button";
 import {
@@ -35,10 +36,11 @@ const EMAIL = "tymurmustafaiev029@gmail.com";
 const LINKEDIN = "https://linkedin.com/in/tymur-mustafaiev-968b3724b";
 
 export default async function ResumePage({ params }: { params: Promise<{ lang: string }> }) {
-  await requireEnglish(params);
+  // every language serves the résumé; it is written in English (lang="en")
+  if (!hasLocale((await params).lang)) notFound();
   return (
     // printed, the sheet fills the page
-    <PageShell className="print:max-w-none print:p-0">
+    <PageShell lang="en" className="print:max-w-none print:p-0">
       <article className="mx-auto max-w-resume px-13 py-11.5 max-phone:px-6 max-phone:py-7.5 print:max-w-none print:p-0!">
         <div className="mb-6.5 flex flex-wrap items-center justify-between gap-4 print:hidden">
           <span className="text-11.5 font-medium tracking-caps text-fg-faint uppercase">

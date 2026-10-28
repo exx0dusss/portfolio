@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { LocaleLink } from "@/components/locale-link";
 import { Section } from "@/components/page";
 import { ArrowRightIcon } from "@/components/ui/icons";
 
@@ -10,7 +9,7 @@ import type { NextProjectLinkData } from "./projects-detail";
  *  section lays out its children on a grid. */
 export function NextProjectLink({ name, href }: NextProjectLinkData) {
   return (
-    <Section render={<Link href={href} />} className="group">
+    <Section render={<LocaleLink href={href} />} className="group">
       <div className="flex items-center justify-between gap-4">
         <div>
           <div className="text-13.5 text-fg-faint">Next project</div>

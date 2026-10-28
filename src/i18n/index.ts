@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 
-import { DEFAULT_LOCALE, type Locale, languageAlternates, localePath, OG_LOCALE } from "./config";
+import { type Locale, languageAlternates, localePath, OG_LOCALE } from "./config";
 import { en, type Dictionary } from "./dictionaries/en";
 import { ru } from "./dictionaries/ru";
 import { uk } from "./dictionaries/uk";
@@ -43,11 +42,4 @@ export function localizedMetadata(
       ],
     },
   };
-}
-
-/** Guard for pages that exist only in English (case studies, résumé):
- *  their /uk and /ru addresses 404 instead of serving English content. */
-export async function requireEnglish(params: Promise<{ lang: string }>): Promise<void> {
-  const { lang } = await params;
-  if (lang !== DEFAULT_LOCALE) notFound();
 }

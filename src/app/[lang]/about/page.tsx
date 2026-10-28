@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Reveal } from "@/components/motion/reveal";
@@ -11,6 +10,7 @@ import {
   PageTitle,
   Section,
 } from "@/components/page";
+import { LocaleLink } from "@/components/locale-link";
 import { ButtonLink } from "@/components/ui/button";
 import {
   Empty,
@@ -21,7 +21,7 @@ import {
   EmptyTitle,
 } from "@/components/ui/empty";
 import { CraneTowerIcon } from "@/components/ui/icons";
-import { getDictionary, hasLocale, localePath, localizedMetadata } from "@/i18n";
+import { getDictionary, hasLocale, localizedMetadata } from "@/i18n";
 
 type Props = { params: Promise<{ lang: string }> };
 
@@ -57,11 +57,9 @@ export default async function AboutPage({ params }: Props) {
               <EmptyDescription>{page.empty.description}</EmptyDescription>
             </EmptyHeader>
             <EmptyContent>
-              <ButtonLink render={<Link href={localePath(lang, "/projects")} />}>
-                {page.actions.work}
-              </ButtonLink>
+              <ButtonLink render={<LocaleLink href="/projects" />}>{page.actions.work}</ButtonLink>
               {/* the résumé is English-only */}
-              <ButtonLink render={<Link href="/resume" />} variant="ghost">
+              <ButtonLink render={<LocaleLink href="/resume" />} variant="ghost">
                 {page.actions.resume}
               </ButtonLink>
             </EmptyContent>

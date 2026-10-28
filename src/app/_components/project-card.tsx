@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { ViewTransition } from "react";
 
+import { LocaleLink } from "@/components/locale-link";
 import { StaggerItem } from "@/components/motion/stagger";
 import { ArrowUpRightIcon, ImagesIcon } from "@/components/ui/icons";
 import type { Dictionary } from "@/i18n";
@@ -19,7 +19,7 @@ export function ProjectCard({ project, dict }: { project: Project; dict: Diction
     <StaggerItem>
       {/* hover tints an inset panel: the row reaches past the list's edges by
           its own padding */}
-      <Link
+      <LocaleLink
         className="group my-1.5 -mx-5 block rounded-card px-5 py-5.5 transition-row hover:bg-card-2 active:scale-99 max-tablet:-mx-3 max-tablet:px-3 max-tablet:py-5"
         href={project.href}
       >
@@ -72,7 +72,7 @@ export function ProjectCard({ project, dict }: { project: Project; dict: Diction
           )}
           <span className="font-mono text-12 text-fg-faint">{meta.join(" · ")}</span>
         </div>
-      </Link>
+      </LocaleLink>
     </StaggerItem>
   );
 }

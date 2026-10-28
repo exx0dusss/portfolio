@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { LocaleLink } from "@/components/locale-link";
 
 import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
@@ -52,7 +52,7 @@ export function HeroSection({ dict }: { dict: Dictionary["hero"] }) {
           <ButtonLink href="#work">
             <ArrowDownIcon aria-hidden /> {dict.seeWork}
           </ButtonLink>
-          <ButtonLink render={<Link href="/resume" />} variant="ghost">
+          <ButtonLink render={<LocaleLink href="/resume" />} variant="ghost">
             <FileTextIcon aria-hidden /> {dict.resume}
           </ButtonLink>
         </Reveal>

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import { PageShell, Prose, Section, SectionLabel } from "@/components/page";
-import { requireEnglish } from "@/i18n";
+import { hasLocale } from "@/i18n";
 
 import {
   FeatureGrid,
@@ -22,10 +23,11 @@ const SEO = {
 export const metadata: Metadata = projectMetadata(SEO);
 
 export default async function GigaPsychPage({ params }: { params: Promise<{ lang: string }> }) {
-  await requireEnglish(params);
+  // every language serves the page; its text is English (lang="en" on the shell)
+  if (!hasLocale((await params).lang)) notFound();
   return (
     <>
-      <PageShell>
+      <PageShell lang="en">
         <ProjectStructuredData {...SEO} />
         <ProjectHero
           name="Giga Psych"

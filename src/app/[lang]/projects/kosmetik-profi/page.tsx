@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import { LivePreview } from "@/components/live-preview";
 import { PageShell, Prose, Section, SectionLabel } from "@/components/page";
 import { TechLink } from "@/components/tech-link";
-import { requireEnglish } from "@/i18n";
+import { hasLocale } from "@/i18n";
 
 import {
   ArchDiagram,
@@ -37,7 +38,8 @@ const SEO = {
 export const metadata: Metadata = projectMetadata(SEO);
 
 export default async function KosmetikProfiPage({ params }: { params: Promise<{ lang: string }> }) {
-  await requireEnglish(params);
+  // every language serves the page; its text is English (lang="en" on the shell)
+  if (!hasLocale((await params).lang)) notFound();
   return (
     <>
       {/* the site's booking-button gradient (apricot, cream-peach) and its gold,
@@ -51,6 +53,7 @@ export default async function KosmetikProfiPage({ params }: { params: Promise<{ 
       />
       {/* accents in the same honey gold: AA-checked shades for shapes and text */}
       <PageShell
+        lang="en"
         {...projectTheme({
           light: { accent: "#bf7f24", ink: "#8f5a12" },
           dark: { accent: "#e8a548", ink: "#f2be6e" },

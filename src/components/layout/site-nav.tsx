@@ -16,14 +16,7 @@ import {
   UserIcon,
   XIcon,
 } from "@/components/ui/icons";
-import {
-  LOCALE_LABEL,
-  LOCALES,
-  LOCALIZED_PATHS,
-  type Locale,
-  localePath,
-  splitLocale,
-} from "@/i18n/config";
+import { LOCALE_LABEL, LOCALES, type Locale, localePath, splitLocale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/en";
 import { cn } from "@/lib/utils/cn";
 
@@ -36,8 +29,9 @@ interface SiteNavProps {
   name: string;
 }
 
-/** EN / UA / RU links to the current page where it's translated, otherwise
- *  to that language's home. Larger in the mobile menu. */
+/** EN / UA / RU links to the current page in each language (every page
+ *  exists in all three; untranslated ones show their English text). Larger
+ *  in the mobile menu. */
 function LangSwitch({
   lang,
   path,
@@ -49,7 +43,6 @@ function LangSwitch({
   label: string;
   inMenu?: boolean;
 }) {
-  const target = LOCALIZED_PATHS.includes(path) ? path : "/";
   return (
     <div
       className={cn("flex gap-0.5 font-mono text-12", inMenu && "text-14")}
@@ -63,7 +56,7 @@ function LangSwitch({
             "rounded-6 px-1.75 py-1.25 text-fg-faint transition-colors duration-150 ease-standard hover:text-fg aria-[current=true]:bg-card-2 aria-[current=true]:text-fg",
             inMenu && "px-3 py-2",
           )}
-          href={localePath(locale, target)}
+          href={localePath(locale, path)}
           hrefLang={locale}
           lang={locale}
           aria-current={locale === lang ? "true" : undefined}
@@ -88,11 +81,9 @@ export function SiteNav({ lang, dict, name }: SiteNavProps) {
     { label: dict.about, path: "/about", Icon: UserIcon },
     { label: dict.experience, path: "/experience", Icon: PathIcon },
     { label: dict.reading, path: "/reading", Icon: BookOpenIcon },
-    // the résumé is English-only for now
-    { label: dict.resume, path: "/resume", englishOnly: true, Icon: FileTextIcon },
+    { label: dict.resume, path: "/resume", Icon: FileTextIcon },
   ];
-  const href = (link: { path: string; englishOnly?: boolean }) =>
-    link.englishOnly ? link.path : localePath(lang, link.path);
+  const href = (link: { path: string }) => localePath(lang, link.path);
   const close = () => setOpen(false);
 
   // while the menu is open: Esc closes it and the page behind doesn't scroll

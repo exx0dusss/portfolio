@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { notFound } from "next/navigation";
 
+import { LocaleLink } from "@/components/locale-link";
 import { PageShell, Prose, Section, SectionLabel } from "@/components/page";
 import { ImageSlot } from "@/components/ui/image-slot";
-import { requireEnglish } from "@/i18n";
+import { hasLocale } from "@/i18n";
 
 import {
   ArchDiagram,
@@ -26,10 +27,11 @@ const SEO = {
 export const metadata: Metadata = projectMetadata(SEO);
 
 export default async function ExdbotsPage({ params }: { params: Promise<{ lang: string }> }) {
-  await requireEnglish(params);
+  // every language serves the page; its text is English (lang="en" on the shell)
+  if (!hasLocale((await params).lang)) notFound();
   return (
     <>
-      <PageShell>
+      <PageShell lang="en">
         <ProjectStructuredData {...SEO} />
         <ProjectHero
           name="ExdBots"
@@ -70,9 +72,9 @@ export default async function ExdbotsPage({ params }: { params: Promise<{ lang: 
               The web console acts as the control center: you assemble bot flows, connect bots you
               already run, and watch analytics, ad performance, and health in one place. It grew
               directly out of{" "}
-              <Link href="/projects/exd-downloader-app" className="text-accent">
+              <LocaleLink href="/projects/exd-downloader-app" className="text-accent">
                 ExdDownloaderApp
-              </Link>{" "}
+              </LocaleLink>{" "}
               — the patterns that worked there became the foundation here.
             </p>
           </Prose>

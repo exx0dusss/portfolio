@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { notFound } from "next/navigation";
 
+import { LocaleLink } from "@/components/locale-link";
 import { PageShell, Prose, Section, SectionLabel } from "@/components/page";
-import { requireEnglish } from "@/i18n";
+import { hasLocale } from "@/i18n";
 
 import {
   ArchDiagram,
@@ -27,10 +28,11 @@ export default async function ExdDownloaderAppPage({
 }: {
   params: Promise<{ lang: string }>;
 }) {
-  await requireEnglish(params);
+  // every language serves the page; its text is English (lang="en" on the shell)
+  if (!hasLocale((await params).lang)) notFound();
   return (
     <>
-      <PageShell>
+      <PageShell lang="en">
         <ProjectStructuredData {...SEO} />
         <ProjectHero
           name="ExdDownloaderApp"
@@ -67,9 +69,9 @@ export default async function ExdDownloaderAppPage({
             <p>
               Those patterns worked well enough that I pulled them out into reusable libraries. The
               SDK idea and the internal packages that now power{" "}
-              <Link href="/projects/exdbots" className="text-accent">
+              <LocaleLink href="/projects/exdbots" className="text-accent">
                 ExdBots
-              </Link>{" "}
+              </LocaleLink>{" "}
               all started here. It&#8217;s the template the platform grew from.
             </p>
           </Prose>
