@@ -104,7 +104,7 @@ export default async function KosmetikProfiPage({ params }: { params: Promise<{ 
           </ProjectCover>
         </Section>
 
-        <Section>
+        <Section id="overview">
           <SectionLabel>Overview</SectionLabel>
           <Prose>
             <p className="max-w-tagline">
@@ -125,7 +125,7 @@ export default async function KosmetikProfiPage({ params }: { params: Promise<{ 
           </Prose>
         </Section>
 
-        <Section>
+        <Section id="features">
           <SectionLabel>What&#8217;s in it</SectionLabel>
           <FeatureGrid
             features={[
@@ -174,7 +174,7 @@ export default async function KosmetikProfiPage({ params }: { params: Promise<{ 
           />
         </Section>
 
-        <Section>
+        <Section id="how-it-was-built">
           <SectionLabel>How it was built</SectionLabel>
           <Prose>
             <p>
@@ -207,7 +207,7 @@ export default async function KosmetikProfiPage({ params }: { params: Promise<{ 
           </Prose>
         </Section>
 
-        <Section>
+        <Section id="review">
           <SectionLabel>My review</SectionLabel>
           <Prose>
             <p>
@@ -236,7 +236,7 @@ export default async function KosmetikProfiPage({ params }: { params: Promise<{ 
           </Prose>
         </Section>
 
-        <Section>
+        <Section id="gallery">
           <SectionLabel>Gallery</SectionLabel>
           <Gallery
             cover={COVER}

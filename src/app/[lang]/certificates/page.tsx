@@ -37,7 +37,7 @@ export default async function CertificatesPage({ params }: Props) {
         <PageLead>{page.lead}</PageLead>
       </PageHeader>
 
-      <Section>
+      <Section id="credentials">
         <SectionLabel>{page.credentials}</SectionLabel>
         <Stagger className="grid grid-cols-2 gap-3.5 max-phone:grid-cols-1">
           {CERTIFICATES.map((certificate) => (

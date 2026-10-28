@@ -53,7 +53,7 @@ export default async function ExdDownloaderAppPage({
           ]}
         />
 
-        <Section>
+        <Section id="overview">
           <SectionLabel>Overview</SectionLabel>
           <Prose>
             <p className="max-w-tagline">
@@ -77,7 +77,7 @@ export default async function ExdDownloaderAppPage({
           </Prose>
         </Section>
 
-        <Section>
+        <Section id="highlights">
           <SectionLabel>Highlights</SectionLabel>
           <FeatureGrid
             features={[
@@ -144,7 +144,7 @@ export default async function ExdDownloaderAppPage({
           />
         </Section>
 
-        <Section>
+        <Section id="how-it-was-built">
           <SectionLabel>How it was built</SectionLabel>
           <Prose>
             <p>

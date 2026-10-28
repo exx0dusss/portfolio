@@ -3,6 +3,7 @@
 import { useRender } from "@base-ui/react/use-render";
 
 import { Reveal } from "@/components/motion/reveal";
+import { SectionAnchor } from "@/components/section-anchor";
 import { cn } from "@/lib/utils/cn";
 
 /**
@@ -101,6 +102,9 @@ function PageLead({ className, delay = 2, children }: RevealPartProps) {
  * (cover shots, the next-project link) the content runs full width. A child
  * marked data-span="full" (a wide diagram) spans all twelve columns anyway,
  * placed below the label. Below 860px the label stacks above the content.
+ * Give a labelled section an id (short, English, the same in every
+ * language): its label's link button shares it (links to it clear the
+ * sticky nav through the page's scroll-padding).
  *
  *   <Section id="work">…</Section>
  *   <Section render={<Link href="/next" />}>…</Section>
@@ -120,7 +124,9 @@ function Section({ className, render, ...props }: useRender.ComponentProps<"sect
   });
 }
 
-/** A section's name, in its left column (spanning every row of content). */
+/** A section's name, in its left column (spanning every row of content),
+ *  with a button in the gutter that copies a link to the section (its
+ *  Section's id). */
 function SectionLabel({ className, delay, children }: RevealPartProps) {
   return (
     <Reveal
@@ -128,10 +134,11 @@ function SectionLabel({ className, delay, children }: RevealPartProps) {
       data-slot="section-label"
       delay={delay}
       className={cn(
-        "col-span-3 col-start-1 row-span-40 row-start-1 self-start text-15 leading-compact font-semibold text-fg max-tablet:mb-5.5 [&_a]:underline [&_a]:decoration-line-strong [&_a]:underline-offset-3",
+        "group/label relative col-span-3 col-start-1 row-span-40 row-start-1 self-start text-15 leading-compact font-semibold text-fg max-tablet:mb-5.5 [&_a]:underline [&_a]:decoration-line-strong [&_a]:underline-offset-3",
         className,
       )}
     >
+      <SectionAnchor />
       {children}
     </Reveal>
   );

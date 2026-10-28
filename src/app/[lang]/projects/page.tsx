@@ -36,7 +36,7 @@ export default async function ProjectsPage({ params }: Props) {
         <PageLead>{page.lead}</PageLead>
       </PageHeader>
 
-      <Section>
+      <Section id="projects">
         <SectionLabel>{page.label}</SectionLabel>
         <ProjectList dict={dict.work} />
       </Section>

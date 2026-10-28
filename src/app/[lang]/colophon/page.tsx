@@ -116,7 +116,7 @@ export default async function ColophonPage({ params }: Props) {
         </Facts>
       </PageHeader>
 
-      <Section>
+      <Section id="architecture">
         <SectionLabel>{page.sections.architecture}</SectionLabel>
         <div className="mb-5.5">
           <Prose>
@@ -126,7 +126,7 @@ export default async function ColophonPage({ params }: Props) {
         <ArchDiagram columns={page.architecture.columns} note={page.architecture.note} />
       </Section>
 
-      <Section>
+      <Section id="design">
         <SectionLabel>{page.sections.design}</SectionLabel>
         <Prose>
           {page.design.map((paragraph) => (
@@ -138,12 +138,12 @@ export default async function ColophonPage({ params }: Props) {
         </Reveal>
       </Section>
 
-      <Section>
+      <Section id="quality">
         <SectionLabel>{page.sections.quality}</SectionLabel>
         <FeatureGrid features={page.quality} />
       </Section>
 
-      <Section>
+      <Section id="story">
         <SectionLabel>{page.sections.story}</SectionLabel>
         <Prose>
           {page.story.map((paragraph) => (

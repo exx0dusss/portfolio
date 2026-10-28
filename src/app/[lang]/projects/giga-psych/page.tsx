@@ -40,7 +40,7 @@ export default async function GigaPsychPage({ params }: { params: Promise<{ lang
           openness={{ tone: "nda", label: "Research · under NDA" }}
         />
 
-        <Section>
+        <Section id="overview">
           <SectionLabel>Overview</SectionLabel>
           <Prose>
             <p className="max-w-tagline">
@@ -62,7 +62,7 @@ export default async function GigaPsychPage({ params }: { params: Promise<{ lang
           </Prose>
         </Section>
 
-        <Section>
+        <Section id="features">
           <SectionLabel>What I built</SectionLabel>
           <FeatureGrid
             features={[
@@ -94,7 +94,7 @@ export default async function GigaPsychPage({ params }: { params: Promise<{ lang
           />
         </Section>
 
-        <Section>
+        <Section id="how-it-was-built">
           <SectionLabel>How it was built</SectionLabel>
           <Prose>
             <p>

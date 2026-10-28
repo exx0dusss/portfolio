@@ -33,6 +33,7 @@ export {
   ImageIcon,
   ImagesIcon,
   LinkedinLogoIcon,
+  LinkSimpleIcon,
   ListIcon,
   MagnifyingGlassMinusIcon,
   MagnifyingGlassPlusIcon,

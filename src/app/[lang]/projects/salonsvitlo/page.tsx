@@ -53,7 +53,7 @@ export default async function SalonSvitloPage({ params }: { params: Promise<{ la
           </ProjectCover>
         </Section>
 
-        <Section>
+        <Section id="overview">
           <SectionLabel>Overview</SectionLabel>
           <Prose>
             <p className="max-w-tagline">
@@ -75,7 +75,7 @@ export default async function SalonSvitloPage({ params }: { params: Promise<{ la
           </Prose>
         </Section>
 
-        <Section>
+        <Section id="features">
           <SectionLabel>What&#8217;s in it</SectionLabel>
           <FeatureGrid
             features={[
@@ -149,7 +149,7 @@ export default async function SalonSvitloPage({ params }: { params: Promise<{ la
           />
         </Section>
 
-        <Section>
+        <Section id="how-it-was-built">
           <SectionLabel>How it was built</SectionLabel>
           <Prose>
             <p>
@@ -166,7 +166,7 @@ export default async function SalonSvitloPage({ params }: { params: Promise<{ la
           </Prose>
         </Section>
 
-        <Section>
+        <Section id="gallery">
           <SectionLabel>Gallery</SectionLabel>
           <Gallery
             items={[

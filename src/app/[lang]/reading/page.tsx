@@ -37,7 +37,7 @@ export default async function ReadingPage({ params }: Props) {
         <PageLead>{page.lead}</PageLead>
       </PageHeader>
 
-      <Section>
+      <Section id="books">
         <SectionLabel>{page.books}</SectionLabel>
         {/* book titles stay in their original English */}
         <Stagger className="grid grid-cols-shelf gap-x-shelf gap-y-8.5">

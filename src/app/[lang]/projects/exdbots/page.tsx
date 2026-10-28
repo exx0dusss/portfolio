@@ -55,7 +55,7 @@ export default async function ExdbotsPage({ params }: { params: Promise<{ lang: 
           </ProjectCover>
         </Section>
 
-        <Section>
+        <Section id="overview">
           <SectionLabel>Overview</SectionLabel>
           <Prose>
             <p className="max-w-tagline">
@@ -80,7 +80,7 @@ export default async function ExdbotsPage({ params }: { params: Promise<{ lang: 
           </Prose>
         </Section>
 
-        <Section>
+        <Section id="features">
           <SectionLabel>What&#8217;s inside</SectionLabel>
           <FeatureGrid
             features={[
@@ -157,7 +157,7 @@ export default async function ExdbotsPage({ params }: { params: Promise<{ lang: 
           />
         </Section>
 
-        <Section>
+        <Section id="how-it-was-built">
           <SectionLabel>How it was built</SectionLabel>
           <Prose>
             <p>
@@ -179,7 +179,7 @@ export default async function ExdbotsPage({ params }: { params: Promise<{ lang: 
           </Prose>
         </Section>
 
-        <Section>
+        <Section id="gallery">
           <SectionLabel>Gallery</SectionLabel>
           <Gallery
             items={[

@@ -39,14 +39,14 @@ export default async function ExperiencePage({ params }: Props) {
         <PageLead>{page.lead}</PageLead>
       </PageHeader>
 
-      <Section>
+      <Section id="roles">
         <SectionLabel>{page.roles}</SectionLabel>
         {roles.map((entry) => (
           <TimelineRow key={`${entry.company}-${entry.year}`} entry={entry} />
         ))}
       </Section>
 
-      <Section>
+      <Section id="education">
         <SectionLabel>{page.education}</SectionLabel>
         {education.map((entry) => (
           <TimelineRow key={`${entry.company}-${entry.year}`} entry={entry} />
