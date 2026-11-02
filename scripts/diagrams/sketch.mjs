@@ -25,6 +25,11 @@ export const GAP = {
   clear: 8,
 };
 
+/** How far a hand-drawn arrowhead's wings reach either side of its line at
+ *  roughness 2: a label beside a vertical arrow clears the wings, not just
+ *  the line. */
+const HEAD = 14;
+
 export const FONT = { title: 34, subtitle: 20, zone: 20, box: 22, caption: 18, label: 16 };
 const LINE_HEIGHT = 1.25;
 /** Excalifont's average glyph width, as a share of the font size (estimates
@@ -36,6 +41,10 @@ export const INK = {
   muted: "#757575",
   amber: "#b45309",
   nest: { stroke: "#c2255c", fill: "#ffc9c9" },
+  /** the ExdBots apps (bots, console) */
+  exd: { stroke: "#1971c2", fill: "#a5d8ff" },
+  /** Giga Psych's frontend, in its blue */
+  giga: { stroke: "#0b489d", fill: "#d0e2ff" },
   purple: "#d0bfff",
   orange: "#ffd8a8",
   red: "#ffc9c9",
@@ -109,10 +118,18 @@ export function ellipse(id, x, y, w, h, props = {}) {
 export function line(id, x, y, points, props = {}) {
   const xs = points.map(([px]) => px);
   const ys = points.map(([, py]) => py);
-  return base("line", id, x, y, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys), {
-    points,
-    ...props,
-  });
+  return base(
+    "line",
+    id,
+    x,
+    y,
+    Math.max(...xs) - Math.min(...xs),
+    Math.max(...ys) - Math.min(...ys),
+    {
+      points,
+      ...props,
+    },
+  );
 }
 
 export function arrow(id, from, to, props = {}) {
@@ -188,10 +205,22 @@ export function person(id, x, y) {
   const cx = x + 22;
   return figure(id, [
     ellipse(`${id}-head`, cx - 15, y, 30, 30),
-    line(`${id}-body`, cx, y + 30, [[0, 0], [0, 45]]),
-    line(`${id}-arms`, cx - 22, y + 46, [[0, 0], [44, 0]]),
-    line(`${id}-leg1`, cx, y + 75, [[0, 0], [-16, 32]]),
-    line(`${id}-leg2`, cx, y + 75, [[0, 0], [16, 32]]),
+    line(`${id}-body`, cx, y + 30, [
+      [0, 0],
+      [0, 45],
+    ]),
+    line(`${id}-arms`, cx - 22, y + 46, [
+      [0, 0],
+      [44, 0],
+    ]),
+    line(`${id}-leg1`, cx, y + 75, [
+      [0, 0],
+      [-16, 32],
+    ]),
+    line(`${id}-leg2`, cx, y + 75, [
+      [0, 0],
+      [16, 32],
+    ]),
   ]);
 }
 
@@ -199,9 +228,18 @@ export function person(id, x, y) {
 export function calendar(id, x, y) {
   return figure(id, [
     rect(`${id}-page`, x, y + 10, 70, 60, { backgroundColor: INK.orange }),
-    line(`${id}-bar`, x, y + 27, [[0, 0], [70, 0]]),
-    line(`${id}-ring1`, x + 17, y, [[0, 0], [0, 18]]),
-    line(`${id}-ring2`, x + 53, y, [[0, 0], [0, 18]]),
+    line(`${id}-bar`, x, y + 27, [
+      [0, 0],
+      [70, 0],
+    ]),
+    line(`${id}-ring1`, x + 17, y, [
+      [0, 0],
+      [0, 18],
+    ]),
+    line(`${id}-ring2`, x + 53, y, [
+      [0, 0],
+      [0, 18],
+    ]),
   ]);
 }
 
@@ -209,9 +247,18 @@ export function calendar(id, x, y) {
 export function pin(id, x, y) {
   return figure(id, [
     ellipse(`${id}-head`, x, y, 50, 50, { backgroundColor: INK.red }),
-    line(`${id}-l`, x + 3, y + 36, [[0, 0], [22, 44]]),
-    line(`${id}-r`, x + 47, y + 36, [[0, 0], [-22, 44]]),
-    ellipse(`${id}-dot`, x + 18, y + 18, 14, 14, { backgroundColor: "#ffffff", fillStyle: "solid" }),
+    line(`${id}-l`, x + 3, y + 36, [
+      [0, 0],
+      [22, 44],
+    ]),
+    line(`${id}-r`, x + 47, y + 36, [
+      [0, 0],
+      [-22, 44],
+    ]),
+    ellipse(`${id}-dot`, x + 18, y + 18, 14, 14, {
+      backgroundColor: "#ffffff",
+      fillStyle: "solid",
+    }),
   ]);
 }
 
@@ -221,14 +268,23 @@ export function chart(id, x, y) {
     rect(`${id}-b1`, x + 8, y + 38, 14, 30, { backgroundColor: INK.blue }),
     rect(`${id}-b2`, x + 28, y + 18, 14, 50, { backgroundColor: INK.blue }),
     rect(`${id}-b3`, x + 48, y, 14, 68, { backgroundColor: INK.blue }),
-    line(`${id}-base`, x, y + 70, [[0, 0], [72, 0]]),
+    line(`${id}-base`, x, y + 70, [
+      [0, 0],
+      [72, 0],
+    ]),
   ]);
 }
 
 /** A labelled box (label centred inside). Returns { elements, box }. */
 export function box(id, x, y, w, h, label, props = {}) {
   const size = FONT.box;
-  const label_ = centred(`${id}-label`, x + w / 2, y + (h - textHeight(label, size)) / 2, label, size);
+  const label_ = centred(
+    `${id}-label`,
+    x + w / 2,
+    y + (h - textHeight(label, size)) / 2,
+    label,
+    size,
+  );
   return figure(id, [rect(`${id}-shape`, x, y, w, h, props), label_]);
 }
 
@@ -245,6 +301,132 @@ export function zone(id, x, y, w, h, title, props = {}) {
   };
 }
 
+/* ── layout helpers ────────────────────────────────────────────────── */
+
+/** y just below a box, `gap` under it */
+export const below = (b, gap) => b.y + b.h + gap;
+export const mid = (b) => ({ x: b.x + b.w / 2, y: b.y + b.h / 2 });
+/** where an arrow starts or stops: `gap` off a box's side, `at` along it */
+export const end = (b, side, gap = GAP.arrow, at = 0.5) =>
+  ({
+    left: [b.x - gap, b.y + b.h * at],
+    right: [b.x + b.w + gap, b.y + b.h * at],
+    top: [b.x + b.w * at, b.y - gap],
+    bottom: [b.x + b.w * at, b.y + b.h + gap],
+  })[side];
+
+/** a label centred above the middle of an arrow from a to b, lifted by
+ *  the slope under its half-width so it keeps GAP.label clear of the line */
+export function labelAbove(id, a, b, value) {
+  const w = textWidth(value, FONT.label);
+  const slope = Math.abs((b[1] - a[1]) / (b[0] - a[0]));
+  const y = (a[1] + b[1]) / 2 - (slope * w) / 2 - GAP.label - textHeight(value, FONT.label);
+  return centred(id, (a[0] + b[0]) / 2, y, value, FONT.label, { strokeColor: INK.muted });
+}
+/** a label to the left of a vertical arrow */
+export const labelLeft = (id, a, b, value) =>
+  text(
+    id,
+    a[0] - GAP.label - HEAD - textWidth(value, FONT.label),
+    (a[1] + b[1]) / 2 - textHeight(value, FONT.label) / 2,
+    value,
+    FONT.label,
+    {
+      strokeColor: INK.muted,
+    },
+  );
+/** a label to the right of a vertical arrow */
+export const labelBeside = (id, a, b, value) =>
+  text(
+    id,
+    a[0] + GAP.label + HEAD,
+    (a[1] + b[1]) / 2 - textHeight(value, FONT.label) / 2,
+    value,
+    FONT.label,
+    {
+      strokeColor: INK.muted,
+    },
+  );
+
+/** a captioned item: the thing, then its caption centred 12px below */
+export function captioned(id, part, caption, size = FONT.caption) {
+  const c = centred(`${id}-caption`, mid(part.box).x, below(part.box, GAP.caption), caption, size);
+  return { elements: [...part.elements, c], box: part.box, bottom: c.y + c.height };
+}
+
+/** a box with a grey sub-caption under it */
+export function described(id, x, y, w, h, label, sub, props) {
+  const b = box(id, x, y, w, h, label, props);
+  const s = centred(`${id}-sub`, x + w / 2, below(b.box, GAP.caption), sub, FONT.label, {
+    strokeColor: INK.muted,
+  });
+  return { elements: [...b.elements, s], box: b.box, bottom: s.y + s.height };
+}
+
+/** a database icon with its caption and grey sub-caption */
+export function store(id, x, y, caption, sub, width = 72) {
+  const part = captioned(id, icon("database", id, x, y, width), caption);
+  const s = centred(`${id}-sub`, mid(part.box).x, part.bottom + GAP.subCaption, sub, FONT.label, {
+    strokeColor: INK.muted,
+  });
+  return { elements: [...part.elements, s], box: part.box, bottom: s.y + s.height };
+}
+
+/** a muted box for something outside the project */
+export const outside = (id, x, y, w, h, label) =>
+  box(id, x, y, w, h, label, { strokeColor: INK.muted });
+
+/** a label centred under the middle of a sloped arrow, dropped by the slope */
+export function labelBelow(id, a, b, value) {
+  const slope = Math.abs((b[1] - a[1]) / (b[0] - a[0]));
+  const y = (a[1] + b[1]) / 2 + (slope * textWidth(value, FONT.label)) / 2 + GAP.label;
+  return centred(id, (a[0] + b[0]) / 2, y, value, FONT.label, { strokeColor: INK.muted });
+}
+
+/** a label to the right of the middle of a steep arrow, pushed off by its run */
+export function labelRight(id, a, b, value) {
+  const run = (Math.abs(b[0] - a[0]) / Math.abs(b[1] - a[1])) * textHeight(value, FONT.label);
+  const y = (a[1] + b[1]) / 2 - textHeight(value, FONT.label) / 2;
+  return text(id, (a[0] + b[0]) / 2 + run / 2 + GAP.label + HEAD, y, value, FONT.label, {
+    strokeColor: INK.muted,
+  });
+}
+
+/** A person and their device (a library icon) side by side, each captioned. */
+export function user(id, x, y, who, what, deviceW, device = "browser") {
+  const figure = captioned(`${id}-person`, person(id, x, y), who);
+  const page = captioned(
+    `${id}-${device}`,
+    icon(device, `${id}-${device}`, x + 44 + GAP.person, y, deviceW),
+    what,
+  );
+  return {
+    elements: [...figure.elements, ...page.elements],
+    person: figure.box,
+    browser: page.box,
+    bottom: Math.max(figure.bottom, page.bottom),
+    right: page.box.x + page.box.w,
+  };
+}
+
+/** The sketch's title and grey subtitle, centred; `bottom` is where the
+ *  drawing may start. */
+export function heading(width, title, subtitle) {
+  const t = centred("title", width / 2, 0, title, FONT.title, { groupIds: ["heading"] });
+  const sub = centred(
+    "subtitle",
+    width / 2,
+    below({ y: t.y, h: t.height }, 4),
+    subtitle,
+    FONT.subtitle,
+    {
+      strokeColor: INK.muted,
+      groupIds: ["heading"],
+    },
+  );
+  return { elements: [t, sub], bottom: sub.y + sub.height + 40 };
+}
+
 /* ── audit ─────────────────────────────────────────────────────────── */
 
 /** the part an element belongs to: its group, else its id without the role
@@ -252,7 +434,8 @@ export function zone(id, x, y, w, h, title, props = {}) {
 const owner = (e) => e.groupIds?.[0] ?? e.id.replace(/-(label|title|shape|caption|sub)$/, "");
 
 function rectOf(e) {
-  if (e.type === "text" && e.textAlign === "center") return { x: e.x, y: e.y, w: e.width, h: e.height };
+  if (e.type === "text" && e.textAlign === "center")
+    return { x: e.x, y: e.y, w: e.width, h: e.height };
   return bbox([e]);
 }
 
@@ -262,7 +445,8 @@ function distance(a, b) {
   return Math.hypot(dx, dy);
 }
 
-const inside = (a, b) => a.x >= b.x && a.y >= b.y && a.x + a.w <= b.x + b.w && a.y + a.h <= b.y + b.h;
+const inside = (a, b) =>
+  a.x >= b.x && a.y >= b.y && a.x + a.w <= b.x + b.w && a.y + a.h <= b.y + b.h;
 
 /** Checks a layout: zone content keeps the zone padding; texts and shapes of
  *  different parts keep GAP.clear apart; arrows don't run through text.
@@ -273,11 +457,17 @@ export function audit(elements, zones) {
   const parts = elements.filter((e) => e.type !== "arrow" && !zoneShapes.has(e.id));
 
   for (const z of zones) {
-    const padded = { x: z.x + GAP.zonePad - 1, y: z.y + GAP.zonePad - 1, w: z.w - 2 * GAP.zonePad + 2, h: z.h - 2 * GAP.zonePad + 2 };
+    const padded = {
+      x: z.x + GAP.zonePad - 1,
+      y: z.y + GAP.zonePad - 1,
+      w: z.w - 2 * GAP.zonePad + 2,
+      h: z.h - 2 * GAP.zonePad + 2,
+    };
     for (const e of parts) {
       const r = rectOf(e);
       const overlaps = distance(r, z) === 0;
-      if (overlaps && !inside(r, padded) && inside(r, z)) problems.push(`${e.id}: inside ${z.id} but within its padding`);
+      if (overlaps && !inside(r, padded) && inside(r, z))
+        problems.push(`${e.id}: inside ${z.id} but within its padding`);
       if (overlaps && !inside(r, z) && !inside(z, r) && distance(r, padded) === 0)
         problems.push(`${e.id}: crosses the border of ${z.id}`);
     }
@@ -298,7 +488,7 @@ export function audit(elements, zones) {
 
   const texts = elements.filter((e) => e.type === "text");
   for (const a of elements.filter((e) => e.type === "arrow")) {
-    const [[, ], [dx, dy]] = a.points;
+    const [[,], [dx, dy]] = a.points;
     for (let t = 0.08; t <= 0.92; t += 0.04) {
       const p = { x: a.x + dx * t, y: a.y + dy * t, w: 0, h: 0 };
       const hit = texts.find((e) => distance(p, rectOf(e)) < 2);

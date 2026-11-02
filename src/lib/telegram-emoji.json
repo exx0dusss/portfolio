@@ -1,0 +1,186 @@
+{
+  "tiktok": {
+    "width": 48,
+    "height": 48
+  },
+  "youtube": {
+    "width": 48,
+    "height": 48
+  },
+  "soundcloud": {
+    "width": 48,
+    "height": 48
+  },
+  "film": {
+    "width": 48,
+    "height": 48
+  },
+  "chat": {
+    "width": 48,
+    "height": 48
+  },
+  "hourglass": {
+    "width": 48,
+    "height": 48
+  },
+  "folder": {
+    "width": 48,
+    "height": 48
+  },
+  "telegram": {
+    "width": 48,
+    "height": 48
+  },
+  "inbox": {
+    "width": 48,
+    "height": 48
+  },
+  "rocket": {
+    "width": 48,
+    "height": 48
+  },
+  "people": {
+    "width": 48,
+    "height": 48
+  },
+  "person": {
+    "width": 48,
+    "height": 48
+  },
+  "bellOff": {
+    "width": 48,
+    "height": 48
+  },
+  "lock": {
+    "width": 48,
+    "height": 48
+  },
+  "gift": {
+    "width": 48,
+    "height": 48
+  },
+  "star": {
+    "width": 48,
+    "height": 48
+  },
+  "megaphone": {
+    "width": 48,
+    "height": 48
+  },
+  "sparkles": {
+    "width": 48,
+    "height": 48
+  },
+  "link": {
+    "width": 48,
+    "height": 48
+  },
+  "question": {
+    "width": 48,
+    "height": 48
+  },
+  "cross": {
+    "width": 48,
+    "height": 48
+  },
+  "bulb": {
+    "width": 48,
+    "height": 48
+  },
+  "cards": {
+    "width": 48,
+    "height": 48
+  },
+  "globe": {
+    "width": 48,
+    "height": 48
+  },
+  "phone": {
+    "width": 48,
+    "height": 48
+  },
+  "wave": {
+    "width": 48,
+    "height": 48
+  },
+  "plus": {
+    "width": 48,
+    "height": 48
+  },
+  "check": {
+    "width": 48,
+    "height": 48
+  },
+  "robot": {
+    "width": 48,
+    "height": 48
+  },
+  "music": {
+    "width": 48,
+    "height": 48
+  },
+  "picture": {
+    "width": 48,
+    "height": 48
+  },
+  "tv": {
+    "width": 48,
+    "height": 48
+  },
+  "magnifier": {
+    "width": 48,
+    "height": 48
+  },
+  "playlist": {
+    "width": 48,
+    "height": 48
+  },
+  "x": {
+    "width": 48,
+    "height": 48
+  },
+  "instagram": {
+    "width": 48,
+    "height": 48
+  },
+  "reddit": {
+    "width": 48,
+    "height": 48
+  },
+  "facebook": {
+    "width": 48,
+    "height": 48
+  },
+  "pinterest": {
+    "width": 48,
+    "height": 48
+  },
+  "twitch": {
+    "width": 48,
+    "height": 48
+  },
+  "vimeo": {
+    "width": 48,
+    "height": 48
+  },
+  "snapchat": {
+    "width": 48,
+    "height": 48
+  },
+  "tumblr": {
+    "width": 48,
+    "height": 48
+  },
+  "vk": {
+    "width": 48,
+    "height": 48
+  },
+  "bilibili": {
+    "width": 48,
+    "height": 48
+  },
+  "linkedin": {
+    "width": 48,
+    "height": 48
+  }
+}

@@ -29,12 +29,12 @@ export interface Dictionary {
     toTop: string;
     certificates: string;
   };
-  footer: { certificates: string; colophon: string };
+  footer: { colophon: string; lastEdited: string };
   hero: { title: string; scope: [string, string, string, string]; seeWork: string; resume: string };
   work: {
     label: string;
     sub: string;
-    status: { live: string; development: string; research: string };
+    status: { live: string; development: string; research: string; open: string };
     projects: Record<string, { description: string; facets: string[]; scaleLabel?: string }>;
     /** Screenshot count label. Only English inflects; "фото" never changes. */
     photos: { one: string; other: string };
@@ -112,7 +112,7 @@ export const en: Dictionary = {
     toTop: "Back to top",
     certificates: "Certificates",
   },
-  footer: { certificates: "Certificates", colophon: "Colophon" },
+  footer: { colophon: "Colophon", lastEdited: "Last edited" },
   hero: {
     title: "I design and build web products",
     scope: [
@@ -127,7 +127,12 @@ export const en: Dictionary = {
   work: {
     label: "Work",
     sub: "Selected projects",
-    status: { live: "Live", development: "In development", research: "Research" },
+    status: {
+      live: "Live",
+      development: "In development",
+      research: "Research",
+      open: "Open source",
+    },
     photos: { one: "photo", other: "photos" },
     projects: {
       salonsvitlo: {
@@ -154,8 +159,13 @@ export const en: Dictionary = {
       },
       "giga-psych": {
         description:
-          "Research data platform built with PJATK's XR Lab and the University of Amsterdam.",
+          "Open-science platform for psychology datasets, my diploma project with PJATK's XR Lab and VU Amsterdam.",
         facets: ["Research", "Web platform"],
+      },
+      architectures: {
+        description:
+          "My engineering playbook: architectures for Next.js, TanStack Start and NestJS, shipped as Claude Code plugins.",
+        facets: ["Open source", "AI tooling"],
       },
     },
   },
@@ -195,7 +205,7 @@ export const en: Dictionary = {
     projects: {
       title: "Projects",
       description:
-        "Case studies by Tymur Mustafaiev — SalonSvitlo, a custom commerce platform; ExdDownloaderApp, a Telegram bot; ExdBots, a Telegram app platform; and Giga Psych, a research data platform.",
+        "Case studies by Tymur Mustafaiev — SalonSvitlo, a custom commerce platform; ExdDownloaderApp, a Telegram bot; ExdBots, a Telegram app platform; Giga Psych, a research data platform; and Architectures, an open-source engineering playbook.",
       heading: "Things I’ve built.",
       lead: "Products I’ve designed and built end to end — from Telegram platforms and research tooling to e-commerce. Each one has a full case study.",
       label: "Work",
@@ -227,7 +237,8 @@ export const en: Dictionary = {
     },
     colophon: {
       title: "Colophon",
-      description: "How tymurmustafaiev.com is built: Next.js 16 and React 19, shadcn on Base UI, Tailwind v4 tokens, deployed on Vercel. The stack, design and workflow.",
+      description:
+        "How tymurmustafaiev.com is built: Next.js 16 and React 19, shadcn on Base UI, Tailwind v4 tokens, deployed on Vercel. The stack, design and workflow.",
       heading: "How this site is built.",
       lead: "The stack, the design decisions and the workflow behind this portfolio, which is a project in its own right.",
       facts: {
@@ -260,7 +271,7 @@ export const en: Dictionary = {
           label: "Languages",
           value: "3",
           sub: "English, Ukrainian, Russian",
-        }
+        },
       },
       stack: "Stack",
       sections: {
@@ -270,7 +281,8 @@ export const en: Dictionary = {
         story: "Why this stack",
       },
       architecture: {
-        intro: "Every page is rendered to static HTML when the site is built. A small proxy maps each address to its language, and the CDN serves the rest.",
+        intro:
+          "Every page is rendered to static HTML when the site is built. A small proxy maps each address to its language, and the CDN serves the rest.",
         columns: [
           {
             title: "Code",
@@ -282,7 +294,7 @@ export const en: Dictionary = {
               {
                 title: "Branch",
                 sub: "preview deploy on push",
-              }
+              },
             ],
           },
           {
@@ -292,7 +304,7 @@ export const en: Dictionary = {
                 title: "Vercel",
                 sub: "next build",
                 accent: true,
-              }
+              },
             ],
           },
           {
@@ -305,7 +317,7 @@ export const en: Dictionary = {
               {
                 title: "Proxy",
                 sub: "picks the language",
-              }
+              },
             ],
           },
           {
@@ -314,9 +326,9 @@ export const en: Dictionary = {
               {
                 title: "Cloudflare DNS",
                 sub: "tymurmustafaiev.com",
-              }
+              },
             ],
-          }
+          },
         ],
         note: "// merge to main → production in about a minute and a half",
       },
@@ -342,23 +354,26 @@ export const en: Dictionary = {
         {
           fn: "a11y",
           title: "Accessible by default",
-          description: "Visible keyboard focus, real link and button semantics, and motion that stops when you ask it to.",
+          description:
+            "Visible keyboard focus, real link and button semantics, and motion that stops when you ask it to.",
         },
         {
           fn: "i18n",
           title: "Three languages",
-          description: "English, Ukrainian and Russian, each at its own address, with hreflang links between them.",
+          description:
+            "English, Ukrainian and Russian, each at its own address, with hreflang links between them.",
         },
         {
           fn: "SEO",
           title: "Made to be shared",
-          description: "Every case study has its own preview card, Open Graph and X tags, and structured data.",
-        }
+          description:
+            "Every case study has its own preview card, Open Graph and X tags, and structured data.",
+        },
       ],
       story: [
         "I started this portfolio in Astro, the obvious pick for a static site. Then I switched to Next.js, so it would follow my own Next.js architecture guideline, the one I use for real products.",
         "The site only needs the guideline's design-system and structure rules, so the heavier parts, like auth and data fetching, stayed out. What's left is what a front-end engineer is judged by: components, tokens and the details.",
-      ]
+      ],
     },
     about: {
       title: "About",

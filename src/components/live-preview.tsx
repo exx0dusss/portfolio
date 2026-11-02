@@ -2,14 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { Button, ButtonLink } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { DemoDialog } from "@/components/demo-dialog";
+import { ButtonLink } from "@/components/ui/button";
+import { DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { ArrowUpRightIcon, BrowserIcon, GlobeIcon } from "@/components/ui/icons";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
@@ -32,14 +27,11 @@ function LivePreview({ url, label = "Try it live" }: { url: string; label?: stri
   const host = new URL(url).hostname.replace(/^www\./, "");
 
   return (
-    <Dialog>
-      <DialogTrigger render={<Button variant="ghost" />}>
-        <BrowserIcon aria-hidden /> {label}
-      </DialogTrigger>
+    <DemoDialog icon={<BrowserIcon aria-hidden />} label={label}>
       <DialogContent size="viewer" showCloseButton>
         <LivePreviewBody url={url} host={host} />
       </DialogContent>
-    </Dialog>
+    </DemoDialog>
   );
 }
 

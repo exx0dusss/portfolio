@@ -1,0 +1,707 @@
+{
+  "v1": [
+    {
+      "version": "v1",
+      "url": "video-1",
+      "run": 0,
+      "ok": false,
+      "ms": 769,
+      "error": "HTTP 429, not JSON (19 bytes)"
+    },
+    {
+      "version": "v1",
+      "url": "video-2",
+      "run": 0,
+      "ok": false,
+      "ms": 685,
+      "error": "HTTP 200, not JSON (0 bytes)"
+    },
+    {
+      "version": "v1",
+      "url": "video-3",
+      "run": 0,
+      "ok": false,
+      "ms": 720,
+      "error": "HTTP 200, not JSON (0 bytes)"
+    },
+    {
+      "version": "v1",
+      "url": "video-4",
+      "run": 0,
+      "ok": false,
+      "ms": 588,
+      "error": "HTTP 429, not JSON (19 bytes)"
+    },
+    {
+      "version": "v1",
+      "url": "video-5",
+      "run": 0,
+      "ok": false,
+      "ms": 600,
+      "error": "HTTP 200, not JSON (0 bytes)"
+    },
+    {
+      "version": "v1",
+      "url": "video-6",
+      "run": 0,
+      "ok": false,
+      "ms": 712,
+      "error": "HTTP 200, not JSON (0 bytes)"
+    },
+    {
+      "version": "v1",
+      "url": "video-7",
+      "run": 0,
+      "ok": false,
+      "ms": 730,
+      "error": "HTTP 429, not JSON (19 bytes)"
+    },
+    {
+      "version": "v1",
+      "url": "video-8",
+      "run": 0,
+      "ok": false,
+      "ms": 624,
+      "error": "HTTP 429, not JSON (19 bytes)"
+    },
+    {
+      "version": "v1",
+      "url": "video-9",
+      "run": 0,
+      "ok": false,
+      "ms": 743,
+      "error": "HTTP 429, not JSON (19 bytes)"
+    },
+    {
+      "version": "v1",
+      "url": "video-10",
+      "run": 0,
+      "ok": false,
+      "ms": 719,
+      "error": "HTTP 200, not JSON (0 bytes)"
+    }
+  ],
+  "v2": [
+    {
+      "version": "v2",
+      "url": "video-1",
+      "run": 0,
+      "ok": false,
+      "ms": 823,
+      "error": "Unexpected token 'r', \"ratelimit triggered\" is not valid JSON"
+    },
+    {
+      "version": "v2",
+      "url": "video-2",
+      "run": 0,
+      "ok": false,
+      "ms": 725,
+      "error": "Unexpected token 'r', \"ratelimit triggered\" is not valid JSON"
+    },
+    {
+      "version": "v2",
+      "url": "video-3",
+      "run": 0,
+      "ok": false,
+      "ms": 733,
+      "error": "Unexpected token 'r', \"ratelimit triggered\" is not valid JSON"
+    },
+    {
+      "version": "v2",
+      "url": "video-4",
+      "run": 0,
+      "ok": false,
+      "ms": 843,
+      "error": "Unexpected token 'r', \"ratelimit triggered\" is not valid JSON"
+    },
+    {
+      "version": "v2",
+      "url": "video-5",
+      "run": 0,
+      "ok": false,
+      "ms": 726,
+      "error": "Unexpected token 'r', \"ratelimit triggered\" is not valid JSON"
+    },
+    {
+      "version": "v2",
+      "url": "video-6",
+      "run": 0,
+      "ok": false,
+      "ms": 697,
+      "error": "Unexpected token 'r', \"ratelimit triggered\" is not valid JSON"
+    },
+    {
+      "version": "v2",
+      "url": "video-7",
+      "run": 0,
+      "ok": false,
+      "ms": 684,
+      "error": "Unexpected token 'r', \"ratelimit triggered\" is not valid JSON"
+    },
+    {
+      "version": "v2",
+      "url": "video-8",
+      "run": 0,
+      "ok": false,
+      "ms": 694,
+      "error": "Unexpected token 'r', \"ratelimit triggered\" is not valid JSON"
+    },
+    {
+      "version": "v2",
+      "url": "video-9",
+      "run": 0,
+      "ok": false,
+      "ms": 693,
+      "error": "Failed to fetch tiktok data. Make sure your tiktok url is correct!"
+    },
+    {
+      "version": "v2",
+      "url": "video-10",
+      "run": 0,
+      "ok": false,
+      "ms": 699,
+      "error": "Failed to fetch tiktok data. Make sure your tiktok url is correct!"
+    }
+  ],
+  "v3": [
+    {
+      "version": "v3",
+      "url": "video-1",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 5950,
+      "mediaMs": 157,
+      "bytes": 79098
+    },
+    {
+      "version": "v3",
+      "url": "video-2",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 6205,
+      "mediaMs": 218,
+      "bytes": 3969260
+    },
+    {
+      "version": "v3",
+      "url": "video-3",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 8494,
+      "mediaMs": 287,
+      "bytes": 3788849
+    },
+    {
+      "version": "v3",
+      "url": "video-4",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 11027,
+      "mediaMs": 209,
+      "bytes": 2745132
+    },
+    {
+      "version": "v3",
+      "url": "video-5",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 6419,
+      "mediaMs": 214,
+      "bytes": 1459604
+    },
+    {
+      "version": "v3",
+      "url": "video-6",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 5899,
+      "mediaMs": 134,
+      "bytes": 877030
+    },
+    {
+      "version": "v3",
+      "url": "video-7",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 6870,
+      "mediaMs": 422,
+      "bytes": 12442763
+    },
+    {
+      "version": "v3",
+      "url": "video-8",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 5783,
+      "mediaMs": 295,
+      "bytes": 2535062
+    },
+    {
+      "version": "v3",
+      "url": "video-9",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 11629,
+      "mediaMs": 140,
+      "bytes": 821041
+    },
+    {
+      "version": "v3",
+      "url": "video-10",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 16111,
+      "mediaMs": 135,
+      "bytes": 332979
+    },
+    {
+      "version": "v3",
+      "url": "video-1",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 6129,
+      "mediaMs": 95,
+      "bytes": 79098
+    },
+    {
+      "version": "v3",
+      "url": "video-2",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 14391,
+      "mediaMs": 217,
+      "bytes": 3969260
+    },
+    {
+      "version": "v3",
+      "url": "video-3",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 6844,
+      "mediaMs": 173,
+      "bytes": 3788849
+    },
+    {
+      "version": "v3",
+      "url": "video-4",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 5867,
+      "mediaMs": 176,
+      "bytes": 2745132
+    },
+    {
+      "version": "v3",
+      "url": "video-5",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 6940,
+      "mediaMs": 233,
+      "bytes": 1459604
+    },
+    {
+      "version": "v3",
+      "url": "video-6",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 6405,
+      "mediaMs": 500,
+      "bytes": 877030
+    },
+    {
+      "version": "v3",
+      "url": "video-7",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 6202,
+      "mediaMs": 351,
+      "bytes": 12442763
+    },
+    {
+      "version": "v3",
+      "url": "video-8",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 8127,
+      "mediaMs": 172,
+      "bytes": 2535062
+    },
+    {
+      "version": "v3",
+      "url": "video-9",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 10743,
+      "mediaMs": 135,
+      "bytes": 821041
+    },
+    {
+      "version": "v3",
+      "url": "video-10",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 10698,
+      "mediaMs": 175,
+      "bytes": 332979
+    },
+    {
+      "version": "v3",
+      "url": "video-1",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 6828,
+      "mediaMs": 103,
+      "bytes": 79098
+    },
+    {
+      "version": "v3",
+      "url": "video-2",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 5743,
+      "mediaMs": 189,
+      "bytes": 3969260
+    },
+    {
+      "version": "v3",
+      "url": "video-3",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 7759,
+      "mediaMs": 197,
+      "bytes": 3788849
+    },
+    {
+      "version": "v3",
+      "url": "video-4",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 6301,
+      "mediaMs": 276,
+      "bytes": 2745132
+    },
+    {
+      "version": "v3",
+      "url": "video-5",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 7544,
+      "mediaMs": 260,
+      "bytes": 1459604
+    },
+    {
+      "version": "v3",
+      "url": "video-6",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 5944,
+      "mediaMs": 126,
+      "bytes": 877030
+    },
+    {
+      "version": "v3",
+      "url": "video-7",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 6124,
+      "mediaMs": 461,
+      "bytes": 12442763
+    },
+    {
+      "version": "v3",
+      "url": "video-8",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 6878,
+      "mediaMs": 177,
+      "bytes": 2535062
+    },
+    {
+      "version": "v3",
+      "url": "video-9",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 6992,
+      "mediaMs": 132,
+      "bytes": 821041
+    },
+    {
+      "version": "v3",
+      "url": "video-10",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 5782,
+      "mediaMs": 111,
+      "bytes": 332979
+    }
+  ],
+  "v4": [
+    {
+      "version": "v4",
+      "url": "video-1",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 942,
+      "mediaMs": 496,
+      "bytes": 109316
+    },
+    {
+      "version": "v4",
+      "url": "video-2",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 621,
+      "mediaMs": 923,
+      "bytes": 12183967
+    },
+    {
+      "version": "v4",
+      "url": "video-3",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 739,
+      "mediaMs": 221,
+      "bytes": 3788849
+    },
+    {
+      "version": "v4",
+      "url": "video-4",
+      "run": 0,
+      "ok": false,
+      "ms": 598,
+      "error": "TikTok video unavailable: age-restricted"
+    },
+    {
+      "version": "v4",
+      "url": "video-5",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 665,
+      "mediaMs": 31,
+      "bytes": 1082466
+    },
+    {
+      "version": "v4",
+      "url": "video-6",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 489,
+      "mediaMs": 45,
+      "bytes": 2004954
+    },
+    {
+      "version": "v4",
+      "url": "video-7",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 578,
+      "mediaMs": 231,
+      "bytes": 12923662
+    },
+    {
+      "version": "v4",
+      "url": "video-8",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 494,
+      "mediaMs": 95,
+      "bytes": 3851263
+    },
+    {
+      "version": "v4",
+      "url": "video-9",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 446,
+      "mediaMs": 26,
+      "bytes": 821041
+    },
+    {
+      "version": "v4",
+      "url": "video-10",
+      "run": 0,
+      "ok": true,
+      "resolveMs": 592,
+      "mediaMs": 18,
+      "bytes": 212100
+    },
+    {
+      "version": "v4",
+      "url": "video-1",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 543,
+      "mediaMs": 78,
+      "bytes": 109316
+    },
+    {
+      "version": "v4",
+      "url": "video-2",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 529,
+      "mediaMs": 215,
+      "bytes": 12183967
+    },
+    {
+      "version": "v4",
+      "url": "video-3",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 611,
+      "mediaMs": 89,
+      "bytes": 3788849
+    },
+    {
+      "version": "v4",
+      "url": "video-4",
+      "run": 1,
+      "ok": false,
+      "ms": 678,
+      "error": "TikTok video unavailable: age-restricted"
+    },
+    {
+      "version": "v4",
+      "url": "video-5",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 534,
+      "mediaMs": 30,
+      "bytes": 1082466
+    },
+    {
+      "version": "v4",
+      "url": "video-6",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 580,
+      "mediaMs": 44,
+      "bytes": 2004954
+    },
+    {
+      "version": "v4",
+      "url": "video-7",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 448,
+      "mediaMs": 219,
+      "bytes": 12923662
+    },
+    {
+      "version": "v4",
+      "url": "video-8",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 548,
+      "mediaMs": 91,
+      "bytes": 3851263
+    },
+    {
+      "version": "v4",
+      "url": "video-9",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 644,
+      "mediaMs": 28,
+      "bytes": 821041
+    },
+    {
+      "version": "v4",
+      "url": "video-10",
+      "run": 1,
+      "ok": true,
+      "resolveMs": 693,
+      "mediaMs": 19,
+      "bytes": 212100
+    },
+    {
+      "version": "v4",
+      "url": "video-1",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 568,
+      "mediaMs": 17,
+      "bytes": 109316
+    },
+    {
+      "version": "v4",
+      "url": "video-2",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 575,
+      "mediaMs": 279,
+      "bytes": 12183967
+    },
+    {
+      "version": "v4",
+      "url": "video-3",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 585,
+      "mediaMs": 76,
+      "bytes": 3788849
+    },
+    {
+      "version": "v4",
+      "url": "video-4",
+      "run": 2,
+      "ok": false,
+      "ms": 544,
+      "error": "TikTok video unavailable: age-restricted"
+    },
+    {
+      "version": "v4",
+      "url": "video-5",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 623,
+      "mediaMs": 29,
+      "bytes": 1082466
+    },
+    {
+      "version": "v4",
+      "url": "video-6",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 598,
+      "mediaMs": 107,
+      "bytes": 2004954
+    },
+    {
+      "version": "v4",
+      "url": "video-7",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 640,
+      "mediaMs": 251,
+      "bytes": 12923662
+    },
+    {
+      "version": "v4",
+      "url": "video-8",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 518,
+      "mediaMs": 133,
+      "bytes": 3851263
+    },
+    {
+      "version": "v4",
+      "url": "video-9",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 590,
+      "mediaMs": 26,
+      "bytes": 821041
+    },
+    {
+      "version": "v4",
+      "url": "video-10",
+      "run": 2,
+      "ok": true,
+      "resolveMs": 469,
+      "mediaMs": 20,
+      "bytes": 212100
+    }
+  ]
+}

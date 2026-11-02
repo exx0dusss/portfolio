@@ -69,7 +69,7 @@ export const EDUCATION: TimelineEntry[] = [
     role: "Bachelor’s Degree",
     company: "Polish-Japanese Academy of Information Technologies (PJATK)",
     description:
-      "Worked with the university’s XR Lab on the Giga Psych research project alongside researchers from the University of Amsterdam.",
+      "Diploma project Giga Psych with the university’s XR Lab: the frontend, in a team of four. Graduated with a 5 and a thesis with distinction.",
   },
 ];
 

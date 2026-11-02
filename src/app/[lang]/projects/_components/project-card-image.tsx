@@ -72,90 +72,95 @@ export async function renderProjectCard(slug: string) {
   ]);
 
   return new ImageResponse(
-    (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          background: "#fff",
-          color: INK,
-          fontFamily: "Geist",
-          padding: "64px 72px",
-        }}
-      >
-        <div style={{ display: "flex", flex: 1, alignItems: "center", gap: 56 }}>
-          <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 26, color: FAINT }}>
-              {favicon && (
-                // eslint-disable-next-line @next/next/no-img-element -- Satori renders <img>
-                <img
-                  src={favicon}
-                  width={52}
-                  height={52}
-                  alt=""
-                  style={{ borderRadius: 12, border: `1px solid ${LINE}` }}
-                />
-              )}
-              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <div style={{ width: 10, height: 10, borderRadius: 999, background: ACCENT }} />
-                <span>{nbsp("Case study")}</span>
-              </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                marginTop: 28,
-                // long names (ExdDownloaderApp) step down so they keep clear of the
-                // edge; beside a cover the column is ~520px, and the name can't wrap
-                fontSize: cover ? 72 : project.title.length > 14 ? 96 : 112,
-                fontWeight: 600,
-                letterSpacing: cover ? -3.5 : -5,
-                lineHeight: 1,
-              }}
-            >
-              {/* no trailing accent dot here: Satori measures a tightly
-                  tracked name too wide, leaving a gap before it */}
-              {nbsp(project.title)}
-            </div>
-            {copy?.description && (
-              <div style={{ display: "flex", marginTop: 24, fontSize: 30, lineHeight: 1.35, color: DIM }}>
-                <Words text={copy.description} gap={8} />
-              </div>
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        background: "#fff",
+        color: INK,
+        fontFamily: "Geist",
+        padding: "64px 72px",
+      }}
+    >
+      <div style={{ display: "flex", flex: 1, alignItems: "center", gap: 56 }}>
+        <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+          <div
+            style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 26, color: FAINT }}
+          >
+            {favicon && (
+              // eslint-disable-next-line @next/next/no-img-element -- Satori renders <img>
+              <img
+                src={favicon}
+                width={52}
+                height={52}
+                alt=""
+                style={{
+                  borderRadius: project.iconShape === "round" ? 999 : 12,
+                  border: `1px solid ${LINE}`,
+                }}
+              />
             )}
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ width: 10, height: 10, borderRadius: 999, background: ACCENT }} />
+              <span>{nbsp("Case study")}</span>
+            </div>
           </div>
-          {cover && (
-            // eslint-disable-next-line @next/next/no-img-element -- Satori renders <img>
-            <img
-              src={cover}
-              width={480}
-              height={270}
-              alt=""
-              style={{
-                borderRadius: 14,
-                border: `1px solid ${LINE}`,
-                boxShadow: "0 18px 40px rgba(27, 25, 20, 0.16)",
-                objectFit: "cover",
-              }}
-            />
+          <div
+            style={{
+              display: "flex",
+              marginTop: 28,
+              // long names (ExdDownloaderApp) step down so they keep clear of the
+              // edge; beside a cover the column is ~520px, and the name can't wrap
+              fontSize: cover ? 72 : project.title.length > 14 ? 96 : 112,
+              fontWeight: 600,
+              letterSpacing: cover ? -3.5 : -5,
+              lineHeight: 1,
+            }}
+          >
+            {/* no trailing accent dot here: Satori measures a tightly
+                  tracked name too wide, leaving a gap before it */}
+            {nbsp(project.title)}
+          </div>
+          {copy?.description && (
+            <div
+              style={{ display: "flex", marginTop: 24, fontSize: 30, lineHeight: 1.35, color: DIM }}
+            >
+              <Words text={copy.description} gap={8} />
+            </div>
           )}
         </div>
-        <div style={{ marginTop: 40, height: 2, background: INK }} />
-        <div
-          style={{
-            marginTop: 20,
-            display: "flex",
-            justifyContent: "space-between",
-            fontSize: 24,
-            color: FAINT,
-          }}
-        >
-          <span>{`tymurmustafaiev.com${project.href}`}</span>
-          <span>{nbsp(meta.join(" · "))}</span>
-        </div>
+        {cover && (
+          // eslint-disable-next-line @next/next/no-img-element -- Satori renders <img>
+          <img
+            src={cover}
+            width={480}
+            height={270}
+            alt=""
+            style={{
+              borderRadius: 14,
+              border: `1px solid ${LINE}`,
+              boxShadow: "0 18px 40px rgba(27, 25, 20, 0.16)",
+              objectFit: "cover",
+            }}
+          />
+        )}
       </div>
-    ),
+      <div style={{ marginTop: 40, height: 2, background: INK }} />
+      <div
+        style={{
+          marginTop: 20,
+          display: "flex",
+          justifyContent: "space-between",
+          fontSize: 24,
+          color: FAINT,
+        }}
+      >
+        <span>{`tymurmustafaiev.com${project.href}`}</span>
+        <span>{nbsp(meta.join(" · "))}</span>
+      </div>
+    </div>,
     {
       ...size,
       fonts: [

@@ -1,4 +1,5 @@
 <!-- BEGIN:nextjs-agent-rules -->
+
 # This is NOT the Next.js you know
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
@@ -19,7 +20,8 @@ Tailwind (CVA for variants) on the site's own tokens in
 - Navigation that looks like a button is `ButtonLink`, not `Button`.
 - Pass only data (no functions) from server components into Base UI parts.
 
-After making changes, run `pnpm lint` and fix all errors.
+After making changes, run `pnpm check` (lint, typecheck, Prettier) and fix all
+errors. `pnpm format` formats; the pre-commit hook (lefthook) runs the same checks.
 
 # Architecture diagrams
 
@@ -27,4 +29,4 @@ Case-study architecture is a hand-drawn Excalidraw sketch exported to SVG.
 Read `docs/diagrams.md` before adding or changing one: get the architecture
 from the project's code, lay it out with the shared spacing rules in
 `scripts/diagrams/sketch.mjs`, and run `pnpm diagrams` (it audits gaps and
-padding, then exports desktop and mobile versions).
+padding, then exports the SVG).

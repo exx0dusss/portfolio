@@ -4,16 +4,20 @@
 //
 // 1. Colour logos, shown when a chip is hovered: from svgl (svgl.app, open
 //    source; light and dark versions where it has both), Devicon where svgl
-//    only has a wordmark, or a brand's Simple Icons shape in its one colour.
+//    only has a wordmark, the brand's own file where neither has it, or a
+//    brand's Simple Icons shape in its one colour. A brand that only
+//    publishes a raster logo keeps it as is, in scripts/tech-logos/.
 //    Chips show icons, not wordmarks: a logo much wider than tall is flagged
 //    unless it's known to be the icon (WIDE_ICONS). Logos with no colour of
 //    their own (black and white marks) are skipped: the grey mark already is
 //    their look. Files in public/tech-logos/ (shown with <img>, so their
 //    markup never runs), map in src/lib/tech-logos.json.
 // 2. Grey marks for brands Simple Icons doesn't have: taken from the brand's
-//    own favicon or mask icon, background dropped, parsed against a drawing
-//    allowlist and recoloured to currentColor. Map in src/lib/tech-marks.json.
-import { mkdir, rm, writeFile } from "node:fs/promises";
+//    own favicon, mask icon or logo, background dropped, parsed against a
+//    drawing allowlist and recoloured to currentColor; or, for a brand that
+//    only publishes a raster logo, an SVG traced from it, kept in
+//    scripts/tech-marks/. Map in src/lib/tech-marks.json.
+import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import * as icons from "simple-icons";
@@ -34,6 +38,10 @@ const SOURCES = {
   coolify: { simpleIcon: "siCoolify" },
   nextjs: { svgl: "Next.js" },
   react: { svgl: "React" },
+  "claude-code": { simpleIcon: "siClaude" },
+  "telegram-api": { svgl: "Telegram" },
+  javascript: { svgl: "JavaScript" },
+  java: { svgl: "Java" },
   typescript: { svgl: "TypeScript" },
   tailwind: { svgl: "Tailwind CSS" },
   shadcn: { svgl: "shadcn/ui" },
@@ -41,6 +49,34 @@ const SOURCES = {
   vercel: { svgl: "Vercel" },
   cloudflare: { svgl: "Cloudflare" },
   github: { svgl: "GitHub" },
+  // grammY's own "Y" (gradient), not on svgl
+  grammy: { url: "https://grammy.dev/images/Y.svg" },
+  deno: { svgl: "Deno" },
+  hono: { svgl: "Hono" },
+  trpc: { svgl: "tRPC" },
+  drizzle: { svgl: "Drizzle ORM" },
+  postgresql: { svgl: "PostgreSQL" },
+  redis: { svgl: "Redis" },
+  vite: { svgl: "Vite" },
+  sentry: { simpleIcon: "siSentry" },
+  ffmpeg: { simpleIcon: "siFfmpeg" },
+  "telegram-mini-apps": { svgl: "Telegram" },
+  "telegram-bot-api": { svgl: "Telegram" },
+  "tanstack-query": { svgl: "TanStack" },
+  "tanstack-start": { svgl: "TanStack" },
+  zod: { svgl: "Zod" },
+  storybook: { svgl: "Storybook" },
+  bun: { svgl: "Bun" },
+  liquibase: { simpleIcon: "siLiquibase" },
+  cursor: { svgl: "Cursor" },
+  gemini: { svgl: "Gemini" },
+  figma: { svgl: "Figma" },
+  v0: { svgl: "v0" },
+  msw: { simpleIcon: "siMockserviceworker" },
+  openapi: { simpleIcon: "siOpenapiinitiative" },
+  // the top hat from falso's README (ngneat-archive/falso, logo.png), scaled
+  // to 128px; the project has no vector logo
+  falso: { file: "scripts/tech-logos/falso.png" },
 };
 
 /** Logos that are wide by nature (a cloud, a wave), not wordmarks. */
@@ -67,6 +103,28 @@ const MARKS = {
     drop: /<path[^>]*fill="#469E30"[^>]*\/>/,
   },
   lightbox: { url: "https://yet-another-react-lightbox.com/safari-pinned-tab.svg" },
+  // the "Y" alone: its gradient, the empty layout rects and the class names go
+  grammy: {
+    url: "https://grammy.dev/images/Y.svg",
+    drop: /<defs>[\s\S]*?<\/defs>|<rect[^>]*\/>|\s(?:class|id)="[^"]*"/g,
+  },
+  // the bull from bullmq.io/images/bullmq-logo.png, traced with potrace
+  bullmq: { file: "scripts/tech-marks/bullmq.svg" },
+  // neverthrow has no logo: Phosphor's ArrowsSplit (bold), as a Result splits
+  // into ok or err
+  neverthrow: { file: "scripts/tech-marks/neverthrow.svg" },
+  // falso's top hat (scripts/tech-logos/falso.png): its outlines and
+  // moustache, the logo's dark pixels, traced with potrace
+  falso: { file: "scripts/tech-marks/falso.svg" },
+  // the letters alone: the black disc behind them goes
+  nuqs: { url: "https://nuqs.dev/icon.svg", drop: /<rect[^>]*\/>/, viewBox: "128 128 768 768" },
+  codex: { url: "https://svgl.app/library/codex_light.svg" },
+  // the square icon in front of the wordmark: its tile and inline styles go
+  context7: {
+    url: "https://context7.com/_next/static/immutable/media/context7-logo-light.1irhnfg2jrcmg.svg",
+    drop: /<rect[^>]*\/>|\sstyle="[^"]*"/g,
+    viewBox: "0 0 28 28",
+  },
 };
 
 /** What a mark may contain: drawing only. Anything else (script, style, use,
@@ -97,10 +155,15 @@ const ALLOWED_ATTRS = new Set([
 const SKIPPED =
   /<\?xml[\s\S]*?\?>|<!DOCTYPE[\s\S]*?>|<!--[\s\S]*?-->|<metadata>[\s\S]*?<\/metadata>|<title>[\s\S]*?<\/title>|<desc>[\s\S]*?<\/desc>/gi;
 
-/** An SVG's viewBox and its drawing as a tree of allowed elements, every
- *  fill painted in currentColor. Throws on anything outside the allowlist. */
+/** An SVG's viewBox (its width and height when it has none, as in SVG
+ *  itself) and its drawing as a tree of allowed elements, every fill painted
+ *  in currentColor. Throws on anything outside the allowlist. */
 function toMark(svg, drop) {
-  const viewBox = svg.match(/viewBox="([^"]+)"/)[1].trim();
+  const svgTag = svg.match(/<svg[^>]*>/)[0];
+  const size = (name) => svgTag.match(new RegExp(`\\s${name}="([\\d.]+)"`))?.[1];
+  const viewBox = (
+    svgTag.match(/viewBox="([^"]+)"/)?.[1] ?? `0 0 ${size("width")} ${size("height")}`
+  ).trim();
   if (!/^[\d.\s,-]+$/.test(viewBox)) throw new Error(`unexpected viewBox "${viewBox}"`);
   let body = svg.slice(svg.indexOf(">", svg.indexOf("<svg")) + 1, svg.lastIndexOf("</svg>"));
   if (drop) body = body.replace(drop, "");
@@ -163,6 +226,10 @@ async function svglLogo(title) {
   return { light: await get(routes.light), dark: routes.dark && (await get(routes.dark)) };
 }
 
+async function urlLogo(url) {
+  return { light: await (await fetch(url)).text() };
+}
+
 async function deviconLogo(name) {
   const url = `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${name}/${name}-original.svg`;
   return { light: await (await fetch(url)).text() };
@@ -179,11 +246,20 @@ await rm(DIR, { recursive: true, force: true });
 await mkdir(DIR, { recursive: true });
 const map = {};
 for (const [id, source] of Object.entries(SOURCES)) {
+  if (source.file) {
+    const ext = path.extname(source.file);
+    await copyFile(path.join(ROOT, source.file), path.join(DIR, `${id}${ext}`));
+    map[id] = { light: `/tech-logos/${id}${ext}` };
+    console.log(`saved    ${id} (${ext.slice(1)})`);
+    continue;
+  }
   const logo = source.svgl
     ? await svglLogo(source.svgl)
     : source.devicon
       ? await deviconLogo(source.devicon)
-      : simpleIconLogo(source.simpleIcon);
+      : source.url
+        ? await urlLogo(source.url)
+        : simpleIconLogo(source.simpleIcon);
   if (aspectOf(logo.light) > 1.8 && !WIDE_ICONS.has(id)) {
     console.warn(`check    ${id}: ${aspectOf(logo.light).toFixed(1)}:1, likely a wordmark`);
   }
@@ -202,8 +278,11 @@ for (const [id, source] of Object.entries(SOURCES)) {
 await writeFile(OUT, JSON.stringify(map, null, 2) + "\n");
 
 const marks = {};
-for (const [id, { url, drop, viewBox }] of Object.entries(MARKS)) {
-  marks[id] = toMark(await (await fetch(url)).text(), drop);
+for (const [id, { url, file, drop, viewBox }] of Object.entries(MARKS)) {
+  const svg = file
+    ? await readFile(path.join(ROOT, file), "utf8")
+    : await (await fetch(url)).text();
+  marks[id] = toMark(svg, drop);
   if (viewBox) marks[id].viewBox = viewBox;
   console.log(`mark     ${id}`);
 }

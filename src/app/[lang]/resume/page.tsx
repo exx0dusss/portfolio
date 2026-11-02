@@ -146,8 +146,8 @@ export default async function ResumePage({ params }: { params: Promise<{ lang: s
               <p className="text-13.5 leading-summary text-fg-dim">
                 Front-end engineer and UX/UI designer who treats software as a craft and loves
                 shipping beautiful, well-built things. I take products from Figma to production in
-                TypeScript — interface, backend, and the systems behind them — and I&#8217;m
-                increasingly building AI features into them.
+                TypeScript — interface, backend, and the systems behind them — and I’m increasingly
+                building AI features into them.
               </p>
             </ResumeSection>
 

@@ -5,7 +5,7 @@ import { useReducedMotion } from "motion/react";
 import dynamic from "next/dynamic";
 import { useCallback, useRef, useState, useSyncExternalStore } from "react";
 
-import { useBeforeLocaleSwitch, useLocaleSwitched } from "@/lib/locale-switch";
+import { useBeforeLocaleSwitch, useLocaleSwitched, useSettledMount } from "@/lib/locale-switch";
 import { cn } from "@/lib/utils/cn";
 
 /** The shader loads after the page is interactive (client only), so it stays
@@ -72,7 +72,10 @@ export function ProjectBanner({
   const dark = useSyncExternalStore(subscribeTheme, isDark, () => false);
   const reduce = useReducedMotion();
   const speed = reduce ? 0 : 0.25;
+  // the same page in another language picks up the shader where it was;
+  // any page already seen skips the fade-in
   const switched = useLocaleSwitched();
+  const settled = useSettledMount();
   const [frame] = useState(() => (switched ? resumeFrame() : 0));
   const shader = useRef<PaperShaderElement>(null);
   useBeforeLocaleSwitch(
@@ -92,7 +95,7 @@ export function ProjectBanner({
         ref={shader}
         className={cn(
           "size-full",
-          !switched && "transition-opacity duration-700 ease-pop starting:opacity-0",
+          !settled && "transition-opacity duration-700 ease-pop starting:opacity-0",
         )}
         colors={dark ? colors.dark : colors.light}
         distortion={0.8}

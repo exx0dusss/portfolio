@@ -162,5 +162,309 @@
     "title": "Yet Another React Lightbox",
     "description": "Modern React lightbox component. Performant, easy to use, customizable and extendable.",
     "site": "yet-another-react-lightbox.com"
+  },
+  "deno": {
+    "title": "Deno, the drop-in JavaScript runtime for Node developers",
+    "description": "A drop-in JavaScript runtime with built-in TypeScript, npm support, and security by default. Run your existing Node project on Deno with no setup.",
+    "site": "deno.com",
+    "image": "/link-previews/deno.webp"
+  },
+  "grammy": {
+    "title": "grammY",
+    "description": "The Telegram Bot Framework.",
+    "site": "grammy.dev"
+  },
+  "hono": {
+    "title": "Hono - Web framework built on Web Standards",
+    "description": "Hono is a small, simple, and ultrafast web framework built on Web Standards. It works on Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Netlify, AWS Lambda, Lambda@Edge, and Node.js. Fast, but not only fast.",
+    "site": "hono.dev",
+    "image": "/link-previews/hono.webp"
+  },
+  "trpc": {
+    "title": "tRPC - Move Fast and Break Nothing. End-to-end typesafe APIs made easy. | tRPC",
+    "site": "trpc.io"
+  },
+  "neverthrow": {
+    "title": "GitHub - supermacro/neverthrow: Type-Safe Errors for JS & TypeScript",
+    "description": "Type-safe errors for TypeScript: functions return a Result that is either ok or err, instead of throwing.",
+    "site": "github.com"
+  },
+  "drizzle": {
+    "title": "Drizzle ORM - next gen TypeScript ORM.",
+    "description": "Drizzle ORM is a lightweight and performant TypeScript ORM with developer experience in mind.",
+    "site": "orm.drizzle.team"
+  },
+  "postgresql": {
+    "title": "PostgreSQL",
+    "description": "The world's most advanced open source database.",
+    "site": "postgresql.org",
+    "image": "/link-previews/postgresql.webp"
+  },
+  "redis": {
+    "title": "Redis - Real-time data for agents & apps",
+    "description": "Developers love Redis. Unlock the full potential of the Redis database with Redis Enterprise and start building blazing fast apps.",
+    "site": "redis.io",
+    "image": "/link-previews/redis.webp"
+  },
+  "bullmq": {
+    "title": "BullMQ - Background Jobs and Message Queue for Node.js, Python, .NET, Rust, Elixir & more",
+    "description": "The open source message queue backed by Redis or PostgreSQL, trusted by thousands of companies processing billions of jobs every day. Available for Node.js, Bun, Python, .NET, Rust, Elixir and PHP.",
+    "site": "bullmq.io",
+    "image": "/link-previews/bullmq.webp"
+  },
+  "ffmpeg": {
+    "title": "FFmpeg",
+    "description": "A complete, cross-platform solution to record, convert and stream audio and video.",
+    "site": "ffmpeg.org"
+  },
+  "vite": {
+    "title": "Vite",
+    "description": "Next Generation Frontend Tooling",
+    "site": "vite.dev",
+    "image": "/link-previews/vite.webp"
+  },
+  "telegram-mini-apps": {
+    "title": "Telegram Mini Apps",
+    "description": "With Mini Apps developers can use JavaScript to create infinitely flexible interfaces that can be launched right inside…",
+    "site": "core.telegram.org",
+    "image": "/link-previews/telegram-mini-apps.webp"
+  },
+  "telegram-bot-api": {
+    "title": "GitHub - tdlib/telegram-bot-api: Telegram Bot API server",
+    "description": "Telegram Bot API server . Contribute to tdlib/telegram-bot-api development by creating an account on GitHub.",
+    "site": "github.com",
+    "image": "/link-previews/telegram-bot-api.webp"
+  },
+  "sentry": {
+    "title": "Application Performance Monitoring & Error Tracking Software",
+    "description": "Application performance monitoring for developers & software teams to see errors clearer, solve issues faster & continue learning continuously. Get started at sentry.io.",
+    "site": "sentry.io",
+    "image": "/link-previews/sentry.webp"
+  },
+  "telegram-api": {
+    "title": "Telegram Bot API",
+    "description": "The Bot API is an HTTP-based interface created for developers keen on building bots for Telegram. To learn how to create…",
+    "site": "core.telegram.org"
+  },
+  "javascript": {
+    "title": "JavaScript | MDN",
+    "description": "JavaScript (JS) is a lightweight interpreted (or just-in-time compiled) programming language with first-class functions. While it is most well-known as the scripting language for Web pages, many non-browser environments also use it, such as Node.js, Apache CouchDB and Adobe Acrobat. JavaScript is a prototype-based, garbage-collected, dynamic language, supporting multiple paradigms such as imperative, functional, and object-oriented.",
+    "site": "developer.mozilla.org",
+    "image": "/link-previews/javascript.webp"
+  },
+  "java": {
+    "title": "Dev.java: The Destination for Java Developers",
+    "site": "dev.java",
+    "image": "/link-previews/java.webp"
+  },
+  "claude-code": {
+    "title": "Claude Code by Anthropic | AI Coding Agent, Terminal, IDE",
+    "description": "Anthropic's agentic coding tool for developers. Claude Code understands your codebase, edits files, runs commands, and helps you ship faster.",
+    "site": "claude.com",
+    "image": "/link-previews/claude-code.webp"
+  },
+  "codex": {
+    "title": "Codex",
+    "description": "OpenAI’s coding agent, in the terminal, the IDE and the cloud.",
+    "site": "openai.com"
+  },
+  "context7": {
+    "title": "Context7 - Up-to-date docs for AI agents",
+    "description": "Get the latest docs into Claude, Codex, Cursor and other agents. Context7 serves current, version-specific docs and code examples for any library.",
+    "site": "context7.com",
+    "image": "/link-previews/context7.webp"
+  },
+  "tanstack-query": {
+    "title": "TanStack Query",
+    "description": "Powerful asynchronous state management, server-state utilities and data fetching. Fetch, cache, update, and wrangle all forms of async data in your TS/JS, React, Vue, Solid, Svelte, Angular & Lit applications all without touching any \"global state\"",
+    "site": "tanstack.com",
+    "image": "/link-previews/tanstack-query.webp"
+  },
+  "tanstack-start": {
+    "title": "TanStack Start | Full-stack React and Solid Framework",
+    "description": "TanStack Start is a full-stack framework for React and Solid, with type-safe routing, server-side rendering, streaming, and server functions.",
+    "site": "tanstack.com",
+    "image": "/link-previews/tanstack-start.webp"
+  },
+  "nuqs": {
+    "title": "nuqs | Type-safe search params state management for React",
+    "description": "Type-safe search params state management for React. Like useState, but stored in the URL query string.",
+    "site": "nuqs.dev",
+    "image": "/link-previews/nuqs.webp"
+  },
+  "zod": {
+    "title": "Intro | Zod",
+    "description": "Introduction to Zod - TypeScript-first schema validation library with static type inference",
+    "site": "zod.dev",
+    "image": "/link-previews/zod.webp"
+  },
+  "storybook": {
+    "title": "Storybook: Frontend workshop for UI development",
+    "description": "Storybook is a frontend workshop for building UI components and pages in isolation. Thousands of teams use it for UI development, testing, and documentation. It's open source and free.",
+    "site": "storybook.js.org",
+    "image": "/link-previews/storybook.webp"
+  },
+  "bun": {
+    "title": "Bun — A fast all-in-one JavaScript runtime",
+    "description": "Bundle, install, and run JavaScript & TypeScript — all in Bun. Bun is a fast JavaScript runtime & toolkit with a bundler, test runner, and npm-compatible package manager built in.",
+    "site": "bun.sh",
+    "image": "/link-previews/bun.webp"
+  },
+  "liquibase": {
+    "title": "Liquibase Secure | The Database Change Governance Platform",
+    "description": "Liquibase Secure is the Database Change Governance platform for safe, automated, audit-ready schema change across 70+ databases, fully aligned with your CI/CD workflows.",
+    "site": "liquibase.com",
+    "image": "/link-previews/liquibase.webp"
+  },
+  "cursor": {
+    "title": "AI Coding Agent for Building Ambitious Software | Cursor",
+    "description": "Built to make you extraordinarily productive, agents turn ideas into code. Accelerate development by handing off tasks to Cursor.",
+    "site": "cursor.com",
+    "image": "/link-previews/cursor.webp"
+  },
+  "gemini": {
+    "title": "‎Google Gemini",
+    "description": "Meet Gemini, Google’s AI assistant. Get help with writing, planning, brainstorming, and more. Experience the power of generative AI.",
+    "site": "gemini.google.com",
+    "image": "/link-previews/gemini.webp"
+  },
+  "figma": {
+    "title": "Figma: The collaborative canvas for design, code, and AI",
+    "description": "Figma is the canvas where design, code, and AI come together. From first idea to shipped product — go from concept to production with your whole team, in one place.",
+    "site": "figma.com",
+    "image": "/link-previews/figma.webp"
+  },
+  "v0": {
+    "title": "v0 by Vercel - Build Full-Stack Web Apps with AI",
+    "description": "Your collaborative AI assistant to design, iterate, and scale full-stack applications for the web.",
+    "site": "v0.app",
+    "image": "/link-previews/v0.webp"
+  },
+  "msw": {
+    "title": "Mock Service Worker - API mocking library for browser and Node.js",
+    "description": "API mocking library for browser and Node.js",
+    "site": "mswjs.io",
+    "image": "/link-previews/msw.webp"
+  },
+  "openapi": {
+    "title": "OpenAPI Initiative – The OpenAPI Initiative provides an open source, technical community, within which industry participants may easily contribute to building a vendor-neutral, portable and an open specification for providing technical metadata for REST APIs – the “OpenAPI Specification” (OAS).",
+    "site": "openapis.org"
+  },
+  "falso": {
+    "title": "falso (archived)",
+    "description": "Fake data for the browser and Node.js. A read-only community archive of version 8.0.2, after ngneat removed its repositories in June 2026.",
+    "site": "github.com"
+  },
+  "bff": {
+    "title": "Sam Newman - Backends For Frontends",
+    "description": "The pattern as Sam Newman named it: a backend built for one frontend, which calls the services behind it so the client never has to.",
+    "site": "samnewman.io"
+  },
+  "tanstack-virtual": {
+    "title": "TanStack Virtual",
+    "description": "Virtualize only the visible content for massive scrollable DOM nodes at 60FPS in TS/JS, React, Vue, Solid, Svelte, Lit, Angular & Marko while retaining 100% control over markup and styles.",
+    "site": "tanstack.com",
+    "image": "/link-previews/tanstack-virtual.webp"
+  },
+  "tanstack-table": {
+    "title": "TanStack Table",
+    "description": "Build tables and data grids with feature-level tree shaking, reactive state, fast row models, and complete control over markup and styles.",
+    "site": "tanstack.com",
+    "image": "/link-previews/tanstack-table.webp"
+  },
+  "tanstack-pacer": {
+    "title": "TanStack Pacer",
+    "description": "Optimize your application",
+    "site": "tanstack.com",
+    "image": "/link-previews/tanstack-pacer.webp"
+  },
+  "tanstack-form": {
+    "title": "TanStack Form",
+    "description": "Headless, performant, and type-safe form state management for TS/JS, React, Preact, Vue, Angular, Solid, Lit and Svelte.",
+    "site": "tanstack.com",
+    "image": "/link-previews/tanstack-form.webp"
+  },
+  "react-compiler": {
+    "title": "React Compiler – React",
+    "description": "The library for web and native user interfaces",
+    "site": "react.dev",
+    "image": "/link-previews/react-compiler.webp"
+  },
+  "sonner": {
+    "title": "Sonner",
+    "description": "An opinionated toast component for React.",
+    "site": "sonner.emilkowal.ski",
+    "image": "/link-previews/sonner.webp"
+  },
+  "zustand": {
+    "title": "Zustand Docs",
+    "description": "A multilingual Rspress documentation site.",
+    "site": "zustand.docs.pmnd.rs"
+  },
+  "cva": {
+    "title": "Class Variance Authority",
+    "description": "Build type-safe, variant-driven class names for any styling approach, with first-class Tailwind CSS support.",
+    "site": "cva.style",
+    "image": "/link-previews/cva.webp"
+  },
+  "next-route-groups": {
+    "title": "Route Groups – Next.js",
+    "description": "A folder convention for organising routes by area: a folder in parentheses gathers routes and can give them a layout, without appearing in the URL.",
+    "site": "nextjs.org",
+    "image": "/link-previews/next-route-groups.webp"
+  },
+  "next-proxy": {
+    "title": "proxy.js – Next.js",
+    "description": "Code that runs on the server before a route renders, to redirect, rewrite or change headers. Next.js 16 renamed it from middleware.",
+    "site": "nextjs.org",
+    "image": "/link-previews/next-proxy.webp"
+  },
+  "authjs": {
+    "title": "Auth.js | Authentication for the Web",
+    "description": "Authentication for the Web",
+    "site": "authjs.dev",
+    "image": "/link-previews/authjs.webp"
+  },
+  "better-auth": {
+    "title": "Better Auth",
+    "description": "The Most Comprehensive Authentication Framework",
+    "site": "better-auth.com",
+    "image": "/link-previews/better-auth.webp"
+  },
+  "authjs-joins-better-auth": {
+    "title": "Auth.js is now part of Better Auth",
+    "description": "Auth.js, formerly known as NextAuth.js, is now being maintained and overseen by Better Auth team",
+    "site": "better-auth.com",
+    "image": "/link-previews/authjs-joins-better-auth.webp"
+  },
+  "next-error-handling": {
+    "title": "Error Handling – Next.js",
+    "description": "Expected errors, like a failed form check, are returned from Server Functions as values; uncaught exceptions are thrown and caught by error boundaries.",
+    "site": "nextjs.org",
+    "image": "/link-previews/next-error-handling.webp"
+  },
+  "react-serializable": {
+    "title": "Serializable arguments and return values – React",
+    "description": "What a Server Function can take and return: primitives, plain objects, arrays, Maps, Sets, Dates and promises, but not class instances.",
+    "site": "react.dev",
+    "image": "/link-previews/react-serializable.webp"
+  },
+  "better-auth-1-5": {
+    "title": "Better Auth 1.5",
+    "description": "Auth CLI, MCP Auth, OAuth 2.1 Provider, Electron integration, i18n, adapter extraction, dynamic base URL, Cloudflare D1 support, CLI init wizard, seat-based billing, SAML Single Logout, test utilities, secret key rotation, and more!",
+    "site": "better-auth.com",
+    "image": "/link-previews/better-auth-1-5.webp"
+  },
+  "tanstack-query-advanced-ssr": {
+    "title": "Advanced Server Rendering – TanStack Query",
+    "description": "TanStack Query with Server Components and the Next.js App Router: prefetching on the server, then streaming queries to the client without awaiting them, pending ones included.",
+    "site": "tanstack.com",
+    "image": "/link-previews/tanstack-query-advanced-ssr.webp"
+  },
+  "agents-md": {
+    "title": "AGENTS.md",
+    "description": "AGENTS.md is a simple, open format for guiding coding agents. Think of it as a README for agents.",
+    "site": "agents.md",
+    "image": "/link-previews/agents-md.webp"
   }
 }

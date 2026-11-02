@@ -25,6 +25,8 @@ import { cn } from "@/lib/utils/cn";
  * `size="viewer"` is a near-fullscreen dialog laid out as bar, stage and
  * note (the live preview), edge to edge on phones; its title and
  * description then use `size="sm"`.
+ * `size="chat"` is a bare frame for a window that draws its own (the
+ * Telegram chat demo): no padding, border or card.
  */
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
@@ -65,6 +67,7 @@ const dialogContentVariants = cva(
         wide: "max-h-dialog w-dialog-wide overflow-y-auto p-5",
         viewer:
           "grid h-viewer w-viewer grid-rows-viewer gap-3.5 p-4 max-phone:h-dvh max-phone:w-screen max-phone:rounded-none max-phone:border-none max-phone:p-3",
+        chat: "w-chat max-w-screen border-none bg-transparent p-0 shadow-none",
       },
     },
     defaultVariants: {

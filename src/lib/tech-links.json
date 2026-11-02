@@ -130,5 +130,236 @@
   "lightbox": {
     "name": "Yet Another React Lightbox",
     "href": "https://yet-another-react-lightbox.com"
+  },
+  "deno": {
+    "name": "Deno",
+    "href": "https://deno.com"
+  },
+  "grammy": {
+    "name": "grammY",
+    "href": "https://grammy.dev"
+  },
+  "hono": {
+    "name": "Hono",
+    "href": "https://hono.dev"
+  },
+  "trpc": {
+    "name": "tRPC",
+    "href": "https://trpc.io"
+  },
+  "neverthrow": {
+    "name": "neverthrow",
+    "href": "https://github.com/supermacro/neverthrow",
+    "description": "Type-safe errors for TypeScript: functions return a Result that is either ok or err, instead of throwing."
+  },
+  "drizzle": {
+    "name": "Drizzle ORM",
+    "href": "https://orm.drizzle.team"
+  },
+  "postgresql": {
+    "name": "PostgreSQL",
+    "href": "https://www.postgresql.org"
+  },
+  "redis": {
+    "name": "Redis",
+    "href": "https://redis.io"
+  },
+  "bullmq": {
+    "name": "BullMQ",
+    "href": "https://bullmq.io"
+  },
+  "ffmpeg": {
+    "name": "FFmpeg",
+    "href": "https://ffmpeg.org",
+    "title": "FFmpeg",
+    "description": "A complete, cross-platform solution to record, convert and stream audio and video."
+  },
+  "vite": {
+    "name": "Vite",
+    "href": "https://vite.dev"
+  },
+  "telegram-mini-apps": {
+    "name": "Telegram Mini Apps",
+    "href": "https://core.telegram.org/bots/webapps"
+  },
+  "telegram-bot-api": {
+    "name": "Telegram Bot API server",
+    "href": "https://github.com/tdlib/telegram-bot-api"
+  },
+  "sentry": {
+    "name": "Sentry",
+    "href": "https://sentry.io"
+  },
+  "telegram-api": {
+    "name": "Telegram Bot API",
+    "href": "https://core.telegram.org/bots/api"
+  },
+  "javascript": {
+    "name": "JavaScript",
+    "href": "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+  },
+  "java": {
+    "name": "Java",
+    "href": "https://dev.java"
+  },
+  "claude-code": {
+    "name": "Claude Code",
+    "href": "https://claude.com/product/claude-code"
+  },
+  "codex": {
+    "name": "Codex",
+    "href": "https://openai.com/codex",
+    "title": "Codex",
+    "description": "OpenAI’s coding agent, in the terminal, the IDE and the cloud."
+  },
+  "context7": {
+    "name": "Context7",
+    "href": "https://context7.com"
+  },
+  "tanstack-query": {
+    "name": "TanStack Query",
+    "href": "https://tanstack.com/query"
+  },
+  "tanstack-start": {
+    "name": "TanStack Start",
+    "href": "https://tanstack.com/start"
+  },
+  "nuqs": {
+    "name": "nuqs",
+    "href": "https://nuqs.dev"
+  },
+  "zod": {
+    "name": "Zod",
+    "href": "https://zod.dev"
+  },
+  "storybook": {
+    "name": "Storybook",
+    "href": "https://storybook.js.org"
+  },
+  "bun": {
+    "name": "Bun",
+    "href": "https://bun.sh"
+  },
+  "liquibase": {
+    "name": "Liquibase",
+    "href": "https://www.liquibase.com"
+  },
+  "cursor": {
+    "name": "Cursor",
+    "href": "https://cursor.com"
+  },
+  "gemini": {
+    "name": "Gemini",
+    "href": "https://gemini.google.com"
+  },
+  "figma": {
+    "name": "Figma",
+    "href": "https://www.figma.com"
+  },
+  "v0": {
+    "name": "v0",
+    "href": "https://v0.app"
+  },
+  "msw": {
+    "name": "Mock Service Worker",
+    "href": "https://mswjs.io"
+  },
+  "falso": {
+    "name": "falso",
+    "href": "https://github.com/ngneat-archive/falso",
+    "title": "falso (archived)",
+    "description": "Fake data for the browser and Node.js. A read-only community archive of version 8.0.2, after ngneat removed its repositories in June 2026."
+  },
+  "openapi": {
+    "name": "OpenAPI",
+    "href": "https://www.openapis.org"
+  },
+  "bff": {
+    "name": "Backends for Frontends",
+    "href": "https://samnewman.io/patterns/architectural/bff/",
+    "description": "The pattern as Sam Newman named it: a backend built for one frontend, which calls the services behind it so the client never has to."
+  },
+  "tanstack-virtual": {
+    "name": "TanStack Virtual",
+    "href": "https://tanstack.com/virtual"
+  },
+  "tanstack-table": {
+    "name": "TanStack Table",
+    "href": "https://tanstack.com/table"
+  },
+  "tanstack-pacer": {
+    "name": "TanStack Pacer",
+    "href": "https://tanstack.com/pacer"
+  },
+  "tanstack-form": {
+    "name": "TanStack Form",
+    "href": "https://tanstack.com/form"
+  },
+  "react-compiler": {
+    "name": "React Compiler",
+    "href": "https://react.dev/learn/react-compiler"
+  },
+  "sonner": {
+    "name": "Sonner",
+    "href": "https://sonner.emilkowal.ski"
+  },
+  "zustand": {
+    "name": "Zustand",
+    "href": "https://zustand.docs.pmnd.rs"
+  },
+  "cva": {
+    "name": "cva",
+    "href": "https://cva.style",
+    "title": "Class Variance Authority"
+  },
+  "next-route-groups": {
+    "name": "route groups",
+    "href": "https://nextjs.org/docs/app/api-reference/file-conventions/route-groups",
+    "title": "Route Groups – Next.js",
+    "description": "A folder convention for organising routes by area: a folder in parentheses gathers routes and can give them a layout, without appearing in the URL."
+  },
+  "next-proxy": {
+    "name": "proxy",
+    "href": "https://nextjs.org/docs/app/api-reference/file-conventions/proxy",
+    "title": "proxy.js – Next.js",
+    "description": "Code that runs on the server before a route renders, to redirect, rewrite or change headers. Next.js 16 renamed it from middleware."
+  },
+  "authjs": {
+    "name": "Auth.js",
+    "href": "https://authjs.dev"
+  },
+  "better-auth": {
+    "name": "Better Auth",
+    "href": "https://better-auth.com"
+  },
+  "authjs-joins-better-auth": {
+    "name": "Auth.js is now part of Better Auth",
+    "href": "https://better-auth.com/blog/authjs-joins-better-auth"
+  },
+  "next-error-handling": {
+    "name": "error handling",
+    "href": "https://nextjs.org/docs/app/getting-started/error-handling",
+    "title": "Error Handling – Next.js",
+    "description": "Expected errors, like a failed form check, are returned from Server Functions as values; uncaught exceptions are thrown and caught by error boundaries."
+  },
+  "react-serializable": {
+    "name": "serializable",
+    "href": "https://react.dev/reference/rsc/use-server#serializable-parameters-and-return-values",
+    "title": "Serializable arguments and return values – React",
+    "description": "What a Server Function can take and return: primitives, plain objects, arrays, Maps, Sets, Dates and promises, but not class instances."
+  },
+  "better-auth-1-5": {
+    "name": "Better Auth 1.5",
+    "href": "https://better-auth.com/blog/1-5"
+  },
+  "tanstack-query-advanced-ssr": {
+    "name": "Advanced Server Rendering",
+    "href": "https://tanstack.com/query/latest/docs/framework/react/guides/advanced-ssr#streaming-with-server-components",
+    "title": "Advanced Server Rendering – TanStack Query",
+    "description": "TanStack Query with Server Components and the Next.js App Router: prefetching on the server, then streaming queries to the client without awaiting them, pending ones included."
+  },
+  "agents-md": {
+    "name": "AGENTS.md",
+    "href": "https://agents.md"
   }
 }

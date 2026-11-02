@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import YetAnotherLightbox from "yet-another-react-lightbox";
+import { useRef, useState } from "react";
+import YetAnotherLightbox, { type ZoomRef } from "yet-another-react-lightbox";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/styles.css";
@@ -20,6 +20,9 @@ import {
 interface LightboxSlide {
   src: string;
   alt?: string;
+  /** Drawn size; a `drawing` opens near it. */
+  width?: number;
+  height?: number;
   /** Shown top-left with the position, e.g. "Services  2 of 4". */
   title?: string;
 }
@@ -37,8 +40,29 @@ interface LightboxSlide {
  * Opens when `index` is 0 or more. A single slide drops the thumbnail strip
  * and the arrows. `drawing` is for line art on a transparent background (the
  * architecture sketches): shown inverted, light on the dark room, as the
- * page shows it in dark mode.
+ * page shows it in dark mode, and opened near its drawn size (its `width`)
+ * rather than fitted, so a phone shows it legible, to be dragged around or
+ * pinched out to the whole. Vectors stay sharp, so it zooms further too.
  */
+/** The carousel's padding around a slide, each side. */
+const PADDING = 64;
+
+/** A drawing opens at this share of its drawn size: its smallest labels
+ *  (16px) read as small text, its boxes as body text. */
+const READING_SCALE = 0.7;
+
+/** The zoom that shows a slide at READING_SCALE of its drawn size (never
+ *  below fitted): the fitted size is what the viewport leaves after the
+ *  padding, keeping its proportions. */
+function readingZoom({ width, height }: LightboxSlide): number {
+  if (!width || !height) return 1;
+  const fitted = Math.min(
+    window.innerWidth - 2 * PADDING,
+    ((window.innerHeight - 2 * PADDING) * width) / height,
+  );
+  return Math.max(1, (width * READING_SCALE) / fitted);
+}
+
 function Lightbox({
   slides,
   index,
@@ -59,6 +83,7 @@ function Lightbox({
   }
   const slide = slides[current];
   const single = slides.length === 1;
+  const zoom = useRef<ZoomRef>(null);
 
   return (
     <YetAnotherLightbox
@@ -70,13 +95,18 @@ function Lightbox({
       // the hooks lightbox.css themes the library through
       // eslint-disable-next-line shadcn/no-unknown-classes
       className={drawing ? "lightbox lightbox-drawing" : "lightbox"}
-      on={{ view: ({ index: viewed }) => setCurrent(viewed) }}
+      on={{
+        view: ({ index: viewed }) => setCurrent(viewed),
+        entered: () => {
+          if (drawing && slide) zoom.current?.changeZoom(readingZoom(slide), true);
+        },
+      }}
       // finite: a short set reads better with a start and an end than looping,
       // and the thumbnail strip then shows each image exactly once
-      carousel={{ finite: true, padding: "64px", spacing: "8%" }}
+      carousel={{ finite: true, padding: `${PADDING}px`, spacing: "8%" }}
       controller={{ closeOnBackdropClick: true, closeOnPullDown: true }}
       animation={{ swipe: 320, fade: 220 }}
-      zoom={{ maxZoomPixelRatio: 2, scrollToZoom: true }}
+      zoom={{ ref: zoom, maxZoomPixelRatio: drawing ? 6 : 2, scrollToZoom: true }}
       thumbnails={{
         position: "bottom",
         width: 72,

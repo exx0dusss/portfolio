@@ -38,40 +38,48 @@ export default async function OpengraphImage({ params }: { params: Promise<{ lan
   ]);
 
   return new ImageResponse(
-    (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-end",
+        background: "#fff",
+        color: INK,
+        fontFamily: "Geist",
+        padding: "72px",
+      }}
+    >
       <div
         style={{
-          width: "100%",
-          height: "100%",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-end",
-          background: "#fff",
-          color: INK,
-          fontFamily: "Geist",
-          padding: "72px",
+          fontSize: 112,
+          fontWeight: 600,
+          letterSpacing: -5,
+          lineHeight: 1,
         }}
       >
-        <div style={{ display: "flex", fontSize: 112, fontWeight: 600, letterSpacing: -5, lineHeight: 1 }}>
-          {dict.name}
-          <span style={{ color: ACCENT, marginLeft: -10 }}>.</span>
-        </div>
-        <div style={{ marginTop: 24, fontSize: 44, letterSpacing: -1, color: "#404040" }}>{nbsp(dict.meta.role)}</div>
-        <div style={{ marginTop: 72, height: 2, background: INK }} />
-        <div
-          style={{
-            marginTop: 20,
-            display: "flex",
-            justifyContent: "space-between",
-            fontSize: 24,
-            color: FAINT,
-          }}
-        >
-          <span>tymurmustafaiev.com</span>
-          <span>{nbsp(dict.meta.location)}</span>
-        </div>
+        {dict.name}
+        <span style={{ color: ACCENT, marginLeft: -10 }}>.</span>
       </div>
-    ),
+      <div style={{ marginTop: 24, fontSize: 44, letterSpacing: -1, color: "#404040" }}>
+        {nbsp(dict.meta.role)}
+      </div>
+      <div style={{ marginTop: 72, height: 2, background: INK }} />
+      <div
+        style={{
+          marginTop: 20,
+          display: "flex",
+          justifyContent: "space-between",
+          fontSize: 24,
+          color: FAINT,
+        }}
+      >
+        <span>tymurmustafaiev.com</span>
+        <span>{nbsp(dict.meta.location)}</span>
+      </div>
+    </div>,
     {
       ...size,
       fonts: [

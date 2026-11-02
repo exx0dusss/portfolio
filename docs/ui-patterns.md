@@ -6,14 +6,14 @@ with Tailwind on the design's own tokens.
 
 ## The stack
 
-| Piece | What it is |
-| --- | --- |
-| Primitives | [Base UI](https://base-ui.com) (`@base-ui/react`): behaviour and accessibility only |
-| Component shape | [shadcn](https://ui.shadcn.com) conventions, `base-nova` style, configured in `components.json` |
-| Styling | Tailwind v4 utilities in every component and page, on the tokens at the top of `src/styles/globals.css` (Tailwind's own default theme is removed) |
-| Variants | `class-variance-authority` (CVA) |
-| Class merging | `cn()` from `src/lib/utils/cn.ts` |
-| Icons | Phosphor (`components/ui/icons.ts`); brand logos from Simple Icons |
+| Piece           | What it is                                                                                                                                        |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Primitives      | [Base UI](https://base-ui.com) (`@base-ui/react`): behaviour and accessibility only                                                               |
+| Component shape | [shadcn](https://ui.shadcn.com) conventions, `base-nova` style, configured in `components.json`                                                   |
+| Styling         | Tailwind v4 utilities in every component and page, on the tokens at the top of `src/styles/globals.css` (Tailwind's own default theme is removed) |
+| Variants        | `class-variance-authority` (CVA)                                                                                                                  |
+| Class merging   | `cn()` from `src/lib/utils/cn.ts`                                                                                                                 |
+| Icons           | Phosphor (`components/ui/icons.ts`); brand logos from Simple Icons                                                                                |
 
 ### Never run `shadcn init`
 
@@ -36,11 +36,11 @@ but map its classes onto the site's tokens before shipping (`bg-card`, not
 
 ## Where components live
 
-| Folder | Holds | Example |
-| --- | --- | --- |
-| `src/components/ui/` | Generic, reusable parts with no site content | `Button`, `HoverCard`, `Fact`, `Meter` |
-| `src/components/` | Site-specific compositions of `ui/` parts, and the page shell every route shares (`page.tsx`) | `TechLink`, `PageShell`, `Section`, `SectionLabel` |
-| `app/**/_components/` | Pieces used by one route | `ProjectHero`, `Gallery` |
+| Folder                | Holds                                                                                         | Example                                            |
+| --------------------- | --------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| `src/components/ui/`  | Generic, reusable parts with no site content                                                  | `Button`, `HoverCard`, `Fact`, `Meter`             |
+| `src/components/`     | Site-specific compositions of `ui/` parts, and the page shell every route shares (`page.tsx`) | `TechLink`, `PageShell`, `Section`, `SectionLabel` |
+| `app/**/_components/` | Pieces used by one route                                                                      | `ProjectHero`, `Gallery`                           |
 
 Files are kebab-case. Import UI from `@/components/ui/*`, never from
 `@base-ui/react` directly outside `ui/`.
@@ -153,6 +153,7 @@ browser.
 
   Don't use `<Button render={<a />} nativeButton={false}>`: Base UI then
   gives the link `role="button"`, so screen readers announce a button.
+
 - **`render` replaces Radix's `asChild`.** Pass the element to render as;
   Base UI merges props, classes and refs onto it.
 - **Server → client props.** Base UI parts are client components. From a
@@ -179,9 +180,57 @@ To add a technology:
    `description` when the site's own are poor or the site blocks scripts).
 2. Add its Simple Icons logo to `ICONS` in `src/lib/tech.ts`, if one exists.
    Without one, `BrandIcon` shows the initial.
-3. Run `pnpm links:previews`. It saves title, description and a 640×336
-   image to `src/lib/link-previews.json` and `public/link-previews/`. The site
-   never calls these hosts at runtime.
+3. Run `pnpm links:previews <id>` for the new link (no id refreshes every
+   link, and a host that blocks the re-run loses its image). It saves title,
+   description and a 640×336 image to `src/lib/link-previews.json` and
+   `public/link-previews/`. The site never calls these hosts at runtime.
+
+### People with previews
+
+`<PersonLink id="jacek-buczny" />` is the same inline link for a person a
+case study credits. Its hover card is a profile instead of a screenshot:
+their photo (`ui/avatar`, initials until it loads or without one), name and
+role, affiliation, a line about them, and the profile's host. Add people to
+`src/lib/people.ts`, with their role, profile URL and photo taken from their
+own institution's page; photos are 96px squares in `public/people/`.
+
+### Code blocks
+
+`ui/code-block` is shadcn's base-nova code block without its Shiki
+highlighter. Commands go in as a string; a copy action floats in the corner
+and shows on hover, focus or touch:
+
+```tsx
+<CodeBlock>
+  <CodeBlockActions>
+    <CodeBlockCopyButton value={INSTALL} />
+  </CodeBlockActions>
+  <CodeBlockContent>{INSTALL}</CodeBlockContent>
+</CodeBlock>
+```
+
+`size="sm"` is the smaller, dimmer text for code beside prose; pass
+`CodeBlockLine`s as children to colour parts of a line, as `ComponentAnatomy`
+does.
+
+### Feature cards or spec blocks
+
+A case study lists things two ways; pick by what the reader needs.
+
+- **Cards** (`FeatureGrid`, `FeatureGroups`) say what the product does, at a
+  glance: a short title and a line or two, alike and read in any order.
+  Steps and chips belong here (the upload wizard, the bot's platforms).
+  "What's in it" sections are cards.
+- **Spec blocks** (`FeatureSpecs`, on `ui/spec-list`) explain how it was
+  built and why: one full-width block per part, the name in mono on the
+  left, read top to bottom, often beside a sketch. Architecture,
+  performance, Working with AI and a plugin's parts are spec blocks.
+
+The test: if an item needs a "because", or runs past two lines in a card,
+it's a spec block. A long card that is still a feature gets shorter, not
+moved. `FeatureSpecs` takes plain-string data; for a block that needs
+paragraphs, `<code>` or links, compose the `Spec*` parts directly (Giga
+Psych's Architecture does).
 
 ### Project facts
 
@@ -212,7 +261,7 @@ To reuse it elsewhere:
 
 ```tsx
 const [index, setIndex] = useState(-1);
-<Lightbox slides={[{ src, alt, title }]} index={index} onClose={() => setIndex(-1)} />
+<Lightbox slides={[{ src, alt, title }]} index={index} onClose={() => setIndex(-1)} />;
 ```
 
 On a project page, pass the cover to `Gallery` too (`cover={COVER}`) and
@@ -230,6 +279,25 @@ and scaled to fit (`ui/toggle-group` switches them). The iframe only exists
 while the dialog is open, so the page loads nothing from the site until a
 visitor asks. Check the site sends no `X-Frame-Options` or CSP
 `frame-ancestors` header first, or the frame stays blank.
+
+### Demos
+
+Anything a visitor can try (the live site, the bot's chat) opens from
+`DemoDialog` (`src/components/demo-dialog.tsx`): the dashed "try me" button
+(`Button variant="dashed"`) and a `ui/dialog`. Pass your own `DialogContent`
+as its child, sized for the demo; `LivePreview` and the ExdDownloaderApp
+chat both do. Keep the dashed button for demos only, so it stays a signal.
+
+### Section rail
+
+Project pages get "On this page" in the right margin: a dash per section,
+opening into the full list on hover or focus. From `wide:` (1440px) the
+current section is named beside its dash; from `tablet:` (861px) to there
+it is dashes only, in the page's gutter; below that it is hidden. It reads the page itself, so there is nothing to register:
+every `Section` with an `id` and a `SectionLabel` is listed, on pages with
+three or more. Wrap the technical sections in
+`<SectionGroup label="Engineering">` so the rail groups them; the group
+adds nothing to the layout. It is mounted once, in the projects layout.
 
 ### Empty states
 
@@ -301,11 +369,11 @@ pnpm lint
 
 Enabled in `eslint.config.mjs` for `src/`:
 
-| Rule | What it enforces here |
-| --- | --- |
-| `no-arbitrary-values` | No off-scale values like `mt-[13px]`; use the theme scale |
+| Rule                               | What it enforces here                                                                                                                                                                         |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `no-arbitrary-values`              | No off-scale values like `mt-[13px]`; use the theme scale                                                                                                                                     |
 | `no-restyle` (`allow: ["layout"]`) | Pages may add layout classes (`mt-6`, `w-full`) to a component, not restyle it. A component placed somewhere special is styled by its parent's CSS (`[data-slot="fact"] [data-slot="meter"]`) |
-| `require-static-classes` | Class names must be readable static strings, not built like `` `bg-${tone}` `` |
+| `require-static-classes`           | Class names must be readable static strings, not built like `` `bg-${tone}` ``                                                                                                                |
 
 Plus `no-unknown-classes`: the whole site is Tailwind on the site's own
 tokens, so a class that generates no CSS is a typo or a missing token.
@@ -320,9 +388,9 @@ Two lines carry a disable comment, each with its reason:
 
 Not enabled, from a dry run in October 2026:
 
-| Rule | Findings | Why not |
-| --- | --- | --- |
-| `no-raw-colors` | 5 | All in `app/apple-icon.tsx`, which draws a PNG and needs literal colours |
-| `no-inline-styles` | 66 | Mostly OG and icon images (inline-only by design), plus `ImageSlot` sizing |
+| Rule               | Findings | Why not                                                                    |
+| ------------------ | -------- | -------------------------------------------------------------------------- |
+| `no-raw-colors`    | 5        | All in `app/apple-icon.tsx`, which draws a PNG and needs literal colours   |
+| `no-inline-styles` | 66       | Mostly OG and icon images (inline-only by design), plus `ImageSlot` sizing |
 
 Rules and options: <https://github.com/shadcn-ui/lint#rules>.

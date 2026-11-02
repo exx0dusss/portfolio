@@ -104,6 +104,8 @@ function OpennessBadge({ openness }: { openness: Openness }) {
 export function ProjectHero({
   name,
   favicon,
+  faviconShape,
+  aka,
   tagline,
   meta,
   openness,
@@ -126,7 +128,10 @@ export function ProjectHero({
           <ViewTransition name={projectIconTransition(name)} share={PROJECT_MORPH}>
             {/* eslint-disable-next-line @next/next/no-img-element -- 128px local icon */}
             <img
-              className="mt-title-icon-offset size-title-icon flex-none rounded-title-icon border border-line bg-icon-tile object-cover"
+              className={cn(
+                "mt-title-icon-offset size-title-icon flex-none border border-line bg-icon-tile object-cover",
+                faviconShape === "round" ? "rounded-full" : "rounded-title-icon",
+              )}
               src={favicon}
               alt=""
               width={128}
@@ -140,6 +145,11 @@ export function ProjectHero({
           </h1>
         </ViewTransition>
       </div>
+      {aka && (
+        <p className="mt-2.5 font-mono text-13 text-fg-faint">
+          also known as <span className="text-fg-dim">{aka}</span>
+        </p>
+      )}
       <p className="mt-4 max-w-tagline text-17 leading-copy text-fg-dim">{tagline}</p>
       <Facts columns={columns} className="mt-6">
         {meta.map((item) => (

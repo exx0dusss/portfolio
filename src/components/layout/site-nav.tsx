@@ -140,7 +140,10 @@ export function SiteNav({ lang, dict, name }: SiteNavProps) {
   }, [open]);
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-line bg-nav backdrop-blur-nav print:hidden">
+    <nav
+      data-slot="site-nav"
+      className="sticky top-0 z-50 border-b border-line bg-nav backdrop-blur-nav print:hidden"
+    >
       {/* links centred in the space between the brand and the controls, never
           closer than the column gap to either */}
       <div className="mx-auto grid h-17 max-w-page grid-cols-nav items-center gap-x-8 px-gutter max-nav:grid-cols-nav-compact">

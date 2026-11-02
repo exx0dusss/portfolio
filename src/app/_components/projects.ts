@@ -1,4 +1,4 @@
-export type ProjectStatus = "live" | "development" | "research";
+export type ProjectStatus = "live" | "development" | "research" | "open";
 
 /** Language-independent project facts. Descriptions, facets and labels live
  *  in the dictionaries (work.projects[slug]). */
@@ -15,6 +15,9 @@ export interface Project {
   href: string;
   /** The project site's own icon, shown before the title (square, under /public). */
   favicon?: string;
+  /** "round" for an icon that is a circle of its own, like a Telegram bot's
+   *  avatar; otherwise it sits in a rounded tile. */
+  iconShape?: "round";
   /** How many screenshots the case study shows; omitted until it has real ones. */
   photos?: number;
   /** PNG/JPEG screenshot (under /public) for the social preview card; the
@@ -60,7 +63,19 @@ export const PROJECTS: Project[] = [
   {
     slug: "giga-psych",
     title: "Giga Psych",
+    since: 2025,
     status: "research",
     href: "/projects/giga-psych",
+    favicon: "/projects/giga-psych/favicon.png",
+    photos: 9,
+    cardImage: "/projects/giga-psych/card-cover.jpg",
+  },
+  {
+    slug: "architectures",
+    title: "Architectures",
+    favicon: "/projects/architectures/favicon.png",
+    since: 2026,
+    status: "open",
+    href: "/projects/architectures",
   },
 ];

@@ -37,7 +37,7 @@ export function ArchDiagram({ columns, note }: ArchData) {
         {columns.map((column, index) => (
           <div
             data-slot="arch-column"
-            className="relative flex min-w-0 flex-col gap-3 px-5 first:pl-0 last:pr-0 not-first:border-l not-first:border-dashed not-first:border-line-strong"
+            className="relative flex min-w-0 flex-col gap-3 px-5 not-first:border-l not-first:border-dashed not-first:border-line-strong first:pl-0 last:pr-0"
             key={column.title}
           >
             {/* arrow on the divider from the previous column; turns to point

@@ -39,6 +39,31 @@ export function useLocaleSwitched(): boolean {
   return switched;
 }
 
+/**
+ * A return shows a page the visitor has already seen too: back or forward,
+ * or the case-study backlink going back to its list (HistoryScroll marks
+ * both). Mounted afresh, its entrances would replay, and the backlink's
+ * title would morph into a row still faded out.
+ */
+let returning = false;
+
+/** Mark a return; HistoryScroll ends it once the page has rendered. */
+export function startReturn() {
+  returning = true;
+}
+
+export function endReturn() {
+  returning = false;
+}
+
+/** Whether this component mounted on a page the visitor has already seen
+ *  (a language switch or a return), so its entrance should start in place.
+ *  Read once, at mount. */
+export function useSettledMount(): boolean {
+  const [settled] = useState(() => switching || returning);
+  return settled;
+}
+
 /** Ends the switch after the commit that mounted the new page. Called by a
  *  component every page mounts (the nav); effects run after the whole
  *  commit has rendered, so every component of the new page has read it. */

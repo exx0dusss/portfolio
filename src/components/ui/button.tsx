@@ -26,12 +26,22 @@ const buttonVariants = cva(
         primary: "bg-fg text-bg hover:bg-ink-hover",
         /** Outlined, transparent. */
         ghost: "bg-transparent text-fg inset-ring inset-ring-line-strong hover:inset-ring-fg-faint",
+        /** A dashed accent outline: something to try, such as a live demo. */
+        dashed: "border border-dashed border-accent bg-transparent text-fg hover:bg-accent-soft",
       },
       size: {
         default: "px-4.25 py-2.75 text-14",
         sm: "px-3.5 py-2 text-13",
+        /** A square icon-only button: give it an aria-label. */
+        icon: "size-7.5 justify-center p-0",
       },
     },
+    // the dashed border is real (a ring can't be dashed): take its pixel
+    // from the padding, so it matches its neighbours' height
+    compoundVariants: [
+      { variant: "dashed", size: "default", className: "px-4 py-2.5" },
+      { variant: "dashed", size: "sm", className: "px-3.25 py-1.75" },
+    ],
     defaultVariants: {
       variant: "primary",
       size: "default",

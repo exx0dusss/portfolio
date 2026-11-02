@@ -1,12 +1,14 @@
 {
   "kosmetik-profi": {
-    "desktop": {
-      "width": 1176,
-      "height": 814
-    },
-    "mobile": {
-      "width": 417,
-      "height": 1520
-    }
+    "width": 1176,
+    "height": 814
+  },
+  "exd-downloader-app": {
+    "width": 1185,
+    "height": 1068
+  },
+  "giga-psych": {
+    "width": 1569,
+    "height": 733
   }
 }

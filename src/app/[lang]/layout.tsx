@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
+import { GeistMono } from "geist/font/mono";
+import { GeistSans } from "geist/font/sans";
 
 import { InlineScript } from "@/components/inline-script";
 import { HistoryScroll } from "@/components/layout/history-scroll";
@@ -11,17 +12,6 @@ import { getDictionary, hasLocale, LOCALES, OG_LOCALE } from "@/i18n";
 import { SITE } from "@/lib/site";
 import { THEME_SCRIPT } from "@/lib/theme";
 import "@/styles/globals.css";
-
-const geist = Geist({
-  subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600"],
-  variable: "--font-geist",
-});
-const geistMono = Geist_Mono({
-  subsets: ["latin", "cyrillic"],
-  weight: ["400", "500"],
-  variable: "--font-geist-mono",
-});
 
 export const dynamicParams = false;
 
@@ -85,7 +75,7 @@ export default async function RootLayout({
     // back/forward instead (Next 16 no longer does that by default)
     <html
       lang={lang}
-      className={`${geist.variable} ${geistMono.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable}`}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >

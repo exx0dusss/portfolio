@@ -61,7 +61,10 @@ const STATES = [
     name: "lightbox",
     page: "/projects/kosmetik-profi",
     run: async (page) => {
-      await page.getByRole("button", { name: /screenshots/i }).first().click();
+      await page
+        .getByRole("button", { name: /screenshots/i })
+        .first()
+        .click();
       await page.locator(".lightbox").waitFor();
     },
   },
@@ -69,7 +72,10 @@ const STATES = [
     name: "live-preview",
     page: "/projects/kosmetik-profi",
     run: async (page) => {
-      await page.getByRole("button", { name: /try it live/i }).first().click();
+      await page
+        .getByRole("button", { name: /try it live/i })
+        .first()
+        .click();
       await page.getByRole("dialog").waitFor();
     },
   },

@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { LastEdited } from "@/components/layout/last-edited";
 import { GithubLogoIcon, LinkedinLogoIcon, XLogoIcon } from "@/components/ui/icons";
 import { type Dictionary, type Locale, localePath } from "@/i18n";
 
@@ -19,11 +20,11 @@ const linkClass =
 export function SiteFooter({ lang, dict, name }: SiteFooterProps) {
   return (
     <footer className="mx-auto flex max-w-page flex-wrap items-center justify-between gap-4 px-gutter pb-22 text-13.5 text-fg-dim before:mb-2 before:h-px before:basis-full before:bg-line print:hidden">
-      <span>© 2026 {name}</span>
+      <div className="flex flex-wrap gap-x-5.5 gap-y-1">
+        <span>© 2026 {name}</span>
+        <LastEdited lang={lang} label={dict.lastEdited} />
+      </div>
       <div className="flex flex-wrap gap-5.5">
-        <Link href={localePath(lang, "/certificates")} className={linkClass}>
-          {dict.certificates}
-        </Link>
         <Link href={localePath(lang, "/colophon")} className={linkClass}>
           {dict.colophon}
         </Link>

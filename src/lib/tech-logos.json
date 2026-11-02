@@ -21,6 +21,18 @@
     "light": "/tech-logos/react.svg",
     "dark": "/tech-logos/react.dark.svg"
   },
+  "claude-code": {
+    "light": "/tech-logos/claude-code.svg"
+  },
+  "telegram-api": {
+    "light": "/tech-logos/telegram-api.svg"
+  },
+  "javascript": {
+    "light": "/tech-logos/javascript.svg"
+  },
+  "java": {
+    "light": "/tech-logos/java.svg"
+  },
   "typescript": {
     "light": "/tech-logos/typescript.svg"
   },
@@ -29,5 +41,66 @@
   },
   "cloudflare": {
     "light": "/tech-logos/cloudflare.svg"
+  },
+  "grammy": {
+    "light": "/tech-logos/grammy.svg"
+  },
+  "hono": {
+    "light": "/tech-logos/hono.svg"
+  },
+  "trpc": {
+    "light": "/tech-logos/trpc.svg"
+  },
+  "drizzle": {
+    "light": "/tech-logos/drizzle.svg",
+    "dark": "/tech-logos/drizzle.dark.svg"
+  },
+  "postgresql": {
+    "light": "/tech-logos/postgresql.svg"
+  },
+  "redis": {
+    "light": "/tech-logos/redis.svg"
+  },
+  "vite": {
+    "light": "/tech-logos/vite.svg"
+  },
+  "sentry": {
+    "light": "/tech-logos/sentry.svg"
+  },
+  "ffmpeg": {
+    "light": "/tech-logos/ffmpeg.svg"
+  },
+  "telegram-mini-apps": {
+    "light": "/tech-logos/telegram-mini-apps.svg"
+  },
+  "telegram-bot-api": {
+    "light": "/tech-logos/telegram-bot-api.svg"
+  },
+  "zod": {
+    "light": "/tech-logos/zod.svg"
+  },
+  "storybook": {
+    "light": "/tech-logos/storybook.svg"
+  },
+  "bun": {
+    "light": "/tech-logos/bun.svg"
+  },
+  "liquibase": {
+    "light": "/tech-logos/liquibase.svg"
+  },
+  "gemini": {
+    "light": "/tech-logos/gemini.svg"
+  },
+  "figma": {
+    "light": "/tech-logos/figma.svg"
+  },
+  "msw": {
+    "light": "/tech-logos/msw.svg"
+  },
+  "openapi": {
+    "light": "/tech-logos/openapi.svg"
+  },
+  "falso": {
+    "light": "/tech-logos/falso.png"
   }
 }

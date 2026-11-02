@@ -128,7 +128,7 @@ function BrandIcon({
       )}
       {logo && (
         <>
-          {/* eslint-disable-next-line @next/next/no-img-element -- a small local SVG logo */}
+          {/* eslint-disable-next-line @next/next/no-img-element -- a small local logo */}
           <img
             src={logo.light}
             alt=""
@@ -139,7 +139,7 @@ function BrandIcon({
             )}
           />
           {logo.dark && (
-            // eslint-disable-next-line @next/next/no-img-element -- a small local SVG logo
+            // eslint-disable-next-line @next/next/no-img-element -- a small local logo
             <img
               src={logo.dark}
               alt=""

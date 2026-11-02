@@ -1,10 +1,10 @@
 // Exports the hand-drawn architecture sketches (docs/diagrams.md). Each
-// scripts/diagrams/<slug>.mjs lays out a desktop and a mobile version from
-// scripts/diagrams/sketch.mjs; this audits both (overlaps, padding) and
-// renders them with Excalidraw's own exporter in the installed Chrome, to
-// public/diagrams/<slug>.svg and <slug>.mobile.svg, the hand-drawn font
-// embedded, and records their sizes in src/lib/diagrams.json (so pages
-// reserve the space). Static output: the site never loads Excalidraw.
+// scripts/diagrams/<slug>.mjs lays out its sketch from
+// scripts/diagrams/sketch.mjs; this audits it (overlaps, padding) and renders
+// it with Excalidraw's own exporter in the installed Chrome, to
+// public/diagrams/<slug>.svg, the hand-drawn font embedded, and records its
+// size in src/lib/diagrams.json (so pages reserve the space). Static output:
+// the site never loads Excalidraw.
 //   pnpm diagrams              every sketch
 //   pnpm diagrams kosmetik-profi
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
@@ -32,16 +32,14 @@ const slugs = (await readdir(SOURCES))
 const jobs = [];
 let failed = false;
 for (const slug of slugs) {
-  const layouts = await import(path.join(SOURCES, `${slug}.mjs`));
-  for (const variant of ["desktop", "mobile"]) {
-    const { elements, zones } = layouts[variant]();
-    const problems = audit(elements, zones);
-    if (problems.length > 0) {
-      failed = true;
-      console.error(`✗ ${slug} (${variant})\n  ${problems.join("\n  ")}`);
-    }
-    jobs.push({ slug, variant, elements });
+  const { layout } = await import(path.join(SOURCES, `${slug}.mjs`));
+  const { elements, zones } = layout();
+  const problems = audit(elements, zones);
+  if (problems.length > 0) {
+    failed = true;
+    console.error(`✗ ${slug}\n  ${problems.join("\n  ")}`);
   }
+  jobs.push({ slug, elements });
 }
 if (failed) process.exit(1);
 
@@ -50,11 +48,13 @@ const page = await browser.newPage();
 await page.setContent(
   `<script type="module">import { exportToSvg } from "${EXPORTER}"; window.exportToSvg = exportToSvg;</script>`,
 );
-await page.waitForFunction(() => typeof window.exportToSvg === "function", null, { timeout: 60_000 });
+await page.waitForFunction(() => typeof window.exportToSvg === "function", null, {
+  timeout: 60_000,
+});
 await mkdir(OUT, { recursive: true });
 const manifest = JSON.parse(await readFile(MANIFEST, "utf8").catch(() => "{}"));
 
-for (const { slug, variant, elements } of jobs) {
+for (const { slug, elements } of jobs) {
   const svg = await page.evaluate(
     async ({ elements, padding }) => {
       // transparent, so it sits on the page's panel; fonts are inlined
@@ -66,10 +66,10 @@ for (const { slug, variant, elements } of jobs) {
     },
     { elements, padding: PADDING },
   );
-  const file = path.join(OUT, variant === "desktop" ? `${slug}.svg` : `${slug}.mobile.svg`);
+  const file = path.join(OUT, `${slug}.svg`);
   await writeFile(file, `${svg}\n`);
   const size = (attr) => Math.ceil(Number(svg.match(new RegExp(`${attr}="([\\d.]+)"`))[1]));
-  manifest[slug] = { ...manifest[slug], [variant]: { width: size("width"), height: size("height") } };
+  manifest[slug] = { width: size("width"), height: size("height") };
   console.log(`ok  ${path.relative(ROOT, file)}  ${(svg.length / 1024).toFixed(0)} KB`);
 }
 await browser.close();

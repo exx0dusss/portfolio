@@ -65,6 +65,16 @@
   /* a dark chip over a screenshot (the gallery's fullscreen hint) */
   --color-scrim: rgb(0 0 0 / 0.55);
   --color-on-scrim: #fff;
+  /* the Telegram chat mockup (ExdDownloaderApp), following the theme */
+  --color-tg-wall: var(--tg-wall);
+  --color-tg-head: var(--tg-head);
+  --color-tg-in: var(--tg-in);
+  --color-tg-out: var(--tg-out);
+  --color-tg-link: var(--tg-link);
+  --color-tg-muted: var(--tg-muted);
+  --color-tg-time: var(--tg-time);
+  --color-tg-out-time: var(--tg-out-time);
+  --color-tg-key: var(--tg-key);
   /* the live preview's frame: the embedded site's own light page */
   --color-frame: #fff;
   --color-frame-ink: #737373;
@@ -185,6 +195,8 @@
   /* the home hero's copy column and its stick figure */
   --container-hero: 860px;
   --container-figure: clamp(240px, 27vw, 400px);
+  /* the Telegram chat mockup: about a phone's width */
+  --container-chat: 420px;
   /* popovers: 320px, never wider than the screen minus a 16px gutter */
   --container-popover: min(320px, 100vw - 32px);
 
@@ -282,6 +294,9 @@
   --breakpoint-nav: 1041px;
   --breakpoint-small: 521px;
   --breakpoint-tiny: 401px;
+  /* a min-width one: from 1440px the page's right margin has room for the
+     section rail (wide:) */
+  --breakpoint-wide: 1440px;
 }
 
 :root {
@@ -299,7 +314,7 @@
   --accent-soft: rgba(255, 79, 0, 0.1);
   /* fonts are spelled out here, not aliased to the @theme values: Tailwind v4
      drops unused theme variables, which left var(--font-sans) undefined */
-  --sans: var(--font-geist), system-ui, sans-serif;
+  --sans: var(--font-geist-sans), system-ui, sans-serif;
   --mono: var(--font-geist-mono), ui-monospace, monospace;
   /* light theme surfaces for the nav, inverted ink buttons, shadows and the
      hero figure; the dark theme overrides these below */
@@ -315,12 +330,54 @@
   --status-live: #16a34a;
   --status-dev: #d97706;
   --icon-tile: #ffffff;
+  /* the Telegram chat on ExdDownloaderApp's page, in Telegram's own light
+     palette: the wallpaper, bubbles, links, times and inline keyboard */
+  --tg-wall: #dfe6d5;
+  --tg-head: #ffffff;
+  --tg-in: #ffffff;
+  --tg-out: #e3fcd1;
+  --tg-link: #168acd;
+  --tg-muted: #707579;
+  --tg-time: #8e9aa6;
+  --tg-out-time: #4fae4e;
+  --tg-key: rgb(37 59 39 / 0.3);
   color-scheme: light;
 
   --w: 1180px;
   --gutter: 48px;
-  /* ease-out curve for hover/press, matching the POP entrance in motion/springs */
+  /* ease-out curve for entrances, dialogs and menus, matching the POP
+     entrance in motion/springs */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  /* a real spring for hover and press (damping ratio 0.6: overshoots about
+     9% at mid-time, settles by the end), as linear() points. Entrances,
+     dialogs and menus keep --ease-out, without overshoot */
+  --ease-spring: linear(
+    0,
+    0.048,
+    0.167,
+    0.322,
+    0.488,
+    0.645,
+    0.783,
+    0.895,
+    0.98,
+    1.038,
+    1.074,
+    1.091,
+    1.095,
+    1.088,
+    1.076,
+    1.061,
+    1.045,
+    1.031,
+    1.018,
+    1.008,
+    1.001,
+    0.995,
+    0.992,
+    0.991,
+    1
+  );
 }
 
 /* Dark theme: follows the OS unless the visitor picked a theme in the nav
@@ -347,6 +404,16 @@
     --figure-shade: #c9c9c9;
     --figure-features: #0c0c0c;
     --figure-ink: #8a8a8a;
+    /* …and Telegram's dark palette */
+    --tg-wall: #0e1621;
+    --tg-head: #17212b;
+    --tg-in: #182533;
+    --tg-out: #2b5278;
+    --tg-link: #6ab3f3;
+    --tg-muted: #8b98a5;
+    --tg-time: #6d7f8f;
+    --tg-out-time: #7da8d3;
+    --tg-key: rgb(255 255 255 / 0.1);
     color-scheme: dark;
   }
 }
@@ -371,6 +438,16 @@
   --figure-shade: #c9c9c9;
   --figure-features: #0c0c0c;
   --figure-ink: #8a8a8a;
+  /* …and Telegram's dark palette */
+  --tg-wall: #0e1621;
+  --tg-head: #17212b;
+  --tg-in: #182533;
+  --tg-out: #2b5278;
+  --tg-link: #6ab3f3;
+  --tg-muted: #8b98a5;
+  --tg-time: #6d7f8f;
+  --tg-out-time: #7da8d3;
+  --tg-key: rgb(255 255 255 / 0.1);
   color-scheme: dark;
 }
 
@@ -411,6 +488,20 @@
     color: inherit;
     text-decoration: none;
   }
+  /* headings break into even lines; copy avoids a lone last word
+     (browsers without it wrap as before) */
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+  p,
+  li,
+  figcaption,
+  blockquote {
+    text-wrap: pretty;
+  }
   ::selection {
     background: var(--accent-soft);
   }
@@ -428,8 +519,8 @@
   transition:
     background 0.15s,
     box-shadow 0.15s,
-    translate 0.35s var(--ease-out),
-    scale 0.35s var(--ease-out);
+    translate 0.45s var(--ease-spring),
+    scale 0.45s var(--ease-spring);
 }
 
 /* the mobile menu: fades and drops in; visibility flips only once the fade
@@ -446,11 +537,9 @@
     margin-left 0.25s var(--ease-out),
     opacity 0.2s var(--ease-out);
 }
-/* the back-to-top button: fades and rises in, quick color on hover */
+/* the back-to-top button: a quick color on hover (it rises in on scroll) */
 @utility transition-scroll-top {
   transition:
-    opacity 0.2s,
-    translate 0.35s var(--ease-out),
     color 0.15s,
     border-color 0.15s;
 }
@@ -459,14 +548,14 @@
 @utility transition-row {
   transition:
     background 0.15s,
-    scale 0.3s var(--ease-out);
+    scale 0.4s var(--ease-spring);
 }
 /* the row's arrow: quick color, springy nudge up and right */
 @utility transition-row-arrow {
   transition:
     color 0.15s,
-    translate 0.4s var(--ease-out),
-    scale 0.4s var(--ease-out);
+    translate 0.45s var(--ease-spring),
+    scale 0.45s var(--ease-spring);
 }
 
 /* Tailwind's border widths are whole pixels; placeholders use 1.5px */
@@ -478,8 +567,8 @@
    quicker shadow */
 @utility transition-book {
   transition:
-    translate 0.4s var(--ease-out),
-    rotate 0.4s var(--ease-out),
+    translate 0.5s var(--ease-spring),
+    rotate 0.5s var(--ease-spring),
     box-shadow 0.25s ease;
 }
 /* the project hero's "← Work" link: color, and the arrow easing away */
@@ -567,6 +656,79 @@ html[data-theme-switch]::view-transition-new(root) {
     filter: blur(2px);
   }
 }
+/* Scroll-driven animations (Chrome 115, Safari 26, Firefox 159): tied to
+   the visitor's own scrolling, no script.
+   - the section rail slides in as a page's header (and banner) scrolls
+     off, on the header's view timeline;
+   - the back-to-top button rises in past the first screen;
+   - on pages with a section rail, the nav's bottom edge fills with the
+     accent as the page is read.
+   In older browsers the rail and the button are simply there, and there
+   is no line. */
+@supports (animation-timeline: scroll()) {
+  html {
+    timeline-scope: --page-header;
+  }
+  [data-slot="page-header"] {
+    view-timeline: --page-header;
+  }
+  [data-slot="section-rail"] {
+    animation: slide-in-left linear both;
+    animation-timeline: --page-header;
+    animation-range: exit 40% exit 90%;
+  }
+  [data-slot="scroll-to-top"] {
+    animation: slide-in-up linear both;
+    animation-timeline: scroll(root);
+    animation-range: 100vh calc(100vh + 6rem);
+  }
+  html:has([data-slot="section-rail"]) [data-slot="site-nav"]::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: -1px;
+    height: 2px;
+    background: var(--accent);
+    transform-origin: left;
+    animation: read-progress linear both;
+    animation-timeline: scroll(root);
+  }
+}
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(0.75rem);
+  }
+}
+@keyframes slide-in-up {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(0.75rem);
+  }
+}
+@keyframes read-progress {
+  from {
+    transform: scaleX(0);
+  }
+}
+/* with reduced motion the scroll-linked ones keep their fade (they only
+   move as the visitor scrolls) but drop the slide */
+@media (prefers-reduced-motion: reduce) {
+  @keyframes slide-in-left {
+    from {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+  @keyframes slide-in-up {
+    from {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*),
   ::view-transition-old(*),
@@ -580,6 +742,11 @@ html[data-theme-switch]::view-transition-new(root) {
   *::before,
   *::after {
     transition-duration: 0.01ms !important;
+  }
+  /* every animation stops, but the scroll-linked ones above */
+  :not([data-slot="section-rail"], [data-slot="scroll-to-top"]),
+  ::before,
+  :not([data-slot="site-nav"])::after {
     animation: none !important;
   }
 }

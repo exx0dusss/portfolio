@@ -1,0 +1,6 @@
+pnpm-lock.yaml
+public/
+src/lib/*.json
+.claude/
+.superpowers/
+.visual/

@@ -62,7 +62,11 @@ export function SectionAnchor() {
           exit={{ scale: 0.5, opacity: 0 }}
           transition={{ ...POP, duration: 0.25 }}
         >
-          {copied ? <CheckIcon className="text-accent" aria-hidden /> : <LinkSimpleIcon aria-hidden />}
+          {copied ? (
+            <CheckIcon className="text-accent" aria-hidden />
+          ) : (
+            <LinkSimpleIcon aria-hidden />
+          )}
         </motion.span>
       </AnimatePresence>
       <span className="sr-only" aria-live="polite">

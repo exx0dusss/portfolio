@@ -3,6 +3,8 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useLayoutEffect } from "react";
 
+import { endReturn, startReturn } from "@/lib/locale-switch";
+
 const STORAGE_KEY = "scroll-positions";
 
 // one instance (in the root layout), so module state is enough
@@ -20,10 +22,12 @@ export function getPreviousPath(): string | null {
   return previousPath;
 }
 
-/** Put `path` back where the visitor left it on the next navigation; pair
- *  with a `<Link scroll={false}>` so Next doesn't scroll to the top. */
+/** Put `path` back where the visitor left it on the next navigation, as a
+ *  return (its entrances start in place); pair with a `<Link scroll={false}>`
+ *  so Next doesn't scroll to the top. */
 export function restoreScrollOnNavigate(path: string) {
   restoreTo = positions.get(path) ?? 0;
+  startReturn();
 }
 
 /**
@@ -50,6 +54,7 @@ export function HistoryScroll() {
       if (event.state === null) return;
       save();
       restoreTo = positions.get(window.location.pathname) ?? 0;
+      startReturn();
     };
     // sessionStorage, so a reload comes back to the same place
     const persist = () => {
@@ -90,6 +95,10 @@ export function HistoryScroll() {
     window.scrollTo({ top: restoreTo, behavior: "instant" });
     restoreTo = null;
   }, [pathname]);
+
+  // the page a return mounted has read it by now (effects run after the
+  // whole commit)
+  useEffect(() => endReturn(), [pathname]);
 
   return null;
 }

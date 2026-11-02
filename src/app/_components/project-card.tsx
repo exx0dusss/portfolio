@@ -4,6 +4,7 @@ import { LocaleLink } from "@/components/locale-link";
 import { StaggerItem } from "@/components/motion/stagger";
 import { ArrowUpRightIcon, ImagesIcon } from "@/components/ui/icons";
 import type { Dictionary } from "@/i18n";
+import { cn } from "@/lib/utils/cn";
 import {
   PROJECT_MORPH,
   projectIconTransition,
@@ -24,7 +25,7 @@ export function ProjectCard({ project, dict }: { project: Project; dict: Diction
       {/* hover tints an inset panel: the row reaches past the list's edges by
           its own padding */}
       <LocaleLink
-        className="group my-1.5 -mx-5 block rounded-card px-5 py-5.5 transition-row hover:bg-card-2 active:scale-99 max-tablet:-mx-3 max-tablet:px-3 max-tablet:py-5"
+        className="group -mx-5 my-1.5 block rounded-card px-5 py-5.5 transition-row hover:bg-card-2 active:scale-99 max-tablet:-mx-3 max-tablet:px-3 max-tablet:py-5"
         href={project.href}
       >
         <div className="flex items-center gap-3.5 max-tablet:flex-wrap max-tablet:gap-x-3 max-tablet:gap-y-1.5">
@@ -34,7 +35,10 @@ export function ProjectCard({ project, dict }: { project: Project; dict: Diction
             <ViewTransition name={projectIconTransition(project.title)} share={PROJECT_MORPH}>
               {/* eslint-disable-next-line @next/next/no-img-element -- 128px local icon shown at 22px */}
               <img
-                className="size-5.5 flex-none rounded-6 border border-line bg-icon-tile object-cover"
+                className={cn(
+                  "size-5.5 flex-none border border-line bg-icon-tile object-cover",
+                  project.iconShape === "round" ? "rounded-full" : "rounded-6",
+                )}
                 src={project.favicon}
                 alt=""
                 width={22}
@@ -49,7 +53,7 @@ export function ProjectCard({ project, dict }: { project: Project; dict: Diction
           </ViewTransition>
           {/* a status dot before the label; it takes its own line on tablets */}
           <span
-            className="ml-auto inline-flex items-center gap-1.75 text-13 whitespace-nowrap text-fg-dim before:size-1.75 before:rounded-full before:bg-fg-faint data-[status=development]:before:bg-status-dev data-[status=live]:before:bg-status-live max-tablet:order-3 max-tablet:ml-0 max-tablet:basis-full"
+            className="ml-auto inline-flex items-center gap-1.75 text-13 whitespace-nowrap text-fg-dim before:size-1.75 before:rounded-full before:bg-fg-faint data-[status=development]:before:bg-status-dev data-[status=live]:before:bg-status-live data-[status=open]:before:bg-status-live max-tablet:order-3 max-tablet:ml-0 max-tablet:basis-full"
             data-status={project.status}
           >
             {dict.status[project.status]}

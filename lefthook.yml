@@ -1,0 +1,18 @@
+# Runs before each commit (installed by `pnpm install` through `prepare`).
+pre-commit:
+  parallel: true
+  jobs:
+    - name: format
+      glob: "*"
+      run: pnpm exec prettier --write --ignore-unknown {staged_files}
+      stage_fixed: true
+    - name: lint
+      glob: "*.{js,mjs,ts,tsx}"
+      run: pnpm exec eslint {staged_files}
+    - name: typecheck
+      glob: "*.{ts,tsx}"
+      run: pnpm typecheck
+    # a page with a staged file gets today's "Last edited" date
+    - name: last-edited
+      glob: "src/app/**"
+      run: node scripts/last-edited.mjs {staged_files} && git add src/lib/last-edited.json

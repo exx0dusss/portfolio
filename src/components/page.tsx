@@ -155,14 +155,31 @@ function SectionNote({ className, ...props }: React.ComponentProps<"span">) {
   );
 }
 
-/** Long-form copy: paragraphs at a reading measure, bold in full ink. */
+/** Sections that belong together under one name (Engineering), which the
+ *  section rail shows above them. Adds nothing to the page's layout. */
+function SectionGroup({
+  label,
+  className,
+  ...props
+}: React.ComponentProps<"div"> & { label: string }) {
+  return (
+    <div
+      data-slot="section-group"
+      data-label={label}
+      className={cn("contents", className)}
+      {...props}
+    />
+  );
+}
+
+/** Long-form copy: paragraphs at a reading measure, bold and code in full ink. */
 function Prose({ className, delay, children }: RevealPartProps) {
   return (
     <Reveal
       data-slot="prose"
       delay={delay}
       className={cn(
-        "max-w-copy [&_p]:mb-3.75 [&_p]:text-15.5 [&_p]:leading-prose [&_p]:text-fg-dim [&_p:last-child]:mb-0 [&_strong]:font-medium [&_strong]:text-fg",
+        "max-w-copy [&_code]:font-mono [&_code]:text-14 [&_code]:text-fg [&_p]:mb-3.75 [&_p]:text-15.5 [&_p]:leading-prose [&_p]:text-fg-dim [&_p:last-child]:mb-0 [&_strong]:font-medium [&_strong]:text-fg",
         className,
       )}
     >
@@ -179,6 +196,7 @@ export {
   PageTitle,
   Prose,
   Section,
+  SectionGroup,
   SectionLabel,
   SectionNote,
 };

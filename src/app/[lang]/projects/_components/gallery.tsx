@@ -24,6 +24,11 @@ function subscribe(listener: () => void) {
   listeners.add(listener);
   return () => listeners.delete(listener);
 }
+/** Opens the page's lightbox from anywhere on it (the ExdDownloaderApp chat
+ *  demo's "Open app" opens the Mini App screenshots). */
+export function openGallery(index = 0) {
+  setOpenIndex(index);
+}
 function useOpenIndex() {
   return useSyncExternalStore(
     subscribe,

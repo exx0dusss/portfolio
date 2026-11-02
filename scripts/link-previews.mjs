@@ -1,8 +1,10 @@
 // Snapshots link-preview metadata for every entry in src/lib/tech-links.json:
 // title, description and site name from the page's meta tags, plus its
 // og:image resized into public/link-previews/. The site stays static and never
-// calls these hosts at runtime. Re-run after adding a link:
-//   pnpm links:previews
+// calls these hosts at runtime. Re-run after adding a link, naming it to leave
+// every other preview as it is (a host that blocks a re-run keeps its image):
+//   pnpm links:previews            every link
+//   pnpm links:previews falso msw  only these
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -49,7 +51,8 @@ async function snapshot(id, { href }) {
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const html = await res.text();
   const title =
-    meta(html, "og:title", "twitter:title") ?? decode(html.match(/<title[^>]*>([^<]*)/i)?.[1] ?? "");
+    meta(html, "og:title", "twitter:title") ??
+    decode(html.match(/<title[^>]*>([^<]*)/i)?.[1] ?? "");
   const description = meta(html, "og:description", "twitter:description", "description");
 
   let image;
@@ -74,8 +77,13 @@ async function snapshot(id, { href }) {
 const links = JSON.parse(await readFile(LINKS, "utf8"));
 await mkdir(IMG_DIR, { recursive: true });
 
-const previews = {};
+const only = process.argv.slice(2);
+const unknown = only.filter((id) => !(id in links));
+if (unknown.length) throw new Error(`not in tech-links.json: ${unknown.join(", ")}`);
+// naming links refreshes just those; the rest keep their saved previews
+const previews = only.length ? JSON.parse(await readFile(OUT, "utf8")) : {};
 for (const [id, link] of Object.entries(links)) {
+  if (only.length && !only.includes(id)) continue;
   let fetched = {};
   try {
     fetched = await snapshot(id, link);

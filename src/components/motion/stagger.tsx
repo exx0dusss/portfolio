@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion, type Variants } from "motion/react";
 
-import { useLocaleSwitched } from "@/lib/locale-switch";
+import { useSettledMount } from "@/lib/locale-switch";
 
 import { LIST_IN_VIEW, POP, STAGGER } from "./springs";
 
@@ -19,10 +19,11 @@ const ITEM: Variants = {
 };
 
 /** A list whose StaggerItem children spring in one after another when the
- *  list scrolls into view; after a language switch they start in place. */
+ *  list scrolls into view; on a page already seen (a language switch, back
+ *  or forward) they start in place. */
 export function Stagger({ children, className, as = "div" }: StaggerProps) {
   const reduce = useReducedMotion();
-  const settled = useLocaleSwitched();
+  const settled = useSettledMount();
   const MotionTag = motion[as] as typeof motion.div;
 
   if (reduce) {

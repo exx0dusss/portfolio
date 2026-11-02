@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // memoizes components and hooks at build time, so no manual useMemo/memo
+  reactCompiler: true,
   // React <ViewTransition> on route changes: a project's name morphs from the
   // work list into the case-study heading. Unsupported browsers just navigate.
   experimental: {

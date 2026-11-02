@@ -12,15 +12,15 @@ pnpm diagrams kosmetik-profi  # just one
 
 ## How it fits together
 
-| Piece | What it does |
-| --- | --- |
-| `scripts/diagrams/<slug>.mjs` | The project's layout: a `desktop()` and a `mobile()` function returning Excalidraw elements |
-| `scripts/diagrams/sketch.mjs` | Shared building blocks: spacing rules (`GAP`), fonts, colours, shapes, figures, library icons, the audit |
-| `scripts/diagrams/icons.excalidrawlib` | The library icons in use, from [excalidraw-libraries](https://github.com/excalidraw/excalidraw-libraries) (MIT); each item names its source library |
-| `scripts/diagrams.mjs` | Audits every layout, then renders it with Excalidraw's exporter (`@excalidraw/utils`, pinned) in the installed Chrome |
-| `public/diagrams/<slug>.svg`, `<slug>.mobile.svg` | The output: transparent, the hand-drawn font embedded, no outside requests |
-| `src/lib/diagrams.json` | Each SVG's size, written by the export, so the page reserves the space |
-| `SketchDiagram` (`projects/_components`) | Shows the sketch: wide one above 1040px, tall one below, inverted for dark mode |
+| Piece                                    | What it does                                                                                                                                                                |
+| ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `scripts/diagrams/<slug>.mjs`            | The project's layout: a `layout()` function returning Excalidraw elements                                                                                                   |
+| `scripts/diagrams/sketch.mjs`            | Shared building blocks: spacing rules (`GAP`), fonts, colours, shapes, figures, library icons, the audit                                                                    |
+| `scripts/diagrams/icons.excalidrawlib`   | The library icons in use, from [excalidraw-libraries](https://github.com/excalidraw/excalidraw-libraries) (MIT); each item names its source library                         |
+| `scripts/diagrams.mjs`                   | Audits every layout, then renders it with Excalidraw's exporter (`@excalidraw/utils`, pinned) in the installed Chrome                                                       |
+| `public/diagrams/<slug>.svg`             | The output: transparent, the hand-drawn font embedded, no outside requests                                                                                                  |
+| `src/lib/diagrams.json`                  | Each SVG's size, written by the export, so the page reserves the space                                                                                                      |
+| `SketchDiagram` (`projects/_components`) | Shows the sketch near 1:1 above 1040px and a preview block ("See architecture") below; either opens the viewer at the drawn size, to drag and pinch. Inverted for dark mode |
 
 The site never loads Excalidraw; the SVGs are plain images.
 
@@ -30,43 +30,47 @@ Read the project's own code before drawing; the sketch is a claim about it.
 Draw only connections that exist:
 
 - **Who talks to what.** Third-party widgets loaded by the browser (booking
-  links, map embeds, analytics) hang off the *browser*, not the server.
+  links, map embeds, analytics) hang off the _browser_, not the server.
 - **Containment, not steps.** Hosting is a box around what runs in it (VPS ⊃
-  container ⊃ app + database), never a column after the database.
+  container ⊃ app + database), never a column after the database. The
+  deploy tool sits inside the VPS when it runs there (Coolify, Dokploy),
+  with GitHub outside.
 - **One arrow per real call**, labelled with what flows (`pages`,
   `login + edits`, `TypeORM`, `on merge`).
 
 ## Layout
 
-Lay out in bands, left to right on desktop and top to bottom on mobile:
-outside services → people and their browsers → the server zone (with deploy
+Lay out in bands, left to right: outside services → people and their browsers → the server zone (with deploy
 below it). Position everything from the boxes before it and the `GAP` rules
-(`below()`, `end()`, `captioned()` in the Kosmetik layout); no free-floating
-coordinates.
+with the layout helpers in `sketch.mjs` (`below()`, `end()`, `captioned()`,
+`described()`, `store()`, `user()`, the `label*()` placements); no
+free-floating coordinates. Where a band can't hold everything without an
+arrow crossing a box, stop arrows at the zone's edge or send the outside
+calls down a clear channel between parts.
 
-| Rule (`GAP`) | px | Between |
-| --- | --- | --- |
-| `caption` | 12 | an icon or box and its caption |
-| `subCaption` | 4 | a caption and its grey sub-caption |
-| `zonePad` | 24 | a zone's border and anything inside |
-| `zoneTitle` | 16 | a zone's title and its first content |
-| `arrow` | 10 | an arrow's end and what it points at |
-| `label` | 8 | an arrow and its label |
-| `person` | 24 | a stick figure and its browser |
-| `clear` | 8 | any two unrelated things (audited) |
+| Rule (`GAP`) | px  | Between                              |
+| ------------ | --- | ------------------------------------ |
+| `caption`    | 12  | an icon or box and its caption       |
+| `subCaption` | 4   | a caption and its grey sub-caption   |
+| `zonePad`    | 24  | a zone's border and anything inside  |
+| `zoneTitle`  | 16  | a zone's title and its first content |
+| `arrow`      | 10  | an arrow's end and what it points at |
+| `label`      | 8   | an arrow and its label               |
+| `person`     | 24  | a stick figure and its browser       |
+| `clear`      | 8   | any two unrelated things (audited)   |
 
 - **Sizes:** title 34, subtitle 20, zone titles 20, boxes 22, captions 18,
   arrow labels 16 (grey). Captions sit under their icon, centred.
 - **Labels never sit on arrows:** above a sloped arrow (lifted by its slope),
   beside a vertical one. Arrows stop at zone edges rather than cross a zone's
   title.
-- **Desktop** is drawn ~1200 wide and shown near 1:1 across the whole section.
-  **Mobile** is drawn **400 wide** (shown at ~75% on a 375px phone): break
-  long captions onto two lines and keep 12px side margins.
+- Drawn **~1200 wide** and shown near 1:1 across the whole section. There is
+  no separate phone layout: phones see the whole sketch as a preview and open
+  it at its drawn size in the viewer, so the same text sizes hold there.
 
 The audit (`audit()` in `sketch.mjs`) fails the export when zone content
 breaks the padding, unrelated parts sit under 8px apart, or an arrow runs
-through text. Fix the layout until both versions pass; never loosen the rules.
+through text. Fix the layout until it passes; never loosen the rules.
 
 ## Style
 
@@ -99,5 +103,5 @@ through text. Fix the layout until both versions pass; never loosen the rules.
 
 It spans the whole `Section` below its label (`data-span="full"`). The `alt`
 says in words everything the sketch shows. After changing a layout, run
-`pnpm diagrams`, check both sizes on the page in light and dark, and commit
-the SVGs with `diagrams.json`.
+`pnpm diagrams`, check the page wide and on a phone (and the viewer it
+opens) in light and dark, and commit the SVG with `diagrams.json`.

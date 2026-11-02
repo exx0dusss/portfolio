@@ -3,18 +3,14 @@ import diagrams from "@/lib/diagrams.json";
 
 import { SketchViewer } from "./sketch-viewer";
 
-/** The breakpoint where the mobile sketch takes over (the nav's, 1040px):
- *  below it the wide one would shrink past legibility. */
-const MOBILE = "(max-width: 1040px)";
-
 /**
- * A project's hand-drawn architecture sketch (docs/diagrams.md): the SVGs
- * `pnpm diagrams` exports from scripts/diagrams/<slug>.mjs, a wide one and a
- * tall one for narrow screens, shown at no more than their drawn size. Dark
- * mode inverts the light drawing (as Excalidraw's own dark export does),
- * turning hues back with a half-turn. Spans the whole section, below its
- * label (data-span="full"), so the wide sketch shows near 1:1; clicking it
- * opens it full screen (SketchViewer).
+ * A project's hand-drawn architecture sketch (docs/diagrams.md): the SVG
+ * `pnpm diagrams` exports from scripts/diagrams/<slug>.mjs, shown at no more
+ * than its drawn size. Dark mode inverts the light drawing (as Excalidraw's
+ * own dark export does), turning hues back with a half-turn. Spans the whole
+ * section, below its label (data-span="full"), so the sketch shows near 1:1;
+ * below the nav breakpoint it becomes a preview block. Either opens the
+ * viewer at the drawing's size (SketchViewer).
  *
  *   <SketchDiagram slug="kosmetik-profi" alt="…" note="// one server, …" />
  */
@@ -26,22 +22,25 @@ export function SketchDiagram({
   slug: keyof typeof diagrams;
   /** what the sketch shows, in words */
   alt: string;
-  note: string;
+  /** a one-line takeaway under the sketch, as a code comment; leave it out
+   *  when the copy around the sketch already says it */
+  note?: string;
 }) {
-  const { desktop, mobile } = diagrams[slug];
   return (
     <div data-span="full">
-      <Reveal className="rounded-14 border border-line-strong bg-card-2 p-8 max-phone:p-3">
+      <Reveal className="overflow-hidden rounded-14 border border-line-strong bg-card-2 p-8 max-nav:p-0">
         <figure className="m-0">
           <SketchViewer
             slug={slug}
             alt={alt}
-            desktop={desktop}
-            mobile={mobile}
-            mobileQuery={MOBILE}
+            size={diagrams[slug]}
             label="Open the architecture sketch full size"
           />
-          <figcaption className="mt-6.5 font-mono text-12.5 text-fg-faint">{note}</figcaption>
+          {note && (
+            <figcaption className="mt-6.5 font-mono text-12.5 text-fg-faint max-nav:mt-0 max-nav:px-4 max-nav:pb-4">
+              {note}
+            </figcaption>
+          )}
         </figure>
       </Reveal>
     </div>
