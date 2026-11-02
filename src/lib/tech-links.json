@@ -361,5 +361,17 @@
   "agents-md": {
     "name": "AGENTS.md",
     "href": "https://agents.md"
+  },
+  "exd-downloader-bot": {
+    "name": "@ExdDownloadApp",
+    "href": "https://t.me/ExdDownloadApp",
+    "title": "ExdDownloaderApp on Telegram",
+    "description": "Send a link, get the video, photos or audio back in the chat: TikTok without its watermark, YouTube up to 8K, SoundCloud and 12 more platforms."
+  },
+  "telegram-rich-messages": {
+    "name": "Rich Messages",
+    "href": "https://core.telegram.org/bots/api-changelog#june-11-2026",
+    "title": "Bot API 10.1: Rich Messages – Telegram",
+    "description": "June 11, 2026: Telegram's Bot API adds Rich Messages, so bots can send structured text with headings, media, lists, tables and buttons inside the message."
   }
 }

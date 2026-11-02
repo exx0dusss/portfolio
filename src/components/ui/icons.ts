@@ -59,6 +59,7 @@ export {
   RobotIcon,
   ShieldCheckIcon,
   SparkleIcon,
+  SpeakerSimpleSlashIcon,
   StackIcon,
   SunIcon,
   TableIcon,

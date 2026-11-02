@@ -42,6 +42,10 @@ export const PROJECTS: Project[] = [
     scale: "90K+",
     status: "live",
     href: "/projects/exd-downloader-app",
+    favicon: "/projects/exd-downloader-app/favicon.png",
+    iconShape: "round",
+    photos: 8,
+    cardImage: "/projects/exd-downloader-app/card-cover.jpg",
   },
   {
     slug: "exdbots",

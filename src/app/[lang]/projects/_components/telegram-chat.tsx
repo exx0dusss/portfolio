@@ -6,6 +6,7 @@ import {
   ListIcon,
   PaperPlaneRightIcon,
   PlayIcon,
+  SpeakerSimpleSlashIcon,
 } from "@/components/ui/icons";
 import { cn } from "@/lib/utils/cn";
 
@@ -94,7 +95,9 @@ function TelegramMessage({
   );
 }
 
-/** The card's heading (the bot's `<h5>`), led by its icon. */
+/** The card's heading (the bot's `<h5>`), led by its icon. The icon is part
+ *  of the heading's text, as the bot writes it, so a long heading wraps under
+ *  it rather than beside it. */
 function TelegramHeading({
   icon,
   className,
@@ -104,11 +107,11 @@ function TelegramHeading({
   return (
     <div
       data-slot="telegram-heading"
-      className={cn("mb-1.5 flex items-center gap-1.5 text-15 font-semibold", className)}
+      className={cn("mb-1.5 text-15 font-semibold [&_img]:align-text-bottom", className)}
       {...props}
     >
-      {icon}
-      <span>{children}</span>
+      {icon && <>{icon} </>}
+      {children}
     </div>
   );
 }
@@ -171,6 +174,18 @@ function TelegramNotice({
   );
 }
 
+/** The bar along a quote's left edge, as Telegram draws it: square on its
+ *  inner side, the block's own rounding clipping its outer corners. */
+function QuoteBar() {
+  return (
+    <span
+      aria-hidden
+      data-slot="telegram-quote-bar"
+      className="absolute inset-y-0 left-0 w-0.75 bg-tg-link"
+    />
+  );
+}
+
 /** A reply's quote of the message it answers: who, and the start of it. */
 function TelegramReply({
   author,
@@ -182,39 +197,55 @@ function TelegramReply({
     <div
       data-slot="telegram-reply"
       className={cn(
-        "mb-1.5 truncate rounded-6 border-l-3 border-tg-link bg-tg-link/10 px-2 py-1 text-13",
+        "relative mb-1.5 truncate overflow-hidden rounded-6 bg-tg-link/10 py-1 pr-2 pl-3 text-13",
         className,
       )}
       {...props}
     >
+      <QuoteBar />
       <div className="font-semibold text-tg-link">{author}</div>
       <div className="truncate text-fg-dim">{children}</div>
     </div>
   );
 }
 
-/** A video in the card: a still with a play button and its length. Not the
- *  post itself: the case study shows the bot's message, not anyone's video. */
+/** A video in the card: a still with a play button, and its length with the
+ *  muted mark of a video that plays silently in the chat. It runs edge to edge
+ *  across the bubble, as Telegram draws media. The still is a `poster` (a
+ *  stock photo standing in for Telegram's thumbnail) or a gradient, square or
+ *  `wide` (16:9, a YouTube video): never the
+ *  post itself, since the case study shows the bot's message, not anyone's
+ *  video. */
 function TelegramVideo({
   duration,
+  poster,
+  wide,
   className,
   ...props
-}: React.ComponentProps<"div"> & { duration: string }) {
+}: React.ComponentProps<"div"> & { duration?: string; poster?: string; wide?: boolean }) {
   return (
     <div
       data-slot="telegram-video"
+      data-wide={wide || undefined}
       className={cn(
-        "relative -mx-1.5 mb-2 grid aspect-square place-items-center overflow-hidden rounded-10 bg-linear-150 from-tg-out-time via-tg-link to-tg-wall",
+        "relative -mx-3 mb-2 grid aspect-square place-items-center overflow-hidden bg-linear-150 from-tg-out-time via-tg-link to-tg-wall data-wide:aspect-video",
         className,
       )}
       {...props}
     >
-      <span className="grid size-12 place-items-center rounded-full bg-scrim text-on-scrim">
+      {poster && (
+        // eslint-disable-next-line @next/next/no-img-element -- a small local still, cropped by CSS
+        <img src={poster} alt="" className="absolute inset-0 size-full object-cover" />
+      )}
+      <span className="relative grid size-12 place-items-center rounded-full bg-scrim text-on-scrim">
         <PlayIcon weight="fill" aria-hidden className="size-5.5" />
       </span>
-      <span className="absolute top-2 left-2 rounded-6 bg-scrim px-1.5 py-0.5 text-12 text-on-scrim">
-        {duration}
-      </span>
+      {duration && (
+        <span className="absolute top-2 left-2 flex items-center gap-1 rounded-full bg-scrim px-2 py-0.5 text-12 text-on-scrim">
+          {duration}
+          <SpeakerSimpleSlashIcon weight="fill" aria-label="muted" className="size-3.5" />
+        </span>
+      )}
     </div>
   );
 }
@@ -258,16 +289,19 @@ function TelegramCaption({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 /** A quoted line (the bot's `<blockquote>`), set off with a bar. */
-function TelegramQuote({ className, ...props }: React.ComponentProps<"div">) {
+function TelegramQuote({ className, children, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="telegram-quote"
       className={cn(
-        "mt-2 rounded-6 border-l-3 border-tg-link bg-tg-link/10 px-2 py-1 text-14",
+        "relative mt-2 overflow-hidden rounded-6 bg-tg-link/10 py-1 pr-2 pl-3 text-14",
         className,
       )}
       {...props}
-    />
+    >
+      <QuoteBar />
+      {children}
+    </div>
   );
 }
 

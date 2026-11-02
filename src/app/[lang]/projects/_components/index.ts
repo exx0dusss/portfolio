@@ -46,6 +46,7 @@ export {
   TelegramToast,
   TelegramVideo,
 } from "./telegram-chat";
+export { TelegramRichText } from "./telegram-rich-text";
 export { Timeline } from "./timeline";
 export type {
   AnatomyCard,

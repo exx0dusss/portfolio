@@ -119,6 +119,8 @@ const ICONS: Partial<Record<TechId, SimpleIcon>> = {
   "telegram-bot-api": siTelegram,
   sentry: siSentry,
   "telegram-api": siTelegram,
+  "exd-downloader-bot": siTelegram,
+  "telegram-rich-messages": siTelegram,
   javascript: siJavascript,
   java: siOpenjdk,
   "claude-code": siClaude,
