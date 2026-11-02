@@ -18,6 +18,9 @@ export interface Project {
   /** "round" for an icon that is a circle of its own, like a Telegram bot's
    *  avatar; otherwise it sits in a rounded tile. */
   iconShape?: "round";
+  /** The icon brings its own ground (a logo on its brand colour): no white
+   *  tile or border behind it, which would show at its rounded corners. */
+  iconFilled?: boolean;
   /** How many screenshots the case study shows; omitted until it has real ones. */
   photos?: number;
   /** PNG/JPEG screenshot (under /public) for the social preview card; the
@@ -38,6 +41,7 @@ export const PROJECTS: Project[] = [
     status: "development",
     href: "/projects/salonsvitlo",
     favicon: "/projects/salonsvitlo/favicon.png",
+    iconFilled: true,
   },
   {
     slug: "exd-downloader-app",
@@ -59,6 +63,7 @@ export const PROJECTS: Project[] = [
     status: "development",
     href: "/projects/exdbots",
     favicon: "/projects/exdbots/favicon.png",
+    iconFilled: true,
   },
   {
     slug: "kosmetik-profi",

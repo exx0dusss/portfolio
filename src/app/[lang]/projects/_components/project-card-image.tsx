@@ -100,7 +100,7 @@ export async function renderProjectCard(slug: string) {
                 alt=""
                 style={{
                   borderRadius: project.iconShape === "round" ? 999 : 12,
-                  border: `1px solid ${LINE}`,
+                  border: project.iconFilled ? "none" : `1px solid ${LINE}`,
                 }}
               />
             )}

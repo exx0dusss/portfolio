@@ -105,6 +105,7 @@ export function ProjectHero({
   name,
   favicon,
   faviconShape,
+  faviconFilled,
   aka,
   tagline,
   meta,
@@ -129,7 +130,8 @@ export function ProjectHero({
             {/* eslint-disable-next-line @next/next/no-img-element -- 128px local icon */}
             <img
               className={cn(
-                "mt-title-icon-offset size-title-icon flex-none border border-line bg-icon-tile object-cover",
+                "mt-title-icon-offset size-title-icon flex-none object-cover",
+                !faviconFilled && "border border-line bg-icon-tile",
                 faviconShape === "round" ? "rounded-full" : "rounded-title-icon",
               )}
               src={favicon}

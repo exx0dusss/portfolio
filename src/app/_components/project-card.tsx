@@ -36,7 +36,8 @@ export function ProjectCard({ project, dict }: { project: Project; dict: Diction
               {/* eslint-disable-next-line @next/next/no-img-element -- 128px local icon shown at 22px */}
               <img
                 className={cn(
-                  "size-5.5 flex-none border border-line bg-icon-tile object-cover",
+                  "size-5.5 flex-none object-cover",
+                  !project.iconFilled && "border border-line bg-icon-tile",
                   project.iconShape === "round" ? "rounded-full" : "rounded-6",
                 )}
                 src={project.favicon}

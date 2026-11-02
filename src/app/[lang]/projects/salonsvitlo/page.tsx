@@ -53,6 +53,7 @@ export default async function SalonSvitloPage({ params }: { params: Promise<{ la
         <ProjectHero
           name="SalonSvitlo"
           favicon="/projects/salonsvitlo/favicon.png"
+          faviconFilled
           tagline="A full-stack e-commerce product for a lighting business with 20+ years in the trade — its storefront, landing and Telegram bot."
           meta={[{ key: "Status", value: "In development" }]}
           openness={{ tone: "client", label: "Client work · private" }}

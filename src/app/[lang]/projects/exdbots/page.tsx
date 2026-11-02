@@ -54,6 +54,7 @@ export default async function ExdbotsPage({ params }: { params: Promise<{ lang: 
         <ProjectHero
           name="ExdBots"
           favicon="/projects/exdbots/favicon.png"
+          faviconFilled
           tagline="A platform for building and running Telegram applications — design bots in a no-code web editor, connect existing ones, and manage ads, analytics, and monitoring from a single console."
           meta={[{ key: "Status", value: "In development" }]}
           openness={{ tone: "source", label: "Source-available" }}

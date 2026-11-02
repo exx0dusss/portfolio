@@ -39,6 +39,9 @@ export interface ProjectHeroData {
   favicon?: string;
   /** "round" for an icon that is a circle of its own (a Telegram avatar). */
   faviconShape?: "round";
+  /** The icon brings its own ground (a logo on its brand colour): no white
+   *  tile or border behind it. */
+  faviconFilled?: boolean;
   /** Another name the project goes by, shown under the title (a bot's
    *  username, a former name). */
   aka?: string;
