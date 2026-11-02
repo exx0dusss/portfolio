@@ -12,14 +12,14 @@ import {
 } from "@/components/ui/empty";
 import { CraneTowerIcon } from "@/components/ui/icons";
 
-/** The body of a case study that isn't written yet: an empty state under the
- *  hero that points to a finished case study and back to the work, so the
- *  page is never a dead end. Case studies are English-only.
+/** The body of a project that is still being built: an empty state under
+ *  the hero that says so and points to a finished case study and back to the
+ *  work, so the page is never a dead end. Case studies are English-only.
  *
  *    <ProjectHero … />
- *    <CaseStudyEmpty />
+ *    <CaseStudyEmpty name="ExdBots" />
  */
-export function CaseStudyEmpty() {
+export function CaseStudyEmpty({ name }: { name: string }) {
   return (
     <Section id="overview">
       <Reveal>
@@ -28,15 +28,15 @@ export function CaseStudyEmpty() {
             <EmptyMedia variant="icon">
               <CraneTowerIcon aria-hidden />
             </EmptyMedia>
-            <EmptyTitle>Case study in progress</EmptyTitle>
+            <EmptyTitle>In development</EmptyTitle>
             <EmptyDescription>
-              This write-up is still being put together. Kosmetik Profi shows what the finished ones
-              look like.
+              {name} is still being built, and its case study will follow once it ships.
+              ExdDownloaderApp shows what a finished one looks like.
             </EmptyDescription>
           </EmptyHeader>
           <EmptyContent>
-            <ButtonLink render={<LocaleLink href="/projects/kosmetik-profi" />}>
-              Read Kosmetik Profi
+            <ButtonLink render={<LocaleLink href="/projects/exd-downloader-app" />}>
+              Read ExdDownloaderApp
             </ButtonLink>
             <ButtonLink render={<LocaleLink href="/projects" />} variant="ghost">
               All projects

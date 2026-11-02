@@ -55,7 +55,8 @@ function Words({ text, gap }: { text: string; gap: number }) {
  * The social preview card for one case study, in the site card's style:
  * the project's favicon, its name with the accent dot, the one-line
  * description, and an ink rule over the address and facets. A screenshot
- * sits on the right when the project has a `cardImage`.
+ * sits on the right when the project has a `cardImage`: 16:9, or a phone
+ * standing at full height for a phone app (`cardImageShape`).
  */
 export async function renderProjectCard(slug: string) {
   const project = PROJECTS.find((p) => p.slug === slug);
@@ -70,6 +71,7 @@ export async function renderProjectCard(slug: string) {
     project.favicon ? dataUri(project.favicon) : undefined,
     project.cardImage ? dataUri(project.cardImage) : undefined,
   ]);
+  const phone = project.cardImageShape === "phone";
 
   return new ImageResponse(
     <div
@@ -112,10 +114,11 @@ export async function renderProjectCard(slug: string) {
               display: "flex",
               marginTop: 28,
               // long names (ExdDownloaderApp) step down so they keep clear of the
-              // edge; beside a cover the column is ~520px, and the name can't wrap
-              fontSize: cover ? 72 : project.title.length > 14 ? 96 : 112,
+              // edge; beside a cover the column is ~520px and beside a phone
+              // ~810px, and the name can't wrap
+              fontSize: phone ? 84 : cover ? 72 : project.title.length > 14 ? 96 : 112,
               fontWeight: 600,
-              letterSpacing: cover ? -3.5 : -5,
+              letterSpacing: cover && !phone ? -3.5 : -5,
               lineHeight: 1,
             }}
           >
@@ -135,11 +138,13 @@ export async function renderProjectCard(slug: string) {
           // eslint-disable-next-line @next/next/no-img-element -- Satori renders <img>
           <img
             src={cover}
-            width={480}
-            height={270}
+            // a phone app stands as a phone, at the card's full height; anything
+            // else is a 16:9 screenshot
+            width={phone ? 187 : 480}
+            height={phone ? 400 : 270}
             alt=""
             style={{
-              borderRadius: 14,
+              borderRadius: phone ? 28 : 14,
               border: `1px solid ${LINE}`,
               boxShadow: "0 18px 40px rgba(27, 25, 20, 0.16)",
               objectFit: "cover",

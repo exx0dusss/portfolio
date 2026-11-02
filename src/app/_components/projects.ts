@@ -23,6 +23,9 @@ export interface Project {
   /** PNG/JPEG screenshot (under /public) for the social preview card; the
    *  card generator can't read WebP. Without one the card is text only. */
   cardImage?: string;
+  /** "phone" for a portrait screenshot of a phone app, shown as a phone at
+   *  the card's full height; otherwise a 16:9 screenshot. */
+  cardImageShape?: "phone";
 }
 
 /** Work section content, most significant first. */
@@ -34,6 +37,7 @@ export const PROJECTS: Project[] = [
     scale: "20K+",
     status: "development",
     href: "/projects/salonsvitlo",
+    favicon: "/projects/salonsvitlo/favicon.png",
   },
   {
     slug: "exd-downloader-app",
@@ -45,7 +49,8 @@ export const PROJECTS: Project[] = [
     favicon: "/projects/exd-downloader-app/favicon.png",
     iconShape: "round",
     photos: 8,
-    cardImage: "/projects/exd-downloader-app/card-cover.jpg",
+    cardImage: "/projects/exd-downloader-app/card-phone.jpg",
+    cardImageShape: "phone",
   },
   {
     slug: "exdbots",
@@ -53,6 +58,7 @@ export const PROJECTS: Project[] = [
     since: 2026,
     status: "development",
     href: "/projects/exdbots",
+    favicon: "/projects/exdbots/favicon.png",
   },
   {
     slug: "kosmetik-profi",
