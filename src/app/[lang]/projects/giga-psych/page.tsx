@@ -112,9 +112,9 @@ export default async function GigaPsychPage({ params }: { params: Promise<{ lang
           tagline="An open-science platform where psychology researchers publish documented datasets and explore each other’s. My diploma project at PJAIT, built in collaboration with researchers from the XR Center and Vrije Universiteit Amsterdam."
           meta={[
             { key: "Year", value: "2025 — present", sub: "diploma, then master’s" },
-            { key: "Team", value: "4 people", sub: "my role was frontend" },
+            { key: "Team", value: "4 people", sub: "my role was UX/UI design and frontend" },
             { key: "Grade", value: "5", sub: "thesis with distinction" },
-            { key: "Role", value: "Frontend", sub: "architecture, auth, UI" },
+            { key: "Role", value: "UX/UI and frontend", sub: "design, architecture, auth" },
           ]}
           openness={{ tone: "client", label: "PJAIT · XR Center · not public yet" }}
           stack={[
