@@ -7,14 +7,15 @@
  * an app that doesn't draw widgets.
  *
  * Native look: Telegram's theme variables, system type, the client's own
- * button. Surfaces are tints of the text colour, so they sit on any bubble
- * in either theme. Code stays small: Telegram allows 32 KB, 4 KB compressed.
+ * button. Surfaces are a translucent mid grey, which reads on a dark or a
+ * light bubble alike; plain rgba, because Telegram's desktop webview drops
+ * color-mix() and with it the whole declaration. Code stays small: Telegram allows 32 KB, 4 KB compressed.
  */
 import { escapeHtml } from "./telegram";
 import type { Stats, Visit } from "./visits";
 
 const STYLE = `*{box-sizing:border-box}
-body{margin:0;padding:.35em .7em calc(.7em + var(--tg-content-safe-area-inset-bottom,0px));font:15px/1.35 -apple-system,system-ui,sans-serif;color:var(--tg-theme-text-color);background:transparent;--s:color-mix(in srgb,var(--tg-theme-text-color) 7%,transparent);--l:color-mix(in srgb,var(--tg-theme-text-color) 12%,transparent);--h:var(--tg-theme-hint-color)}
+body{margin:0;padding:.35em .7em calc(.7em + var(--tg-content-safe-area-inset-bottom,0px));font:15px/1.35 -apple-system,system-ui,sans-serif;color:var(--tg-theme-text-color);background:transparent;--s:rgba(127,127,127,.14);--l:rgba(127,127,127,.24);--h:var(--tg-theme-hint-color)}
 .card{background:var(--s);border-radius:12px;padding:.15em .75em;margin-top:.5em}
 .lab{margin:.95em .2em 0;color:var(--h);font-size:.7em;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
 .row{display:flex;gap:.6em;align-items:center;padding:.5em 0;border-top:1px solid var(--l)}
