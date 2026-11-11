@@ -1,6 +1,6 @@
 /**
  * The ref bot's webhook: /stats and the Refresh button on its widget, and
- * the refs in use (/add, /remove, /refs).
+ * the refs in use (/add, /remove, /refs). /start registers the command menu.
  *
  * Telegram must send REF_TELEGRAM_WEBHOOK_SECRET with each update (set as
  * `secret_token` in setWebhook, with `allowed_updates` of "message" and
@@ -56,6 +56,14 @@ async function refreshStats(messageId: number): Promise<void> {
 
 const REF = /^[a-z0-9][a-z0-9-]{0,31}$/;
 
+/** The bot's "/" menu; /start registers it. */
+const COMMANDS = [
+  { command: "stats", description: "Visits per ref, with Refresh" },
+  { command: "add", description: "Issue a ref: /add name" },
+  { command: "remove", description: "Stop a ref: /remove name" },
+  { command: "refs", description: "The refs in use" },
+];
+
 const say = (text: string) =>
   telegram("sendMessage", { chat_id: CHAT_ID, text, parse_mode: "HTML" });
 
@@ -64,8 +72,21 @@ async function command(text: string): Promise<void> {
   const [name = "", argument] = text.trim().split(/\s+/);
   const ref = argument?.toLowerCase();
   switch (name.replace(/@\w+$/, "")) {
-    case "/stats":
     case "/start":
+      // the bot's menu: registered for this chat only, so nobody else is
+      // shown commands that would not answer them
+      await telegram("setMyCommands", {
+        commands: COMMANDS,
+        scope: { type: "chat", chat_id: CHAT_ID },
+      });
+      await say(
+        [
+          "<b>Ref links</b>",
+          ...COMMANDS.map((entry) => `/${entry.command} — ${entry.description}`),
+        ].join("\n"),
+      );
+      return;
+    case "/stats":
       return sendStats();
     case "/add": {
       if (!ref || !REF.test(ref)) {
