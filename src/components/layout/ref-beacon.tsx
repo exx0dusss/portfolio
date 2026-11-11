@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 const KEY = "ref";
+const VISIT_KEY = "ref-visit";
 const REF = /^[a-z0-9][a-z0-9-]{0,31}$/;
 
 // one instance (in the root layout), so module state is enough
@@ -17,10 +18,27 @@ function currentRef(): string | null {
   }
 }
 
+/** This tab's visit: a random id, so its events collect in one place. */
+function visitId(): string | null {
+  try {
+    let id = sessionStorage.getItem(VISIT_KEY);
+    if (!id) {
+      id = Array.from(crypto.getRandomValues(new Uint8Array(8)), (byte) =>
+        byte.toString(16).padStart(2, "0"),
+      ).join("");
+      sessionStorage.setItem(VISIT_KEY, id);
+    }
+    return id;
+  } catch {
+    return null;
+  }
+}
+
 function report(event: string, detail?: string) {
   const ref = currentRef();
-  if (!ref) return;
-  const payload = JSON.stringify({ ref, event, path: window.location.pathname, detail });
+  const visit = visitId();
+  if (!ref || !visit) return;
+  const payload = JSON.stringify({ ref, visit, event, path: window.location.pathname, detail });
   navigator.sendBeacon("/api/ref", payload);
 }
 
@@ -39,6 +57,7 @@ export function RefBeacon() {
     if (fromUrl && REF.test(fromUrl) && currentRef() !== fromUrl) {
       try {
         sessionStorage.setItem(KEY, fromUrl);
+        sessionStorage.removeItem(VISIT_KEY); // a new ref is a new visit
         first = true;
       } catch {
         return;
