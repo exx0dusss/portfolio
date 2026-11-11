@@ -19,14 +19,26 @@ const nextConfig: NextConfig = {
       },
       // ExdDownloaderApp became ExdDownloadApp in Nov 2026: its pages, in any
       // language, and the images under its old folder
+      // (the page itself has its own rule: ":path*" with nothing after the
+      // slug would redirect to a trailing slash, and from there a second time)
       {
-        source: "/projects/exd-downloader-app/:path*",
-        destination: "/projects/exd-download-app/:path*",
+        source: "/projects/exd-downloader-app",
+        destination: "/projects/exd-download-app",
         permanent: true,
       },
       {
-        source: "/:lang(en|uk|ru)/projects/exd-downloader-app/:path*",
-        destination: "/:lang/projects/exd-download-app/:path*",
+        source: "/projects/exd-downloader-app/:path+",
+        destination: "/projects/exd-download-app/:path+",
+        permanent: true,
+      },
+      {
+        source: "/:lang(en|uk|ru)/projects/exd-downloader-app",
+        destination: "/:lang/projects/exd-download-app",
+        permanent: true,
+      },
+      {
+        source: "/:lang(en|uk|ru)/projects/exd-downloader-app/:path+",
+        destination: "/:lang/projects/exd-download-app/:path+",
         permanent: true,
       },
       // the CV downloads under my name
