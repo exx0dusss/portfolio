@@ -36,7 +36,7 @@ import {
   type Visit,
   type VisitEvent,
 } from "./_lib/visits";
-import { VISIT_WIDGET, visitCaption, visitData } from "./_lib/widgets";
+import { eventMessage, VISIT_WIDGET, visitCaption, visitData } from "./_lib/widgets";
 
 const EVENTS = new Set(["open", "page", "cv", "contact", "outbound"]);
 
@@ -107,7 +107,7 @@ async function show(visit: Visit, fresh: boolean): Promise<void> {
     // a server without widgets: the caption alone says it
     (await telegram<{ message_id: number }>("sendMessage", {
       chat_id: CHAT_ID,
-      text: caption,
+      text: eventMessage(visit),
       parse_mode: "HTML",
     }));
   visit.messageId = sent?.message_id;
@@ -170,8 +170,11 @@ export async function POST(request: Request) {
       device: /Mobi|Android|iPhone/i.test(agent) ? "phone" : "desktop",
       events: [event],
     };
-    const text = visitCaption(lone).replace(/\n1 event · last: /, "\n");
-    await telegram("sendMessage", { chat_id: CHAT_ID, text, parse_mode: "HTML" });
+    await telegram("sendMessage", {
+      chat_id: CHAT_ID,
+      text: eventMessage(lone),
+      parse_mode: "HTML",
+    });
     return done;
   }
 

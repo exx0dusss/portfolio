@@ -10,7 +10,7 @@
 import { storeReady } from "../_lib/store";
 import { CHAT_ID, telegram, telegramReady, WEBHOOK_SECRET } from "../_lib/telegram";
 import { issuedRefs, issueRef, MAX_ISSUED, readStats, revokeRef } from "../_lib/visits";
-import { STATS_WIDGET, statsCaption } from "../_lib/widgets";
+import { STATS_WIDGET, statsCaption, statsText } from "../_lib/widgets";
 
 interface Update {
   message?: { chat: { id: number }; from?: { id: number }; text?: string };
@@ -37,7 +37,9 @@ async function sendStats(): Promise<void> {
     allow_queries: true,
   });
   // a server without widgets: the same numbers as text
-  if (!sent) await telegram("sendMessage", { chat_id: CHAT_ID, text: caption, parse_mode: "HTML" });
+  if (!sent) {
+    await telegram("sendMessage", { chat_id: CHAT_ID, text: statsText(stats), parse_mode: "HTML" });
+  }
 }
 
 async function refreshStats(messageId: number): Promise<void> {

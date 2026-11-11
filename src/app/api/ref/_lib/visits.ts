@@ -144,7 +144,7 @@ export async function count(
 export interface Stats {
   /** when it was read, seconds */
   t: number;
-  /** per ref: name, visits, pages, cv, email, outbound, last seen, top pages */
+  /** per ref: name, visits, pages, cv, email, outbound, last seen, top pages with counts */
   r: {
     n: string;
     v: number;
@@ -153,7 +153,7 @@ export interface Stats {
     m: number;
     o: number;
     l: number;
-    top: string[];
+    top: [string, number][];
   }[];
   /** latest visits: ref, last event time, country, events */
   v: { n: string; t: number; c: string | null; e: number }[];
@@ -191,7 +191,9 @@ export async function readStats(): Promise<Stats> {
         m: Number(stat.contact ?? 0),
         o: Number(stat.outbound ?? 0),
         l: Number(stat.last ?? 0),
-        top: pages.filter((_, index) => index % 2 === 0),
+        top: pages
+          .filter((_, index) => index % 2 === 0)
+          .map((path, index): [string, number] => [path, Number(pages[index * 2 + 1])]),
       };
     })
     .sort((a, b) => b.l - a.l);
