@@ -18,11 +18,13 @@
  * The endpoint is public, so a report is treated as untrusted: every field
  * has a narrow shape (a slug, a known event, a route-like path, a host name),
  * so a forged report can only produce an entry that looks like a real one,
- * never free text, and writes are capped per ref and overall.
+ * never free text. Writes are capped per minute, and the store holds a
+ * bounded number of refs and pages (./_lib/visits.ts).
  */
 import { storeReady } from "./_lib/store";
 import { CHAT_ID, telegram, telegramReady } from "./_lib/telegram";
 import {
+  admit,
   count,
   loadVisit,
   lockVisit,
@@ -161,6 +163,7 @@ export async function POST(request: Request) {
   }
 
   try {
+    if (!(await admit(ref))) return done;
     // two reports of one visit arrive close together (the link, then a page):
     // wait for the other to finish so they share one message
     let locked = await lockVisit(id);

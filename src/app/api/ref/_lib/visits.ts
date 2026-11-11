@@ -27,7 +27,30 @@ const VISIT_TTL = 60 * 60 * 24 * 30;
 /** A quiet visit that resumes after this long starts a new message. */
 export const WINDOW_SECONDS = 30 * 60;
 
+/** The store is public-facing, so what a stranger can make it hold is capped:
+ *  this many refs, this many pages per ref, and reports a minute. */
+const MAX_REFS = 50;
+const MAX_PAGES = 100;
+const PER_MINUTE = 40;
+const PER_REF_MINUTE = 20;
+
 const visitKey = (id: string) => `ref:visit:${id}`;
+
+/** True when this report may be written: within the minute's budget, shared
+ *  by every server instance, and for a ref already known or with room for it. */
+export async function admit(ref: string): Promise<boolean> {
+  const minute = Math.floor(Date.now() / 60_000);
+  const [all, mine, known, refs] = (await redis([
+    ["INCR", `ref:rate:${minute}`],
+    ["INCR", `ref:rate:${minute}:${ref}`],
+    ["SISMEMBER", "ref:names", ref],
+    ["SCARD", "ref:names"],
+    ["EXPIRE", `ref:rate:${minute}`, 120],
+    ["EXPIRE", `ref:rate:${minute}:${ref}`, 120],
+  ])) as number[];
+  if (all > PER_MINUTE || mine > PER_REF_MINUTE) return false;
+  return known === 1 || refs < MAX_REFS;
+}
 
 export async function loadVisit(id: string): Promise<Visit | null> {
   const [raw] = await redis([["GET", visitKey(id)]]);
@@ -66,7 +89,13 @@ export async function count(
     ["LTRIM", "ref:recent", 0, 7],
   ];
   if (first) commands.push(["HINCRBY", `ref:stat:${ref}`, "visits", 1]);
-  if (name === "open" || name === "page") commands.push(["ZINCRBY", `ref:pages:${ref}`, 1, path]);
+  if (name === "open" || name === "page") {
+    commands.push(
+      ["ZINCRBY", `ref:pages:${ref}`, 1, path],
+      // keep only the most opened pages
+      ["ZREMRANGEBYRANK", `ref:pages:${ref}`, 0, -(MAX_PAGES + 1)],
+    );
+  }
   await redis(commands);
 }
 

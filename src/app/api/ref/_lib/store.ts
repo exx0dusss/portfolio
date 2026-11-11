@@ -49,6 +49,17 @@ function memory(command: Command): unknown {
     }
     case "DEL":
       return Number(strings.delete(key));
+    case "INCR": {
+      const next = Number(strings.get(key) ?? 0) + 1;
+      strings.set(key, String(next));
+      return next;
+    }
+    case "SISMEMBER":
+      return Number(sets.get(key)?.has(rest[0]) ?? false);
+    case "SCARD":
+      return sets.get(key)?.size ?? 0;
+    case "ZREMRANGEBYRANK":
+      return 0;
     case "HINCRBY": {
       const hash = hashes.get(key) ?? new Map<string, string>();
       hashes.set(key, hash);
