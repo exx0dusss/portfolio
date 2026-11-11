@@ -11,6 +11,14 @@
  * report and does nothing:
  *   REF_TELEGRAM_BOT_TOKEN   the bot that sends the message
  *   REF_TELEGRAM_CHAT_ID     the chat it sends to
+ * Optional:
+ *   REF_NAMES                the refs in use, comma separated ("supabase,vercel");
+ *                            when set, any other ref is ignored
+ *
+ * The endpoint is public, so a report is treated as untrusted: every field
+ * has a narrow shape (a slug, a known event, a route-like path, a host name),
+ * so a forged report can only produce a message that looks like a real one,
+ * never free text, and messages are capped per ref and overall.
  */
 
 /** What a visitor did; anything else is rejected. */
@@ -23,11 +31,26 @@ const EVENTS: Record<string, string> = {
 };
 
 const REF = /^[a-z0-9][a-z0-9-]{0,31}$/;
+const PATH = /^\/[A-Za-z0-9/_.-]{0,199}$/;
+const HOST = /^[a-z0-9]([a-z0-9.-]{0,78}[a-z0-9])?$/i;
 const BOT = /bot|crawl|spider|preview|slurp|headless|lighthouse|facebookexternalhit/i;
 
-/** A flood guard, per server instance: at most this many messages a minute. */
+/** Flood guards, per server instance: messages a minute overall and per ref. */
 const PER_MINUTE = 30;
-let sent: number[] = [];
+const PER_REF_MINUTE = 10;
+let sent: { time: number; ref: string }[] = [];
+
+/** True when the request names this site as its origin. Browsers send Origin
+ *  on every POST, the beacon included; a request without one is not a page. */
+function sameOrigin(request: Request): boolean {
+  const origin = request.headers.get("origin");
+  if (!origin) return false;
+  try {
+    return new URL(origin).host === request.headers.get("host");
+  } catch {
+    return false;
+  }
+}
 
 function clean(value: unknown, max: number): string | null {
   if (typeof value !== "string" || value.length === 0 || value.length > max) return null;
@@ -39,8 +62,7 @@ export async function POST(request: Request) {
   const done = new Response(null, { status: 204 });
 
   // only the site's own pages report here
-  const origin = request.headers.get("origin");
-  if (origin && new URL(origin).host !== request.headers.get("host")) return done;
+  if (!sameOrigin(request)) return done;
   if (BOT.test(request.headers.get("user-agent") ?? "")) return done;
 
   let body: Record<string, unknown>;
@@ -53,8 +75,16 @@ export async function POST(request: Request) {
   const ref = clean(body.ref, 32);
   const event = clean(body.event, 16);
   const path = clean(body.path, 200);
-  const detail = clean(body.detail, 80);
-  if (!ref || !REF.test(ref) || !event || !(event in EVENTS) || !path?.startsWith("/")) {
+  const detail = body.detail === undefined ? null : clean(body.detail, 80);
+  if (
+    !ref ||
+    !REF.test(ref) ||
+    !event ||
+    !(event in EVENTS) ||
+    !path ||
+    !PATH.test(path) ||
+    (body.detail !== undefined && (!detail || !HOST.test(detail)))
+  ) {
     return new Response(null, { status: 400 });
   }
 
@@ -62,10 +92,14 @@ export async function POST(request: Request) {
   const chat = process.env.REF_TELEGRAM_CHAT_ID;
   if (!token || !chat) return done;
 
+  const names = process.env.REF_NAMES?.split(",").map((name) => name.trim().toLowerCase());
+  if (names?.length && !names.includes(ref)) return done;
+
   const now = Date.now();
-  sent = sent.filter((time) => now - time < 60_000);
+  sent = sent.filter((entry) => now - entry.time < 60_000);
   if (sent.length >= PER_MINUTE) return done;
-  sent.push(now);
+  if (sent.filter((entry) => entry.ref === ref).length >= PER_REF_MINUTE) return done;
+  sent.push({ time: now, ref });
 
   const country = clean(request.headers.get("x-vercel-ip-country"), 2);
   const device = /Mobi|Android|iPhone/i.test(request.headers.get("user-agent") ?? "")
