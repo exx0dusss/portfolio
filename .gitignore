@@ -43,3 +43,6 @@ next-env.d.ts
 
 # screenshot sets from scripts/visual-diff.mjs
 /.visual/
+
+# raw captures, framed shots and sheets from scripts/screenshots
+/.screenshots/

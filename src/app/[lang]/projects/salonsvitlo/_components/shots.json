@@ -1,0 +1,393 @@
+[
+  {
+    "group": "Browsing",
+    "shots": [
+      {
+        "id": "home-hits",
+        "device": "desktop",
+        "raw": ["01-home/02-hits-shelf"],
+        "title": "Best-sellers shelf",
+        "alt": "The homepage shelf of best-selling lamps, each card carrying a “Хіт” label, a rating and a price"
+      },
+      {
+        "id": "home-brands",
+        "device": "desktop",
+        "raw": ["01-home/05-brands"],
+        "title": "Brands",
+        "alt": "The homepage strip of manufacturer logos linking to each brand’s catalogue",
+        "hold": true
+      },
+      {
+        "id": "mega-menu",
+        "device": "desktop",
+        "raw": ["02-catalogue/01-mega-menu"],
+        "title": "Mega menu",
+        "alt": "The chandelier category’s mega menu: subcategories with photos beside a quick-pick panel"
+      },
+      {
+        "id": "category",
+        "device": "desktop",
+        "raw": ["02-catalogue/03-category"],
+        "title": "Category listing",
+        "alt": "A category listing with a filter sidebar and a grid of product cards"
+      },
+      {
+        "id": "sort",
+        "device": "desktop",
+        "raw": ["02-catalogue/04-sort-open"],
+        "title": "Sorting",
+        "alt": "A category listing with the sort menu open: popularity, price and newest",
+        "hold": true
+      },
+      {
+        "id": "filters",
+        "device": "desktop",
+        "raw": ["25-filters/02-filter-applied"],
+        "title": "Filters",
+        "alt": "A category narrowed to best-sellers, with rating and manufacturer filters in the sidebar"
+      },
+      {
+        "id": "search-suggest",
+        "device": "desktop",
+        "raw": ["03-search/02-search-suggestions"],
+        "title": "Search suggestions",
+        "alt": "The search box with category chips, popular queries and product matches appearing as the shopper types"
+      },
+      {
+        "id": "search-results",
+        "device": "desktop",
+        "raw": ["03-search/03-search-results"],
+        "title": "Search results",
+        "alt": "A page of search results with filters",
+        "hold": true
+      }
+    ]
+  },
+  {
+    "group": "Product",
+    "shots": [
+      {
+        "id": "product",
+        "device": "desktop",
+        "raw": ["04-product/01-pdp-top"],
+        "title": "Product page",
+        "alt": "A chandelier’s page with its photo gallery, key specifications, price and stock"
+      },
+      {
+        "id": "product-specs",
+        "device": "desktop",
+        "raw": ["04-product/02-pdp-specs"],
+        "title": "Specifications",
+        "alt": "A product’s full specification table and description"
+      },
+      {
+        "id": "product-reviews",
+        "device": "desktop",
+        "raw": ["04-product/03-pdp-reviews"],
+        "title": "Reviews",
+        "alt": "A product’s rating summary and customer reviews",
+        "hold": true
+      },
+      {
+        "id": "price-tiers",
+        "device": "desktop",
+        "raw": ["23-product-popovers/03-price-tiers"],
+        "title": "Discount ladder",
+        "alt": "A popover explaining the discount ladder: the price falls as the order total grows",
+        "hold": true
+      },
+      {
+        "id": "delivery-details",
+        "device": "desktop",
+        "raw": ["23-product-popovers/05-delivery-details"],
+        "title": "Delivery details",
+        "alt": "A popover with delivery options, prices and dates for the chosen city",
+        "hold": true
+      },
+      {
+        "id": "gallery-fullscreen",
+        "device": "desktop",
+        "raw": ["23-product-popovers/01-gallery-fullscreen"],
+        "title": "Photo viewer",
+        "alt": "A product photo open fullscreen with a thumbnail strip",
+        "hold": true
+      },
+      {
+        "id": "room-calculator",
+        "device": "desktop",
+        "raw": ["23-product-popovers/06-room-calculator"],
+        "title": "Room calculator",
+        "alt": "A dialog estimating how many chandeliers a 15 m² living room needs, with a button to add them all"
+      },
+      {
+        "id": "sale-product",
+        "device": "desktop",
+        "raw": ["23-product-popovers/09-sale-product"],
+        "title": "A product on sale",
+        "alt": "A product page showing a crossed-out price, the sale price and the saving",
+        "hold": true
+      }
+    ]
+  },
+  {
+    "group": "Cart and checkout",
+    "shots": [
+      {
+        "id": "mini-cart",
+        "device": "desktop",
+        "raw": ["05-cart/01-mini-cart"],
+        "title": "Mini cart",
+        "alt": "The mini cart after adding a chandelier: a progress bar toward the next discount and bulbs matched to the fixture"
+      },
+      {
+        "id": "cart",
+        "device": "desktop",
+        "raw": ["05-cart/02-cart-page"],
+        "title": "Cart",
+        "alt": "The cart page with items, quantities, a promo code field and the order total"
+      },
+      {
+        "id": "checkout-delivery",
+        "device": "desktop",
+        "raw": ["06-checkout/03-delivery-step"],
+        "title": "Delivery step",
+        "alt": "Checkout’s delivery step offering Nova Poshta, Ukrposhta, courier, locker and showroom pickup"
+      },
+      {
+        "id": "checkout-pickup",
+        "device": "desktop",
+        "raw": ["06-checkout/04-delivery-pickup"],
+        "title": "Showroom pickup",
+        "alt": "Checkout with showroom pickup chosen and the shop’s address shown",
+        "hold": true
+      },
+      {
+        "id": "checkout-payment",
+        "device": "desktop",
+        "raw": ["06-checkout/06-payment-picked"],
+        "title": "Payment",
+        "alt": "Checkout’s payment step listing card, Google Pay, Apple Pay, Monobank Pay, instalments and pay in the showroom",
+        "hold": true
+      },
+      {
+        "id": "checkout-confirm",
+        "device": "desktop",
+        "raw": ["06-checkout/08-ready-to-confirm"],
+        "title": "Ready to confirm",
+        "alt": "The last checkout step: the order summary and the confirm button",
+        "hold": true
+      },
+      {
+        "id": "order-success",
+        "device": "desktop",
+        "raw": ["06-checkout/09-order-success"],
+        "title": "Order placed",
+        "alt": "The confirmation page after an order, with its number and next steps",
+        "hold": true
+      }
+    ]
+  },
+  {
+    "group": "Account",
+    "shots": [
+      {
+        "id": "account",
+        "device": "desktop",
+        "raw": ["09-account/02-profile-home"],
+        "title": "Account home",
+        "alt": "A customer’s account overview with recent orders and shortcuts",
+        "hold": true
+      },
+      {
+        "id": "orders",
+        "device": "desktop",
+        "raw": ["09-account/03-orders"],
+        "title": "Orders",
+        "alt": "The list of a customer’s orders with their statuses",
+        "hold": true
+      },
+      {
+        "id": "order-shipped",
+        "device": "desktop",
+        "raw": ["26-orders-states/02-order-shipped"],
+        "title": "Order tracking",
+        "alt": "An order’s timeline from placed to delivered and its Nova Poshta tracking number",
+        "hold": true
+      },
+      {
+        "id": "order-detail",
+        "device": "desktop",
+        "raw": ["09-account/13-order-detail"],
+        "title": "Order details",
+        "alt": "An order’s items, delivery, payment and totals",
+        "hold": true
+      },
+      {
+        "id": "discounts",
+        "device": "desktop",
+        "raw": ["09-account/06-discounts"],
+        "title": "Loyalty discount",
+        "alt": "The customer’s discount tier and how much more to spend for the next one",
+        "hold": true
+      },
+      {
+        "id": "returns",
+        "device": "desktop",
+        "raw": ["09-account/08-returns"],
+        "title": "Returns",
+        "alt": "The returns page listing a customer’s return requests",
+        "hold": true
+      },
+      {
+        "id": "return-form",
+        "device": "desktop",
+        "raw": ["26-orders-states/08-return-form"],
+        "title": "Return request",
+        "alt": "A return form with items, a reason and a refund method",
+        "hold": true
+      }
+    ]
+  },
+  {
+    "group": "Content and help",
+    "shots": [
+      {
+        "id": "guides",
+        "device": "desktop",
+        "raw": ["10-info/11-guides"],
+        "title": "Buying guides",
+        "alt": "Buying guides by room and fixture type",
+        "hold": true
+      },
+      {
+        "id": "style-quiz",
+        "device": "desktop",
+        "raw": ["10-info/13-style-quiz"],
+        "title": "Style quiz",
+        "alt": "A short quiz that suggests a lighting style",
+        "hold": true
+      },
+      {
+        "id": "brand",
+        "device": "desktop",
+        "raw": ["10-info/12-brand-nowodvorski"],
+        "title": "A brand page",
+        "alt": "A manufacturer’s page with its story and products",
+        "hold": true
+      },
+      {
+        "id": "payment-delivery",
+        "device": "desktop",
+        "raw": ["10-info/04-payment-delivery"],
+        "title": "Payment and delivery",
+        "alt": "The page describing payment methods and delivery options",
+        "hold": true
+      },
+      {
+        "id": "faq",
+        "device": "desktop",
+        "raw": ["10-info/07-faq"],
+        "title": "FAQ",
+        "alt": "Frequently asked questions in collapsible sections",
+        "hold": true
+      },
+      {
+        "id": "compare",
+        "device": "desktop",
+        "raw": ["07-compare-wishlist/03-compare-page"],
+        "title": "Compare",
+        "alt": "Several products compared side by side by their attributes",
+        "hold": true
+      },
+      {
+        "id": "chat",
+        "device": "desktop",
+        "raw": ["24-header-popovers/02-chat-widget"],
+        "title": "Chat widget",
+        "alt": "The support chat widget open over the storefront",
+        "hold": true
+      },
+      {
+        "id": "cookies",
+        "device": "desktop",
+        "raw": ["20-cookies/02-settings-dialog"],
+        "title": "Cookie settings",
+        "alt": "A dialog for choosing which cookie categories to allow",
+        "hold": true
+      },
+      {
+        "id": "not-found",
+        "device": "desktop",
+        "raw": ["21-empty-and-errors/03-not-found"],
+        "title": "Page not found",
+        "alt": "The 404 page with a search box and links back to the catalogue",
+        "hold": true
+      }
+    ]
+  },
+  {
+    "group": "On a phone",
+    "shots": [
+      {
+        "id": "phone-home",
+        "device": "phone",
+        "raw": ["01-home/01-hero", "01-home/02-hits-shelf"],
+        "title": "Homepage",
+        "alt": "The homepage and its best-sellers shelf on an iPhone"
+      },
+      {
+        "id": "phone-catalogue",
+        "device": "phone",
+        "raw": ["02-catalogue/01-menu-drawer", "02-catalogue/02-category"],
+        "title": "Catalogue",
+        "alt": "The catalogue menu drawer and a category listing on an iPhone"
+      },
+      {
+        "id": "phone-search",
+        "device": "phone",
+        "raw": ["03-search/02-search-suggestions", "03-search/03-search-results"],
+        "title": "Search",
+        "alt": "Search suggestions and results on an iPhone",
+        "hold": true
+      },
+      {
+        "id": "phone-product",
+        "device": "phone",
+        "raw": ["04-product/01-pdp-top", "04-product/02-pdp-specs"],
+        "title": "Product page",
+        "alt": "A product page and its specifications on an iPhone"
+      },
+      {
+        "id": "phone-filters",
+        "device": "phone",
+        "raw": ["25-filters/01-filters-drawer", "07-compare-wishlist/03-compare-page"],
+        "title": "Filters and compare",
+        "alt": "The filter sheet and the compare page on an iPhone",
+        "hold": true
+      },
+      {
+        "id": "phone-cart",
+        "device": "phone",
+        "raw": ["05-cart/01-mini-cart", "06-checkout/03-delivery-step"],
+        "title": "Cart and delivery",
+        "alt": "The cart sheet and checkout’s delivery step on an iPhone"
+      },
+      {
+        "id": "phone-payment",
+        "device": "phone",
+        "raw": ["06-checkout/06-payment-picked", "06-checkout/09-order-success"],
+        "title": "Payment and confirmation",
+        "alt": "Checkout’s payment step and the order confirmation on an iPhone",
+        "hold": true
+      },
+      {
+        "id": "phone-account",
+        "device": "phone",
+        "raw": ["09-account/02-profile-home", "26-orders-states/02-order-shipped"],
+        "title": "Account",
+        "alt": "A customer’s account and an order’s tracking on an iPhone",
+        "hold": true
+      }
+    ]
+  }
+]

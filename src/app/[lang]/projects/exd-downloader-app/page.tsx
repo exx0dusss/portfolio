@@ -257,7 +257,7 @@ export default async function ExdDownloaderAppPage({
                     emoji: "globe",
                     title: "12 more platforms",
                     description:
-                      "Links and short links come back as a video, MP3, photo or album, with the same Options switch. Platforms behind a login use a pool of accounts in turn.",
+                      "Links and short links come back as a video, MP3, photo or album, with the same Options switch.",
                     chips: [
                       { label: "X", emoji: "x" },
                       { label: "Instagram", emoji: "instagram" },
@@ -593,7 +593,7 @@ export default async function ExdDownloaderAppPage({
             </div>
             <SketchDiagram
               slug="exd-downloader-app"
-              alt="Architecture sketch. A user's Telegram app sends messages to Telegram's servers, which pass them over MTProto to a self-hosted Bot API server; it delivers them to the bot by webhook. The phone also opens the Mini App, served by the bot. The bot, built with grammY, queues each download in Redis with BullMQ; a worker takes it, fetches the media from TikTok, YouTube, SoundCloud or 12 more platforms such as X, Instagram and Reddit, with ffmpeg and yt-dlp, and uploads it back through the Bot API server. Bot and worker store users and downloads in Postgres through Drizzle. Everything runs on one VPS under Coolify, which pulls and runs the containers when main changes on GitHub."
+              alt="Architecture sketch. A user's Telegram app sends messages to Telegram's servers, which pass them over MTProto to a self-hosted Bot API server; it delivers them to the bot by webhook. The phone also opens the Mini App, served by the bot. The bot, built with grammY, queues each download in Redis with BullMQ; a worker takes it, fetches the media from TikTok, YouTube, SoundCloud or 12 more platforms such as X, Instagram and Reddit, with ffmpeg and yt-dlp, and uploads it back through the Bot API server. Bot and worker store users and downloads in Postgres through Drizzle. Everything runs in containers under Coolify, deployed when main changes on GitHub."
               note="// the bot answers at once; downloads wait in the queue, not in the chat"
             />
             <Reveal className="mt-10">
@@ -617,8 +617,7 @@ export default async function ExdDownloaderAppPage({
                       </p>
                       <p>
                         The plumbing every module relies on (Redis sessions, the language, roles,
-                        the rate limit of five messages in three seconds, conversations) runs ahead
-                        of them in a fixed order.
+                        the rate limit, conversations) runs ahead of them in a fixed order.
                       </p>
                     </SpecDescription>
                   </SpecContent>
@@ -785,7 +784,7 @@ export default async function ExdDownloaderAppPage({
                 {
                   title: "Architecture",
                   src: "/projects/exd-downloader-app/canvas/architecture.svg",
-                  alt: "The plan for 2025: Coolify on a Hostinger VPS running the bot beside a self-hosted Bot API server and Redis, the bot and its API talking over tRPC, with naming conventions and the provider notes beside it.",
+                  alt: "The plan for 2025: Coolify on a VPS running the bot beside a self-hosted Bot API server and Redis, the bot and its API talking over tRPC, with naming conventions and the provider notes beside it.",
                   width: 3620,
                   height: 1468,
                 },
@@ -818,10 +817,10 @@ export default async function ExdDownloaderAppPage({
                   Beside the canvas I kept the rules in Obsidian, written before the code they
                   govern. Modules know nothing outside their own scope and are registered in one
                   place. Every admin tab (a message with a menu) is built from the same files. Menu
-                  state travels in the buttons’ payloads as <code>key-value|key-value</code>.
-                  Translations come in three tiers: general, module and scoped. And every feature
-                  had to pass a checklist before it counted as done: conventions first, then
-                  configuration, naming, schemas, documentation and translations.
+                  state travels in the buttons’ payloads. Translations come in three tiers: general,
+                  module and scoped. And every feature had to pass a checklist before it counted as
+                  done: conventions first, then configuration, naming, schemas, documentation and
+                  translations.
                 </p>
                 <p>
                   Those notes end with this, from July 2025: “Years past, this is the most properly
@@ -850,18 +849,18 @@ export default async function ExdDownloaderAppPage({
               rows={[
                 {
                   label: "v1",
-                  sub: "TikTok’s private mobile API",
-                  failed: "0 of 10: TikTok has closed that API (HTTP 429)",
+                  sub: "direct API calls",
+                  failed: "0 of 10: the API it called is closed",
                 },
                 {
                   label: "v2",
-                  sub: "tiktok-api-dl 1.1.1, the same API",
+                  sub: "tiktok-api-dl 1.1.1",
                   failed: "0 of 10: rate-limited on every request",
                 },
                 { label: "v3", sub: "tiktok-api-dl 1.2.0", ms: 6836 },
                 {
                   label: "v4",
-                  sub: "its own client, reading the post page",
+                  sub: "its own client",
                   ms: 580,
                   current: true,
                 },
@@ -872,9 +871,9 @@ export default async function ExdDownloaderAppPage({
                 <p>
                   v4 resolves a link about <strong>12 times faster</strong> than v3 (0.58 s against
                   6.8 s; 0.68 s against 11.1 s at the 90th percentile), and the whole file is on
-                  disk in 0.66 s. It reads the data TikTok embeds in the post’s own page, and only
-                  falls back to the library when that fails. v1 and v2 can’t run at all any more:
-                  they called an API TikTok has since closed to unsigned clients.
+                  disk in 0.66 s. It uses its own client, and only falls back to the library when
+                  that fails. v1 and v2 can’t run at all any more: the API they called has since
+                  closed.
                 </p>
                 <p>
                   In production, from the queue to the video arriving in the chat, upload to

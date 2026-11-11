@@ -24,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const englishOnly = [
     { url: absolute("/resume"), priority: 0.7 },
     ...PROJECTS.map((project) => ({ url: absolute(project.href), priority: 0.8 })),
+    { url: absolute("/projects/salonsvitlo/gallery"), priority: 0.5 },
   ];
 
   return [...localized, ...englishOnly];

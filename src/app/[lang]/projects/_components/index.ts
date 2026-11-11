@@ -18,6 +18,7 @@ export { ProjectBanner } from "./project-banner";
 export { ProjectCover } from "./project-cover";
 export { ProjectHero } from "./project-hero";
 export { ProjectStructuredData, projectMetadata } from "./project-seo";
+export { ProjectTabs } from "./project-tabs";
 export { projectTheme } from "./project-theme";
 export { SketchDiagram } from "./sketch-diagram";
 export { SpeedBars } from "./speed-bars";

@@ -42,6 +42,8 @@ export const PROJECTS: Project[] = [
     href: "/projects/salonsvitlo",
     favicon: "/projects/salonsvitlo/favicon.png",
     iconFilled: true,
+    photos: 16,
+    cardImage: "/projects/salonsvitlo/card-cover.jpg",
   },
   {
     slug: "exd-downloader-app",

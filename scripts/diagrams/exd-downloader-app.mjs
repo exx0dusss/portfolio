@@ -4,7 +4,7 @@
 // fetches the media from TikTok, YouTube, SoundCloud or 12 social platforms
 // (X, Instagram, Reddit…; yt-dlp, gallery-dl and FxTwitter) and uploads it back
 // through the same Bot API server. The Mini App is served by the bot itself.
-// Bot, worker, Redis, Postgres and the Bot API server run on one Hostinger VPS
+// Bot, worker, Redis, Postgres and the Bot API server run on one VPS
 // under Coolify, which pulls the new image when a merge to main is built.
 import {
   arrow,
@@ -113,7 +113,7 @@ export function layout() {
     Math.max(pgX + DB_W, mid(pg.box).x + textWidth("users · downloads", FONT.label) / 2) +
     GAP.zonePad;
   const vpsBottom = below({ y: Math.max(pg.bottom, cool.bottom), h: 0 }, GAP.zonePad);
-  const vps = zone("vps", vpsX, top, vpsRight - vpsX, vpsBottom - top, "Hostinger VPS");
+  const vps = zone("vps", vpsX, top, vpsRight - vpsX, vpsBottom - top, "VPS");
   els.push(
     ...vps.elements,
     ...botApi.elements,
