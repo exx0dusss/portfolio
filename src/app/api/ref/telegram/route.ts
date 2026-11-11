@@ -1,5 +1,6 @@
 /**
- * The ref bot's webhook: /stats, and the Refresh button on its widget.
+ * The ref bot's webhook: /stats and the Refresh button on its widget, and
+ * the refs in use (/add, /remove, /refs).
  *
  * Telegram must send REF_TELEGRAM_WEBHOOK_SECRET with each update (set as
  * `secret_token` in setWebhook, with `allowed_updates` of "message" and
@@ -8,7 +9,7 @@
  */
 import { storeReady } from "../_lib/store";
 import { CHAT_ID, telegram, telegramReady, WEBHOOK_SECRET } from "../_lib/telegram";
-import { readStats } from "../_lib/visits";
+import { issuedRefs, issueRef, MAX_ISSUED, readStats, revokeRef } from "../_lib/visits";
 import { STATS_WIDGET, statsCaption } from "../_lib/widgets";
 
 interface Update {
@@ -51,6 +52,50 @@ async function refreshStats(messageId: number): Promise<void> {
   });
 }
 
+const REF = /^[a-z0-9][a-z0-9-]{0,31}$/;
+
+const say = (text: string) =>
+  telegram("sendMessage", { chat_id: CHAT_ID, text, parse_mode: "HTML" });
+
+/** /stats, and the refs in use: /add <ref>, /remove <ref>, /refs. */
+async function command(text: string): Promise<void> {
+  const [name = "", argument] = text.trim().split(/\s+/);
+  const ref = argument?.toLowerCase();
+  switch (name.replace(/@\w+$/, "")) {
+    case "/stats":
+    case "/start":
+      return sendStats();
+    case "/add": {
+      if (!ref || !REF.test(ref)) {
+        await say("Use <code>/add name</code>: lowercase letters, digits and hyphens.");
+        return;
+      }
+      const added = await issueRef(ref);
+      await say(
+        added
+          ? `Added. Send this link:\n<code>https://tymurmustafaiev.com/?ref=${ref}</code>`
+          : `The list is full (${MAX_ISSUED}). Remove one first.`,
+      );
+      return;
+    }
+    case "/remove":
+      if (ref && REF.test(ref)) {
+        await revokeRef(ref);
+        await say(`Removed <b>${ref}</b>. Its numbers stay in /stats.`);
+      } else await say("Use <code>/remove name</code>.");
+      return;
+    case "/refs": {
+      const refs = await issuedRefs();
+      await say(
+        refs.length
+          ? refs.map((entry) => `<code>${entry}</code>`).join("\n")
+          : "None yet: /add name",
+      );
+      return;
+    }
+  }
+}
+
 export async function POST(request: Request) {
   const ok = new Response(null, { status: 200 });
   if (!telegramReady || !storeReady || !WEBHOOK_SECRET) return new Response(null, { status: 503 });
@@ -69,8 +114,8 @@ export async function POST(request: Request) {
     const owner = Number(CHAT_ID);
     const { message, widget_query: query } = update;
 
-    if (message?.chat.id === owner && /^\/(stats|start)(@\w+)?$/.test(message.text ?? "")) {
-      await sendStats();
+    if (message?.chat.id === owner) {
+      await command(message.text ?? "");
     } else if (query) {
       const mine = query.from.id === owner && query.data === "r" && query.message_id;
       if (mine) await refreshStats(query.message_id!);

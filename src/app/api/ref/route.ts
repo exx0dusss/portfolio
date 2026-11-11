@@ -12,14 +12,16 @@
  *
  * It stays silent until the bot (./_lib/telegram.ts) is configured. Without
  * a store (./_lib/store.ts) nothing can collect, and each event is sent as
- * its own plain message. REF_NAMES, optional, limits reports to
- * the refs in use ("supabase,vercel").
+ * its own plain message. With a store, a ref is reported only once the
+ * owner has issued it: /add in the bot, or REF_NAMES ("supabase,vercel").
  *
  * The endpoint is public, so a report is treated as untrusted: every field
  * has a narrow shape (a slug, a known event, a route-like path, a host name),
  * so a forged report can only produce an entry that looks like a real one,
- * never free text. Writes are capped per minute, and the store holds a
- * bounded number of refs and pages (./_lib/visits.ts).
+ * never free text. Nothing is written for a ref the owner didn't issue, and
+ * reports are budgeted per client and overall (./_lib/visits.ts, admit).
+ * The per-client budget keys on a salted hash of the address that expires
+ * after two minutes; the address itself is never kept.
  */
 import { storeReady } from "./_lib/store";
 import { CHAT_ID, telegram, telegramReady } from "./_lib/telegram";
@@ -44,10 +46,21 @@ const PATH = /^\/[A-Za-z0-9/_.-]{0,199}$/;
 const HOST = /^[a-z0-9]([a-z0-9.-]{0,78}[a-z0-9])?$/i;
 const BOT = /bot|crawl|spider|preview|slurp|headless|lighthouse|facebookexternalhit/i;
 
-/** Flood guards, per server instance: reports a minute overall and per ref. */
-const PER_MINUTE = 60;
-const PER_REF_MINUTE = 30;
-let seen: { time: number; ref: string }[] = [];
+/** Without a store, the flood guard is per server instance: reports a minute. */
+const PER_MINUTE = 30;
+let seen: number[] = [];
+
+/** A short-lived stand-in for the caller, for the per-client budget: a hash
+ *  of the address, never the address itself (./_lib/visits.ts, admit). */
+async function clientKey(request: Request): Promise<string> {
+  const address = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  const salt = process.env.REF_TELEGRAM_WEBHOOK_SECRET ?? "ref";
+  const bytes = new TextEncoder().encode(`${salt}:${address}`);
+  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  return Array.from(new Uint8Array(digest).slice(0, 8), (byte) =>
+    byte.toString(16).padStart(2, "0"),
+  ).join("");
+}
 
 /** True when the request names this site as its origin. Browsers send Origin
  *  on every POST, the beacon included; a request without one is not a page. */
@@ -136,21 +149,21 @@ export async function POST(request: Request) {
 
   if (!telegramReady) return done;
 
-  const names = process.env.REF_NAMES?.split(",").map((entry) => entry.trim().toLowerCase());
-  if (names?.length && !names.includes(ref)) return done;
-
   const now = Date.now();
-  seen = seen.filter((entry) => now - entry.time < 60_000);
-  if (seen.length >= PER_MINUTE) return done;
-  if (seen.filter((entry) => entry.ref === ref).length >= PER_REF_MINUTE) return done;
-  seen.push({ time: now, ref });
 
   const event: VisitEvent = detail
     ? [Math.floor(now / 1000), name, path, detail]
     : [Math.floor(now / 1000), name, path];
 
-  // no store yet: nothing can collect, so each event is its own plain message
+  // no store yet: nothing can collect, so each event is its own plain message,
+  // for the refs REF_NAMES lists (all of them when it is unset), within a
+  // budget this server instance keeps
   if (!storeReady) {
+    const names = (process.env.REF_NAMES ?? "").split(",").map((entry) => entry.trim());
+    if (names.some(Boolean) && !names.includes(ref)) return done;
+    seen = seen.filter((time) => now - time < 60_000);
+    if (seen.length >= PER_MINUTE) return done;
+    seen.push(now);
     const lone: Visit = {
       ref,
       country: clean(request.headers.get("x-vercel-ip-country"), 2),
@@ -163,7 +176,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    if (!(await admit(ref))) return done;
+    if (!(await admit(ref, await clientKey(request)))) return done;
     // two reports of one visit arrive close together (the link, then a page):
     // wait for the other to finish so they share one message
     let locked = await lockVisit(id);

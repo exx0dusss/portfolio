@@ -27,29 +27,70 @@ const VISIT_TTL = 60 * 60 * 24 * 30;
 /** A quiet visit that resumes after this long starts a new message. */
 export const WINDOW_SECONDS = 30 * 60;
 
-/** The store is public-facing, so what a stranger can make it hold is capped:
- *  this many refs, this many pages per ref, and reports a minute. */
-const MAX_REFS = 50;
+/** The store is public-facing, so what a stranger can make it hold is
+ *  bounded: only refs the owner issued are written at all, each ref keeps
+ *  its most opened pages, and reports are budgeted per minute. */
 const MAX_PAGES = 100;
-const PER_MINUTE = 40;
-const PER_REF_MINUTE = 20;
+const PER_CLIENT_MINUTE = 15;
+const PER_MINUTE = 60;
+const PER_REF_MINUTE = 30;
+export const MAX_ISSUED = 100;
 
 const visitKey = (id: string) => `ref:visit:${id}`;
+const ISSUED = "ref:issued";
 
-/** True when this report may be written: within the minute's budget, shared
- *  by every server instance, and for a ref already known or with room for it. */
-export async function admit(ref: string): Promise<boolean> {
+/** The refs in use: issued through the bot (/add), plus REF_NAMES. */
+export async function issuedRefs(): Promise<string[]> {
+  const [members] = (await redis([["SMEMBERS", ISSUED]])) as [string[] | null];
+  return [...new Set([...fromEnv(), ...(members ?? [])])].sort();
+}
+
+function fromEnv(): string[] {
+  return (process.env.REF_NAMES ?? "")
+    .split(",")
+    .map((entry) => entry.trim().toLowerCase())
+    .filter(Boolean);
+}
+
+/** Issues a ref; false when the list is full. */
+export async function issueRef(ref: string): Promise<boolean> {
+  const [size] = (await redis([["SCARD", ISSUED]])) as [number];
+  if (size >= MAX_ISSUED) return false;
+  await redis([["SADD", ISSUED, ref]]);
+  return true;
+}
+
+export async function revokeRef(ref: string): Promise<void> {
+  await redis([["SREM", ISSUED, ref]]);
+}
+
+/**
+ * True when this report may be written. In order, so that a stranger's
+ * reports cost as little as possible and cannot starve real ones:
+ * the ref must be one the owner issued (a read; nothing is written for any
+ * other); then this client's own budget; only then the shared budgets.
+ * `client` is a short-lived hash of the address, kept for two minutes.
+ */
+export async function admit(ref: string, client: string): Promise<boolean> {
+  if (!fromEnv().includes(ref)) {
+    const [issued] = (await redis([["SISMEMBER", ISSUED, ref]])) as [number];
+    if (issued !== 1) return false;
+  }
   const minute = Math.floor(Date.now() / 60_000);
-  const [all, mine, known, refs] = (await redis([
+  const clientKey = `ref:rate:${minute}:c:${client}`;
+  const [own] = (await redis([
+    ["INCR", clientKey],
+    ["EXPIRE", clientKey, 120],
+  ])) as [number];
+  if (own > PER_CLIENT_MINUTE) return false;
+
+  const [all, mine] = (await redis([
     ["INCR", `ref:rate:${minute}`],
     ["INCR", `ref:rate:${minute}:${ref}`],
-    ["SISMEMBER", "ref:names", ref],
-    ["SCARD", "ref:names"],
     ["EXPIRE", `ref:rate:${minute}`, 120],
     ["EXPIRE", `ref:rate:${minute}:${ref}`, 120],
   ])) as number[];
-  if (all > PER_MINUTE || mine > PER_REF_MINUTE) return false;
-  return known === 1 || refs < MAX_REFS;
+  return all <= PER_MINUTE && mine <= PER_REF_MINUTE;
 }
 
 export async function loadVisit(id: string): Promise<Visit | null> {

@@ -58,6 +58,8 @@ function memory(command: Command): unknown {
       return Number(sets.get(key)?.has(rest[0]) ?? false);
     case "SCARD":
       return sets.get(key)?.size ?? 0;
+    case "SREM":
+      return Number(sets.get(key)?.delete(rest[0]) ?? false);
     case "ZREMRANGEBYRANK":
       return 0;
     case "HINCRBY": {
