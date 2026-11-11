@@ -5,6 +5,7 @@ import { GeistSans } from "geist/font/sans";
 
 import { InlineScript } from "@/components/inline-script";
 import { HistoryScroll } from "@/components/layout/history-scroll";
+import { RefBeacon } from "@/components/layout/ref-beacon";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteNav } from "@/components/layout/site-nav";
@@ -90,6 +91,7 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSON_LD) }}
         />
         <HistoryScroll />
+        <RefBeacon />
         <SiteNav lang={lang} dict={dict.nav} name={dict.name} />
         {children}
         <SiteFooter lang={lang} dict={dict.footer} name={dict.name} />
