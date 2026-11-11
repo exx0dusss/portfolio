@@ -31,12 +31,12 @@ export function CaseStudyEmpty({ name }: { name: string }) {
             <EmptyTitle>In development</EmptyTitle>
             <EmptyDescription>
               {name} is still being built, and its case study will follow once it ships.
-              ExdDownloaderApp shows what a finished one looks like.
+              ExdDownloadApp shows what a finished one looks like.
             </EmptyDescription>
           </EmptyHeader>
           <EmptyContent>
-            <ButtonLink render={<LocaleLink href="/projects/exd-downloader-app" />}>
-              Read ExdDownloaderApp
+            <ButtonLink render={<LocaleLink href="/projects/exd-download-app" />}>
+              Read ExdDownloadApp
             </ButtonLink>
             <ButtonLink render={<LocaleLink href="/projects" />} variant="ghost">
               All projects

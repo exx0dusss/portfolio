@@ -56,20 +56,20 @@ import { RichMessageAnatomy } from "./_components/rich-message-anatomy";
 /** The cover is also the first gallery slide, so all eight images open together. */
 const COVER = {
   placeholder: "Mini App",
-  src: "/projects/exd-downloader-app/cover.webp",
+  src: "/projects/exd-download-app/cover.webp",
   alt: "Three Mini App screens on a phone: Download with recent TikTok downloads, the Library with two playlists, and Stats with 57 downloads in 30 days",
 };
 
 const SEO = {
-  slug: "exd-downloader-app",
-  title: "ExdDownloaderApp",
+  slug: "exd-download-app",
+  title: "ExdDownloadApp",
   description:
     "A Telegram bot and Mini App that downloads TikTok videos without watermarks, plus YouTube, SoundCloud and posts from 12 more platforms. 90,000+ users and over 4 million downloads since 2023.",
 };
 
 export const metadata: Metadata = projectMetadata(SEO);
 
-export default async function ExdDownloaderAppPage({
+export default async function ExdDownloadAppPage({
   params,
 }: {
   params: Promise<{ lang: string }>;
@@ -97,8 +97,8 @@ export default async function ExdDownloaderAppPage({
       >
         <ProjectStructuredData {...SEO} />
         <ProjectHero
-          name="ExdDownloaderApp"
-          favicon="/projects/exd-downloader-app/favicon.png"
+          name="ExdDownloadApp"
+          favicon="/projects/exd-download-app/favicon.png"
           faviconShape="round"
           aka="@TikTokDownloaderExdBot"
           tagline="A Telegram bot that downloads TikTok videos without watermarks, plus YouTube, SoundCloud and 12 more platforms, with a Mini App for your library. My longest-running project: four rewrites since 2023."
@@ -541,39 +541,39 @@ export default async function ExdDownloaderAppPage({
               {
                 placeholder: "Stats on desktop",
                 wide: true,
-                src: "/projects/exd-downloader-app/desktop-stats.webp",
+                src: "/projects/exd-download-app/desktop-stats.webp",
                 alt: "The Stats screen on a desktop: downloads over 30 days, streak, activity per day, platforms and formats",
               },
               {
                 placeholder: "Download on desktop",
-                src: "/projects/exd-downloader-app/desktop-download.webp",
+                src: "/projects/exd-download-app/desktop-download.webp",
                 alt: "The Download screen on a desktop: a box for a link or search, and the recent downloads beside it",
               },
               {
                 placeholder: "Library on desktop",
-                src: "/projects/exd-downloader-app/desktop-library.webp",
+                src: "/projects/exd-download-app/desktop-library.webp",
                 alt: "The Library on a desktop: playlists, search and filters above the downloads",
               },
               {
                 placeholder: "Profile, Premium, groups",
                 wide: true,
-                src: "/projects/exd-downloader-app/profile-premium-groups.webp",
+                src: "/projects/exd-download-app/profile-premium-groups.webp",
                 alt: "Three phone screens: Mia's profile with Premium, the Premium plans at 99 and 950 Stars, and the two groups she runs",
               },
               {
                 placeholder: "Onboarding, playlist, group",
                 wide: true,
-                src: "/projects/exd-downloader-app/onboarding-playlist-group.webp",
+                src: "/projects/exd-download-app/onboarding-playlist-group.webp",
                 alt: "Three phone screens: the welcome tour, a Road trip mix playlist, and the Weekend Hikers group's settings",
               },
               {
                 placeholder: "A group on desktop",
-                src: "/projects/exd-downloader-app/desktop-group.webp",
+                src: "/projects/exd-download-app/desktop-group.webp",
                 alt: "A group's settings on a desktop: download mode and the caption the bot posts",
               },
               {
                 placeholder: "Settings on desktop",
-                src: "/projects/exd-downloader-app/desktop-settings.webp",
+                src: "/projects/exd-download-app/desktop-settings.webp",
                 alt: "Settings on a desktop beside a preview of the message the bot sends",
               },
             ]}
@@ -592,7 +592,7 @@ export default async function ExdDownloaderAppPage({
               </Prose>
             </div>
             <SketchDiagram
-              slug="exd-downloader-app"
+              slug="exd-download-app"
               alt="Architecture sketch. A user's Telegram app sends messages to Telegram's servers, which pass them over MTProto to a self-hosted Bot API server; it delivers them to the bot by webhook. The phone also opens the Mini App, served by the bot. The bot, built with grammY, queues each download in Redis with BullMQ; a worker takes it, fetches the media from TikTok, YouTube, SoundCloud or 12 more platforms such as X, Instagram and Reddit, with ffmpeg and yt-dlp, and uploads it back through the Bot API server. Bot and worker store users and downloads in Postgres through Drizzle. Everything runs in containers under Coolify, deployed when main changes on GitHub."
               note="// the bot answers at once; downloads wait in the queue, not in the chat"
             />
@@ -769,42 +769,42 @@ export default async function ExdDownloaderAppPage({
               items={[
                 {
                   title: "App architecture",
-                  src: "/projects/exd-downloader-app/canvas/app-architecture.svg",
+                  src: "/projects/exd-download-app/canvas/app-architecture.svg",
                   alt: "Four ways to wire a bot and a website to one API, through backends-for-frontends or tRPC; two are crossed out in red, with notes on type safety and maintenance beside the others.",
                   width: 3223,
                   height: 2548,
                 },
                 {
                   title: "Server architecture",
-                  src: "/projects/exd-downloader-app/canvas/server-architecture.svg",
+                  src: "/projects/exd-download-app/canvas/server-architecture.svg",
                   alt: "Five versions of the server: Postgres, the repo and the Bot API server on a VPS; then Docker; then docker-compose with Redis; then Coolify with the bot and website sharing an API.",
                   width: 3269,
                   height: 2724,
                 },
                 {
                   title: "Architecture",
-                  src: "/projects/exd-downloader-app/canvas/architecture.svg",
+                  src: "/projects/exd-download-app/canvas/architecture.svg",
                   alt: "The plan for 2025: Coolify on a VPS running the bot beside a self-hosted Bot API server and Redis, the bot and its API talking over tRPC, with naming conventions and the provider notes beside it.",
                   width: 3620,
                   height: 1468,
                 },
                 {
                   title: "Middleware graph",
-                  src: "/projects/exd-downloader-app/canvas/middleware-graph.svg",
+                  src: "/projects/exd-download-app/canvas/middleware-graph.svg",
                   alt: "The bot's middleware in order, from sessions and i18n through hydration, session prefetch, the rate limiter and conversations, then the feature composers, with the commands composer branching into start, language, terms and test handlers.",
                   width: 2153,
                   height: 7274,
                 },
                 {
                   title: "Admin panel tree",
-                  src: "/projects/exd-downloader-app/canvas/admin-panel-tree.svg",
+                  src: "/projects/exd-download-app/canvas/admin-panel-tree.svg",
                   alt: "The admin panel as a tree: statistics with activity and the user list, sponsor subscriptions with view, add and remove, users, mailing and referrals.",
                   width: 3188,
                   height: 1279,
                 },
                 {
                   title: "Use cases",
-                  src: "/projects/exd-downloader-app/canvas/use-cases.svg",
+                  src: "/projects/exd-download-app/canvas/use-cases.svg",
                   alt: "Use-case diagrams with their basic and alternative flows: starting the bot, adding and removing it from a group, downloading a TikTok, adding and editing a sponsor subscription, and checking a user's ban.",
                   width: 4203,
                   height: 5261,

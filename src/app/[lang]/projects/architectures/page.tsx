@@ -400,7 +400,7 @@ export default async function ArchitecturesPage({ params }: { params: Promise<{ 
           </DesignNote>
         </Section>
 
-        <NextProjectLink name="SalonSvitlo" href="/projects/salonsvitlo" />
+        <NextProjectLink name="Shots" href="/projects/shots" />
       </PageShell>
     </>
   );

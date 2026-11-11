@@ -52,7 +52,7 @@ export const uk: Dictionary = {
         facets: ["Вітрина", "CRM", "API"],
         scaleLabel: "товарів",
       },
-      "exd-downloader-app": {
+      "exd-download-app": {
         description:
           "Telegram-бот для завантаження відео. Розробляю та підтримую його сам; на його основі виросла платформа ExdBots.",
         facets: ["Telegram-бот"],
@@ -77,6 +77,11 @@ export const uk: Dictionary = {
         description:
           "Мій інженерний плейбук: архітектури для Next.js, TanStack Start і NestJS у вигляді плагінів Claude Code.",
         facets: ["Відкритий код", "AI-інструменти"],
+      },
+      shots: {
+        description:
+          "CLI та MCP-сервер, що вставляє сторінку або знімок екрана у вікно Safari, iPhone чи Telegram. Створений, щоб знімати це портфоліо.",
+        facets: ["Відкритий код", "Інструменти розробника"],
       },
     },
   },
@@ -157,7 +162,7 @@ export const uk: Dictionary = {
     projects: {
       title: "Проєкти",
       description:
-        "Проєкти Тимура Мустафаєва — комерційна платформа SalonSvitlo, Telegram-бот ExdDownloaderApp, платформа ExdBots, дослідницька платформа Giga Psych і відкритий інженерний плейбук Architectures.",
+        "Проєкти Тимура Мустафаєва — комерційна платформа SalonSvitlo, Telegram-бот ExdDownloadApp, платформа ExdBots, дослідницька платформа Giga Psych і відкритий інженерний плейбук Architectures.",
       heading: "Мої проєкти.",
       lead: "Продукти, які я спроєктував і розробив від початку до кінця — від Telegram-платформ і дослідницьких інструментів до e-commerce. Детальні кейси — англійською.",
       label: "Проєкти",

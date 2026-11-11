@@ -65,7 +65,7 @@
   /* a dark chip over a screenshot (the gallery's fullscreen hint) */
   --color-scrim: rgb(0 0 0 / 0.55);
   --color-on-scrim: #fff;
-  /* the Telegram chat mockup (ExdDownloaderApp), following the theme */
+  /* the Telegram chat mockup (ExdDownloadApp), following the theme */
   --color-tg-wall: var(--tg-wall);
   --color-tg-head: var(--tg-head);
   --color-tg-in: var(--tg-in);
@@ -113,7 +113,7 @@
   --text-hero: clamp(36px, 5vw, 60px);
   --text-title: clamp(38px, 5.6vw, 64px);
   /* titles on very small screens (max-tiny:), so the longest one-word name
-     (ExdDownloaderApp) fits at 320px and short ones stay on one line */
+     (ExdDownloadApp) fits at 320px and short ones stay on one line */
   --text-title-sm: clamp(28px, 9vw, 38px);
   --text-mail: clamp(16px, calc((100vw - 40px) / 16.5), 54px);
   --text-11: 11px;
@@ -330,7 +330,7 @@
   --status-live: #16a34a;
   --status-dev: #d97706;
   --icon-tile: #ffffff;
-  /* the Telegram chat on ExdDownloaderApp's page, in Telegram's own light
+  /* the Telegram chat on ExdDownloadApp's page, in Telegram's own light
      palette: the wallpaper, bubbles, links, times and inline keyboard */
   --tg-wall: #dfe6d5;
   --tg-head: #ffffff;

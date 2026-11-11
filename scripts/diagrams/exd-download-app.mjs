@@ -1,4 +1,4 @@
-// ExdDownloaderApp's architecture (from the exd-tiktok-bot repo): Telegram
+// ExdDownloadApp's architecture (from the exd-tiktok-bot repo): Telegram
 // reaches the bot through a self-hosted Bot API server's webhook; the bot only
 // queues the job in Redis (BullMQ), and a separate worker resolves the link,
 // fetches the media from TikTok, YouTube, SoundCloud or 12 social platforms
@@ -30,7 +30,7 @@ import {
   zone,
 } from "./sketch.mjs";
 
-const TITLE = "ExdDownloaderApp";
+const TITLE = "ExdDownloadApp";
 const SUBTITLE = "how it fits together";
 const PLATFORMS = ["TikTok", "YouTube", "SoundCloud", "+ 12 more"];
 const BOT = { label: "bot\ngrammY · menus", sub: "webhook · Mini App API" };

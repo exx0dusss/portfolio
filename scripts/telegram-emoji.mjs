@@ -21,7 +21,7 @@ const OUT = path.join(ROOT, "src/lib/telegram-emoji.json");
 /** pinned: a release at least a few weeks old */
 const LOTTIE = "https://esm.sh/lottie-web@5.12.2/build/player/lottie_svg";
 
-/** Name -> custom emoji id, the ones ExdDownloaderApp sends (its
+/** Name -> custom emoji id, the ones ExdDownloadApp sends (its
  *  custom-emoji.ts): the platform logos from its own ApplicationEmoji pack,
  *  the rest from Telegram's animated emoji. */
 const EMOJI = {

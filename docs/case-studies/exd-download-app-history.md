@@ -1,4 +1,4 @@
-# ExdDownloaderApp — version history (draft)
+# ExdDownloadApp — version history (draft)
 
 Source material for the case study's History section. Found by scanning the
 repositories on 2026-10-29; dates are commit dates, so "released" means

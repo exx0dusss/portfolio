@@ -8,7 +8,7 @@ export interface ProjectTab {
 
 /** A project's pages as tabs: real links, so each one has its own address.
  *
- *    <ProjectTabs tabs={BOT_TABS} current="/projects/exd-downloader-app/releases" />
+ *    <ProjectTabs tabs={BOT_TABS} current="/projects/exd-download-app/releases" />
  */
 export function ProjectTabs({ tabs, current }: { tabs: ProjectTab[]; current: string }) {
   return (

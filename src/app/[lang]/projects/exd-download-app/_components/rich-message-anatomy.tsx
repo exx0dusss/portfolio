@@ -19,7 +19,7 @@ const LINK = "https://youtu.be/q3Fz8rWdN1k";
 const HTML = [
   '<h5><tg-emoji emoji-id="youtube">▶️</tg-emoji> No-yeast cinnamon rolls</h5>',
   "<figure>",
-  '<video src="tg://video?id=media-video" width="1280" height="720" duration="00:24" poster="/projects/exd-downloader-app/cinnamon-rolls.jpg"></video>',
+  '<video src="tg://video?id=media-video" width="1280" height="720" duration="00:24" poster="/projects/exd-download-app/cinnamon-rolls.jpg"></video>',
   "<figcaption>",
   '👤 <a href="https://www.youtube.com/@milabakes">MilaBakes</a><br/><i>📝 Ready in 20 minutes, no mixer needed.</i>',
   "<br/><br/>",
@@ -56,7 +56,7 @@ export function RichMessageAnatomy() {
   return (
     <figure data-slot="rich-message-anatomy" className="m-0">
       <div className="relative w-85 max-tablet:w-full max-tablet:max-w-chat">
-        <TelegramChat name="ExdDownloaderApp" avatar="/projects/exd-downloader-app/favicon.png">
+        <TelegramChat name="ExdDownloadApp" avatar="/projects/exd-download-app/favicon.png">
           <div className="flex flex-col gap-2 px-3 py-4">
             <TelegramMessage side="out" time="18:42">
               {LINK}

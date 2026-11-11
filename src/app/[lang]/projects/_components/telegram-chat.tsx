@@ -19,7 +19,7 @@ import { TelegramChatMessages } from "./telegram-chat-messages";
  * tokens), light or dark with the site. Text is the caller's: these parts
  * only lay it out.
  *
- *   <TelegramChat name="ExdDownloaderApp" avatar="/…/favicon.png">
+ *   <TelegramChat name="ExdDownloadApp" avatar="/…/favicon.png">
  *     <TelegramChatMessages>
  *       <TelegramMessage side="out" time="18:41">/start</TelegramMessage>
  *       <TelegramMessage side="in" time="18:41">

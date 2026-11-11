@@ -14,7 +14,19 @@ const nextConfig: NextConfig = {
       { source: "/projects/mylamp", destination: "/projects/salonsvitlo", permanent: true },
       {
         source: "/projects/exd-tiktok-bot",
-        destination: "/projects/exd-downloader-app",
+        destination: "/projects/exd-download-app",
+        permanent: true,
+      },
+      // ExdDownloaderApp became ExdDownloadApp in Nov 2026: its pages, in any
+      // language, and the images under its old folder
+      {
+        source: "/projects/exd-downloader-app/:path*",
+        destination: "/projects/exd-download-app/:path*",
+        permanent: true,
+      },
+      {
+        source: "/:lang(en|uk|ru)/projects/exd-downloader-app/:path*",
+        destination: "/:lang/projects/exd-download-app/:path*",
         permanent: true,
       },
       // the CV downloads under my name

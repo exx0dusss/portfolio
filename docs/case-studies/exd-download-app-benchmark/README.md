@@ -1,4 +1,4 @@
-# ExdDownloaderApp: fetch speed across versions
+# ExdDownloadApp: fetch speed across versions
 
 How fast each version turns a TikTok link into the video, measured on
 29 October 2026 from one Mac, on the same ten public TikTok videos (the

@@ -39,7 +39,7 @@ const PAGES = [
   "/resume",
   "/projects/kosmetik-profi",
   "/projects/salonsvitlo",
-  "/projects/exd-downloader-app",
+  "/projects/exd-download-app",
   "/projects/exdbots",
   "/projects/giga-psych",
   "/uk",

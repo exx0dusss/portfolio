@@ -286,7 +286,7 @@ export default async function SalonSvitloPage({ params }: { params: Promise<{ la
           </DesignNote>
         </Section>
 
-        <NextProjectLink name="ExdDownloaderApp" href="/projects/exd-downloader-app" />
+        <NextProjectLink name="ExdDownloadApp" href="/projects/exd-download-app" />
       </PageShell>
     </>
   );

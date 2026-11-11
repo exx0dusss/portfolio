@@ -141,7 +141,7 @@ export const en: Dictionary = {
         facets: ["Storefront", "CRM", "API"],
         scaleLabel: "products",
       },
-      "exd-downloader-app": {
+      "exd-download-app": {
         description:
           "Telegram bot that downloads videos on request. Built and run solo, and the foundation for ExdBots.",
         facets: ["Telegram bot"],
@@ -166,6 +166,11 @@ export const en: Dictionary = {
         description:
           "My engineering playbook: architectures for Next.js, TanStack Start and NestJS, shipped as Claude Code plugins.",
         facets: ["Open source", "AI tooling"],
+      },
+      shots: {
+        description:
+          "A CLI and MCP server that frames a page or a screenshot in a Safari window, an iPhone or Telegram. Built to shoot this portfolio.",
+        facets: ["Open source", "Developer tooling"],
       },
     },
   },
@@ -205,7 +210,7 @@ export const en: Dictionary = {
     projects: {
       title: "Projects",
       description:
-        "Case studies by Tymur Mustafaiev — SalonSvitlo, a custom commerce platform; ExdDownloaderApp, a Telegram bot; ExdBots, a Telegram app platform; Giga Psych, a research data platform; and Architectures, an open-source engineering playbook.",
+        "Case studies by Tymur Mustafaiev — SalonSvitlo, a custom commerce platform; ExdDownloadApp, a Telegram bot; ExdBots, a Telegram app platform; Giga Psych, a research data platform; and Architectures, an open-source engineering playbook.",
       heading: "Things I’ve built.",
       lead: "Products I’ve designed and built end to end — from Telegram platforms and research tooling to e-commerce. Each one has a full case study.",
       label: "Work",

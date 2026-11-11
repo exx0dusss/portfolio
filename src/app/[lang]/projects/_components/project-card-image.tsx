@@ -113,7 +113,7 @@ export async function renderProjectCard(slug: string) {
             style={{
               display: "flex",
               marginTop: 28,
-              // long names (ExdDownloaderApp) step down so they keep clear of the
+              // long names (ExdDownloadApp) step down so they keep clear of the
               // edge; beside a cover the column is ~520px and beside a phone
               // ~810px, and the name can't wrap
               fontSize: phone ? 84 : cover ? 72 : project.title.length > 14 ? 96 : 112,

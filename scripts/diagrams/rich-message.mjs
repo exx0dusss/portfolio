@@ -1,4 +1,4 @@
-// The labels beside ExdDownloaderApp's rich download (RichMessageAnatomy in
+// The labels beside ExdDownloadApp's rich download (RichMessageAnatomy in
 // the case study): each slot of the bot's card named in the hand-drawn hand,
 // with an arrow to its part of the message. Not a sketch of its own: it lies
 // over the chat, so it is drawn in the chat's own pixels, (0, 0) being the

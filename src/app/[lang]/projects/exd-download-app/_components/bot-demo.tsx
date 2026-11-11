@@ -260,10 +260,10 @@ function BotChat({
   );
 
   return (
-    <TelegramChat name="ExdDownloaderApp" avatar="/projects/exd-downloader-app/favicon.png">
+    <TelegramChat name="ExdDownloadApp" avatar="/projects/exd-download-app/favicon.png">
       <TelegramChatMessages
         contextRef={scroller}
-        aria-label="Chat with ExdDownloaderApp"
+        aria-label="Chat with ExdDownloadApp"
         aria-live="polite"
       >
         {messages.map((message) =>
@@ -334,7 +334,7 @@ export function BotDemo() {
       open={open}
       onOpenChange={setOpen}
     >
-      <DialogContent size="chat" aria-label="Chat with ExdDownloaderApp" initialFocus={input}>
+      <DialogContent size="chat" aria-label="Chat with ExdDownloadApp" initialFocus={input}>
         <BotChat
           inputRef={input}
           onOpenApp={() => {

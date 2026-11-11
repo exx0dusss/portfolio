@@ -285,7 +285,7 @@ visitor asks. Check the site sends no `X-Frame-Options` or CSP
 Anything a visitor can try (the live site, the bot's chat) opens from
 `DemoDialog` (`src/components/demo-dialog.tsx`): the dashed "try me" button
 (`Button variant="dashed"`) and a `ui/dialog`. Pass your own `DialogContent`
-as its child, sized for the demo; `LivePreview` and the ExdDownloaderApp
+as its child, sized for the demo; `LivePreview` and the ExdDownloadApp
 chat both do. Keep the dashed button for demos only, so it stays a signal.
 
 ### Section rail
